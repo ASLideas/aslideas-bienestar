@@ -1293,21 +1293,47 @@
                 </div>
             </main>
 
-            <!-- SIMULACIÓN DE CÁMARA (Captura Interactiva de Tratamientos) -->
-            <div id="chat-camera-overlay" class="absolute inset-0 bg-black z-50 flex flex-col justify-between p-6 hidden">
-                <div class="flex justify-between items-center text-white">
-                    <span class="text-xs font-black uppercase tracking-widest text-[#33BCA9]">Cámara de Tratamiento</span>
-                    <button onclick="closeCameraSimulation()" class="p-1 rounded-full bg-white/10 text-white flex items-center justify-center"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <!-- CÁMARA REAL EN VIVO (WEBRTC + FALLBACK NATIVO DISPOSITIVO) -->
+            <div id="chat-camera-overlay" class="absolute inset-0 bg-black z-50 flex flex-col justify-between p-4 hidden">
+                <div class="flex justify-between items-center text-white z-10">
+                    <span class="text-xs font-black uppercase tracking-widest text-[#33BCA9] flex items-center gap-1.5">
+                        <i data-lucide="camera" class="w-4 h-4"></i> Cámara de Tratamiento en Vivo
+                    </span>
+                    <button onclick="closeCameraSimulation()" class="p-2 rounded-full bg-white/20 text-white hover:bg-white/30 transition flex items-center justify-center">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
                 </div>
-                <div class="flex-1 flex items-center justify-center py-6">
-                    <img id="camera-frame-img" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=400&h=300" class="rounded-2xl border-2 border-[#33BCA9] shadow-xl max-h-[360px]" alt="Cámara">
+
+                <div class="flex-1 flex flex-col items-center justify-center my-2 relative overflow-hidden rounded-2xl border-2 border-[#33BCA9]/50 bg-slate-900">
+                    <video id="camera-live-video" autoplay playsinline muted class="w-full h-full object-cover hidden"></video>
+                    <img id="camera-frame-img" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=400&h=300" class="w-full h-full object-cover rounded-2xl" alt="Vista Previa">
+                    <canvas id="camera-snapshot-canvas" class="hidden"></canvas>
                 </div>
-                <div class="flex justify-center gap-10 pb-6">
-                    <button onclick="cycleCameraAngle()" class="p-4 bg-white/10 text-white rounded-full flex items-center justify-center"><i data-lucide="refresh-cw" class="w-6 h-6"></i></button>
-                    <button onclick="captureCameraPhoto()" class="w-16 h-16 bg-white border-4 border-[#33BCA9] rounded-full flex items-center justify-center transform active:scale-90 transition"></button>
-                    <button onclick="closeCameraSimulation()" class="p-4 bg-white/10 text-white rounded-full flex items-center justify-center"><i data-lucide="image" class="w-6 h-6"></i></button>
+
+                <div class="flex flex-col gap-2.5 pb-2 z-10">
+                    <div class="flex justify-center items-center gap-6">
+                        <button onclick="switchCameraFacingMode()" class="p-3 bg-white/15 text-white rounded-full hover:bg-white/25 transition flex items-center justify-center" title="Cambiar Cámara Frontal/Trasera">
+                            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                        </button>
+                        <button onclick="takeLivePhotoSnapshot()" class="w-16 h-16 bg-white border-4 border-[#33BCA9] rounded-full flex items-center justify-center transform active:scale-95 transition shadow-lg" title="Tomar Foto">
+                            <div class="w-12 h-12 bg-[#2C7A7B] rounded-full"></div>
+                        </button>
+                        <button onclick="triggerNativeCameraInput()" class="p-3 bg-white/15 text-white rounded-full hover:bg-white/25 transition flex items-center justify-center" title="Abrir Galería / Archivo">
+                            <i data-lucide="image" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <button onclick="triggerNativeCameraInput()" class="w-full bg-[#33BCA9]/20 hover:bg-[#33BCA9]/30 text-[#33BCA9] border border-[#33BCA9]/50 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
+                        <i data-lucide="smartphone" class="w-4 h-4"></i> Tomar Foto con Cámara Nativa del Celular
+                    </button>
                 </div>
             </div>
+
+            <!-- INPUTS NATIVOS DE DISPOSITIVO (OCULTOS) -->
+            <input type="file" id="native-camera-input" accept="image/*" capture="environment" class="hidden" onchange="handleNativeFileSelect(event, 'photo')">
+            <input type="file" id="native-gallery-input" accept="image/*" class="hidden" onchange="handleNativeFileSelect(event, 'gallery')">
+            <input type="file" id="native-document-input" accept=".pdf,.doc,.docx,.txt,application/pdf" class="hidden" onchange="handleNativeFileSelect(event, 'doc')">
+            <input type="file" id="native-audio-input" accept="audio/*" capture="microphone" class="hidden" onchange="handleNativeFileSelect(event, 'audio')">
 
             <!-- SIMULACIÓN DE GRABACIÓN DE AUDIO (MICRÓFONO) -->
             <div id="audio-recording-overlay" class="bg-white border-t border-slate-200 px-4 py-3.5 flex items-center justify-between gap-3 hidden transition-all duration-300">
@@ -2806,107 +2832,219 @@
         // Símulación notas de voz (Grabación interactiva)
         let recordingInterval = null;
         let recordingSeconds = 0;
-        function startVoiceRecording() {
-            document.getElementById('audio-recording-overlay').classList.remove('hidden');
+        // ================= SENSORES REALES: CÁMARA, MICRÓFONO Y ARCHIVOS NATIVOS =================
+        let liveMediaStream = null;
+        let mediaRecorderObj = null;
+        let audioRecordedChunks = [];
+        let currentFacingMode = 'environment';
+
+        async function openCameraSimulation() {
+            const overlay = document.getElementById('chat-camera-overlay');
+            const video = document.getElementById('camera-live-video');
+            const img = document.getElementById('camera-frame-img');
+
+            if (overlay) overlay.classList.remove('hidden');
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                try {
+                    if (liveMediaStream) {
+                        liveMediaStream.getTracks().forEach(track => track.stop());
+                    }
+                    liveMediaStream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: currentFacingMode }
+                    });
+                    if (video) {
+                        video.srcObject = liveMediaStream;
+                        video.classList.remove('hidden');
+                        if (img) img.classList.add('hidden');
+                    }
+                } catch (err) {
+                    console.warn("Permiso de cámara denegado o no disponible en navegador, usando vista o cámara nativa:", err);
+                    if (video) video.classList.add('hidden');
+                    if (img) img.classList.remove('hidden');
+                }
+            } else {
+                if (video) video.classList.add('hidden');
+                if (img) img.classList.remove('hidden');
+            }
+        }
+
+        function closeCameraSimulation() {
+            if (liveMediaStream) {
+                liveMediaStream.getTracks().forEach(track => track.stop());
+                liveMediaStream = null;
+            }
+            const overlay = document.getElementById('chat-camera-overlay');
+            if (overlay) overlay.classList.add('hidden');
+        }
+
+        function switchCameraFacingMode() {
+            currentFacingMode = (currentFacingMode === 'environment') ? 'user' : 'environment';
+            openCameraSimulation();
+        }
+
+        function takeLivePhotoSnapshot() {
+            const video = document.getElementById('camera-live-video');
+            const canvas = document.getElementById('camera-snapshot-canvas');
+
+            if (video && !video.classList.contains('hidden') && video.videoWidth > 0) {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                closeCameraSimulation();
+                sendSimulatedPhoto(dataUrl, "Foto Tomada en Vivo");
+            } else {
+                triggerNativeCameraInput();
+            }
+        }
+
+        function triggerNativeCameraInput() {
+            closeCameraSimulation();
+            const input = document.getElementById('native-camera-input');
+            if (input) input.click();
+        }
+
+        function openGalleryPickerModal() {
+            const input = document.getElementById('native-gallery-input');
+            if (input) input.click();
+        }
+
+        function openDocumentPickerModal() {
+            const input = document.getElementById('native-document-input');
+            if (input) input.click();
+        }
+
+        function handleNativeFileSelect(event, fileType) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            const file = files[0];
+            const reader = new FileReader();
+
+            if (fileType === 'photo' || fileType === 'gallery') {
+                reader.onload = function(e) {
+                    sendSimulatedPhoto(e.target.result, file.name || "Foto Adjunta");
+                };
+                reader.readAsDataURL(file);
+            } else if (fileType === 'doc') {
+                reader.onload = function(e) {
+                    simulateSendAttachment('doc', file.name || "Documento.pdf");
+                };
+                reader.readAsDataURL(file);
+            } else if (fileType === 'audio') {
+                reader.onload = function(e) {
+                    publishAudioBubble(e.target.result, file.name || "Nota de Voz");
+                };
+                reader.readAsDataURL(file);
+            }
+
+            event.target.value = '';
+        }
+
+
+
+        async function startVoiceRecording() {
+            audioRecordedChunks = [];
+            const overlay = document.getElementById('audio-recording-overlay');
+            if (overlay) overlay.classList.remove('hidden');
+
             recordingSeconds = 0;
-            document.getElementById('voice-record-timer').innerText = "00:00";
+            const timerEl = document.getElementById('voice-record-timer');
+            if (timerEl) timerEl.innerText = "00:00";
 
             clearInterval(recordingInterval);
             recordingInterval = setInterval(() => {
                 recordingSeconds++;
-                const mins = Math.floor(recordingSeconds / 60).toString().padStart(2, '0');
-                const secs = (recordingSeconds % 60).toString().padStart(2, '0');
-                document.getElementById('voice-record-timer').innerText = mins + ":" + secs;
+                const mins = String(Math.floor(recordingSeconds / 60)).padStart(2, '0');
+                const secs = String(recordingSeconds % 60).padStart(2, '0');
+                if (timerEl) timerEl.innerText = `${mins}:${secs}`;
             }, 1000);
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorderObj = new MediaRecorder(stream);
+                    mediaRecorderObj.ondataavailable = e => {
+                        if (e.data.size > 0) audioRecordedChunks.push(e.data);
+                    };
+                    mediaRecorderObj.start();
+                } catch (err) {
+                    console.warn("Acceso a micrófono no permitido en WebRTC, ofreciendo grabador nativo:", err);
+                }
+            }
         }
 
         function cancelVoiceRecording() {
             clearInterval(recordingInterval);
-            document.getElementById('audio-recording-overlay').classList.add('hidden');
+            if (mediaRecorderObj && mediaRecorderObj.state !== 'inactive') {
+                mediaRecorderObj.stop();
+                if (mediaRecorderObj.stream) {
+                    mediaRecorderObj.stream.getTracks().forEach(track => track.stop());
+                }
+            }
+            const overlay = document.getElementById('audio-recording-overlay');
+            if (overlay) overlay.classList.add('hidden');
         }
 
         function sendSimulatedVoiceMessage() {
             clearInterval(recordingInterval);
-            document.getElementById('audio-recording-overlay').classList.add('hidden');
+            const overlay = document.getElementById('audio-recording-overlay');
+            if (overlay) overlay.classList.add('hidden');
 
+            if (mediaRecorderObj && mediaRecorderObj.state !== 'inactive') {
+                mediaRecorderObj.onstop = () => {
+                    if (mediaRecorderObj.stream) {
+                        mediaRecorderObj.stream.getTracks().forEach(track => track.stop());
+                    }
+                    const audioBlob = new Blob(audioRecordedChunks, { type: 'audio/mp3' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    publishAudioBubble(audioUrl, "Nota de voz grabada");
+                };
+                mediaRecorderObj.stop();
+            } else {
+                publishAudioBubble('', "Nota de Voz de Salud");
+            }
+        }
+
+        function publishAudioBubble(audioSrc, title) {
             const stream = document.getElementById('chat-messages-stream');
-            const wrapper = document.createElement('div');
-            wrapper.className = "flex justify-end";
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+            const audioHTML = audioSrc ?
+                `<audio controls src="${audioSrc}" class="w-full my-1 rounded-lg"></audio>` :
+                `<div class="flex items-center gap-2"><i data-lucide="mic" class="w-4 h-4 text-[#2C7A7B]"></i> <span class="text-xs font-bold text-slate-700">${title}</span></div>`;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = "flex justify-end my-2";
             wrapper.innerHTML = `
-                <div class="flex flex-col items-end gap-1 max-w-[85%] ml-auto">
-                    <div class="bg-[#E0F7F4] p-3 rounded-2xl rounded-br-none shadow-xs border border-[#33BCA9]/20 flex items-center gap-3 w-48">
-                        <button class="p-1.5 bg-[#2C7A7B] text-white rounded-full flex items-center justify-center flex-shrink-0"><i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i></button>
-                        <div class="flex-1 space-y-1 min-w-0">
-                            <div class="flex gap-0.5 h-4 items-center">
-                                <span class="w-1 h-3 bg-[#2C7A7B]/40 rounded-full"></span>
-                                <span class="w-1 h-2 bg-[#2C7A7B] rounded-full"></span>
-                                <span class="w-1 h-4 bg-[#2C7A7B] rounded-full"></span>
-                                <span class="w-1 h-1 bg-[#2C7A7B]/40 rounded-full"></span>
-                                <span class="w-1 h-3 bg-[#2C7A7B] rounded-full"></span>
-                            </div>
-                            <span class="text-[8px] text-[#2C7A7B] block font-mono">Audio • ${document.getElementById('voice-record-timer').innerText}</span>
-                        </div>
-                    </div>
+                <div class="bg-[#E0F7F4] p-3 rounded-2xl rounded-br-none shadow-xs border border-[#33BCA9]/30 max-w-[85%]">
+                    ${audioHTML}
+                    <span class="text-[9px] text-[#2C7A7B] block text-right mt-1 font-bold">${timeStr} ✓✓</span>
                 </div>
             `;
-
-            stream.appendChild(wrapper);
-            lucide.createIcons();
-
-            setTimeout(() => {
+            if (stream) {
+                stream.appendChild(wrapper);
                 stream.scrollTop = stream.scrollHeight;
-            }, 50);
-
-            // Respuesta automática del terapeuta
-            setTimeout(() => {
-                const docBubble = document.createElement('div');
-                docBubble.className = "flex items-end gap-2 max-w-[85%]";
-                docBubble.innerHTML = `
-                    <div class="bg-white p-3.5 rounded-2xl rounded-bl-none shadow-xs border border-slate-200/50">
-                        <p class="text-xs text-[#4C5C77]">Mensaje de voz recibido. En un rato lo escucho detalladamente. ¡Muchas gracias! 🌿</p>
-                    </div>
-                `;
-                stream.appendChild(docBubble);
-                stream.scrollTop = stream.scrollHeight;
-            }, 2000);
-        }
-
-        // Cámara de fotos
-        function openCameraSimulation() {
-            document.getElementById('chat-camera-overlay').classList.remove('hidden');
-        }
-
-        // Cerrar cámara
-        function closeCameraSimulation() {
-            document.getElementById('chat-camera-overlay').classList.add('hidden');
-        }
-
-        let currentCameraAngle = 0;
-        const cameraViews = [
-            "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=400&h=300",
-            "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=400&h=300",
-            "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=400&h=300"
-        ];
-        function cycleCameraAngle() {
-            currentCameraAngle = (currentCameraAngle + 1) % cameraViews.length;
-            document.getElementById('camera-frame-img').src = cameraViews[currentCameraAngle];
-        }
-
-        function captureCameraPhoto() {
-            const capturedUrl = cameraViews[currentCameraAngle];
-            closeCameraSimulation();
-            sendSimulatedPhoto(capturedUrl, "Foto del Tratamiento");
+                if (window.lucide) lucide.createIcons();
+            }
+            const drawer = document.getElementById('chat-multimedia-drawer');
+            if (drawer) drawer.classList.add('hidden');
         }
 
         function sendSimulatedPhoto(imgUrl, caption) {
             const stream = document.getElementById('chat-messages-stream');
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             const userPhotoBubble = `
-                <div class="flex flex-col items-end gap-1 max-w-[85%] ml-auto">
-                    <div class="bg-[#E0F7F4] p-2 rounded-2xl rounded-br-none shadow-xs border border-[#33BCA9]/20">
-                        <img class="max-w-[180px] rounded-xl object-cover" src="${imgUrl}" alt="${caption}">
-                        <p class="text-[10px] text-[#2C7A7B] font-bold mt-1 text-right">${caption}</p>
+                <div class="flex flex-col items-end gap-1 max-w-[85%] ml-auto my-2">
+                    <div class="bg-[#E0F7F4] p-2 rounded-2xl rounded-br-none shadow-xs border border-[#33BCA9]/30">
+                        <img class="max-w-[200px] max-h-[220px] rounded-xl object-cover" src="${imgUrl}" alt="${caption}">
+                        <div class="flex justify-between items-center mt-1 px-1">
+                            <p class="text-[10px] text-[#2C7A7B] font-bold">${caption}</p>
+                            <span class="text-[8px] text-[#2C7A7B]/80 font-bold">${timeStr} ✓✓</span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -2914,25 +3052,13 @@
             const wrapper = document.createElement('div');
             wrapper.className = "flex justify-end";
             wrapper.innerHTML = userPhotoBubble;
-            stream.appendChild(wrapper);
-
-            document.getElementById('chat-multimedia-drawer').classList.add('hidden');
-
-            setTimeout(() => {
+            if (stream) {
+                stream.appendChild(wrapper);
                 stream.scrollTop = stream.scrollHeight;
-            }, 100);
+            }
 
-            setTimeout(() => {
-                const docBubble = document.createElement('div');
-                docBubble.className = "flex items-end gap-2 max-w-[85%]";
-                docBubble.innerHTML = `
-                    <div class="bg-white p-3.5 rounded-2xl rounded-bl-none shadow-xs border border-slate-200/50">
-                        <p class="text-xs text-[#4C5C77]">¡Excelente foto! Se nota el avance en el color del ungüento. Sigue así. 🌸</p>
-                    </div>
-                `;
-                stream.appendChild(docBubble);
-                stream.scrollTop = stream.scrollHeight;
-            }, 2000);
+            const drawer = document.getElementById('chat-multimedia-drawer');
+            if (drawer) drawer.classList.add('hidden');
         }
 
         function sendSimulatedMessage() {
