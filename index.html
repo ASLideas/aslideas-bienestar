@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ASLIDEAS Bienestar - Super-App v9</title>
     <!-- Tailwind CSS para un diseño moderno y fluido con paleta Teal Air -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,6 +11,29 @@
     <!-- Biblioteca de Confeti para celebraciones interactivas -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        /* Adaptación Estándar para Pantallas Móviles Android e iPhone */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* Responsive Container for Mobile & Desktop (Estándar Android & iOS) */
+        @media (max-width: 767px) {
+            #app-container {
+                width: 100vw !important;
+                height: 100dvh !important;
+                max-width: 100% !important;
+                border-radius: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
         /* Desactivar barras de scroll visuales para conservar la estética de app móvil */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -56,10 +79,10 @@
         }
     </style>
 </head>
-<body class="bg-[#111C24] h-screen w-screen flex items-center justify-center font-sans antialiased text-[#4C5C77]">
+<body class="bg-[#0B141B] md:bg-[#111C24] min-h-screen min-h-[100dvh] w-full flex items-center justify-center font-sans antialiased text-[#4C5C77] overflow-x-hidden p-0 md:p-4">
 
-    <!-- CONTENEDOR DEL TELÉFONO MÓVIL (PWA MOCKUP) -->
-    <div class="w-full max-w-md h-[840px] bg-[#FAF8EE] rounded-[45px] border-[10px] border-[#1E293B] shadow-2xl overflow-hidden flex flex-col relative select-none">
+    <!-- CONTENEDOR MÓVIL ADAPTATIVO ESTÁNDAR (ANDROID & IPHONE) -->
+    <div id="app-container" class="w-full h-full h-[100dvh] md:max-w-[420px] md:h-[870px] bg-[#FAF8EE] rounded-none md:rounded-[44px] border-0 md:border-[8px] md:border-slate-800 shadow-none md:shadow-2xl overflow-hidden flex flex-col relative select-none transition-all duration-300">
 
         <!-- Barra de Estado del Sistema -->
         <div class="bg-[#FAF8EE] text-[#4C5C77] text-xs px-6 py-2.5 flex justify-between items-center shrink-0 z-40 transition-colors duration-300" id="system-status-bar">
