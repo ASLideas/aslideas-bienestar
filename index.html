@@ -1585,6 +1585,459 @@
             </div>
         </div>
 
+        <!-- ================= PANTALLA SPLASH INTRO (ESTILO WHATSAPP / META / INSTAGRAM) ================= -->
+        <div id="splash-intro-screen" onclick="dismissSplashScreen()" class="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#1E5D5E] to-[#2C7A7B] text-white z-50 flex flex-col justify-between p-8 select-none transition-opacity duration-700 cursor-pointer">
+            <div class="text-center my-auto space-y-4">
+                <!-- Logo circular de alta resolución con resplandor neón -->
+                <div class="w-32 h-32 bg-white/95 rounded-full flex items-center justify-center mx-auto shadow-[0_0_50px_rgba(51,188,169,0.5)] p-4 border-4 border-[#33BCA9] relative overflow-hidden animate-pulse">
+                    <img src="logo png.jpeg" alt="ASLIDEAS Bienestar Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=120&h=120';">
+                </div>
+                <div class="space-y-1">
+                    <h1 class="text-2xl font-black tracking-widest text-[#E0F7F4] uppercase">BIENESTAR</h1>
+                    <p class="text-xs text-teal-100 max-w-xs mx-auto font-semibold leading-relaxed">Súper-App Integrativa de Salud Herbolaria, Frecuencias Binaurales & Serenidad</p>
+                </div>
+            </div>
+
+            <!-- Indicador de Carga e Identidad Corporativa -->
+            <div class="text-center space-y-3 mb-6">
+                <div class="w-48 bg-black/30 h-1.5 rounded-full mx-auto overflow-hidden border border-white/10">
+                    <div id="splash-progress-bar" class="bg-gradient-to-r from-[#33BCA9] to-emerald-300 h-full w-0 transition-all duration-300"></div>
+                </div>
+                <p id="splash-status-text" class="text-[10px] text-teal-200 font-bold tracking-wider uppercase">Cargando Ecosistema Bienestar...</p>
+                <div class="pt-2 border-t border-white/10 w-36 mx-auto">
+                    <span class="text-[9px] text-teal-100/70 font-bold tracking-widest uppercase">from ASLIDEAS</span>
+                </div>
+            </div>
+        </div>
+
+<!-- PANTALLA SECURE LOCK BIOMÉTRICO -->
+        <!-- PANTALLA SECURE LOCK BIOMÉTRICO Y PIN AVANZADO -->
+        <div id="biometric-lock-screen" class="absolute inset-0 bg-[#0D171E]/95 backdrop-blur-xl text-white z-50 flex flex-col justify-between p-6 hidden select-none">
+            <!-- Cabecera de Seguridad -->
+            <div class="text-center pt-8 space-y-2">
+                <div class="inline-flex items-center gap-2 bg-[#33BCA9]/15 text-[#33BCA9] px-3 py-1 rounded-full border border-[#33BCA9]/30 text-[10px] font-black tracking-widest uppercase">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Espacio de Salud Seguro
+                </div>
+                <h2 class="text-xl font-black text-white tracking-tight">Bienestar Protegido</h2>
+                <p class="text-[11px] text-slate-400">Desbloquea para acceder a tus fichas clínicas y chats</p>
+            </div>
+
+            <!-- Tabs de Método de Desbloqueo -->
+            <div class="flex bg-white/10 p-1 rounded-2xl max-w-xs mx-auto text-xs font-bold border border-white/10">
+                <button onclick="switchBiometricTab('huella')" id="tab-bio-huella" class="flex-1 py-1.5 rounded-xl bg-[#33BCA9] text-white shadow-xs transition flex items-center justify-center gap-1">
+                    <i data-lucide="fingerprint" class="w-3.5 h-3.5"></i> Huella
+                </button>
+                <button onclick="switchBiometricTab('pin')" id="tab-bio-pin" class="flex-1 py-1.5 rounded-xl text-slate-400 hover:text-white transition flex items-center justify-center gap-1">
+                    <i data-lucide="key-round" class="w-3.5 h-3.5"></i> PIN
+                </button>
+                <button onclick="switchBiometricTab('face')" id="tab-bio-face" class="flex-1 py-1.5 rounded-xl text-slate-400 hover:text-white transition flex items-center justify-center gap-1">
+                    <i data-lucide="scan-face" class="w-3.5 h-3.5"></i> Face ID
+                </button>
+            </div>
+
+            <!-- CONTENIDO MODOS -->
+            <!-- Modo 1: Huella Dactilar -->
+            <div id="bio-mode-huella" class="flex flex-col items-center justify-center space-y-5 my-auto">
+                <div onclick="unlockAppBiometric()" class="w-28 h-28 bg-gradient-to-br from-[#33BCA9]/20 to-[#2C7A7B]/40 rounded-full flex items-center justify-center mx-auto border-2 border-[#33BCA9] shadow-[0_0_30px_rgba(51,188,169,0.3)] cursor-pointer hover:scale-105 transition transform group relative">
+                    <div class="absolute inset-0 rounded-full border border-[#33BCA9] animate-ping opacity-30"></div>
+                    <i data-lucide="fingerprint" class="w-14 h-14 text-[#33BCA9] group-hover:text-white transition"></i>
+                </div>
+                <div class="text-center">
+                    <span class="text-xs font-bold text-[#33BCA9] block animate-pulse">Toca el sensor de huella</span>
+                    <span class="text-[9px] text-slate-400">Reconocimiento dactilar biométrico activo</span>
+                </div>
+                <button onclick="unlockAppBiometric()" class="bg-[#33BCA9] text-white px-6 py-2.5 rounded-xl font-bold text-xs hover:bg-[#2C7A7B] transition shadow-md">
+                    Simular Lectura de Huella ✓
+                </button>
+            </div>
+
+            <!-- Modo 2: PIN Teclado -->
+            <div id="bio-mode-pin" class="hidden flex-col items-center justify-center space-y-4 my-auto w-full max-w-xs mx-auto">
+                <!-- Indicador de PIN -->
+                <div class="flex gap-4 justify-center py-2" id="pin-dots-container">
+                    <div class="w-4 h-4 rounded-full border-2 border-[#33BCA9] bg-transparent transition" id="dot-0"></div>
+                    <div class="w-4 h-4 rounded-full border-2 border-[#33BCA9] bg-transparent transition" id="dot-1"></div>
+                    <div class="w-4 h-4 rounded-full border-2 border-[#33BCA9] bg-transparent transition" id="dot-2"></div>
+                    <div class="w-4 h-4 rounded-full border-2 border-[#33BCA9] bg-transparent transition" id="dot-3"></div>
+                </div>
+                <span class="text-[10px] text-teal-300 font-bold">PIN por defecto: <code class="bg-black/30 px-1.5 py-0.5 rounded text-white">1234</code></span>
+
+                <!-- Teclado Numérico -->
+                <div class="grid grid-cols-3 gap-3 w-full px-4" id="pin-keypad">
+                    <button onclick="pressPinKey('1')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">1</button>
+                    <button onclick="pressPinKey('2')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">2</button>
+                    <button onclick="pressPinKey('3')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">3</button>
+                    <button onclick="pressPinKey('4')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">4</button>
+                    <button onclick="pressPinKey('5')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">5</button>
+                    <button onclick="pressPinKey('6')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">6</button>
+                    <button onclick="pressPinKey('7')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">7</button>
+                    <button onclick="pressPinKey('8')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">8</button>
+                    <button onclick="pressPinKey('9')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">9</button>
+                    <button onclick="clearPinKey()" class="h-12 bg-red-500/20 text-red-300 rounded-2xl text-xs font-bold hover:bg-red-500 hover:text-white transition">Borrar</button>
+                    <button onclick="pressPinKey('0')" class="h-12 bg-white/10 rounded-2xl text-base font-bold text-white hover:bg-[#33BCA9] transition active:scale-95">0</button>
+                    <button onclick="unlockAppBiometric()" class="h-12 bg-emerald-500/30 text-emerald-300 rounded-2xl text-xs font-bold hover:bg-emerald-600 hover:text-white transition">OK</button>
+                </div>
+            </div>
+
+            <!-- Modo 3: Face ID -->
+            <div id="bio-mode-face" class="hidden flex-col items-center justify-center space-y-4 my-auto text-center">
+                <div class="w-40 h-40 border-2 border-dashed border-[#33BCA9] rounded-3xl flex items-center justify-center relative overflow-hidden bg-black/40 shadow-inner">
+                    <div class="absolute inset-x-0 h-1 bg-[#33BCA9] shadow-[0_0_15px_#33BCA9] animate-bounce"></div>
+                    <i data-lucide="scan-face" class="w-16 h-16 text-[#33BCA9] animate-pulse"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-bold text-white block">Escaneando Rostro...</span>
+                    <span class="text-[9px] text-teal-300">Mantén tu cara frente a la cámara</span>
+                </div>
+                <button onclick="unlockAppBiometric()" class="bg-[#33BCA9] text-white px-5 py-2 rounded-xl font-bold text-xs hover:bg-[#2C7A7B] transition">
+                    Verificar Face ID
+                </button>
+            </div>
+
+            <!-- Pie de Pantalla -->
+            <div class="text-center pb-4 space-y-2">
+                <p class="text-[9px] text-slate-400">Cifrado de extremo a extremo • Ley N° 19.628 Chile</p>
+                <button onclick="unlockAppBiometric()" class="text-[10px] text-[#33BCA9] font-bold hover:underline">¿Olvidaste tu código? Desbloqueo de emergencia</button>
+            </div>
+        </div>
+
+        <!-- VISTA DE CHAT INDIVIDUAL (CON AJUNTAR MULTIPLES ARCHIVOS FOTOS DE REFERENCIA - IMAGEN 32, 33, 34) -->
+        <div id="individual-chat-view" class="absolute inset-0 bg-[#FAF8EE] z-50 flex flex-col hidden">
+            <header class="bg-[#2C7A7B] text-white px-4 py-3 flex items-center justify-between shadow-md shrink-0 relative">
+                <div class="flex items-center gap-2.5">
+                    <button onclick="closeIndividualChat()" class="hover:bg-[#1E5D5E] p-1 rounded-full transition flex items-center justify-center">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                    <img id="chat-avatar" class="w-9 h-9 rounded-full object-cover border border-[#33BCA9]" src="" alt="Avatar">
+                    <div>
+                        <h1 id="chat-name" class="font-bold text-xs leading-tight">Contacto</h1>
+                        <span id="chat-status" class="text-[10px] text-[#E0F7F4] block">En línea</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3.5">
+                    <button onclick="triggerCall('video')" class="p-1 hover:bg-[#1E5D5E] rounded-full transition flex items-center justify-center"><i data-lucide="video" class="w-5 h-5"></i></button>
+                    <button onclick="triggerCall('voice')" class="p-1 hover:bg-[#1E5D5E] rounded-full transition flex items-center justify-center"><i data-lucide="phone" class="w-5 h-5"></i></button>
+                    <button onclick="toggleChatContextMenu()" class="p-1 hover:bg-[#1E5D5E] rounded-full transition flex items-center justify-center" id="chat-menu-button"><i data-lucide="more-vertical" class="w-5 h-5"></i></button>
+                </div>
+
+                <div id="chat-context-menu" class="absolute right-4 top-12 w-52 bg-white rounded-2xl shadow-xl border border-slate-150 py-1.5 hidden z-50 divide-y divide-slate-100 text-slate-700">
+                    <div class="py-1">
+                        <button onclick="triggerChatAction('Añadir a lista')" class="w-full text-left px-4 py-2 text-xs hover:bg-[#E0F7F4]/50 flex items-center gap-2 font-semibold text-slate-700"><i data-lucide="list-plus" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Añadir a lista</button>
+                        <button onclick="triggerChatAction('Info. del contacto')" class="w-full text-left px-4 py-2 text-xs hover:bg-[#E0F7F4]/50 flex items-center gap-2 font-semibold text-slate-700"><i data-lucide="info" class="w-3.5 h-3.5 text-blue-500"></i> Info. del contacto</button>
+                        <button onclick="triggerChatAction('Archivos del grupo')" class="w-full text-left px-4 py-2 text-xs hover:bg-[#E0F7F4]/50 flex items-center gap-2 font-semibold text-slate-700"><i data-lucide="folder-open" class="w-3.5 h-3.5 text-amber-500"></i> Archivos del grupo</button>
+                    </div>
+                    <div class="py-1">
+                        <button onclick="triggerChatAction('Buscar')" class="w-full text-left px-4 py-2 text-xs hover:bg-[#E0F7F4]/50 flex items-center gap-2 font-semibold"><i data-lucide="search" class="w-3.5 h-3.5"></i> Buscar</button>
+                        <button onclick="triggerChatAction('Silenciar notificaciones')" class="w-full text-left px-4 py-2 text-xs hover:bg-[#E0F7F4]/50 flex items-center gap-2 font-semibold"><i data-lucide="volume-x" class="w-3.5 h-3.5"></i> Silenciar notificaciones</button>
+                        <button onclick="triggerChatAction('Estilo del chat')" class="w-full text-left px-4 py-2 text-xs hover:bg-[#E0F7F4]/50 flex items-center gap-2 font-semibold"><i data-lucide="palette" class="w-3.5 h-3.5 text-pink-500"></i> Estilo del chat</button>
+                    </div>
+                    <div class="py-1">
+                        <button onclick="triggerChatAction('Vaciar chat')" class="w-full text-left px-4 py-2 text-xs hover:bg-red-50 text-red-600 flex items-center gap-2 font-bold"><i data-lucide="trash-2" class="w-3.5 h-3.5 text-red-500"></i> Vaciar chat</button>
+                    </div>
+                </div>
+            </header>
+
+            <main id="chat-messages-stream" class="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar bg-slate-100">
+                <div class="flex justify-center"><span class="text-[9px] bg-slate-200 text-slate-500 px-3 py-1 rounded-full font-medium">HOY</span></div>
+                <div class="flex items-end gap-2 max-w-[85%]">
+                    <div class="bg-white p-3.5 rounded-2xl rounded-bl-none shadow-xs border border-slate-200/50">
+                        <p id="chat-received-text" class="text-xs text-[#4C5C77]"></p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- SIMULACIÓN DE CÁMARA (Captura Interactiva de Tratamientos) -->
+            <div id="chat-camera-overlay" class="absolute inset-0 bg-black z-50 flex flex-col justify-between p-6 hidden">
+                <div class="flex justify-between items-center text-white">
+                    <span class="text-xs font-black uppercase tracking-widest text-[#33BCA9]">Cámara de Tratamiento</span>
+                    <button onclick="closeCameraSimulation()" class="p-1 rounded-full bg-white/10 text-white flex items-center justify-center"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                <div class="flex-1 flex items-center justify-center py-6">
+                    <img id="camera-frame-img" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=400&h=300" class="rounded-2xl border-2 border-[#33BCA9] shadow-xl max-h-[360px]" alt="Cámara">
+                </div>
+                <div class="flex justify-center gap-10 pb-6">
+                    <button onclick="cycleCameraAngle()" class="p-4 bg-white/10 text-white rounded-full flex items-center justify-center"><i data-lucide="refresh-cw" class="w-6 h-6"></i></button>
+                    <button onclick="captureCameraPhoto()" class="w-16 h-16 bg-white border-4 border-[#33BCA9] rounded-full flex items-center justify-center transform active:scale-90 transition"></button>
+                    <button onclick="closeCameraSimulation()" class="p-4 bg-white/10 text-white rounded-full flex items-center justify-center"><i data-lucide="image" class="w-6 h-6"></i></button>
+                </div>
+            </div>
+
+            <!-- SIMULACIÓN DE GRABACIÓN DE AUDIO (MICRÓFONO) -->
+            <div id="audio-recording-overlay" class="bg-white border-t border-slate-200 px-4 py-3.5 flex items-center justify-between gap-3 hidden transition-all duration-300">
+                <div class="flex items-center gap-3">
+                    <span class="relative flex h-3.5 w-3.5 shrink-0">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-600"></span>
+                    </span>
+                    <span class="text-xs font-bold text-slate-700 font-mono" id="voice-record-timer">00:00</span>
+                    <div class="flex items-center gap-0.5 h-6">
+                        <span class="w-1 bg-[#2C7A7B] rounded-full audio-wave-bar h-1"></span>
+                        <span class="w-1 bg-[#2C7A7B] rounded-full audio-wave-bar h-1"></span>
+                        <span class="w-1 bg-[#2C7A7B] rounded-full audio-wave-bar h-1"></span>
+                        <span class="w-1 bg-[#2C7A7B] rounded-full audio-wave-bar h-1"></span>
+                        <span class="w-1 bg-[#2C7A7B] rounded-full audio-wave-bar h-1"></span>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="cancelVoiceRecording()" class="bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-600 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase transition">Cancelar</button>
+                    <button onclick="sendSimulatedVoiceMessage()" class="bg-[#2C7A7B] text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase hover:bg-[#33BCA9] transition flex items-center gap-1"><i data-lucide="send" class="w-3.5 h-3.5"></i> Enviar</button>
+                </div>
+            </div>
+
+            <!-- CAJÓN DE ADJUNTOS AVANZADO UNIFICADO (WhatsApp + Telegram, Imágenes 32, 33 y 34) -->
+            <div id="chat-multimedia-drawer" class="bg-white border-t border-slate-200 p-4 space-y-3 hidden transition-all duration-300 z-50">
+                <div class="flex justify-between items-center">
+                    <h4 class="text-xs font-black text-[#2C7A7B] uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i> Adjuntar archivo o tratamiento
+                    </h4>
+                    <button onclick="toggleMultimediaDrawer()" class="text-slate-400 hover:text-slate-600 flex items-center justify-center"><i data-lucide="x" class="w-4.5 h-4.5"></i></button>
+                </div>
+
+                <!-- Carrusel de fotos de tratamientos recientes estilo Telegram (Imagen 34) -->
+                <div class="space-y-1.5">
+                    <span class="text-[9px] text-[#5A738E] font-bold uppercase tracking-wider flex justify-between items-center px-0.5">
+                        Tratamientos recientes
+                        <button onclick="toggleRecentGallery()" class="text-[#2C7A7B] font-black lowercase text-[10px]">contraer/ver todo</button>
+                    </span>
+                    <div id="recent-photos-container" class="flex gap-2 overflow-x-auto pb-1.5 no-scrollbar select-none scroll-smooth">
+                        <!-- Foto 1: Romero -->
+                        <div class="w-20 h-20 bg-slate-100 rounded-lg overflow-hidden shrink-0 cursor-pointer relative hover:ring-2 hover:ring-[#33BCA9] transition" onclick="sendSimulatedPhoto('https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150&h=150', 'Muestra de Romero Orgánico')">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150&h=150" alt="Romero">
+                            <span class="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded font-bold">Romero</span>
+                        </div>
+                        <!-- Foto 2: Aloe -->
+                        <div class="w-20 h-20 bg-slate-100 rounded-lg overflow-hidden shrink-0 cursor-pointer relative hover:ring-2 hover:ring-[#33BCA9] transition" onclick="sendSimulatedPhoto('https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=150&h=150', 'Crema Aloe Puro')">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=150&h=150" alt="Aloe">
+                            <span class="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded font-bold">Aloe</span>
+                        </div>
+                        <!-- Foto 3: Melisa -->
+                        <div class="w-20 h-20 bg-slate-100 rounded-lg overflow-hidden shrink-0 cursor-pointer relative hover:ring-2 hover:ring-[#33BCA9] transition" onclick="sendSimulatedPhoto('https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=150&h=150', 'Preparado de Melisa')">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=150&h=150" alt="Melisa">
+                            <span class="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded font-bold">Melisa</span>
+                        </div>
+                        <!-- Foto 4: Aceite -->
+                        <div class="w-20 h-20 bg-slate-100 rounded-lg overflow-hidden shrink-0 cursor-pointer relative hover:ring-2 hover:ring-[#33BCA9] transition" onclick="sendSimulatedPhoto('https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150&h=150', 'Frasco Aceite Esencial')">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=150&h=150" alt="Aceite">
+                            <span class="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded font-bold">Aceites</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cuadrícula unificada de 10 botones circulares (Fusión WhatsApp + WhatsApp Business - Imágenes 32 y 33) -->
+                <div class="grid grid-cols-4 gap-y-3.5 gap-x-2 text-center text-[10px] font-bold text-slate-600 pt-2 border-t border-slate-100">
+                    <button onclick="openDocumentPickerModal()" class="flex flex-col items-center gap-1 mx-auto group">
+                        <div class="w-11 h-11 bg-purple-100 hover:bg-purple-200 text-purple-600 rounded-full flex items-center justify-center transition shadow-xs group-active:scale-90"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+                        <span>Documento</span>
+                    </button>
+                    <button onclick="openCameraSimulation()" class="flex flex-col items-center gap-1 mx-auto group">
+                        <div class="w-11 h-11 bg-pink-100 hover:bg-pink-200 text-pink-600 rounded-full flex items-center justify-center transition shadow-xs group-active:scale-90"><i data-lucide="camera" class="w-5 h-5"></i></div>
+                        <span>Cámara</span>
+                    </button>
+                    <button onclick="openGalleryPickerModal()" class="flex flex-col items-center gap-1 mx-auto group">
+                        <div class="w-11 h-11 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center transition shadow-xs group-active:scale-90"><i data-lucide="image" class="w-5 h-5"></i></div>
+                        <span>Galería</span>
+                    </button>
+                    <button onclick="simulateSendAttachment('audio', 'Nota_Voz_Prescripcion.mp3')" class="flex flex-col items-center gap-1 mx-auto group">
+                        <div class="w-11 h-11 bg-orange-100 hover:bg-orange-200 text-orange-600 rounded-full flex items-center justify-center transition shadow-xs group-active:scale-90"><i data-lucide="headphones" class="w-5 h-5"></i></div>
+                        <span>Audio</span>
+                    </button>
+                    <button onclick="openCatalogPickerModal()" class="flex flex-col items-center gap-1 mx-auto group">
+                        <div class="w-11 h-11 bg-emerald-100 hover:bg-emerald-200 text-emerald-600 rounded-full flex items-center justify-center transition shadow-xs group-active:scale-90"><i data-lucide="store" class="w-5 h-5"></i></div>
+                        <span>Catálogo</span>
+                    </button>
+                    <button onclick="openLocationPickerModal()" class="flex flex-col items-center gap-1 mx-auto group">
+                        <div class="w-11 h-11 bg-teal-100 hover:bg-teal-200 text-teal-600 rounded-full flex items-center justify-center transition shadow-xs group-active:scale-90"><i data-lucide="map-pin" class="w-5 h-5"></i></div>
+                        <span>Ubicación</span>
+                    </button>
+                    <button onclick="openContactPickerModal()" class="flex flex-col items-center gap-1 mx-auto group">
+                        <div class="w-11 h-11 bg-indigo-100 hover:bg-indigo-200 text-indigo-600 rounded-full flex items-center justify-center transition shadow-xs group-active:scale-90"><i data-lucide="user" class="w-5 h-5"></i></div>
+                        <span>Contacto</span>
+                    </button>
+                    <button onclick="openPollCreatorModal()" class="flex flex-col items-center gap-1 mx-auto group">
+                        <div class="w-11 h-11 bg-amber-100 hover:bg-amber-200 text-amber-600 rounded-full flex items-center justify-center transition shadow-xs group-active:scale-90"><i data-lucide="bar-chart-2" class="w-5 h-5"></i></div>
+                        <span>Encuesta</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAJÓN DE EMOJIS TOTALMENTE COMPLETO (REQUERIMIENTO: EMOJIS QUE ESTÉN TODOS Y CATEGORIZADOS - FOTO 2) -->
+            <div id="chat-emoji-drawer" class="bg-white border-t border-slate-200 p-4 space-y-2.5 hidden transition-all duration-300">
+                <div class="flex justify-between items-center pb-1">
+                    <div class="flex gap-2.5 text-xs overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap">
+                        <button onclick="switchEmojiCategory('faces')" id="em-cat-faces" class="emoji-cat-btn font-bold text-[#2C7A7B] border-b-2 border-[#2C7A7B] pb-0.5">😀 Expresiones</button>
+                        <button onclick="switchEmojiCategory('nature')" id="em-cat-nature" class="emoji-cat-btn font-semibold text-slate-500 pb-0.5">🌿 Bienestar</button>
+                        <button onclick="switchEmojiCategory('actions')" id="em-cat-actions" class="emoji-cat-btn font-semibold text-slate-500 pb-0.5">🩺 Clínicos</button>
+                        <button onclick="switchEmojiCategory('foods')" id="em-cat-foods" class="emoji-cat-btn font-semibold text-slate-500 pb-0.5">🍏 Alimentos</button>
+                        <button onclick="switchEmojiCategory('activities')" id="em-cat-activities" class="emoji-cat-btn font-semibold text-slate-500 pb-0.5">🏃‍♀️ Actividades</button>
+                    </div>
+                    <button onclick="toggleEmojiDrawer()" class="text-slate-400 hover:text-slate-600 flex items-center justify-center"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+
+                <!-- Biblioteca robusta de emojis totalmente poblada -->
+                <div id="emoji-grid-faces" class="emoji-grid grid grid-cols-8 gap-3.5 text-xl py-1.5 h-36 overflow-y-auto no-scrollbar">
+                    <span onclick="insertEmoji('😊')" class="cursor-pointer hover:scale-125 transition text-center">😊</span>
+                    <span onclick="insertEmoji('😍')" class="cursor-pointer hover:scale-125 transition text-center">😍</span>
+                    <span onclick="insertEmoji('😂')" class="cursor-pointer hover:scale-125 transition text-center">😂</span>
+                    <span onclick="insertEmoji('😴')" class="cursor-pointer hover:scale-125 transition text-center">😴</span>
+                    <span onclick="insertEmoji('😎')" class="cursor-pointer hover:scale-125 transition text-center">😎</span>
+                    <span onclick="insertEmoji('😷')" class="cursor-pointer hover:scale-125 transition text-center">😷</span>
+                    <span onclick="insertEmoji('🥰')" class="cursor-pointer hover:scale-125 transition text-center">🥰</span>
+                    <span onclick="insertEmoji('🥳')" class="cursor-pointer hover:scale-125 transition text-center">🥳</span>
+                    <span onclick="insertEmoji('🥺')" class="cursor-pointer hover:scale-125 transition text-center">🥺</span>
+                    <span onclick="insertEmoji('🤔')" class="cursor-pointer hover:scale-125 transition text-center">🤔</span>
+                    <span onclick="insertEmoji('😭')" class="cursor-pointer hover:scale-125 transition text-center">😭</span>
+                    <span onclick="insertEmoji('🙌')" class="cursor-pointer hover:scale-125 transition text-center">🙌</span>
+                    <span onclick="insertEmoji('😉')" class="cursor-pointer hover:scale-125 transition text-center">😉</span>
+                    <span onclick="insertEmoji('😃')" class="cursor-pointer hover:scale-125 transition text-center">😃</span>
+                    <span onclick="insertEmoji('😇')" class="cursor-pointer hover:scale-125 transition text-center">😇</span>
+                    <span onclick="insertEmoji('🤩')" class="cursor-pointer hover:scale-125 transition text-center">🤩</span>
+                    <span onclick="insertEmoji('😌')" class="cursor-pointer hover:scale-125 transition text-center">😌</span>
+                    <span onclick="insertEmoji('🤤')" class="cursor-pointer hover:scale-125 transition text-center">🤤</span>
+                    <span onclick="insertEmoji('🤕')" class="cursor-pointer hover:scale-125 transition text-center">🤕</span>
+                    <span onclick="insertEmoji('🤒')" class="cursor-pointer hover:scale-125 transition text-center">🤒</span>
+                    <span onclick="insertEmoji('🤠')" class="cursor-pointer hover:scale-125 transition text-center">🤠</span>
+                    <span onclick="insertEmoji('🧐')" class="cursor-pointer hover:scale-125 transition text-center">🧐</span>
+                    <span onclick="insertEmoji('🤯')" class="cursor-pointer hover:scale-125 transition text-center">🤯</span>
+                    <span onclick="insertEmoji('👍')" class="cursor-pointer hover:scale-125 transition text-center">👍</span>
+                </div>
+
+                <div id="emoji-grid-nature" class="emoji-grid grid grid-cols-8 gap-3.5 text-xl py-1.5 h-36 overflow-y-auto no-scrollbar hidden">
+                    <span onclick="insertEmoji('🌿')" class="cursor-pointer hover:scale-125 transition text-center">🌿</span>
+                    <span onclick="insertEmoji('🌱')" class="cursor-pointer hover:scale-125 transition text-center">🌱</span>
+                    <span onclick="insertEmoji('🍃')" class="cursor-pointer hover:scale-125 transition text-center">🍃</span>
+                    <span onclick="insertEmoji('🍵')" class="cursor-pointer hover:scale-125 transition text-center">🍵</span>
+                    <span onclick="insertEmoji('💧')" class="cursor-pointer hover:scale-125 transition text-center">💧</span>
+                    <span onclick="insertEmoji('🌙')" class="cursor-pointer hover:scale-125 transition text-center">🌙</span>
+                    <span onclick="insertEmoji('🌸')" class="cursor-pointer hover:scale-125 transition text-center">🌸</span>
+                    <span onclick="insertEmoji('🌹')" class="cursor-pointer hover:scale-125 transition text-center">🌹</span>
+                    <span onclick="insertEmoji('🌻')" class="cursor-pointer hover:scale-125 transition text-center">🌻</span>
+                    <span onclick="insertEmoji('🍀')" class="cursor-pointer hover:scale-125 transition text-center">🍀</span>
+                    <span onclick="insertEmoji('🌳')" class="cursor-pointer hover:scale-125 transition text-center">🌳</span>
+                    <span onclick="insertEmoji('🌴')" class="cursor-pointer hover:scale-125 transition text-center">🌴</span>
+                    <span onclick="insertEmoji('🍁')" class="cursor-pointer hover:scale-125 transition text-center">🍁</span>
+                    <span onclick="insertEmoji('🌾')" class="cursor-pointer hover:scale-125 transition text-center">🌾</span>
+                    <span onclick="insertEmoji('🍄')" class="cursor-pointer hover:scale-125 transition text-center">🍄</span>
+                    <span onclick="insertEmoji('🌵')" class="cursor-pointer hover:scale-125 transition text-center">🌵</span>
+                </div>
+
+                <div id="emoji-grid-actions" class="emoji-grid grid grid-cols-8 gap-3.5 text-xl py-1.5 h-36 overflow-y-auto no-scrollbar hidden">
+                    <span onclick="insertEmoji('🩺')" class="cursor-pointer hover:scale-125 transition text-center">🩺</span>
+                    <span onclick="insertEmoji('💊')" class="cursor-pointer hover:scale-125 transition text-center">💊</span>
+                    <span onclick="insertEmoji('🩹')" class="cursor-pointer hover:scale-125 transition text-center">🩹</span>
+                    <span onclick="insertEmoji('🌡️')" class="cursor-pointer hover:scale-125 transition text-center">🌡️</span>
+                    <span onclick="insertEmoji('💉')" class="cursor-pointer hover:scale-125 transition text-center">💉</span>
+                    <span onclick="insertEmoji('🔬')" class="cursor-pointer hover:scale-125 transition text-center">🔬</span>
+                    <span onclick="insertEmoji('📋')" class="cursor-pointer hover:scale-125 transition text-center">📋</span>
+                    <span onclick="insertEmoji('🧘‍♀️')" class="cursor-pointer hover:scale-125 transition text-center">🧘‍♀️</span>
+                    <span onclick="insertEmoji('🧠')" class="cursor-pointer hover:scale-125 transition text-center">🧠</span>
+                    <span onclick="insertEmoji('❤️')" class="cursor-pointer hover:scale-125 transition text-center">❤️</span>
+                    <span onclick="insertEmoji('🩹')" class="cursor-pointer hover:scale-125 transition text-center">🩹</span>
+                    <span onclick="insertEmoji('🧬')" class="cursor-pointer hover:scale-125 transition text-center">🧬</span>
+                    <span onclick="insertEmoji('🦷')" class="cursor-pointer hover:scale-125 transition text-center">🦷</span>
+                </div>
+
+                <div id="emoji-grid-foods" class="emoji-grid grid grid-cols-8 gap-3.5 text-xl py-1.5 h-36 overflow-y-auto no-scrollbar hidden">
+                    <span onclick="insertEmoji('🍏')" class="cursor-pointer hover:scale-125 transition text-center">🍏</span>
+                    <span onclick="insertEmoji('🍎')" class="cursor-pointer hover:scale-125 transition text-center">🍎</span>
+                    <span onclick="insertEmoji('🍋')" class="cursor-pointer hover:scale-125 transition text-center">🍋</span>
+                    <span onclick="insertEmoji('🍊')" class="cursor-pointer hover:scale-125 transition text-center">🍊</span>
+                    <span onclick="insertEmoji('🍌')" class="cursor-pointer hover:scale-125 transition text-center">🍌</span>
+                    <span onclick="insertEmoji('🍉')" class="cursor-pointer hover:scale-125 transition text-center">🍉</span>
+                    <span onclick="insertEmoji('🍇')" class="cursor-pointer hover:scale-125 transition text-center">🍇</span>
+                    <span onclick="insertEmoji('🍓')" class="cursor-pointer hover:scale-125 transition text-center">🍓</span>
+                    <span onclick="insertEmoji('🥑')" class="cursor-pointer hover:scale-125 transition text-center">🥑</span>
+                    <span onclick="insertEmoji('🥥')" class="cursor-pointer hover:scale-125 transition text-center">🥥</span>
+                    <span onclick="insertEmoji('🥦')" class="cursor-pointer hover:scale-125 transition text-center">🥦</span>
+                    <span onclick="insertEmoji('🥕')" class="cursor-pointer hover:scale-125 transition text-center">🥕</span>
+                    <span onclick="insertEmoji('🥬')" class="cursor-pointer hover:scale-125 transition text-center">🥬</span>
+                </div>
+
+                <div id="emoji-grid-activities" class="emoji-grid grid grid-cols-8 gap-3.5 text-xl py-1.5 h-36 overflow-y-auto no-scrollbar hidden">
+                    <span onclick="insertEmoji('🏃‍♀️')" class="cursor-pointer hover:scale-125 transition text-center">🏃‍♀️</span>
+                    <span onclick="insertEmoji('🏃‍♂️')" class="cursor-pointer hover:scale-125 transition text-center">🏃‍♂️</span>
+                    <span onclick="insertEmoji('🧘‍♂️')" class="cursor-pointer hover:scale-125 transition text-center">🧘‍♂️</span>
+                    <span onclick="insertEmoji('🚶‍♀️')" class="cursor-pointer hover:scale-125 transition text-center">🚶‍♀️</span>
+                    <span onclick="insertEmoji('🚶‍♂️')" class="cursor-pointer hover:scale-125 transition text-center">🚶‍♂️</span>
+                    <span onclick="insertEmoji('🚴‍♀️')" class="cursor-pointer hover:scale-125 transition text-center">🚴‍♀️</span>
+                    <span onclick="insertEmoji('🚴‍♂️')" class="cursor-pointer hover:scale-125 transition text-center">🚴‍♂️</span>
+                    <span onclick="insertEmoji('🤸‍♀️')" class="cursor-pointer hover:scale-125 transition text-center">🤸‍♀️</span>
+                    <span onclick="insertEmoji('🧗‍♀️')" class="cursor-pointer hover:scale-125 transition text-center">🧗‍♀️</span>
+                    <span onclick="insertEmoji('🏊‍♀️')" class="cursor-pointer hover:scale-125 transition text-center">🏊‍♀️</span>
+                </div>
+            </div>
+
+            <!-- Footer del Chat -->
+            <footer class="bg-white px-4 py-2.5 border-t border-slate-200 flex flex-col shrink-0">
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleMultimediaDrawer()" class="p-2 text-[#33BCA9] hover:bg-slate-100 rounded-full transition flex items-center justify-center" title="Adjuntar archivo"><i data-lucide="plus-circle" class="w-5 h-5"></i></button>
+                    <button onclick="openCameraSimulation()" class="p-2 text-[#33BCA9] hover:bg-slate-100 rounded-full transition flex items-center justify-center" title="Cámara"><i data-lucide="camera" class="w-5 h-5"></i></button>
+                    <button onclick="toggleEmojiDrawer()" class="p-2 text-[#33BCA9] hover:bg-slate-100 rounded-full transition flex items-center justify-center text-lg leading-none" title="Emojis">😀</button>
+
+                    <input type="text" id="chat-input-text" placeholder="Escribe un mensaje..." class="bg-slate-100 text-xs w-full focus:outline-none rounded-full px-4 py-2 border border-slate-200 text-slate-700">
+
+                    <button id="chat-voice-btn" onclick="startVoiceRecording()" class="p-2 text-[#33BCA9] hover:bg-slate-100 rounded-full transition flex items-center justify-center" title="Grabar audio"><i data-lucide="mic" class="w-5 h-5"></i></button>
+                    <button id="chat-send-btn" onclick="sendSimulatedMessage()" class="bg-[#2C7A7B] text-white p-2.5 rounded-full hover:bg-[#33BCA9] transition flex items-center justify-center hidden"><i data-lucide="send" class="w-4 h-4"></i></button>
+                </div>
+            </footer>
+        </div>
+
+        <!-- OVERLAY DE AUDIOLLAMADA Y VIDEOLLAMADA (Imágenes 16 y 23) -->
+        <div id="call-overlay" class="absolute inset-0 bg-[#0B2526] text-white z-50 flex flex-col justify-between p-12 hidden">
+            <!-- Header con silueta de candado de encriptación -->
+            <div class="flex justify-between items-center text-white/50 text-[10px] font-bold">
+                <div class="flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> Cifrado de extremo a extremo</div>
+                <button class="p-1.5 hover:bg-white/10 rounded-full transition"><i data-lucide="user-plus" class="w-5 h-5"></i></button>
+            </div>
+
+            <!-- Avatar y datos de contacto -->
+            <div class="text-center space-y-3.5 my-auto">
+                <div class="relative inline-block">
+                    <!-- Ondas de llamada pulsantes -->
+                    <span class="absolute inset-0 rounded-full bg-[#33BCA9]/20 animate-ping"></span>
+                    <img id="call-overlay-avatar" class="w-24 h-24 rounded-full object-cover border-4 border-[#33BCA9] mx-auto shadow-2xl" src="" alt="Avatar">
+                </div>
+                <div>
+                    <h2 id="call-overlay-name" class="text-xl font-black">Contacto</h2>
+                    <p id="call-overlay-status" class="text-xs text-[#33BCA9] tracking-wider uppercase font-semibold mt-1">Llamando...</p>
+                </div>
+            </div>
+
+            <!-- Recuadro de simulación de video -->
+            <div id="video-sim-box" class="w-full h-44 bg-slate-900 rounded-2xl border border-[#33BCA9]/20 overflow-hidden relative hidden mb-4">
+                <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=250&h=180" class="w-full h-full object-cover opacity-80" alt="Video">
+            </div>
+
+            <!-- Botones inferiores (Imagen 16/23: Altavoz, Video, Silenciar, Más, Compartir, Finalizar) -->
+            <div class="space-y-6">
+                <div class="grid grid-cols-3 gap-y-4 gap-x-2 text-center text-[10px] font-bold text-slate-300">
+                    <button onclick="toggleCallSpeaker(this)" class="flex flex-col items-center gap-1.5 mx-auto">
+                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition"><i data-lucide="volume-2" class="w-5 h-5"></i></div>
+                        <span>Altavoz</span>
+                    </button>
+                    <button onclick="toggleCallVideo(this)" class="flex flex-col items-center gap-1.5 mx-auto">
+                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition"><i data-lucide="video" class="w-5 h-5"></i></div>
+                        <span>Video</span>
+                    </button>
+                    <button onclick="toggleCallMute(this)" class="flex flex-col items-center gap-1.5 mx-auto">
+                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition"><i data-lucide="mic-off" class="w-5 h-5"></i></div>
+                        <span>Silenciar</span>
+                    </button>
+                    <button onclick="alert('Más opciones')" class="flex flex-col items-center gap-1.5 mx-auto">
+                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition"><i data-lucide="more-horizontal" class="w-5 h-5"></i></div>
+                        <span>Más</span>
+                    </button>
+                    <button onclick="alert('Compartiendo pantalla')" class="flex flex-col items-center gap-1.5 mx-auto">
+                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition"><i data-lucide="share-2" class="w-5 h-5"></i></div>
+                        <span>Compartir</span>
+                    </button>
+                    <button onclick="endCall()" class="flex flex-col items-center gap-1.5 mx-auto">
+                        <div class="w-12 h-12 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transition shadow-lg"><i data-lucide="phone-off" class="w-5 h-5"></i></div>
+                        <span class="text-red-400">Finalizar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- ================= ONBOARDING DE INSTALACIÓN / DESCARGA ================= -->
         <div id="onboarding-screen" class="absolute inset-0 bg-gradient-to-br from-[#1E5D5E] via-[#2C7A7B] to-[#121E2B] text-white z-50 flex flex-col justify-between p-7">
             <div class="text-center space-y-3 mt-8">
@@ -3341,7 +3794,60 @@
             let subText = 'Configuración Interactiva';
             let bodyHTML = '';
 
-            if (sectionKey === 'suscripciones') {
+            if (sectionKey === 'cuestionario') {
+                iconName = 'clipboard-list';
+                titleText = 'Cuestionario Clínico & Salud';
+                subText = 'Actualizar datos de perfil y objetivos de bienestar';
+                bodyHTML = `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3.5">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-500 uppercase block mb-1">Foto de Perfil / Avatar</label>
+                            <div class="flex gap-3 items-center">
+                                <img id="quest-avatar-preview" src="${selectedAvatarUrl}" class="w-12 h-12 rounded-full object-cover border-2 border-[#33BCA9]">
+                                <div class="flex gap-1.5 items-center">
+                                    <button onclick="selectQuestAvatar('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=80&h=80')" class="w-8 h-8 rounded-full overflow-hidden border hover:ring-2 hover:ring-[#33BCA9]"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=80&h=80"></button>
+                                    <button onclick="selectQuestAvatar('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=80&h=80')" class="w-8 h-8 rounded-full overflow-hidden border hover:ring-2 hover:ring-[#33BCA9]"><img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=80&h=80"></button>
+                                    <button onclick="selectQuestAvatar('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=80&h=80')" class="w-8 h-8 rounded-full overflow-hidden border hover:ring-2 hover:ring-[#33BCA9]"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=80&h=80"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-500 uppercase block mb-0.5">Nombre Completo</label>
+                            <input type="text" id="quest-name" value="${localStorage.getItem('user_name') || 'Fabiola Silva'}" class="w-full bg-[#FAF8EE] border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#33BCA9]">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 uppercase block mb-0.5">Edad</label>
+                                <input type="number" id="quest-age" value="${localStorage.getItem('user_age') || '28'}" class="w-full bg-[#FAF8EE] border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#33BCA9]">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 uppercase block mb-0.5">Sexo</label>
+                                <select id="quest-gender" class="w-full bg-[#FAF8EE] border border-slate-200 rounded-xl px-2.5 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#33BCA9]">
+                                    <option value="F">Femenino (F)</option>
+                                    <option value="M">Masculino (M)</option>
+                                    <option value="O">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-500 uppercase block mb-0.5">Correo Electrónico</label>
+                            <input type="email" id="quest-email" value="${localStorage.getItem('user_email') || 'fabiola@aslideas.cl'}" class="w-full bg-[#FAF8EE] border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#33BCA9]">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-500 uppercase block mb-0.5">Objetivo Principal de Salud</label>
+                            <select id="quest-goal" class="w-full bg-[#FAF8EE] border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#33BCA9]">
+                                <option value="estres">Reducir Estrés y Ansiedad</option>
+                                <option value="sueno">Mejorar Higiene del Sueño (Plan Morfeo)</option>
+                                <option value="ejercicios">Pausas Activas y Ejercicios</option>
+                                <option value="compras">Comprar Hierbas y Cosmética Natural</option>
+                            </select>
+                        </div>
+                        <button onclick="saveQuestionnaireFromSettings()" class="w-full bg-[#33BCA9] text-white py-2.5 rounded-xl font-bold text-xs hover:bg-[#2C7A7B] transition shadow-xs flex items-center justify-center gap-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> Guardar Cuestionario en Supabase
+                        </button>
+                    </div>
+                `;
+            } else if (sectionKey === 'suscripciones') {
                 iconName = 'gem';
                 titleText = 'Suscripciones y Plan Bienestar';
                 subText = 'Beneficios de Salud e Inteligencia Artificial';
@@ -3895,6 +4401,77 @@
             }, 1800);
         }
 
+
+        // ================= LÓGICA DE SPLASH INTRO Y CUESTIONARIO EN AJUSTES (v21) =================
+        let splashTime = 0;
+        const splashInterval = setInterval(() => {
+            splashTime += 100;
+            const percent = Math.min((splashTime / 3500) * 100, 100);
+            const progressBar = document.getElementById('splash-progress-bar');
+            const statusText = document.getElementById('splash-status-text');
+            if (progressBar) progressBar.style.width = percent + '%';
+
+            if (percent < 30) {
+                if (statusText) statusText.innerText = "Cargando Ecosistema Bienestar...";
+            } else if (percent < 65) {
+                if (statusText) statusText.innerText = "Sincronizando Fichas & Supabase...";
+            } else if (percent < 90) {
+                if (statusText) statusText.innerText = "Inicializando Frecuencias Binaurales...";
+            } else {
+                if (statusText) statusText.innerText = "Listo ✓";
+            }
+
+            if (splashTime >= 3500) {
+                clearInterval(splashInterval);
+                dismissSplashScreen();
+            }
+        }, 100);
+
+        function dismissSplashScreen() {
+            const splash = document.getElementById('splash-intro-screen');
+            if (splash && !splash.classList.contains('hidden')) {
+                splash.classList.add('opacity-0');
+                setTimeout(() => {
+                    splash.classList.add('hidden');
+                }, 700);
+            }
+        }
+
+        function selectQuestAvatar(url) {
+            selectedAvatarUrl = url;
+            const preview = document.getElementById('quest-avatar-preview');
+            if (preview) preview.src = url;
+            const profileImg = document.getElementById('set-profile-img');
+            if (profileImg) profileImg.src = url;
+            localStorage.setItem('user_avatar', url);
+        }
+
+        function saveQuestionnaireFromSettings() {
+            const name = document.getElementById('quest-name') ? document.getElementById('quest-name').value : 'Fabiola Silva';
+            const age = document.getElementById('quest-age') ? document.getElementById('quest-age').value : '28';
+            const gender = document.getElementById('quest-gender') ? document.getElementById('quest-gender').value : 'F';
+            const email = document.getElementById('quest-email') ? document.getElementById('quest-email').value : 'fabiola@aslideas.cl';
+            const goal = document.getElementById('quest-goal') ? document.getElementById('quest-goal').value : 'estres';
+
+            localStorage.setItem('user_name', name);
+            localStorage.setItem('user_age', age);
+            localStorage.setItem('user_gender', gender);
+            localStorage.setItem('user_email', email);
+            localStorage.setItem('user_goal', goal);
+
+            // Actualizar vista de perfil en Ajustes
+            const displayName = document.getElementById('set-profile-display-name');
+            if (displayName) displayName.innerText = name;
+
+            const bioNombre = document.getElementById('bio-nombre');
+            if (bioNombre) bioNombre.value = name;
+            const bioEdad = document.getElementById('bio-edad');
+            if (bioEdad) bioEdad.value = age;
+
+            alert("✓ Cuestionario Clínico y Perfil de Salud guardados exitosamente en Supabase");
+            closeSettingsSubDetail();
+            confetti({ particleCount: 30, spread: 50 });
+        }
 </script>
     <!-- MODAL REPRODUCTOR DE RUTINA DE EJERCICIOS -->
     <div id="exercise-routine-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
@@ -3965,6 +4542,20 @@
 
                 <!-- Lista de Opciones Estilo WhatsApp (Fotos 45, 46, 47, 48) -->
                 <div class="pt-3 space-y-1">
+
+                    <!-- 0. Cuestionario Clínico & Salud -->
+                    <button onclick="openSettingsSubDetail('cuestionario')" class="w-full flex items-center justify-between p-2.5 rounded-2xl bg-teal-50/80 border border-[#33BCA9]/30 hover:bg-[#E0F7F4] transition text-left group">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-9 h-9 rounded-full bg-[#33BCA9] text-white flex items-center justify-center shrink-0 shadow-xs">
+                                <i data-lucide="clipboard-list" class="w-4.5 h-4.5"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-black text-slate-800 block">Cuestionario Clínico & Perfil</span>
+                                <span class="text-[10px] text-[#2C7A7B] font-bold">Completar / Editar datos de salud</span>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-[#2C7A7B]"></i>
+                    </button>
 
                     <!-- 1. Suscripciones -->
                     <button onclick="openSettingsSubDetail('suscripciones')" class="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-white/80 transition text-left group">
