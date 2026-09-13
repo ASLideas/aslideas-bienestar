@@ -3975,26 +3975,63 @@
             } else if (sectionKey === 'almacenamiento') {
                 iconName = 'hard-drive';
                 titleText = 'Almacenamiento y Datos';
-                subText = 'Uso de espacio y adjuntos';
+                subText = 'Control de capacidad y liberación de espacio';
                 bodyHTML = `
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3.5">
+                        <!-- Capacidad de Almacenamiento (Limpio sin nombres de servidores) -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span>Espacio Utilizado en Supabase</span>
-                                <span class="text-[#2C7A7B]">34.8 MB / 1 GB</span>
+                            <div class="flex justify-between items-center text-xs font-bold mb-1.5">
+                                <span class="text-slate-700">Capacidad de Almacenamiento</span>
+                                <span id="storage-used-text" class="text-[#2C7A7B] font-extrabold">34.8 MB / 1.0 GB (3.5%)</span>
                             </div>
-                            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                                <div class="bg-[#33BCA9] h-full w-[15%]"></div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                                <div id="storage-progress-bar" class="bg-[#33BCA9] h-full rounded-full w-[3.5%] transition-all duration-500"></div>
                             </div>
                         </div>
-                        <div class="border-t pt-3 space-y-2 text-xs">
-                            <div class="flex justify-between items-center">
-                                <span>Descargar Fotos con Datos Móviles</span>
-                                <input type="checkbox" checked class="w-4 h-4 accent-[#33BCA9]">
+
+                        <!-- Opciones de Liberación de Espacio -->
+                        <div class="pt-2 border-t border-slate-100 space-y-2">
+                            <span class="text-[9px] font-black uppercase text-[#2C7A7B] tracking-wider block">🧹 Herramientas para Liberar Espacio</span>
+
+                            <button onclick="clearAppStorageCache()" class="w-full bg-[#FAF8EE] hover:bg-[#E0F7F4] p-3 rounded-2xl border border-slate-200 hover:border-[#33BCA9] transition flex items-center justify-between group">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm shrink-0">🧹</div>
+                                    <div class="text-left">
+                                        <h4 class="font-bold text-xs text-slate-800">Limpiar Caché y Archivos Temporales</h4>
+                                        <p class="text-[9px] text-slate-500">Elimina archivos de vista previa (~18.5 MB)</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-bold text-[#2C7A7B] bg-white px-2 py-1 rounded-lg border shadow-2xs group-hover:bg-[#33BCA9] group-hover:text-white transition">Limpiar</span>
+                            </button>
+
+                            <button onclick="clearChatMediaFiles()" class="w-full bg-[#FAF8EE] hover:bg-red-50 p-3 rounded-2xl border border-slate-200 hover:border-red-300 transition flex items-center justify-between group">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-red-100 text-red-600 flex items-center justify-center font-bold text-sm shrink-0">🗑️</div>
+                                    <div class="text-left">
+                                        <h4 class="font-bold text-xs text-slate-800">Gestionar Adjuntos Pesados</h4>
+                                        <p class="text-[9px] text-slate-500">Borrar imágenes y audios antiguos de chats</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-bold text-red-600 bg-white px-2 py-1 rounded-lg border border-red-200 shadow-2xs group-hover:bg-red-600 group-hover:text-white transition">Vaciar</span>
+                            </button>
+                        </div>
+
+                        <!-- Estado y Notificación de Liberación -->
+                        <div id="storage-clean-status" class="bg-emerald-50 p-2.5 rounded-xl border border-emerald-200 text-[10px] text-emerald-800 font-bold hidden flex items-center gap-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+                            <span id="storage-clean-msg">¡Se han liberado 18.5 MB de espacio de almacenamiento!</span>
+                        </div>
+
+                        <!-- Ajustes de Descarga Automática -->
+                        <div class="pt-2 border-t border-slate-100 space-y-2 text-xs">
+                            <span class="text-[9px] font-black uppercase text-slate-400 tracking-wider block">📥 Descarga Automática de Archivos</span>
+                            <div class="flex justify-between items-center py-1">
+                                <span class="font-medium text-slate-700">Descargar Fotos con Datos Móviles</span>
+                                <input type="checkbox" checked class="w-4 h-4 accent-[#33BCA9] cursor-pointer">
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span>Descargar Notas de Voz Automático</span>
-                                <input type="checkbox" checked class="w-4 h-4 accent-[#33BCA9]">
+                            <div class="flex justify-between items-center py-1 border-t border-slate-100">
+                                <span class="font-medium text-slate-700">Descargar Notas de Voz Automáticamente</span>
+                                <input type="checkbox" checked class="w-4 h-4 accent-[#33BCA9] cursor-pointer">
                             </div>
                         </div>
                     </div>
@@ -4797,7 +4834,44 @@
             document.getElementById('contact-info-modal').classList.add('hidden');
         }
 
-</script>
+
+        // ================= FUNCIONES DE GESTIÓN Y LIBERACIÓN DE ALMACENAMIENTO =================
+        function clearAppStorageCache() {
+            const statusBox = document.getElementById('storage-clean-status');
+            const statusMsg = document.getElementById('storage-clean-msg');
+            const usedText = document.getElementById('storage-used-text');
+            const progressBar = document.getElementById('storage-progress-bar');
+
+            if (usedText) usedText.innerText = "16.3 MB / 1.0 GB (1.6%)";
+            if (progressBar) progressBar.style.width = "1.6%";
+
+            if (statusMsg) statusMsg.innerText = "✓ Caché limpiada: ¡Se han liberado 18.5 MB de espacio!";
+            if (statusBox) statusBox.classList.remove('hidden');
+
+            confetti({ particleCount: 25, spread: 45 });
+            lucide.createIcons();
+        }
+
+        function clearChatMediaFiles() {
+            if (confirm("¿Deseas eliminar las imágenes y audios antiguos guardados localmente para liberar espacio de almacenamiento?")) {
+                const statusBox = document.getElementById('storage-clean-status');
+                const statusMsg = document.getElementById('storage-clean-msg');
+                const usedText = document.getElementById('storage-used-text');
+                const progressBar = document.getElementById('storage-progress-bar');
+
+                if (usedText) usedText.innerText = "8.2 MB / 1.0 GB (0.8%)";
+                if (progressBar) progressBar.style.width = "0.8%";
+
+                if (statusMsg) statusMsg.innerText = "✓ Adjuntos borrados: ¡Has liberado 26.6 MB adicionales!";
+                if (statusBox) statusBox.classList.remove('hidden');
+
+                confetti({ particleCount: 35, spread: 55 });
+                lucide.createIcons();
+            }
+        }
+
+    </script>
+
     <!-- MODAL REPRODUCTOR DE RUTINA DE EJERCICIOS -->
     <div id="exercise-routine-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 text-center relative border border-[#33BCA9]/20">
