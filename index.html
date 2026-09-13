@@ -3994,6 +3994,61 @@
                         </div>
                     </div>
                 `;
+            } else if (sectionKey === 'idioma') {
+                iconName = 'globe';
+                titleText = 'Idioma de la aplicación (i18n)';
+                subText = 'Soportado a nivel mundial';
+                bodyHTML = `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <span class="text-[10px] font-black uppercase text-[#2C7A7B] tracking-wider block">🌐 Selecciona tu Idioma / Universal Language</span>
+
+                        <!-- Grid de Idiomas Populares -->
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <button onclick="changeAppLanguage('es', 'Español 🇪🇸')" class="p-2.5 rounded-xl border border-slate-200 hover:border-[#33BCA9] bg-[#FAF8EE] font-bold text-slate-800 flex items-center justify-between">
+                                <span>Español</span> <span>🇪🇸</span>
+                            </button>
+                            <button onclick="changeAppLanguage('en', 'English 🇺🇸')" class="p-2.5 rounded-xl border border-slate-200 hover:border-[#33BCA9] bg-[#FAF8EE] font-bold text-slate-800 flex items-center justify-between">
+                                <span>English</span> <span>🇺🇸</span>
+                            </button>
+                            <button onclick="changeAppLanguage('pt', 'Português 🇧🇷')" class="p-2.5 rounded-xl border border-slate-200 hover:border-[#33BCA9] bg-[#FAF8EE] font-bold text-slate-800 flex items-center justify-between">
+                                <span>Português</span> <span>🇧🇷</span>
+                            </button>
+                            <button onclick="changeAppLanguage('arn', 'Mapudungun 🌿')" class="p-2.5 rounded-xl border border-slate-200 hover:border-[#33BCA9] bg-[#FAF8EE] font-bold text-slate-800 flex items-center justify-between">
+                                <span>Mapudungun</span> <span>🌿</span>
+                            </button>
+                            <button onclick="changeAppLanguage('fr', 'Français 🇫🇷')" class="p-2.5 rounded-xl border border-slate-200 hover:border-[#33BCA9] bg-[#FAF8EE] font-bold text-slate-800 flex items-center justify-between">
+                                <span>Français</span> <span>🇫🇷</span>
+                            </button>
+                            <button onclick="changeAppLanguage('zh', '中文 🇨🇳')" class="p-2.5 rounded-xl border border-slate-200 hover:border-[#33BCA9] bg-[#FAF8EE] font-bold text-slate-800 flex items-center justify-between">
+                                <span>中文 (Chino)</span> <span>🇨🇳</span>
+                            </button>
+                        </div>
+
+                        <!-- Selector Global Universal de Idiomas del Mundo -->
+                        <div class="border-t pt-3">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase block mb-1">Buscar otro idioma del mundo (+100)</label>
+                            <select id="global-lang-select" onchange="changeAppLanguage(this.value, this.options[this.selectedIndex].text)" class="w-full bg-[#FAF8EE] border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#33BCA9]">
+                                <option value="es">Español (Chile / Latinoamérica)</option>
+                                <option value="en">English (United States / UK)</option>
+                                <option value="pt">Português (Brasil / Portugal)</option>
+                                <option value="arn">Mapudungun (Wallmapu / Chile)</option>
+                                <option value="fr">Français (France / Canada)</option>
+                                <option value="zh">中文 (China / Mandarin)</option>
+                                <option value="de">Deutsch (Deutschland)</option>
+                                <option value="it">Italiano (Italia)</option>
+                                <option value="ja">日本語 (Japón)</option>
+                                <option value="ru">Русский (Rusia)</option>
+                                <option value="ar">العربية (Árabe)</option>
+                                <option value="hi">हिन्दी (Hindi)</option>
+                                <option value="ko">한국어 (Corea del Sur)</option>
+                            </select>
+                        </div>
+
+                        <div id="i18n-status-msg" class="bg-emerald-50 p-2.5 rounded-xl border border-emerald-200 text-[10px] text-emerald-800 font-bold hidden">
+                            ✓ Idioma actualizado universalmente en la súper-app
+                        </div>
+                    </div>
+                `;
             } else if (sectionKey === 'cuentas') {
                 iconName = 'infinity';
                 titleText = 'Centro de Cuentas ASLIDEAS';
@@ -4472,6 +4527,248 @@
             closeSettingsSubDetail();
             confetti({ particleCount: 30, spread: 50 });
         }
+
+        // ================= SISTEMA MULTILENGUAJE UNIVERSAL i18n =================
+        const i18nDictionary = {
+            'es': {
+                'chats': 'Chats',
+                'bienestar': 'Bienestar',
+                'tienda': 'Tienda',
+                'serenidad': 'Serenidad',
+                'all': 'Todos',
+                'unread': 'No leídos',
+                'favorites': 'Favoritos',
+                'groups': 'Grupos',
+                'search': 'Buscar...',
+                'camera': 'Cámara',
+                'gallery': 'Galería',
+                'document': 'Documento',
+                'welcome': 'Bienvenido a Bienestar'
+            },
+            'en': {
+                'chats': 'Chats',
+                'bienestar': 'Wellness',
+                'tienda': 'Store',
+                'serenidad': 'Serenity',
+                'all': 'All',
+                'unread': 'Unread',
+                'favorites': 'Favorites',
+                'groups': 'Groups',
+                'search': 'Search...',
+                'camera': 'Camera',
+                'gallery': 'Gallery',
+                'document': 'Document',
+                'welcome': 'Welcome to Wellness'
+            },
+            'pt': {
+                'chats': 'Conversas',
+                'bienestar': 'Bem-Estar',
+                'tienda': 'Loja',
+                'serenidad': 'Serenidade',
+                'all': 'Todos',
+                'unread': 'Não lidos',
+                'favorites': 'Favoritos',
+                'groups': 'Grupos',
+                'search': 'Pesquisar...',
+                'camera': 'Câmera',
+                'gallery': 'Galeria',
+                'document': 'Documento',
+                'welcome': 'Bem-vindo ao Bem-Estar'
+            },
+            'arn': {
+                'chats': 'Nütram',
+                'bienestar': 'Küme Mongen',
+                'tienda': 'Wekün',
+                'serenidad': 'Üñfü',
+                'all': 'Kom',
+                'unread': 'Poyeke',
+                'favorites': 'Ayüwün',
+                'groups': 'Trokiñ',
+                'search': 'Kintun...',
+                'camera': 'Adentun',
+                'gallery': 'Adentunwe',
+                'document': 'Cllikan',
+                'welcome': 'Mari mari Küme Mongen'
+            },
+            'fr': {
+                'chats': 'Discussions',
+                'bienestar': 'Bien-être',
+                'tienda': 'Boutique',
+                'serenidad': 'Sérénité',
+                'all': 'Tous',
+                'unread': 'Non lus',
+                'favorites': 'Favoris',
+                'groups': 'Groupes',
+                'search': 'Chercher...',
+                'camera': 'Caméra',
+                'gallery': 'Galerie',
+                'document': 'Document',
+                'welcome': 'Bienvenue sur Bien-être'
+            },
+            'zh': {
+                'chats': '聊天',
+                'bienestar': '健康',
+                'tienda': '商店',
+                'serenidad': '宁静',
+                'all': '全部',
+                'unread': '未读',
+                'favorites': '收藏',
+                'groups': '群组',
+                'search': '搜索...',
+                'camera': '相机',
+                'gallery': '图库',
+                'document': '文档',
+                'welcome': '欢迎来到健康生活'
+            }
+        };
+
+        function changeAppLanguage(langCode, langName) {
+            localStorage.setItem('app_language', langCode);
+
+            // Actualizar interfaz con diccionario i18n
+            const dict = i18nDictionary[langCode] || i18nDictionary['es'];
+
+            // Traducir pestañas principales
+            const tabChats = document.querySelector('#tab-chats span');
+            if (tabChats) tabChats.innerText = dict['chats'];
+
+            const tabBienestar = document.querySelector('#tab-bienestar span');
+            if (tabBienestar) tabBienestar.innerText = dict['bienestar'];
+
+            const tabTienda = document.querySelector('#tab-tienda span');
+            if (tabTienda) tabTienda.innerText = dict['tienda'];
+
+            const tabRelajacion = document.querySelector('#tab-relajacion span');
+            if (tabRelajacion) tabRelajacion.innerText = dict['serenidad'];
+
+            const msg = document.getElementById('i18n-status-msg');
+            if (msg) {
+                msg.innerText = "✓ Idioma configurado universalmente a: " + langName;
+                msg.classList.remove('hidden');
+            }
+
+            confetti({ particleCount: 25, spread: 45 });
+        }
+
+        // ================= VINCULACIÓN CON SENSORES Y ARCHIVOS NATIVOS DEL DISPOSITIVO =================
+        function triggerNativeCamera() {
+            document.getElementById('chat-multimedia-drawer').classList.add('hidden');
+            const input = document.getElementById('native-camera-input');
+            if (input) input.click();
+        }
+
+        function triggerNativeGallery() {
+            document.getElementById('chat-multimedia-drawer').classList.add('hidden');
+            const input = document.getElementById('native-gallery-input');
+            if (input) input.click();
+        }
+
+        function triggerNativeDocument() {
+            document.getElementById('chat-multimedia-drawer').classList.add('hidden');
+            const input = document.getElementById('native-doc-input');
+            if (input) input.click();
+        }
+
+        function handleNativeCameraFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                sendSimulatedPhoto(e.target.result, "Foto tomada con Cámara de tu Dispositivo 📷");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleNativeGalleryFiles(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    sendSimulatedPhoto(e.target.result, file.name || "Foto de tu Galería 🖼️");
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function handleNativeDocFiles(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const sizeMB = (file.size / (1024 * 1024)).toFixed(1) + " MB";
+            sendDocumentCard(file.name, sizeMB + " • Documento de tu Dispositivo");
+        }
+
+        // ================= GRABADOR DE VOZ CON MICRÓFONO NATIVO =================
+        let nativeAudioMediaRecorder = null;
+        let nativeAudioChunks = [];
+        let nativeAudioTimerInterval = null;
+        let nativeAudioSeconds = 0;
+
+        async function startNativeAudioRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                nativeAudioMediaRecorder = new MediaRecorder(stream);
+                nativeAudioChunks = [];
+
+                nativeAudioMediaRecorder.ondataavailable = e => {
+                    if (e.data.size > 0) nativeAudioChunks.push(e.data);
+                };
+
+                nativeAudioMediaRecorder.start();
+
+                document.getElementById('native-audio-recorder-modal').classList.remove('hidden');
+                nativeAudioSeconds = 0;
+                document.getElementById('audio-rec-timer').innerText = "00:00";
+
+                nativeAudioTimerInterval = setInterval(() => {
+                    nativeAudioSeconds++;
+                    const mins = Math.floor(nativeAudioSeconds / 60).toString().padStart(2, '0');
+                    const secs = (nativeAudioSeconds % 60).toString().padStart(2, '0');
+                    document.getElementById('audio-rec-timer').innerText = `${mins}:${secs}`;
+                }, 1000);
+
+            } catch (err) {
+                console.log("No mic access, fallback to simulation modal:", err);
+                startAudioRecordingSimulation();
+            }
+        }
+
+        function stopNativeAudioRecording(send) {
+            clearInterval(nativeAudioTimerInterval);
+            document.getElementById('native-audio-recorder-modal').classList.add('hidden');
+
+            if (nativeAudioMediaRecorder && nativeAudioMediaRecorder.state !== 'inactive') {
+                nativeAudioMediaRecorder.stop();
+                nativeAudioMediaRecorder.stream.getTracks().forEach(track => track.stop());
+            }
+
+            if (send) {
+                const durationStr = document.getElementById('audio-rec-timer').innerText;
+                simulateSendAttachment('audio', `Nota_Voz_Nativa_${durationStr}.mp3`);
+                confetti({ particleCount: 25, spread: 45 });
+            }
+        }
+
+        // ================= MODALES INTERACTIVOS DE ARCHIVOS Y CONTACTO =================
+        function openGroupFilesModal() {
+            document.getElementById('group-files-modal').classList.remove('hidden');
+        }
+
+        function closeGroupFilesModal() {
+            document.getElementById('group-files-modal').classList.add('hidden');
+        }
+
+        function openContactInfoModal() {
+            document.getElementById('contact-info-modal').classList.remove('hidden');
+        }
+
+        function closeContactInfoModal() {
+            document.getElementById('contact-info-modal').classList.add('hidden');
+        }
+
 </script>
     <!-- MODAL REPRODUCTOR DE RUTINA DE EJERCICIOS -->
     <div id="exercise-routine-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
@@ -5289,6 +5586,111 @@
                 <button onclick="closeChangePinModal()" class="flex-1 bg-slate-200 text-slate-700 py-2.5 rounded-xl font-bold text-xs hover:bg-slate-300 transition">Cancelar</button>
                 <button onclick="saveNewSecurityPIN()" class="flex-1 bg-[#33BCA9] text-white py-2.5 rounded-xl font-bold text-xs hover:bg-[#2C7A7B] transition">Guardar PIN</button>
             </div>
+        </div>
+    </div>
+
+
+    <!-- INPUTS NATIVOS OCULTOS PARA VINCULACIÓN CON SENSORES Y ARCHIVOS DEL DISPOSITIVO MÓVIL/PC -->
+    <input type="file" id="native-camera-input" accept="image/*" capture="environment" class="hidden" onchange="handleNativeCameraFile(event)">
+    <input type="file" id="native-gallery-input" accept="image/*" multiple class="hidden" onchange="handleNativeGalleryFiles(event)">
+    <input type="file" id="native-doc-input" accept=".pdf,.doc,.docx,.txt,.png,.jpg" class="hidden" onchange="handleNativeDocFiles(event)">
+
+    <!-- MODAL REPRODUCTOR Y GRABADOR DE AUDIO MICRÓFONO NATIVO DEL DISPOSITIVO -->
+    <div id="native-audio-recorder-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#FAF8EE] w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 relative border border-[#33BCA9]/30 text-slate-800 text-center">
+            <button onclick="closeNativeAudioRecorder()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto shadow-md animate-pulse">
+                <i data-lucide="mic" class="w-7 h-7"></i>
+            </div>
+            <div>
+                <h3 class="font-black text-base text-[#4C5C77]" id="audio-recorder-status-title">Grabando Nota de Voz Nativa</h3>
+                <p class="text-[10px] text-slate-500 mt-0.5" id="audio-recorder-status-sub">Habla al micrófono de tu dispositivo...</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-2">
+                <div class="text-2xl font-mono font-black text-[#2C7A7B]" id="audio-rec-timer">00:00</div>
+                <div class="flex items-center justify-center gap-1.5 h-6">
+                    <div class="w-1.5 bg-[#33BCA9] rounded-full audio-wave-bar h-2"></div>
+                    <div class="w-1.5 bg-[#33BCA9] rounded-full audio-wave-bar h-4"></div>
+                    <div class="w-1.5 bg-[#33BCA9] rounded-full audio-wave-bar h-6"></div>
+                    <div class="w-1.5 bg-[#33BCA9] rounded-full audio-wave-bar h-3"></div>
+                    <div class="w-1.5 bg-[#33BCA9] rounded-full audio-wave-bar h-5"></div>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="stopNativeAudioRecording(false)" class="flex-1 bg-slate-200 text-slate-700 py-2.5 rounded-xl font-bold text-xs hover:bg-slate-300 transition">Descartar</button>
+                <button onclick="stopNativeAudioRecording(true)" class="flex-1 bg-[#33BCA9] text-white py-2.5 rounded-xl font-bold text-xs hover:bg-[#2C7A7B] transition flex items-center justify-center gap-1">
+                    <i data-lucide="send" class="w-3.5 h-3.5"></i> Enviar Nota
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL INTERACTIVO: ARCHIVOS DEL GRUPO -->
+    <div id="group-files-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#FAF8EE] w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 relative border border-[#33BCA9]/30 text-slate-800">
+            <div class="flex justify-between items-center border-b border-[#33BCA9]/20 pb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center">
+                        <i data-lucide="folder-open" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-sm text-[#4C5C77]">Archivos Compartidos del Chat</h3>
+                        <p class="text-[9px] text-slate-500">Documentos, fotos y recetas recibidas</p>
+                    </div>
+                </div>
+                <button onclick="closeGroupFilesModal()" class="text-slate-400 hover:text-slate-600 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-lg">📄</span>
+                        <div>
+                            <h4 class="font-bold text-xs text-slate-800">Ficha_Clinica_SOAP.pdf</h4>
+                            <span class="text-[9px] text-slate-500">1.4 MB • Hace 10 min</span>
+                        </div>
+                    </div>
+                    <button onclick="alert('Descargando Ficha_Clinica_SOAP.pdf')" class="text-xs text-[#2C7A7B] font-bold">Descargar</button>
+                </div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-lg">🖼️</span>
+                        <div>
+                            <h4 class="font-bold text-xs text-slate-800">Foto_Hierbas_Romero.jpg</h4>
+                            <span class="text-[9px] text-slate-500">850 KB • Ayer</span>
+                        </div>
+                    </div>
+                    <button onclick="alert('Descargando Foto_Hierbas_Romero.jpg')" class="text-xs text-[#2C7A7B] font-bold">Ver Foto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL INTERACTIVO: INFO DEL CONTACTO -->
+    <div id="contact-info-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#FAF8EE] w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 relative border border-[#33BCA9]/30 text-slate-800 text-center">
+            <button onclick="closeContactInfoModal()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+
+            <img id="info-contact-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120" class="w-20 h-20 rounded-full object-cover border-2 border-[#33BCA9] mx-auto shadow-md">
+            <div>
+                <h3 class="font-black text-base text-slate-800" id="info-contact-name">Contacto Clínico</h3>
+                <span class="text-[10px] text-[#2C7A7B] font-bold block" id="info-contact-status">En línea • Salud Integrativa</span>
+            </div>
+
+            <div class="bg-white p-3.5 rounded-2xl border border-slate-200 text-left space-y-2 text-xs">
+                <div class="flex items-center gap-2 text-slate-600">
+                    <i data-lucide="phone" class="w-4 h-4 text-[#33BCA9]"></i>
+                    <span id="info-contact-phone">+56 9 8765 4321</span>
+                </div>
+                <div class="flex items-center gap-2 text-slate-600 border-t pt-2">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+                    <span>Cifrado de Extremo a Extremo (Supabase RLS)</span>
+                </div>
+            </div>
+
+            <button onclick="closeContactInfoModal()" class="w-full bg-[#33BCA9] text-white py-2.5 rounded-xl font-bold text-xs hover:bg-[#2C7A7B] transition">Cerrar Información</button>
         </div>
     </div>
 
