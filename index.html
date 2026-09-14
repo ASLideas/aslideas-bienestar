@@ -5817,18 +5817,7 @@
 
             const activeEl = document.getElementById('view-' + tabName);
             if (activeEl) activeEl.classList.remove('hidden');
-        };
-            if (btn) btn.className = "flex-1 min-w-[85px] text-center py-2 text-[11px] font-bold border-b-2 border-white text-white transition shrink-0";
-
-            if (document.getElementById('view-vitrina')) document.getElementById('view-vitrina').classList.add('hidden');
-            if (document.getElementById('view-cupones')) document.getElementById('view-cupones').classList.add('hidden');
-            if (document.getElementById('view-match')) document.getElementById('view-match').classList.add('hidden');
-            if (document.getElementById('view-suscripcion')) document.getElementById('view-suscripcion').classList.add('hidden');
-            if (document.getElementById('view-herramientas')) document.getElementById('view-herramientas').classList.add('hidden');
-
-            const target = document.getElementById('view-' + tabName);
-            if (target) target.classList.remove('hidden');
-        
+        }
 
         function simulateVendorSubscription(priceStr, planName) {
             alert(`💳 Redirigiendo a Webpay Plus (Transbank)...\n\nMonto Suscripción: ${priceStr}/mes\nPlan: ${planName}\n\nEl pago se procesará e ingresará directamente a la cuenta bancaria de la Creadora de la App.`);
@@ -7475,4 +7464,3 @@ Te enviaremos los detalles de entrega por chat.`);
     </script>
 </body>
 </html>
-Gemini Notebook puede ofrecer respuestas incorrectas. Compruébalas.
