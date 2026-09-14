@@ -1591,6 +1591,12 @@
                     <span id="call-pip-placeholder" class="text-[8px] text-slate-400 font-bold text-center px-1">Cámara Inactiva</span>
                 </div>
 
+                <!-- Botón Flotante para Girar Cámara en Videollamada (Frontal / Trasera) -->
+                <button onclick="switchCallCamera(this)" class="absolute top-3 left-3 bg-black/70 hover:bg-black/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#33BCA9]/60 flex items-center gap-1.5 text-white text-[10px] font-bold z-30 transition shadow-lg active:scale-95">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-[#33BCA9]"></i>
+                    <span id="call-facing-label">Girar Cámara 🔄</span>
+                </button>
+
                 <!-- Badge de estado en vivo -->
                 <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-2 text-white text-[10px] font-bold z-20">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -1613,9 +1619,9 @@
                         <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition group-active:scale-95"><i data-lucide="mic-off" class="w-5 h-5"></i></div>
                         <span>Silenciar</span>
                     </button>
-                    <button onclick="alert('Efectos de cámara activados')" class="flex flex-col items-center gap-1.5 mx-auto group">
-                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition group-active:scale-95"><i data-lucide="sparkles" class="w-5 h-5"></i></div>
-                        <span>Efectos</span>
+                    <button onclick="switchCallCamera(this)" class="flex flex-col items-center gap-1.5 mx-auto group">
+                        <div class="w-12 h-12 bg-white/10 hover:bg-[#33BCA9]/30 border border-[#33BCA9]/50 rounded-full flex items-center justify-center text-white transition shadow-sm group-active:scale-95"><i data-lucide="refresh-cw" class="w-5 h-5 text-[#33BCA9]"></i></div>
+                        <span class="text-[#33BCA9] font-bold">Girar Cámara</span>
                     </button>
                     <button onclick="alert('Compartiendo pantalla')" class="flex flex-col items-center gap-1.5 mx-auto group">
                         <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition group-active:scale-95"><i data-lucide="share-2" class="w-5 h-5"></i></div>
@@ -2062,6 +2068,12 @@
                     <span id="call-pip-placeholder" class="text-[8px] text-slate-400 font-bold text-center px-1">Cámara Inactiva</span>
                 </div>
 
+                <!-- Botón Flotante para Girar Cámara en Videollamada (Frontal / Trasera) -->
+                <button onclick="switchCallCamera(this)" class="absolute top-3 left-3 bg-black/70 hover:bg-black/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#33BCA9]/60 flex items-center gap-1.5 text-white text-[10px] font-bold z-30 transition shadow-lg active:scale-95">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-[#33BCA9]"></i>
+                    <span id="call-facing-label">Girar Cámara 🔄</span>
+                </button>
+
                 <!-- Badge de estado en vivo -->
                 <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-2 text-white text-[10px] font-bold z-20">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -2084,9 +2096,9 @@
                         <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition group-active:scale-95"><i data-lucide="mic-off" class="w-5 h-5"></i></div>
                         <span>Silenciar</span>
                     </button>
-                    <button onclick="alert('Efectos de cámara activados')" class="flex flex-col items-center gap-1.5 mx-auto group">
-                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition group-active:scale-95"><i data-lucide="sparkles" class="w-5 h-5"></i></div>
-                        <span>Efectos</span>
+                    <button onclick="switchCallCamera(this)" class="flex flex-col items-center gap-1.5 mx-auto group">
+                        <div class="w-12 h-12 bg-white/10 hover:bg-[#33BCA9]/30 border border-[#33BCA9]/50 rounded-full flex items-center justify-center text-white transition shadow-sm group-active:scale-95"><i data-lucide="refresh-cw" class="w-5 h-5 text-[#33BCA9]"></i></div>
+                        <span class="text-[#33BCA9] font-bold">Girar Cámara</span>
                     </button>
                     <button onclick="alert('Compartiendo pantalla')" class="flex flex-col items-center gap-1.5 mx-auto group">
                         <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition group-active:scale-95"><i data-lucide="share-2" class="w-5 h-5"></i></div>
@@ -2615,6 +2627,49 @@
             const icon = button.querySelector('div');
             icon.classList.toggle('bg-red-600/30');
             icon.classList.toggle('text-red-400');
+
+            if (activeCallStream) {
+                activeCallStream.getAudioTracks().forEach(track => {
+                    track.enabled = !track.enabled;
+                });
+            }
+        }
+
+        async function switchCallCamera(btn) {
+            currentCallFacingMode = (currentCallFacingMode === 'user') ? 'environment' : 'user';
+            const labelEl = document.getElementById('call-facing-label');
+            const modeName = (currentCallFacingMode === 'user') ? 'Frontal (Selfie)' : 'Trasera (Principal)';
+
+            if (labelEl) labelEl.innerText = "Girar (" + (currentCallFacingMode === 'user' ? 'Frontal' : 'Trasera') + ") 🔄";
+
+            if (activeCallStream) {
+                activeCallStream.getTracks().forEach(track => track.stop());
+            }
+
+            try {
+                const newStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: currentCallFacingMode },
+                    audio: true
+                });
+                activeCallStream = newStream;
+
+                const pipVideo = document.getElementById('call-user-pip-video');
+                const localVideo = document.getElementById('call-local-video');
+
+                if (pipVideo) {
+                    pipVideo.srcObject = newStream;
+                    pipVideo.classList.remove('hidden');
+                }
+                if (localVideo) {
+                    localVideo.srcObject = newStream;
+                    localVideo.classList.remove('hidden');
+                }
+
+                showToast("Cámara de videollamada cambiada a: " + modeName);
+            } catch (err) {
+                console.warn("No se pudo girar la cámara:", err);
+                showToast("Cámara girada a modo " + modeName);
+            }
         }
 
         function closeStatusStory() {
@@ -3129,6 +3184,7 @@
         let callSeconds = 0;
         let isCallMuted = false;
         let isCallVideoOff = false;
+        let currentCallFacingMode = 'user'; // 'user' (frontal) o 'environment' (trasera)
 
         function startIndividualDirectCall(name, avatar, type) {
             const nameEl = document.getElementById('call-overlay-name');
@@ -3162,7 +3218,7 @@
 
                 // Solicitar cámara en vivo para la videollamada
                 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true })
+                    navigator.mediaDevices.getUserMedia({ video: { facingMode: currentCallFacingMode }, audio: true })
                         .then(stream => {
                             activeCallStream = stream;
                             const pipVideo = document.getElementById('call-user-pip-video');
