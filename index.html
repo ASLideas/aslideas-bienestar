@@ -644,12 +644,12 @@
                     </div>
 
                     <!-- Subpestañas Principales de Emprende -->
-                    <!-- Subpestañas Principales de Emprende (4 Pestañas Claras y Deslizables) -->
-                    <div class="flex border-t border-[#33BCA9]/30 mt-3 overflow-x-auto whitespace-nowrap no-scrollbar gap-1">
-                        <button onclick="switchStoreTab('vitrina', this)" id="store-tab-vitrina" class="flex-1 min-w-[85px] text-center py-2 text-[11px] font-bold border-b-2 border-white text-white transition shrink-0">🛍️ Vitrina</button>
-                        <button onclick="switchStoreTab('match', this)" id="store-tab-match" class="flex-1 min-w-[95px] text-center py-2 text-[11px] font-semibold border-b-2 border-transparent text-[#E0F7F4] hover:text-white transition shrink-0">📍 Match Local</button>
-                        <button onclick="switchStoreTab('suscripcion', this)" id="store-tab-suscripcion" class="flex-1 min-w-[105px] text-center py-2 text-[11px] font-semibold border-b-2 border-transparent text-[#E0F7F4] hover:text-white transition shrink-0">⭐ Suscripción</button>
-                        <button onclick="switchStoreTab('herramientas', this)" id="store-tab-herramientas" class="flex-1 min-w-[95px] text-center py-2 text-[11px] font-semibold border-b-2 border-transparent text-[#E0F7F4] hover:text-white transition shrink-0">⚙️ Business Hub</button>
+                    <div class="flex border-t border-[#33BCA9]/30 mt-3 overflow-x-auto whitespace-nowrap no-scrollbar">
+                        <button onclick="switchStoreTab('vitrina', this)" id="store-tab-vitrina" class="flex-1 text-center py-2 px-3 text-xs font-bold border-b-2 border-white text-white shrink-0">🛍️ Vitrina Virtual</button>
+                        <button onclick="switchStoreTab('match', this)" id="store-tab-match" class="flex-1 text-center py-2 px-3 text-xs font-semibold border-b-2 border-transparent text-[#E0F7F4] shrink-0">📍 Match Local</button>
+                        <button onclick="switchStoreTab('herramientas', this)" id="store-tab-herramientas" class="flex-1 text-center py-2 px-3 text-xs font-semibold border-b-2 border-transparent text-[#E0F7F4] shrink-0">⚙️ Administración de mi Tienda</button>
+                        <button onclick="switchStoreTab('cupones', this)" id="store-tab-cupones" class="flex-1 text-center py-2 px-3 text-xs font-semibold border-b-2 border-transparent text-[#E0F7F4] shrink-0">🎁 Cupones & Pasos</button>
+                        <button onclick="switchStoreTab('suscripcion', this)" id="store-tab-suscripcion" class="flex-1 text-center py-2 px-3 text-xs font-semibold border-b-2 border-transparent text-[#E0F7F4] shrink-0">⭐ Suscripción</button>
                     </div>
                 </header>
 
@@ -658,7 +658,7 @@
                     <!-- 1. VISTA VITRINA VIRTUAL -->
                     <div id="view-vitrina" class="space-y-4">
 
-                        # Filtros de Categorías Deslizables
+                        <!-- Filtros de Categorías Deslizables -->
                         <div class="flex gap-2 overflow-x-auto whitespace-nowrap no-scrollbar pb-1 scroll-smooth select-none">
                             <button onclick="filterStoreCategory('todos', this)" class="store-cat-btn bg-[#2C7A7B] text-white text-[11px] px-3.5 py-1.5 rounded-full font-bold transition shrink-0 shadow-xs">✨ Todos</button>
                             <button onclick="filterStoreCategory('hierbas', this)" class="store-cat-btn bg-white text-[#5A738E] border border-[#33BCA9]/20 text-[11px] px-3.5 py-1.5 rounded-full font-semibold transition shrink-0 hover:bg-[#E0F7F4]">🌿 Hierbas & Infusiones</button>
@@ -787,7 +787,7 @@
                                 </div>
 
                                 <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-150 flex justify-between items-center text-[10px]">
-                                    <span class="text-slate-600 font-medium">Acepta **Webpay** y Retiro Inmediato</span>
+                                    <span class="text-slate-600 font-medium">Acepta <strong>Webpay</strong> y Retiro Inmediato</span>
                                     <span class="text-[#2C7A7B] font-bold">Abierto Ahora 🟢</span>
                                 </div>
 
@@ -835,33 +835,14 @@
                     <div
                     <!-- 3. VISTA SUSCRIPCIÓN & VISIBILIDAD PARA EMPRENDEDORES (MODELO SAAS) -->
                     <div id="view-suscripcion" class="space-y-4 hidden">
-                        <!-- Banner de Estado de la Creadora / Propietaria -->
-                        <div class="bg-gradient-to-r from-slate-900 via-[#0B2526] to-[#2C7A7B] p-4.5 rounded-2xl text-white shadow-lg space-y-3 relative overflow-hidden border border-[#33BCA9]/30">
-                            <div class="absolute -right-4 -top-4 w-20 h-20 bg-[#33BCA9]/20 rounded-full blur-xl"></div>
-
-                            <div class="flex justify-between items-start">
-                                <div class="space-y-1">
-                                    <span class="bg-[#33BCA9]/20 text-[#33BCA9] border border-[#33BCA9]/40 text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full inline-block">
-                                        👑 ROL: CREADORA & SUPER ADMIN
-                                    </span>
-                                    <h3 class="font-black text-sm text-white">Tu Cuenta: Acceso Vitalicio Propietaria</h3>
-                                    <p class="text-[10px] text-slate-300">Como creadora de la súper-app, tu cuenta es **100% Gratuita ($0)** con visibilidad máxima e ilimitada.</p>
-                                </div>
-                                <div class="w-10 h-10 bg-amber-400/20 text-amber-300 rounded-2xl border border-amber-400/40 flex items-center justify-center shrink-0">
-                                    <i data-lucide="crown" class="w-5 h-5"></i>
-                                </div>
+                        <!-- Banner Promocional de Suscripciones -->
+                        <div class="bg-gradient-to-r from-[#2C7A7B] to-[#33BCA9] text-white p-4 rounded-2xl shadow-sm flex items-center justify-between">
+                            <div class="space-y-1">
+                                <span class="bg-white/20 text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full">Planes Comerciales</span>
+                                <h3 class="font-black text-sm text-white">Suscripciones & Visibilidad Tienda</h3>
+                                <p class="text-[10px] text-[#E0F7F4]">Destaca tu emprendimiento, vende vía Webpay Plus y figura en el Match Local GPS.</p>
                             </div>
-
-                            <div class="bg-black/40 p-3 rounded-xl border border-white/10 grid grid-cols-2 gap-2 text-[10px]">
-                                <div>
-                                    <span class="text-slate-400 block font-mono text-[9px]">ESTADO MIEMBRO</span>
-                                    <span class="text-emerald-400 font-black">Activo • $0 (Propietaria)</span>
-                                </div>
-                                <div>
-                                    <span class="text-slate-400 block font-mono text-[9px]">VISIBILIDAD MATCH</span>
-                                    <span class="text-[#33BCA9] font-black">#1 Destacada Inmediata</span>
-                                </div>
-                            </div>
+                            <i data-lucide="award" class="w-8 h-8 text-white shrink-0"></i>
                         </div>
 
                         <!-- Encabezado de Suscripciones para Otros Vendedores -->
@@ -877,7 +858,7 @@
                             </div>
                         </div>
 
-                        # Tarjetas de Planes para Emprendedores
+                        <!-- Tarjetas de Planes para Emprendedores -->
                         <div class="space-y-3.5">
 
                             <!-- Plan 1: Básico Gratuito -->
@@ -920,9 +901,9 @@
                                 <p class="text-[10px] text-slate-500 leading-relaxed">Ideal para huertos, talleres y tiendas de cosmética que buscan clientes en su mismo barrio.</p>
 
                                 <ul class="text-[10.5px] text-slate-700 space-y-2 border-t border-slate-100 pt-2.5">
-                                    <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] fill-current"></i> **Aparecer en Match Local Cerca de Mí** (GPS)</li>
+                                    <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] fill-current"></i> <strong>Aparecer en Match Local Cerca de Mí</strong> (GPS)</li>
                                     <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] fill-current"></i> Publicación de hasta 15 productos</li>
-                                    <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] fill-current"></i> **Insignia Verificada 🌿** en la Vitrina</li>
+                                    <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] fill-current"></i> <strong>Insignia Verificada 🌿</strong> en la Vitrina</li>
                                     <li class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] fill-current"></i> Cobros directos mediante Webpay Plus</li>
                                 </ul>
 
@@ -945,9 +926,9 @@
                                 </div>
 
                                 <ul class="text-[10.5px] text-slate-300 space-y-2 border-t border-white/10 pt-2.5">
-                                    <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-current"></i> **Posición #1 Fija en Match Local Cerca de Mí**</li>
+                                    <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-current"></i> <strong>Posición #1 Fija en Match Local Cerca de Mí</strong></li>
                                     <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Publicación Ilimitada de Productos</li>
-                                    <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="video" class="w-4 h-4 text-amber-400"></i> **Agente IA de Video Marketing** (Reels & TikTok)</li>
+                                    <li class="flex items-center gap-1.5 font-semibold"><i data-lucide="video" class="w-4 h-4 text-amber-400"></i> <strong>Agente IA de Video Marketing</strong> (Reels & TikTok)</li>
                                 </ul>
 
                                 <button onclick="simulateVendorSubscription('$19.900', 'Tienda VIP & Muestras')" class="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 py-2.5 rounded-xl text-xs font-black transition shadow-xs flex items-center justify-center gap-2 active:scale-95">
@@ -5803,9 +5784,19 @@
         }
 
         function switchStoreTab(tabName, btn) {
-            document.querySelectorAll('#store-tab-vitrina, #store-tab-match, #store-tab-suscripcion, #store-tab-herramientas').forEach(b => {
-                if (b) b.className = "flex-1 min-w-[85px] text-center py-2 text-[11px] font-semibold border-b-2 border-transparent text-[#E0F7F4] hover:text-white transition shrink-0";
+            document.querySelectorAll('#store-tab-vitrina, #store-tab-match, #store-tab-herramientas, #store-tab-cupones, #store-tab-suscripcion').forEach(b => {
+                if (b) b.className = "flex-1 text-center py-2 px-3 text-xs font-semibold border-b-2 border-transparent text-[#E0F7F4] shrink-0";
             });
+            if (btn) btn.className = "flex-1 text-center py-2 px-3 text-xs font-bold border-b-2 border-white text-white shrink-0";
+
+            ['vitrina', 'match', 'herramientas', 'cupones', 'suscripcion'].forEach(view => {
+                const el = document.getElementById('view-' + view);
+                if (el) el.classList.add('hidden');
+            });
+
+            const activeEl = document.getElementById('view-' + tabName);
+            if (activeEl) activeEl.classList.remove('hidden');
+        }
             if (btn) btn.className = "flex-1 min-w-[85px] text-center py-2 text-[11px] font-bold border-b-2 border-white text-white transition shrink-0";
 
             if (document.getElementById('view-vitrina')) document.getElementById('view-vitrina').classList.add('hidden');
@@ -5816,7 +5807,7 @@
 
             const target = document.getElementById('view-' + tabName);
             if (target) target.classList.remove('hidden');
-        }
+        
 
         function simulateVendorSubscription(priceStr, planName) {
             alert(`💳 Redirigiendo a Webpay Plus (Transbank)...\n\nMonto Suscripción: ${priceStr}/mes\nPlan: ${planName}\n\nEl pago se procesará e ingresará directamente a la cuenta bancaria de la Creadora de la App.`);
