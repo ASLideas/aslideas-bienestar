@@ -7,7 +7,11 @@
     <!-- Tailwind CSS para un diseño moderno y fluido con paleta Teal Air -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons para una iconografía limpia y uniforme -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Lucide Icons (CDN Dual para máxima confiabilidad en móviles) -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js" onerror="this.onerror=null; this.src='https://unpkg.com/lucide@latest';"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- Biblioteca de Confeti para celebraciones interactivas -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -2696,8 +2700,15 @@
             </div>
         </div>
 <script>
+
+        function safeInitLucide() {
+            if (window.lucide && typeof lucide.createIcons === 'function') {
+                try { lucide.createIcons(); } catch(e) { console.warn('Lucide init error:', e); }
+            }
+        }
+
         // Inicializar Lucide Icons
-        lucide.createIcons();
+        safeInitLucide();
 
         // Estado del Calendario Interactivo
         let selectedDay = 7; // Día seleccionado por defecto (7 de Septiembre, coincidente con metadata)
@@ -2871,7 +2882,7 @@
                 `;
             }
 
-            if (window.lucide) lucide.createIcons();
+            if (window.lucide) safeInitLucide();
         }
 
         function switchSaludSubTab(tabName, button) {
@@ -3000,7 +3011,7 @@
                 rowTeno.classList.remove('hidden');
                 rowFamilia.classList.remove('hidden');
             }
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function toggleMainMenu() {
@@ -3383,7 +3394,7 @@
                 </div>
             `;
             stream.appendChild(wrapper);
-            lucide.createIcons();
+            safeInitLucide();
 
             setTimeout(() => {
                 stream.scrollTop = stream.scrollHeight;
@@ -3625,7 +3636,7 @@
             if (stream) {
                 stream.appendChild(wrapper);
                 stream.scrollTop = stream.scrollHeight;
-                if (window.lucide) lucide.createIcons();
+                if (window.lucide) safeInitLucide();
             }
             const drawer = document.getElementById('chat-multimedia-drawer');
             if (drawer) drawer.classList.add('hidden');
@@ -4103,7 +4114,7 @@
                 `;
                 container.appendChild(el);
             });
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function triggerImmediateAlarm(doctor, establishment) {
@@ -4349,7 +4360,7 @@
                 playIcon.setAttribute('data-lucide', 'play');
                 clearInterval(spotifyInterval);
             }
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function updateSpotifyProgressUI() {
@@ -4476,7 +4487,7 @@
                     </div>
                 `;
             }
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function selectSpotifyTrack(index) {
@@ -4604,7 +4615,7 @@
                 modeFace.classList.remove('hidden');
                 modeFace.classList.add('flex');
             }
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function pressPinKey(digit) {
@@ -5042,7 +5053,7 @@
             container.innerHTML = bodyHTML;
 
             modal.classList.remove('hidden');
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function closeSettingsSubDetail() {
@@ -5132,7 +5143,7 @@
                 </div>
             `;
             stream.appendChild(wrapper);
-            lucide.createIcons();
+            safeInitLucide();
             setTimeout(() => { stream.scrollTop = stream.scrollHeight; }, 50);
 
             // Respuesta automática del contacto
@@ -5187,7 +5198,7 @@
                 </div>
             `;
             stream.appendChild(wrapper);
-            lucide.createIcons();
+            safeInitLucide();
             setTimeout(() => { stream.scrollTop = stream.scrollHeight; }, 50);
 
             setTimeout(() => {
@@ -5237,7 +5248,7 @@
                 </div>
             `;
             stream.appendChild(wrapper);
-            lucide.createIcons();
+            safeInitLucide();
             setTimeout(() => { stream.scrollTop = stream.scrollHeight; }, 50);
 
             setTimeout(() => {
@@ -5317,7 +5328,7 @@
                 </div>
             `;
             stream.appendChild(wrapper);
-            lucide.createIcons();
+            safeInitLucide();
             setTimeout(() => { stream.scrollTop = stream.scrollHeight; }, 50);
 
             setTimeout(() => {
@@ -5384,7 +5395,7 @@
                 </div>
             `;
             stream.appendChild(wrapper);
-            lucide.createIcons();
+            safeInitLucide();
             setTimeout(() => { stream.scrollTop = stream.scrollHeight; }, 50);
 
             setTimeout(() => {
@@ -5731,7 +5742,7 @@
             if (statusBox) statusBox.classList.remove('hidden');
 
             confetti({ particleCount: 25, spread: 45 });
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function clearChatMediaFiles() {
@@ -5748,7 +5759,7 @@
                 if (statusBox) statusBox.classList.remove('hidden');
 
                 confetti({ particleCount: 35, spread: 55 });
-                lucide.createIcons();
+                safeInitLucide();
             }
         }
 
@@ -5801,7 +5812,7 @@
                 `;
                 grid.appendChild(card);
             });
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function switchStoreTab(tabName, btn) {
@@ -5863,7 +5874,7 @@
                 `;
                 document.getElementById('cart-subtotal').innerText = '$0';
                 document.getElementById('cart-total').innerText = '$0';
-                lucide.createIcons();
+                safeInitLucide();
                 return;
             }
 
@@ -5915,7 +5926,7 @@
             document.getElementById('cart-shipping').innerText = shipping === 0 ? '¡GRATIS!' : '$' + shipping.toLocaleString('es-CL');
             document.getElementById('cart-total').innerText = '$' + total.toLocaleString('es-CL');
 
-            lucide.createIcons();
+            safeInitLucide();
         }
 
         function changeCartQty(prodId, delta) {
@@ -7282,7 +7293,7 @@ Te enviaremos los detalles de entrega por chat.`);
                 btn.className = "w-full bg-emerald-700 text-white p-3 rounded-2xl font-black text-xs flex items-center justify-center gap-2";
 
                 document.getElementById('video-ad-preview-container').classList.remove('hidden');
-                lucide.createIcons();
+                safeInitLucide();
             }, 1200);
         }
 
