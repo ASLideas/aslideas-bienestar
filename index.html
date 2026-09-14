@@ -1604,7 +1604,50 @@
                 </div>
             </div>
 
-            <!-- Botones inferiores (Altavoz, Video, Silenciar, Más, Compartir, Finalizar) -->
+            <!-- CAJÓN DESPLEGABLE DE CONTROLES AVANZADOS DE LLAMADA (REQUERIMIENTO FOTO 42) -->
+            <div id="call-options-drawer" class="absolute bottom-28 left-4 right-4 bg-[#111C24]/95 backdrop-blur-xl border border-[#33BCA9]/30 rounded-3xl p-4 shadow-2xl z-40 space-y-3 transition-all duration-300 text-slate-100 hidden">
+                <div class="flex justify-between items-center pb-1.5 border-b border-slate-700/60">
+                    <span class="text-[10px] font-black uppercase text-[#33BCA9] tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="sliders" class="w-3.5 h-3.5"></i> Opciones de Llamada en Vivo
+                    </span>
+                    <button onclick="toggleCallOptionsDrawer()" class="text-slate-400 hover:text-white p-1 rounded-full"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+
+                <!-- Opciones Interactivas Solicitadas en la Foto 42 (Compartir Pantalla, Enviar Mensaje, Cancelación de Ruido) -->
+                <div class="space-y-2 text-xs font-bold">
+                    <!-- Opción 1: Compartir pantalla -->
+                    <button onclick="triggerCallScreenShare()" class="w-full p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-between text-slate-200 transition group active:scale-98">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8.5 h-8.5 rounded-xl bg-[#33BCA9]/20 text-[#33BCA9] flex items-center justify-center"><i data-lucide="share-2" class="w-4.5 h-4.5"></i></div>
+                            <span class="text-xs">Compartir pantalla</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:translate-x-0.5 transition"></i>
+                    </button>
+
+                    <!-- Opción 2: Enviar mensaje -->
+                    <button onclick="triggerInCallQuickMessage()" class="w-full p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-between text-slate-200 transition group active:scale-98">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8.5 h-8.5 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center"><i data-lucide="message-square" class="w-4.5 h-4.5"></i></div>
+                            <span class="text-xs">Enviar mensaje en llamada</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:translate-x-0.5 transition"></i>
+                    </button>
+
+                    <!-- Opción 3: Cancelación de ruido con Interruptor Toggle Verde -->
+                    <div class="w-full p-3 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between text-slate-200">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8.5 h-8.5 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center"><i data-lucide="mic" class="w-4.5 h-4.5"></i></div>
+                            <span class="text-xs">Cancelación de ruido</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="noise-cancel-toggle" checked class="sr-only peer" onchange="toggleNoiseCancellation(this)">
+                            <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#33BCA9]"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones inferiores (Altavoz, Video, Silenciar, Girar Cámara, Más Opciones, Finalizar) -->
             <div class="space-y-4 shrink-0">
                 <div class="grid grid-cols-3 gap-y-4 gap-x-2 text-center text-[10px] font-bold text-slate-300">
                     <button onclick="toggleCallSpeaker(this)" class="flex flex-col items-center gap-1.5 mx-auto group">
@@ -1623,9 +1666,9 @@
                         <div class="w-12 h-12 bg-white/10 hover:bg-[#33BCA9]/30 border border-[#33BCA9]/50 rounded-full flex items-center justify-center text-white transition shadow-sm group-active:scale-95"><i data-lucide="refresh-cw" class="w-5 h-5 text-[#33BCA9]"></i></div>
                         <span class="text-[#33BCA9] font-bold">Girar Cámara</span>
                     </button>
-                    <button onclick="alert('Compartiendo pantalla')" class="flex flex-col items-center gap-1.5 mx-auto group">
-                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition group-active:scale-95"><i data-lucide="share-2" class="w-5 h-5"></i></div>
-                        <span>Compartir</span>
+                    <button onclick="toggleCallOptionsDrawer()" class="flex flex-col items-center gap-1.5 mx-auto group">
+                        <div class="w-12 h-12 bg-[#33BCA9]/20 hover:bg-[#33BCA9]/30 border border-[#33BCA9]/60 rounded-full flex items-center justify-center text-[#33BCA9] transition group-active:scale-95 shadow-sm"><i data-lucide="sliders" class="w-5 h-5"></i></div>
+                        <span class="text-[#33BCA9] font-bold">Más Opciones</span>
                     </button>
                     <button onclick="endCall()" class="flex flex-col items-center gap-1.5 mx-auto group">
                         <div class="w-12 h-12 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transition shadow-lg group-active:scale-95"><i data-lucide="phone-off" class="w-5 h-5"></i></div>
@@ -2081,7 +2124,50 @@
                 </div>
             </div>
 
-            <!-- Botones inferiores (Altavoz, Video, Silenciar, Más, Compartir, Finalizar) -->
+            <!-- CAJÓN DESPLEGABLE DE CONTROLES AVANZADOS DE LLAMADA (REQUERIMIENTO FOTO 42) -->
+            <div id="call-options-drawer" class="absolute bottom-28 left-4 right-4 bg-[#111C24]/95 backdrop-blur-xl border border-[#33BCA9]/30 rounded-3xl p-4 shadow-2xl z-40 space-y-3 transition-all duration-300 text-slate-100 hidden">
+                <div class="flex justify-between items-center pb-1.5 border-b border-slate-700/60">
+                    <span class="text-[10px] font-black uppercase text-[#33BCA9] tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="sliders" class="w-3.5 h-3.5"></i> Opciones de Llamada en Vivo
+                    </span>
+                    <button onclick="toggleCallOptionsDrawer()" class="text-slate-400 hover:text-white p-1 rounded-full"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+
+                <!-- Opciones Interactivas Solicitadas en la Foto 42 (Compartir Pantalla, Enviar Mensaje, Cancelación de Ruido) -->
+                <div class="space-y-2 text-xs font-bold">
+                    <!-- Opción 1: Compartir pantalla -->
+                    <button onclick="triggerCallScreenShare()" class="w-full p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-between text-slate-200 transition group active:scale-98">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8.5 h-8.5 rounded-xl bg-[#33BCA9]/20 text-[#33BCA9] flex items-center justify-center"><i data-lucide="share-2" class="w-4.5 h-4.5"></i></div>
+                            <span class="text-xs">Compartir pantalla</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:translate-x-0.5 transition"></i>
+                    </button>
+
+                    <!-- Opción 2: Enviar mensaje -->
+                    <button onclick="triggerInCallQuickMessage()" class="w-full p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-between text-slate-200 transition group active:scale-98">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8.5 h-8.5 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center"><i data-lucide="message-square" class="w-4.5 h-4.5"></i></div>
+                            <span class="text-xs">Enviar mensaje en llamada</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:translate-x-0.5 transition"></i>
+                    </button>
+
+                    <!-- Opción 3: Cancelación de ruido con Interruptor Toggle Verde -->
+                    <div class="w-full p-3 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between text-slate-200">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8.5 h-8.5 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center"><i data-lucide="mic" class="w-4.5 h-4.5"></i></div>
+                            <span class="text-xs">Cancelación de ruido</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="noise-cancel-toggle" checked class="sr-only peer" onchange="toggleNoiseCancellation(this)">
+                            <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#33BCA9]"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones inferiores (Altavoz, Video, Silenciar, Girar Cámara, Más Opciones, Finalizar) -->
             <div class="space-y-4 shrink-0">
                 <div class="grid grid-cols-3 gap-y-4 gap-x-2 text-center text-[10px] font-bold text-slate-300">
                     <button onclick="toggleCallSpeaker(this)" class="flex flex-col items-center gap-1.5 mx-auto group">
@@ -2100,9 +2186,9 @@
                         <div class="w-12 h-12 bg-white/10 hover:bg-[#33BCA9]/30 border border-[#33BCA9]/50 rounded-full flex items-center justify-center text-white transition shadow-sm group-active:scale-95"><i data-lucide="refresh-cw" class="w-5 h-5 text-[#33BCA9]"></i></div>
                         <span class="text-[#33BCA9] font-bold">Girar Cámara</span>
                     </button>
-                    <button onclick="alert('Compartiendo pantalla')" class="flex flex-col items-center gap-1.5 mx-auto group">
-                        <div class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition group-active:scale-95"><i data-lucide="share-2" class="w-5 h-5"></i></div>
-                        <span>Compartir</span>
+                    <button onclick="toggleCallOptionsDrawer()" class="flex flex-col items-center gap-1.5 mx-auto group">
+                        <div class="w-12 h-12 bg-[#33BCA9]/20 hover:bg-[#33BCA9]/30 border border-[#33BCA9]/60 rounded-full flex items-center justify-center text-[#33BCA9] transition group-active:scale-95 shadow-sm"><i data-lucide="sliders" class="w-5 h-5"></i></div>
+                        <span class="text-[#33BCA9] font-bold">Más Opciones</span>
                     </button>
                     <button onclick="endCall()" class="flex flex-col items-center gap-1.5 mx-auto group">
                         <div class="w-12 h-12 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transition shadow-lg group-active:scale-95"><i data-lucide="phone-off" class="w-5 h-5"></i></div>
@@ -3253,6 +3339,60 @@
             const contactName = chatNameEl ? chatNameEl.innerText : "Contacto";
             const contactAvatar = chatAvatarEl ? chatAvatarEl.src : "";
             startIndividualDirectCall(contactName, contactAvatar, type);
+        }
+
+        // Cajón desplegable de controles de llamada de la Foto 42
+        function toggleCallOptionsDrawer() {
+            const drawer = document.getElementById('call-options-drawer');
+            if (drawer) drawer.classList.toggle('hidden');
+        }
+
+        async function triggerCallScreenShare() {
+            try {
+                if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+                    const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                    const localVideo = document.getElementById('call-local-video');
+                    if (localVideo) {
+                        localVideo.srcObject = screenStream;
+                        localVideo.classList.remove('hidden');
+                    }
+                    alert("📺 Compartiendo pantalla en vivo en la videollamada.");
+                } else {
+                    alert("📺 Simulación: Compartiendo pantalla en tiempo real.");
+                }
+            } catch (err) {
+                console.warn("Compartir pantalla no activado:", err);
+            }
+        }
+
+        function triggerInCallQuickMessage() {
+            toggleCallOptionsDrawer();
+            const msg = prompt("Escribe un mensaje rápido para enviar durante la llamada:");
+            if (msg && msg.trim().length > 0) {
+                const stream = document.getElementById('chat-messages-stream');
+                if (stream) {
+                    const bubble = document.createElement('div');
+                    bubble.className = "flex justify-end";
+                    bubble.innerHTML = `
+                        <div class="flex flex-col items-end gap-1 max-w-[85%] ml-auto">
+                            <div class="bg-[#E0F7F4] p-3 rounded-2xl rounded-br-none shadow-xs border border-[#33BCA9]/20">
+                                <p class="text-xs text-slate-800">💬 [Mensaje en llamada]: ${msg}</p>
+                            </div>
+                        </div>
+                    `;
+                    stream.appendChild(bubble);
+                    stream.scrollTop = stream.scrollHeight;
+                }
+                alert("💬 Mensaje publicado exitosamente en el chat.");
+            }
+        }
+
+        function toggleNoiseCancellation(checkbox) {
+            if (checkbox.checked) {
+                alert("🎙️ Cancelación de ruido por IA ACTIVADA (Filtro HD de voz)");
+            } else {
+                alert("🎙️ Cancelación de ruido DESACTIVADA");
+            }
         }
 
         // Finalizar llamada
