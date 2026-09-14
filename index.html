@@ -222,7 +222,7 @@
                 </div>
 
                 <!-- Lista Dinámica de Filtros -->
-                <div class="flex-1 overflow-y-auto no-scrollbar pb-20 bg-[#FAF8EE]">
+                <div class="flex-1 overflow-y-auto no-scrollbar pb-32 bg-[#FAF8EE]">
 
                     <!-- VISTA DE CONVERSACIONES -->
                     <div id="chat-list-view" class="divide-y divide-[#33BCA9]/10">
@@ -383,7 +383,7 @@
                     </div>
                 </header>
 
-                <div class="flex-1 overflow-y-auto p-4 no-scrollbar space-y-4 pb-20">
+                <div class="flex-1 overflow-y-auto p-4 no-scrollbar space-y-4 pb-32">
 
                     <!-- CALENDARIO DE ALARMAS MÉDICAS (REQUERIMIENTO: INTERACTIVO EN FOTO 3 PARA RECORDAR LAS HORAS - POR DEFECTO AL ENTRAR) -->
                     <div id="salud-calendario" class="space-y-4">
@@ -653,7 +653,7 @@
                     </div>
                 </header>
 
-                <div class="flex-1 overflow-y-auto p-4 no-scrollbar pb-24 bg-[#FAF8EE]">
+                <div class="flex-1 overflow-y-auto p-4 no-scrollbar pb-32 bg-[#FAF8EE]">
 
                     <!-- 1. VISTA VITRINA VIRTUAL -->
                     <div id="view-vitrina" class="space-y-4">
@@ -1190,7 +1190,7 @@
                     <i data-lucide="moon" class="w-5 h-5 text-yellow-300 animate-pulse"></i>
                 </header>
 
-                <div class="flex-1 overflow-y-auto p-4.5 no-scrollbar space-y-4 pb-24">
+                <div class="flex-1 overflow-y-auto p-4.5 no-scrollbar space-y-4 pb-32">
 
                     <!-- REPRODUCTOR DE MÚSICA ESTILO SPOTIFY -->
                     <div class="bg-[#121E2B]/95 p-4.5 rounded-3xl border border-white/5 shadow-2xl space-y-3.5 relative overflow-hidden">
@@ -2543,7 +2543,7 @@
         </div>
 
         <!-- BARRA DE NAVEGACIÓN INFERIOR (TEAL AIR STYLE, Imagen 10 y 24) -->
-        <nav id="main-nav-bar" class="bg-white border-t border-[#33BCA9]/15 py-3 px-4 flex justify-between items-center shrink-0 shadow-lg z-30">
+        <nav id="main-nav-bar" class="bg-white/95 backdrop-blur-md border-t border-[#33BCA9]/25 py-2.5 px-3 flex justify-between items-center shrink-0 shadow-2xl z-40 sticky bottom-0 left-0 right-0 pb-[calc(0.6rem+env(safe-area-inset-bottom,0px))] transition-all duration-200">
             <!-- Bienestar / Chats (Pestaña 1) -->
             <button onclick="switchTab('chats', this)" id="tab-btn-chats" class="tab-btn flex flex-col items-center gap-1 transition w-20">
                 <div class="relative bg-[#E0F7F4] text-[#2C7A7B] px-5 py-1.5 rounded-full flex items-center justify-center shadow-sm">
@@ -3468,6 +3468,7 @@
             }
             const overlay = document.getElementById('chat-camera-overlay');
             if (overlay) overlay.classList.add('hidden');
+            const mainNav = document.getElementById('main-nav-bar'); if (mainNav) mainNav.classList.remove('hidden');
         }
 
         function switchCameraFacingMode() {
@@ -3578,6 +3579,7 @@
             }
             const overlay = document.getElementById('audio-recording-overlay');
             if (overlay) overlay.classList.add('hidden');
+            const mainNav = document.getElementById('main-nav-bar'); if (mainNav) mainNav.classList.remove('hidden');
         }
 
         function sendSimulatedVoiceMessage() {
@@ -3824,6 +3826,7 @@
             if (localVideo) { localVideo.srcObject = null; localVideo.classList.add('hidden'); }
 
             document.getElementById('call-overlay').classList.add('hidden');
+            const mainNav = document.getElementById('main-nav-bar'); if (mainNav) mainNav.classList.remove('hidden');
         }
 
         function toggleCallMute(btn) {
