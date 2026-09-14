@@ -117,68 +117,68 @@
 
             <!-- ================= PANTALLA 1: BIENESTAR (CHATS, NOVEDADES Y LLAMADAS) ================= -->
             <div id="screen-chats" class="flex-1 flex flex-col h-full overflow-hidden bg-[#FAF8EE]">
-                <header class="px-4 pt-3.5 pb-3 flex flex-col shrink-0 bg-[#FAF8EE] border-b border-[#33BCA9]/20 relative shadow-xs space-y-2">
-                    <!-- INTRODUCCIÓN CON LOGO EN GRANDE Y MARCA OFICIAL -->
-                    <div class="flex items-center justify-between gap-3">
-                        <div class="flex items-center gap-3 min-w-0">
-                            <!-- Logo en grande con resplandor neón suave -->
-                            <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center p-1 border-2 border-[#33BCA9] shadow-[0_0_15px_rgba(51,188,169,0.3)] shrink-0 relative overflow-hidden">
-                                <img src="logo png.jpeg" alt="ASLIDEAS Bienestar Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=120&h=120';">
-                            </div>
-                            <div class="min-w-0">
-                                <div class="flex items-center gap-1.5">
-                                    <h1 class="text-base font-black text-[#2D3748] tracking-tight leading-none">ASLIDEAS BIENESTAR</h1>
-                                    <span class="text-[8px] bg-[#E0F7F4] text-[#2C7A7B] font-extrabold px-1.5 py-0.2 rounded border border-[#33BCA9]/30 uppercase">Oficial</span>
-                                </div>
-                                <p class="text-[10px] text-[#5A738E] font-bold mt-0.5 truncate">Salud Herbolaria, Frecuencias & Serenidad</p>
-                            </div>
+                <header class="px-5 pt-4 pb-3 flex flex-col shrink-0 bg-[#FAF8EE] border-b border-[#33BCA9]/20 relative shadow-xs">
+                    <!-- Rediseño Cabecera Centrada con Nombre "Bienestar" y Titular Limpio -->
+                    <div class="relative flex items-center justify-between min-h-[64px]">
+                        <!-- Izquierda: Avatares -->
+                        <div class="flex -space-x-2 overflow-hidden items-center shrink-0">
+                            <img class="inline-block h-7 w-7 rounded-full ring-2 ring-[#FAF8EE] object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=60&h=60" alt="Médico">
+                            <img class="inline-block h-7 w-7 rounded-full ring-2 ring-[#FAF8EE] object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=60&h=60" alt="Terapeuta">
                         </div>
 
-                        <!-- Izquierda/Derecha: Avatares y Menú -->
-                        <div class="flex items-center gap-2 text-[#4C5C77] shrink-0">
-                            <div class="flex -space-x-2 overflow-hidden items-center">
-                                <img class="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=60&h=60" alt="Médico">
-                                <img class="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=60&h=60" alt="Terapeuta">
-                            </div>
-                            <i onclick="toggleMainMenu()" data-lucide="more-vertical" class="w-5 h-5 cursor-pointer hover:text-[#33BCA9] transition p-1 rounded-full hover:bg-slate-100" id="three-dots-button"></i>
+                        <!-- Centro: TÍTULO LIMPIO "BIENESTAR" CENTRADO -->
+                        <div class="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center">
+                            <h1 class="text-xl font-black text-[#2D3748] tracking-tight leading-none">Bienestar</h1>
+                            <span class="text-[8px] font-extrabold uppercase tracking-widest text-[#33BCA9] mt-1">SÚPER-APP INTEGRATIVA</span>
+                        </div>
+
+                        <!-- Derecha: Acciones -->
+                        <div class="flex items-center gap-3 text-[#4C5C77] relative shrink-0">
+                            <i data-lucide="search" class="w-5 h-5 cursor-pointer hover:text-[#33BCA9] transition"></i>
+                            <i onclick="toggleMainMenu()" data-lucide="more-vertical" class="w-5 h-5 cursor-pointer hover:text-[#33BCA9] transition" id="three-dots-button"></i>
                         </div>
                     </div>
 
-                    <!-- Menú unificado de 3 puntos (Imágenes 14 y 18) -->
+                    <!-- Menú unificado de 3 puntos -->
                     <div id="main-context-menu" class="absolute right-5 top-16 w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-150/80 hidden z-50 py-1.5 divide-y divide-slate-100">
                         <div class="py-1">
-                            <button onclick="triggerMenuAction('Anuncios publicitarios')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
+                            <button onclick="triggerMenuAction('Anuncios publicitarios')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
                                 <i data-lucide="megaphone" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Anuncios publicitarios
                             </button>
-                            <button onclick="triggerMenuAction('Nuevo grupo')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
+                            <button onclick="triggerMenuAction('Ajustes de Business')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
+                                <i data-lucide="store" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Ajustes de Business
+                            </button>
+                            <button onclick="triggerMenuAction('Perfil de la empresa')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
+                                <i data-lucide="building-2" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Perfil de la empresa
+                            </button>
+                            <button onclick="triggerMenuAction('Catálogo')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
+                                <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Catálogo
+                            </button>
+                        </div>
+
+                        <div class="py-1">
+                            <button onclick="triggerMenuAction('Nuevo grupo')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
                                 <i data-lucide="users" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Nuevo grupo
                             </button>
-                            <button onclick="triggerMenuAction('Comunidades')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
-                                <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-500"></i> Comunidades
+                            <button onclick="triggerMenuAction('Dispositivos vinculados')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
+                                <i data-lucide="laptop" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Dispositivos vinculados
                             </button>
-                            <button onclick="triggerMenuAction('Listas')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
-                                <i data-lucide="list-filter" class="w-3.5 h-3.5 text-slate-500"></i> Listas
-                            </button>
-                        </div>
-                        <div class="py-1">
-                            <button onclick="triggerMenuAction('Dispositivos vinculados')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
-                                <i data-lucide="laptop" class="w-3.5 h-3.5 text-indigo-500"></i> Dispositivos vinculados
-                            </button>
-                            <button onclick="triggerMenuAction('Mensajes destacados')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
+                            <button onclick="triggerMenuAction('Mensajes destacados')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
                                 <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-500"></i> Mensajes destacados
                             </button>
-                            <button onclick="triggerMenuAction('Pedidos')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
-                                <i data-lucide="shopping-cart" class="w-3.5 h-3.5 text-emerald-500"></i> Pedidos
-                            </button>
-                            <button onclick="triggerMenuAction('Bloqueo de aplicación')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
+                        </div>
+
+                        <div class="py-1">
+                            <button onclick="triggerMenuAction('Bloqueo de aplicación')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
                                 <i data-lucide="fingerprint" class="w-3.5 h-3.5 text-red-500"></i> Bloqueo de aplicación
                             </button>
-                        </div>
-                        <div class="py-1">
-                            <button onclick="triggerMenuAction('Ajustes')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-[#B8F2EE]/40 hover:text-[#2C7A7B] font-semibold flex items-center gap-2">
-                                <i data-lucide="settings" class="w-3.5 h-3.5 text-slate-500"></i> Ajustes
+                            <button onclick="triggerMenuAction('Ajustes')" class="w-full text-left px-4 py-2 text-xs text-[#4C5C77] hover:bg-[#E0F7F4]/50 font-medium flex items-center gap-2.5">
+                                <i data-lucide="settings" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Ajustes
                             </button>
-                            <button onclick="triggerMenuAction('Cerrar sesión')" class="w-full text-left px-4 py-2 text-xs text-red-600 hover:bg-red-50 font-bold flex items-center gap-2">
+                        </div>
+
+                        <div class="py-1">
+                            <button onclick="triggerMenuAction('Cerrar sesión')" class="w-full text-left px-4 py-2 text-xs text-red-600 hover:bg-red-50 font-bold flex items-center gap-2.5">
                                 <i data-lucide="log-out" class="w-3.5 h-3.5 text-red-500"></i> Cerrar sesión
                             </button>
                         </div>
@@ -2558,10 +2558,10 @@
                 <span class="text-[10px] font-extrabold text-[#2C7A7B] mt-1.5 leading-none">Chat</span>
             </button>
 
-            <!-- Wellness (Pestaña 2) -->
+            <!-- Bienestar (Pestaña 2) -->
             <button onclick="switchTab('bienestar', this)" id="tab-btn-bienestar" class="tab-btn flex flex-col items-center gap-1.5 text-[#5A738E] hover:text-[#33BCA9] transition w-20">
                 <i data-lucide="heart-pulse" class="w-6 h-6 text-[#5A738E]"></i>
-                <span class="text-[10px] font-semibold leading-none text-[#5A738E] mt-1.5">Wellness</span>
+                <span class="text-[10px] font-semibold leading-none text-[#5A738E] mt-1.5">Bienestar</span>
             </button>
 
             <!-- Tienda (Pestaña 3) -->
@@ -2788,7 +2788,7 @@
 
             document.getElementById('screen-' + tabName).classList.remove('hidden');
 
-            // Resetear barra de estado (cambia a oscura si es Serenidad)
+            // Resetear barra de estado (cambia a oscura si es Serenidad/Descanso)
             const statusBar = document.getElementById('system-status-bar');
             if (tabName === 'relajacion') {
                 statusBar.className = "bg-[#0A1118] text-white text-xs px-6 py-2.5 flex justify-between items-center shrink-0 z-40 transition-colors duration-300";
@@ -2816,7 +2816,7 @@
                         <div class="relative flex items-center justify-center text-[#5A738E] py-1">
                             <i data-lucide="heart-pulse" class="w-6 h-6"></i>
                         </div>
-                        <span class="text-[10px] font-medium leading-none text-[#5A738E] mt-1">Wellness</span>
+                        <span class="text-[10px] font-medium leading-none text-[#5A738E] mt-1">Bienestar</span>
                     `;
                 } else if (isTienda) {
                     btn.innerHTML = `
@@ -2848,7 +2848,7 @@
                     <div class="relative flex items-center justify-center text-[#2C7A7B] py-1">
                         <i data-lucide="heart-pulse" class="w-6 h-6 text-[#2C7A7B]"></i>
                     </div>
-                    <span class="text-[10px] font-black text-[#2C7A7B] mt-1 leading-none">Wellness</span>
+                    <span class="text-[10px] font-black text-[#2C7A7B] mt-1 leading-none">Bienestar</span>
                 `;
                 setTimeout(() => {
                     // Cargar Calendario/Horas por defecto
@@ -2871,10 +2871,9 @@
                 `;
             }
 
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
         }
 
-        // Control de subpestañas en Wellness
         function switchSaludSubTab(tabName, button) {
             const subTabs = ['perfil', 'pasos', 'calorias', 'ejercicios', 'calendario'];
             subTabs.forEach(tab => {
@@ -7476,3 +7475,4 @@ Te enviaremos los detalles de entrega por chat.`);
     </script>
 </body>
 </html>
+Gemini Notebook puede ofrecer respuestas incorrectas. Compruébalas.
