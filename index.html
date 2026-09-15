@@ -2851,5 +2851,271 @@
         </div>
     </div>
 
+
+        <!-- ========================================== -->
+        <!-- MÓDULO HÍBRIDO: WHATSAPP + BUSINESS + TELEGRAM -->
+        <!-- ========================================== -->
+        <section id="seccion-chat-hibrido" class="bg-white rounded-3xl p-6 shadow-xl border border-emerald-100 my-8 hidden">
+            <div class="flex flex-col md:flex-row items-center justify-between border-b pb-4 mb-6 gap-4">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Centro de Comunicación</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-1 flex items-center gap-2">
+                        <span>💬</span> Bienestar Chat & Canales
+                    </h2>
+                    <p class="text-sm text-gray-500">Híbrido inteligente de mensajería directa, gestión comercial y canales comunitarios.</p>
+                </div>
+                <!-- Selector de Modo / Pestañas Híbridas -->
+                <div class="flex bg-gray-100 p-1.5 rounded-2xl w-full md:w-auto overflow-x-auto gap-1">
+                    <button onclick="switchChatMode('whatsapp')" id="btn-mode-wa" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-emerald-600 text-white shadow-sm">
+                        <span>🟢</span> WhatsApp Directo
+                    </button>
+                    <button onclick="switchChatMode('business')" id="btn-mode-biz" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-gray-600 hover:bg-gray-200">
+                        <span>💼</span> Business & Catálogo
+                    </button>
+                    <button onclick="switchChatMode('telegram')" id="btn-mode-tg" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-gray-600 hover:bg-gray-200">
+                        <span>✈️</span> Telegram Canales
+                    </button>
+                </div>
+            </div>
+
+            <!-- VISTA 1: WHATSAPP DIRECTO (Mensajería 1 a 1) -->
+            <div id="chat-view-whatsapp" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border rounded-2xl p-4 bg-gray-50 space-y-3">
+                    <h3 class="font-bold text-gray-700 text-sm flex justify-between items-center">
+                        <span>Chats Activos</span>
+                        <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded-full">3 nuevos</span>
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="p-3 bg-white rounded-xl shadow-sm border border-emerald-200 flex items-center gap-3 cursor-pointer hover:bg-emerald-50">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center gap-1 justify-center text-emerald-700 font-bold">DR</div>
+                            <div class="flex-1 text-xs">
+                                <div class="flex justify-between font-bold text-gray-800">
+                                    <span>Dr. Mateo Silva</span>
+                                    <span class="text-gray-400 font-normal">10:42 AM</span>
+                                </div>
+                                <p class="text-gray-500 truncate">Hola, confirmamos tu sesión de meditación guiada...</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 cursor-pointer hover:bg-gray-50">
+                            <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold">CB</div>
+                            <div class="flex-1 text-xs">
+                                <div class="flex justify-between font-bold text-gray-800">
+                                    <span>Centro Bienestar Norte</span>
+                                    <span class="text-gray-400 font-normal">Ayer</span>
+                                </div>
+                                <p class="text-gray-500 truncate">Tu cupón de 15% de descuento está listo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 border rounded-2xl p-4 bg-emerald-50/40 flex flex-col justify-between h-96">
+                    <div class="flex items-center justify-between border-b border-emerald-100 pb-3 bg-white p-3 rounded-xl shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MS</div>
+                            <div>
+                                <h4 class="font-bold text-xs text-gray-800">Dr. Mateo Silva</h4>
+                                <span class="text-[10px] text-emerald-600 font-medium flex items-center gap-1">● En línea (Especialista Lawenmoll)</span>
+                            </div>
+                        </div>
+                        <button class="text-xs bg-emerald-100 text-emerald-700 font-bold px-3 py-1.5 rounded-lg hover:bg-emerald-200">
+                            📅 Agendar Cita
+                        </button>
+                    </div>
+
+                    <div class="space-y-3 overflow-y-auto p-2 text-xs">
+                        <div class="bg-white p-3 rounded-2xl shadow-sm max-w-[80%] border border-gray-100">
+                            <p class="text-gray-700">¡Hola! He revisado los resultados de tu Test Biométrico. Recomiendo comenzar con ejercicios de respiración guiada 10 min al día.</p>
+                            <span class="text-[9px] text-gray-400 block mt-1 text-right">10:40 AM</span>
+                        </div>
+                        <div class="bg-emerald-600 text-white p-3 rounded-2xl shadow-sm max-w-[80%] ml-auto">
+                            <p>¡Muchas gracias Doctor! Me gustaría agendar la sesión para mañana jueves.</p>
+                            <span class="text-[9px] text-emerald-200 block mt-1 text-right">10:42 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 border-t pt-3 bg-white p-2 rounded-xl border-emerald-100">
+                        <input type="text" placeholder="Escribe un mensaje seguro..." class="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <button class="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-emerald-700">
+                            Enviar 🚀
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: WHATSAPP BUSINESS (Catálogo & Gestión) -->
+            <div id="chat-view-business" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border rounded-2xl p-4 bg-amber-50/50 space-y-4">
+                    <h3 class="font-bold text-gray-800 text-sm flex items-center gap-2">
+                        <span>🛍️</span> Catálogo de Servicios
+                    </h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="bg-white p-3 rounded-xl border border-amber-200 shadow-sm space-y-1">
+                            <div class="flex justify-between font-bold text-gray-800">
+                                <span>Sesión Fitoterapia / Hierbas</span>
+                                <span class="text-emerald-600">5.000 CLP</span>
+                            </div>
+                            <p class="text-gray-500">Evaluación naturista y formulación personalizada de infusiones.</p>
+                            <button class="w-full mt-2 bg-amber-600 text-white font-bold py-1.5 rounded-lg text-[11px] hover:bg-amber-700">
+                                Compartir Ficha por Chat
+                            </button>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm space-y-1">
+                            <div class="flex justify-between font-bold text-gray-800">
+                                <span>Pase Libre Gimnasio (3 Días)</span>
+                                <span class="text-emerald-600">Gratis con Membresía</span>
+                            </div>
+                            <p class="text-gray-500">Convenio con centros deportivos asociados.</p>
+                            <button class="w-full mt-2 bg-gray-800 text-white font-bold py-1.5 rounded-lg text-[11px] hover:bg-gray-900">
+                                Validar Cupones
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 border rounded-2xl p-5 bg-white space-y-4">
+                    <h3 class="font-bold text-gray-800 text-sm flex items-center gap-2 border-b pb-2">
+                        <span>🏷️</span> Etiquetas & Automatización Business
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-center">
+                            <span class="text-xl block mb-1">🆕</span>
+                            <span class="font-bold text-emerald-800 block">Nuevo Paciente</span>
+                            <span class="text-[10px] text-emerald-600">5 registrados</span>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 text-center">
+                            <span class="text-xl block mb-1">📅</span>
+                            <span class="font-bold text-blue-800 block">Cita Pendiente</span>
+                            <span class="text-[10px] text-blue-600">3 por confirmar</span>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded-xl border border-purple-200 text-center">
+                            <span class="text-xl block mb-1">💳</span>
+                            <span class="font-bold text-purple-800 block">Pago Recibido</span>
+                            <span class="text-[10px] text-purple-600">12 este mes</span>
+                        </div>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-center">
+                            <span class="text-xl block mb-1">⭐</span>
+                            <span class="font-bold text-amber-800 block">Paciente Frecuente</span>
+                            <span class="text-[10px] text-amber-600">8 activos</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2 text-xs">
+                        <h4 class="font-bold text-gray-700">⚡ Respuestas Rápidas Automatizadas</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div class="bg-white p-2 rounded-lg border text-gray-600">
+                                <strong>/horarios:</strong> "Nuestro horario de atención es de Lunes a Viernes de 9:00 a 19:00 hrs."
+                            </div>
+                            <div class="bg-white p-2 rounded-lg border text-gray-600">
+                                <strong>/ubicacion:</strong> "Centros asociados en Santiago, Viña del Mar y Concepción."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 3: TELEGRAM CANALES & COMUNIDAD -->
+            <div id="chat-view-telegram" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border rounded-2xl p-4 bg-sky-50/50 space-y-3">
+                    <h3 class="font-bold text-sky-900 text-sm flex items-center justify-between">
+                        <span>📢 Canales de Difusión</span>
+                        <span class="bg-sky-500 text-white text-[10px] px-2 py-0.5 rounded-full">Oficial</span>
+                    </h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-3 bg-white rounded-xl border border-sky-200 shadow-sm cursor-pointer hover:bg-sky-50">
+                            <div class="flex justify-between font-bold text-gray-800">
+                                <span>🌿 Canal Meditación & Mente</span>
+                                <span class="text-sky-600">1.2k miembros</span>
+                            </div>
+                            <p class="text-gray-500 truncate">Audio diario de 5 minutos enviado hoy a las 8:00 AM</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-gray-100 shadow-sm cursor-pointer hover:bg-gray-50">
+                            <div class="flex justify-between font-bold text-gray-800">
+                                <span>🥑 Nutrición Antiinflamatoria</span>
+                                <span class="text-sky-600">850 miembros</span>
+                            </div>
+                            <p class="text-gray-500 truncate">Recetario PDF descargable de batidos verdes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 border rounded-2xl p-5 bg-sky-900 text-white space-y-4 flex flex-col justify-between h-96">
+                    <div>
+                        <div class="flex justify-between items-center border-b border-sky-800 pb-3 mb-4">
+                            <div>
+                                <h4 class="font-bold text-sm flex items-center gap-2">
+                                    <span>📢</span> Canal Oficial: Bienestar Integral Lawenmoll
+                                </h4>
+                                <span class="text-[10px] text-sky-300">Transmisión unidireccional y archivos pesados sin límite</span>
+                            </div>
+                            <span class="bg-sky-700 text-sky-200 text-xs px-3 py-1 rounded-full">Suscrito</span>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-sky-800/80 p-3 rounded-2xl border border-sky-700 max-w-[90%]">
+                                <span class="text-[10px] text-sky-300 font-bold block mb-1">🎙️ AUDIO EXCLUSIVO DE HOY</span>
+                                <p class="mb-2">Escucha la guía de relajación para reducir el cortisol antes de dormir.</p>
+                                <div class="bg-sky-950 p-2 rounded-xl flex items-center gap-3">
+                                    <button class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">▶</button>
+                                    <div class="flex-1 bg-sky-800 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-emerald-400 h-full w-1/3"></div>
+                                    </div>
+                                    <span class="text-[10px] text-sky-300">03:45</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-[11px] text-sky-300 border-t border-sky-800 pt-3">
+                        Solo los administradores certificados de Bienestar pueden publicar en este canal.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCRIPT PARA CONMUTAR MÓDULOS DE CHAT -->
+        <script>
+            function switchChatMode(mode) {
+                const waView = document.getElementById('chat-view-whatsapp');
+                const bizView = document.getElementById('chat-view-business');
+                const tgView = document.getElementById('chat-view-telegram');
+
+                const btnWa = document.getElementById('btn-mode-wa');
+                const btnBiz = document.getElementById('btn-mode-biz');
+                const btnTg = document.getElementById('btn-mode-tg');
+
+                // Ocultar todas las vistas
+                if (waView) waView.classList.add('hidden');
+                if (bizView) bizView.classList.add('hidden');
+                if (tgView) tgView.classList.add('hidden');
+
+                // Resetear botones
+                [btnWa, btnBiz, btnTg].forEach(btn => {
+                    if (btn) {
+                        btn.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-gray-600 hover:bg-gray-200';
+                    }
+                });
+
+                // Activar vista seleccionada
+                if (mode === 'whatsapp' && waView && btnWa) {
+                    waView.classList.remove('hidden');
+                    btnWa.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-emerald-600 text-white shadow-sm';
+                } else if (mode === 'business' && bizView && btnBiz) {
+                    bizView.classList.remove('hidden');
+                    btnBiz.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-amber-600 text-white shadow-sm';
+                } else if (mode === 'telegram' && tgView && btnTg) {
+                    tgView.classList.remove('hidden');
+                    btnTg.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-sky-600 text-white shadow-sm';
+                }
+            }
+
+            // Asegurar visibilidad de la sección de chat
+            document.addEventListener('DOMContentLoaded', () => {
+                const chatSection = document.getElementById('seccion-chat-hibrido');
+                if (chatSection) {
+                    chatSection.classList.remove('hidden');
+                }
+            });
+        </script>
+
 </body>
 </html>
