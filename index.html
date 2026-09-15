@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAWENMOLL - Test de Bienestar Inteligente v57</title>
+    <title>BIENESTAR - Súper-App Híbrida v148 (WhatsApp & Telegram)</title>
     <!-- Tailwind CSS para diseño moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -69,6 +69,40 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="text-slateDark min-h-screen flex flex-col justify-between">
+
+    <!-- ========================================== -->
+    <!-- PANTALLA DE BIENVENIDA / SPLASH SCREEN     -->
+    <!-- ========================================== -->
+    <div id="appSplashScreen" class="fixed inset-0 z-[9999] bg-slate-900 flex flex-col items-center justify-center text-white transition-opacity duration-700 ease-in-out">
+        <div class="relative flex flex-col items-center">
+            <!-- Halo resplandeciente animado -->
+            <div class="absolute -inset-4 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 opacity-75 blur-lg animate-pulse"></div>
+            
+            <!-- Logo contenedor -->
+            <div class="relative w-28 h-28 rounded-3xl bg-slate-800/90 border-2 border-emerald-400/50 flex items-center justify-center shadow-2xl p-4 mb-6">
+                <span class="text-6xl animate-bounce">🌿</span>
+            </div>
+
+            <!-- Título y Marca -->
+            <h1 class="text-4xl font-extrabold tracking-wider bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200 bg-clip-text text-transparent mb-2">
+                BIENESTAR
+            </h1>
+            <p class="text-emerald-300/80 text-sm font-medium tracking-widest uppercase mb-8">
+                Salud · Armonía · Longevidad
+            </p>
+
+            <!-- Barra de Carga -->
+            <div class="w-64 bg-slate-800 rounded-full h-2 overflow-hidden border border-emerald-500/30 mb-3">
+                <div id="splashProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-300 h-full w-0 transition-all duration-1000 ease-out"></div>
+            </div>
+            <p id="splashStatusText" class="text-xs text-slate-400 font-mono">Cargando módulos de salud...</p>
+        </div>
+        
+        <div class="absolute bottom-6 text-center text-xs text-slate-500">
+            Súper-App Híbrida v148 · WhatsApp & Telegram Integrated
+        </div>
+    </div>
+
     <!-- MODAL DE CONSENTIMIENTO Y CIBERSEGURIDAD (LEY N° 21.663 & LEY DE PROTECCIÓN DE DATOS) -->
     <div id="consentModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slateDark/60 backdrop-blur-sm animate-fadeIn">
         <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-gray-100 flex flex-col max-h-[90vh] overflow-hidden">
@@ -3116,6 +3150,187 @@
                 }
             });
         </script>
+
+
+
+    <!-- MODAL CAMARA -->
+    <div id="cameraModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
+            <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
+                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📷 Cámara Bienestar</h3>
+                <button onclick="closeCameraModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="w-full h-56 bg-slate-950 rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-emerald-500/40 relative overflow-hidden mb-4">
+                    <span class="text-5xl mb-2 animate-pulse">📸</span>
+                    <p class="text-xs text-emerald-400 font-medium">Vista previa de cámara activada</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Captura fotos de fichas médicas, exámenes o consultas</p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    <button onclick="alert('¡Fotografía capturada con éxito!'); closeCameraModal();" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg shadow-emerald-900/40 transition">
+                        <span>🔘</span> Tomar Foto
+                    </button>
+                    <button onclick="closeCameraModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 px-5 rounded-full border border-slate-600">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADJUNTAR ARCHIVO -->
+    <div id="fileModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
+            <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
+                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📎 Adjuntar Documento o Receta</h3>
+                <button onclick="closeFileModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
+            </div>
+            <div class="p-6">
+                <div class="border-2 border-dashed border-emerald-500/50 hover:border-emerald-400 rounded-2xl p-6 text-center bg-slate-950/50 cursor-pointer transition mb-4">
+                    <span class="text-4xl">📄</span>
+                    <p class="text-sm font-semibold text-slate-200 mt-2">Arrastra tu archivo aquí o haz clic</p>
+                    <p class="text-xs text-slate-400 mt-1">Soporta PDF, JPG, PNG, DOCX (Máx 25MB)</p>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <button onclick="alert('Documento PDF seleccionado'); closeFileModal();" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 flex items-center gap-2 text-xs font-medium">
+                        <span class="text-red-400 text-base">📑</span> Ficha Médica PDF
+                    </button>
+                    <button onclick="alert('Examen de laboratorio seleccionado'); closeFileModal();" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 flex items-center gap-2 text-xs font-medium">
+                        <span class="text-emerald-400 text-base">🧪</span> Examen Clínico
+                    </button>
+                </div>
+                <button onclick="closeFileModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2.5 rounded-xl border border-slate-600">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LLAMADA DE VOZ -->
+    <div id="voiceCallModal" class="fixed inset-0 z-[9900] bg-slate-950/95 backdrop-blur-lg hidden flex flex-col items-center justify-between p-8 text-white">
+        <div class="text-center mt-12">
+            <div class="w-24 h-24 rounded-full bg-emerald-600/30 border-2 border-emerald-400 flex items-center justify-center mx-auto mb-4 animate-pulse">
+                <span class="text-5xl">📞</span>
+            </div>
+            <h2 id="callTargetName" class="text-2xl font-bold">Especialista Bienestar</h2>
+            <p class="text-emerald-400 text-sm font-medium mt-1">Llamada de voz en curso (00:14)...</p>
+        </div>
+        <div class="flex items-center gap-6 mb-12">
+            <button onclick="alert('Micrófono silenciado')" class="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xl hover:bg-slate-700">
+                🎙️
+            </button>
+            <button onclick="endVoiceCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-lg shadow-red-900/50 flex items-center justify-center text-2xl text-white">
+                📞
+            </button>
+            <button onclick="alert('Altavoz activado')" class="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xl hover:bg-slate-700">
+                🔊
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL VIDEOLLAMADA HD -->
+    <div id="videoCallModal" class="fixed inset-0 z-[9900] bg-slate-950 hidden flex flex-col justify-between p-6 text-white relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-emerald-950/40 to-slate-950 -z-10 flex items-center justify-center">
+            <div class="text-center opacity-40">
+                <span class="text-8xl">🧘‍♂️</span>
+                <p class="text-sm mt-4 font-mono">Transmisión de Video HD cifrada extremo a extremo</p>
+            </div>
+        </div>
+        <!-- PIP propia cámara -->
+        <div class="absolute top-6 right-6 w-32 h-44 bg-slate-800 border-2 border-emerald-400 rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden">
+            <span class="text-3xl">👤</span>
+            <span class="absolute bottom-1 right-2 text-[9px] bg-black/60 px-1 rounded text-emerald-300">Tú</span>
+        </div>
+        <div class="mt-4">
+            <h2 id="videoTargetName" class="text-xl font-bold text-white">Consulta Online HD</h2>
+            <p class="text-xs text-emerald-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> En vivo · 01:25 min</p>
+        </div>
+        <div class="flex justify-center items-center gap-6 mb-8">
+            <button onclick="alert('Cámara alternada')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
+                🔄
+            </button>
+            <button onclick="endVideoCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-xl shadow-red-900/60 flex items-center justify-center text-2xl text-white">
+                📞
+            </button>
+            <button onclick="alert('Pantalla compartida')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
+                🖥️
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        // Control de la Splash Screen
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBar = document.getElementById('splashProgressBar');
+            const statusText = document.getElementById('splashStatusText');
+            const splashScreen = document.getElementById('appSplashScreen');
+
+            if (progressBar && splashScreen) {
+                setTimeout(() => { progressBar.style.width = '40%'; statusText.textContent = 'Iniciando chat híbrido...'; }, 400);
+                setTimeout(() => { progressBar.style.width = '80%'; statusText.textContent = 'Cargando herramientas business...'; }, 1000);
+                setTimeout(() => { 
+                    progressBar.style.width = '100%'; 
+                    statusText.textContent = '¡Bienvenido a Bienestar!'; 
+                }, 1600);
+                
+                setTimeout(() => {
+                    splashScreen.classList.add('opacity-0', 'pointer-events-none');
+                    setTimeout(() => { splashScreen.style.display = 'none'; }, 700);
+                }, 2200);
+            }
+        });
+
+        function replaySplashScreen() {
+            const splashScreen = document.getElementById('appSplashScreen');
+            const progressBar = document.getElementById('splashProgressBar');
+            const statusText = document.getElementById('splashStatusText');
+            if (splashScreen) {
+                splashScreen.style.display = 'flex';
+                splashScreen.classList.remove('opacity-0', 'pointer-events-none');
+                if (progressBar) progressBar.style.width = '0%';
+                if (statusText) statusText.textContent = 'Cargando módulos...';
+                
+                setTimeout(() => { progressBar.style.width = '50%'; }, 300);
+                setTimeout(() => { progressBar.style.width = '100%'; }, 900);
+                setTimeout(() => {
+                    splashScreen.classList.add('opacity-0', 'pointer-events-none');
+                    setTimeout(() => { splashScreen.style.display = 'none'; }, 700);
+                }, 1500);
+            }
+        }
+
+        // Modales del Chat Híbrido
+        function openCameraModal() {
+            document.getElementById('cameraModal')?.classList.remove('hidden');
+        }
+        function closeCameraModal() {
+            document.getElementById('cameraModal')?.classList.add('hidden');
+        }
+
+        function openFileModal() {
+            document.getElementById('fileModal')?.classList.remove('hidden');
+        }
+        function closeFileModal() {
+            document.getElementById('fileModal')?.classList.add('hidden');
+        }
+
+        function startVoiceCall(name = 'Especialista Bienestar') {
+            document.getElementById('callTargetName').textContent = name;
+            document.getElementById('voiceCallModal')?.classList.remove('hidden');
+        }
+        function endVoiceCall() {
+            document.getElementById('voiceCallModal')?.classList.add('hidden');
+        }
+
+        function startVideoCall(name = 'Especialista Bienestar') {
+            document.getElementById('videoTargetName').textContent = name;
+            document.getElementById('videoCallModal')?.classList.remove('hidden');
+        }
+        function endVideoCall() {
+            document.getElementById('videoCallModal')?.classList.add('hidden');
+        }
+    </script>
 
 </body>
 </html>
