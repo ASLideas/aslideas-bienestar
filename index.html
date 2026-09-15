@@ -3332,5 +3332,191 @@
         }
     </script>
 
+<script>
+    // ==========================================
+    // INTEGRACIÓN CÁMARA & VIDEOLLAMADA WEBRTC
+    // ==========================================
+    let cameraStream = null;
+    let callStream = null;
+    let currentFacingMode = 'user';
+    let isMicMuted = false;
+    let isCamOff = false;
+    let callTimerInterval = null;
+    let callSeconds = 0;
+
+    // --- SPLASH SCREEN AUTO HIDE ---
+    window.addEventListener('load', () => {
+        const progress = document.getElementById('splashProgress');
+        const splash = document.getElementById('splashScreen');
+        if (progress) progress.style.width = '100%';
+        setTimeout(() => {
+            if (splash) {
+                splash.style.opacity = '0';
+                splash.style.pointerEvents = 'none';
+                setTimeout(() => splash.style.display = 'none', 700);
+            }
+        }, 1200);
+    });
+
+    // Fallback if load already fired
+    setTimeout(() => {
+        const splash = document.getElementById('splashScreen');
+        if (splash && splash.style.display !== 'none') {
+            splash.style.opacity = '0';
+            splash.style.pointerEvents = 'none';
+            setTimeout(() => splash.style.display = 'none', 700);
+        }
+    }, 2000);
+
+    // --- CÁMARA EN VIVO ---
+    async function openCameraModal() {
+        const modal = document.getElementById('cameraModal');
+        const video = document.getElementById('cameraFeed');
+        const placeholder = document.getElementById('cameraPlaceholder');
+        
+        if (modal) modal.classList.remove('hidden');
+        if (placeholder) placeholder.classList.add('hidden');
+
+        try {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+            }
+            cameraStream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: currentFacingMode }
+            });
+            if (video) video.srcObject = cameraStream;
+        } catch (err) {
+            console.warn('Acceso a cámara no disponible o denegado:', err);
+            if (placeholder) placeholder.classList.remove('hidden');
+        }
+    }
+
+    function closeCameraModal() {
+        const modal = document.getElementById('cameraModal');
+        if (modal) modal.classList.add('hidden');
+        if (cameraStream) {
+            cameraStream.getTracks().forEach(track => track.stop());
+            cameraStream = null;
+        }
+    }
+
+    async function switchCameraFacing() {
+        currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+        await openCameraModal();
+    }
+
+    function capturePhotoToChat() {
+        const video = document.getElementById('cameraFeed');
+        const canvas = document.getElementById('cameraCanvas');
+        if (!video || !canvas) return;
+
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const photoData = canvas.toDataURL('image/png');
+
+        // Insert message with photo into chat
+        const chatBox = document.getElementById('chatMessages');
+        if (chatBox) {
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const msgHtml = `
+                <div class="flex justify-end mb-3">
+                    <div class="bg-emerald-700 text-white p-2.5 rounded-2xl rounded-tr-none max-w-xs shadow-md">
+                        <img src="${photoData}" class="w-full h-48 object-cover rounded-xl mb-1 border border-emerald-500/50">
+                        <p class="text-[10px] text-emerald-200 text-right font-mono">${timeStr} • Foto adjunta 📸</p>
+                    </div>
+                </div>
+            `;
+            chatBox.insertAdjacentHTML('beforeend', msgHtml);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        closeCameraModal();
+    }
+
+    // --- VIDEOLLAMADA WEBRTC ---
+    async function startVideoCall(doctorName = 'Dr. Carlos Mendoza') {
+        const modal = document.getElementById('videoCallModal');
+        const localVideo = document.getElementById('localVideoFeed');
+        const partnerElem = document.getElementById('callPartnerName');
+        
+        if (partnerElem) partnerElem.textContent = doctorName;
+        if (modal) modal.classList.remove('hidden');
+
+        try {
+            callStream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            });
+            if (localVideo) localVideo.srcObject = callStream;
+        } catch (err) {
+            console.warn('Acceso a cámara/micrófono restringido:', err);
+        }
+
+        // Start Timer
+        callSeconds = 0;
+        clearInterval(callTimerInterval);
+        callTimerInterval = setInterval(() => {
+            callSeconds++;
+            const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+            const secs = String(callSeconds % 60).padStart(2, '0');
+            const timerElem = document.getElementById('callTimer');
+            if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+        }, 1000);
+    }
+
+    function toggleMuteMic() {
+        if (!callStream) return;
+        isMicMuted = !isMicMuted;
+        callStream.getAudioTracks().forEach(t => t.enabled = !isMicMuted);
+        const btn = document.getElementById('btnMuteMic');
+        if (btn) {
+            btn.innerHTML = isMicMuted ? '🔇' : '🎙️';
+            btn.classList.toggle('bg-red-800', isMicMuted);
+        }
+    }
+
+    function toggleCameraVideo() {
+        if (!callStream) return;
+        isCamOff = !isCamOff;
+        callStream.getVideoTracks().forEach(t => t.enabled = !isCamOff);
+        const btn = document.getElementById('btnToggleCam');
+        if (btn) {
+            btn.innerHTML = isCamOff ? '📷' : '📹';
+            btn.classList.toggle('bg-red-800', isCamOff);
+        }
+    }
+
+    function endVideoCall() {
+        const modal = document.getElementById('videoCallModal');
+        if (modal) modal.classList.add('hidden');
+
+        if (callStream) {
+            callStream.getTracks().forEach(t => t.stop());
+            callStream = null;
+        }
+
+        clearInterval(callTimerInterval);
+
+        // Add call log to chat
+        const chatBox = document.getElementById('chatMessages');
+        if (chatBox) {
+            const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+            const secs = String(callSeconds % 60).padStart(2, '0');
+            const logHtml = `
+                <div class="flex justify-center my-3">
+                    <div class="bg-gray-800/80 border border-gray-700 text-gray-300 px-4 py-1.5 rounded-full text-xs font-mono flex items-center gap-2 shadow-sm">
+                        <span>📹 Videollamada finalizada</span>
+                        <span class="text-emerald-400 font-bold">${mins}:${secs}</span>
+                    </div>
+                </div>
+            `;
+            chatBox.insertAdjacentHTML('beforeend', logHtml);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    }
+</script>
 </body>
 </html>
