@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIENESTAR - Súper-App Híbrida v148 (WhatsApp & Telegram)</title>
+    <title>BIENESTAR - Súper-App Integrativa de Salud</title>
     <!-- Tailwind CSS para diseño moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -73,28 +73,35 @@
     <!-- ========================================== -->
     <!-- PANTALLA DE BIENVENIDA / SPLASH SCREEN     -->
     <!-- ========================================== -->
-    <div id="appSplashScreen" class="fixed inset-0 z-[9999] bg-slate-900 flex flex-col items-center justify-center text-white transition-opacity duration-700 ease-in-out">
-        <div class="relative flex flex-col items-center">
-            <!-- Halo resplandeciente animado -->
-            <div class="absolute -inset-4 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 opacity-75 blur-lg animate-pulse"></div>
+        <!-- PANTALLA DE INTRODUCCIÓN / DESCARGA DE LA APLICACIÓN BIENESTAR (SPLASH SCREEN CON LOGO OFICIAL) -->
+    <div id="appSplashScreen" class="fixed inset-0 z-[9999] bg-[#0F172A] flex flex-col items-center justify-center text-white transition-opacity duration-700 ease-in-out">
+        <div class="relative flex flex-col items-center text-center px-4">
+            <!-- Aura resplandeciente animada -->
+            <div class="absolute -inset-6 rounded-full bg-gradient-to-r from-emerald-500/30 to-teal-400/30 blur-2xl animate-pulse"></div>
             
-            <!-- Logo contenedor -->
-            <div class="relative w-28 h-28 rounded-3xl bg-slate-800/90 border-2 border-emerald-400/50 flex items-center justify-center shadow-2xl p-4 mb-6">
-                <span class="text-6xl animate-bounce">🌿</span>
+            <!-- Contenedor del Logo Oficial de Bienestar -->
+            <div class="relative w-32 h-32 md:w-36 md:h-36 rounded-full bg-white/95 border-4 border-emerald-400/80 shadow-[0_0_40px_rgba(52,211,153,0.4)] flex items-center justify-center p-3 mb-6 transform hover:scale-105 transition-transform duration-300">
+                <img src="logo png.jpeg" 
+                     alt="Logo Aplicación Bienestar" 
+                     class="w-full h-full object-contain rounded-full" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=200&h=200';">
             </div>
 
-            <!-- Título y Marca -->
-            <h1 class="text-4xl font-extrabold tracking-wider bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200 bg-clip-text text-transparent mb-2">
+            <!-- Título oficial solicitado: BIENESTAR -->
+            <h1 class="text-3xl md:text-4xl font-black tracking-widest bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200 bg-clip-text text-transparent mb-1 uppercase">
                 BIENESTAR
             </h1>
-            <p class="text-emerald-300/80 text-sm font-medium tracking-widest uppercase mb-8">
-                Salud · Armonía · Longevidad
+            <p class="text-emerald-300/90 text-xs font-bold tracking-widest uppercase mb-8">
+                Salud · Ecosistema Inteligente
             </p>
 
-            <!-- Barra de Carga -->
-            <div class="w-64 bg-slate-800 rounded-full h-2 overflow-hidden border border-emerald-500/30 mb-3">
-                <div id="splashProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-300 h-full w-0 transition-all duration-1000 ease-out"></div>
+            <!-- Barra de progreso de descarga / carga -->
+            <div class="w-64 md:w-72 bg-slate-800/80 rounded-full h-2.5 overflow-hidden border border-emerald-500/30 mb-3 shadow-inner">
+                <div id="splashProgressBar" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-300 h-full w-0 transition-all duration-1000 ease-out"></div>
             </div>
+            <span id="splashStatusText" class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cargando aplicación...</span>
+        </div>
+    </div>
             <p id="splashStatusText" class="text-xs text-slate-400 font-mono">Cargando módulos de salud...</p>
         </div>
         
