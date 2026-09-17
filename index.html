@@ -6,21 +6,7 @@
     <title>BIENESTAR - Súper-App Integrativa de Salud</title>
     <!-- Tailwind CSS para diseño moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        cream: '#FAF8F5',
-                        forest: '#52796F',
-                        sage: '#84A59D',
-                        slateDark: '#2F3E46',
-                        accent: '#F28482'
-                    }
-                }
-            }
-        }
-    </script>
+    
         <!-- html2pdf.js para exportaciones de alta calidad en PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 <!-- FontAwesome para iconos -->
@@ -67,6 +53,24 @@
     </style>
     <!-- Supabase JS Library para conectar tu Base de Datos en tiempo real -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+// Fail-safe Splash Screen & Icon Initializer
+(function() {
+    function hideSplash() {
+        var sp = document.getElementById('appSplashScreen');
+        if (sp && sp.style.display !== 'none') {
+            sp.style.transition = 'opacity 0.5s ease-out';
+            sp.style.opacity = '0';
+            sp.style.pointerEvents = 'none';
+            setTimeout(function() { sp.style.display = 'none'; }, 500);
+        }
+    }
+    window.hideAppSplashScreen = hideSplash;
+    setTimeout(hideSplash, 1200);
+    window.addEventListener('load', function() { setTimeout(hideSplash, 800); });
+})();
+</script>
 </head>
 <body class="text-slateDark min-h-screen flex flex-col justify-between">
 
@@ -102,7 +106,7 @@
             <span id="splashStatusText" class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cargando aplicación...</span>
         </div>
     </div>
-            <p id="splashStatusText" class="text-xs text-slate-400 font-mono">Cargando módulos de salud...</p>
+            <p id="splashStatusText2" class="text-xs text-slate-400 font-mono">Cargando módulos de salud...</p>
         </div>
         
         <div class="absolute bottom-6 text-center text-xs text-slate-500">
@@ -1182,7 +1186,540 @@
     </footer>
 
     <!-- LÓGICA DE INTERACTIVIDAD -->
-    <script>
+    
+    
+
+<!-- MODAL DE PAGO SEGURO SAAS (CHECKOUT SIMULATOR) -->
+    <div id="paymentModal" class="fixed inset-0 bg-slateDark/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-gray-100 overflow-hidden animate-[fadeIn_0.3s_ease-out]">
+            <!-- Cabecera de la Pasarela -->
+            <div class="bg-slateDark text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xl">🔒</span>
+                    <div>
+                        <h3 class="font-extrabold text-sm uppercase tracking-wider text-accent">Pago Seguro Flow / Webpay</h3>
+                        <p class="text-[9px] text-gray-400">Pasarela Oficial Encriptada BIENESTAR</p>
+                    </div>
+                </div>
+                <button onclick="closePaymentModal()" class="text-gray-400 hover:text-white transition focus:outline-none text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Contenido del Checkout -->
+            <div class="p-6 space-y-4">
+                <!-- Resumen de Compra -->
+                <div class="bg-forest/5 border border-forest/15 rounded-2xl p-4 flex justify-between items-center">
+                    <div>
+                        <span class="text-[9px] uppercase font-bold text-forest/70 block">Membresía Seleccionada</span>
+                        <span id="checkoutPlanName" class="font-black text-slateDark text-sm uppercase font-sans">Plan Trimestral</span>
+                        <span class="text-[9px] text-gray-400 block mt-0.5">SaaS de Gestión & Ficha SOAP</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] uppercase font-bold text-gray-400 block">Total a Pagar</span>
+                        <span id="checkoutPlanPriceCLP" class="font-black text-forest text-base block font-sans">$48.000 CLP</span>
+                        <span id="checkoutPlanPriceCLP2" class="text-xs font-bold text-gray-500 block">~$48.125 CLP</span>
+                    </div>
+                </div>
+
+                <!-- Selección de Medio de Pago -->
+                <div class="space-y-2">
+                    <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Selecciona tu Medio de Pago</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="pay-method-card" onclick="selectPaymentMethod('card')" class="pay-method-btn border-2 border-forest bg-forest/5 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition">
+                            <i class="fa-solid fa-credit-card text-forest"></i>
+                            <span class="text-xs font-bold text-slateDark">Webpay (Tarjetas)</span>
+                        </button>
+                        <button id="pay-method-fintoc" onclick="selectPaymentMethod('fintoc')" class="pay-method-btn border border-gray-200 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition bg-white">
+                            <i class="fa-solid fa-building-columns text-gray-400"></i>
+                            <span class="text-xs font-semibold text-gray-600">Fintoc (Transferencia)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formulario de Tarjeta Simulado -->
+                <div id="cardPaymentForm" class="space-y-3">
+                    <div>
+                        <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Nombre en la Tarjeta</label>
+                        <input id="payCardName" type="text" placeholder="Ej: Francisco Mora" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl text-xs focus:outline-none focus:border-forest font-semibold shadow-sm">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Número de Tarjeta</label>
+                        <div class="relative">
+                            <input id="payCardNumber" type="text" placeholder="•••• •••• •••• ••••" maxlength="19" class="w-full bg-gray-50 border border-gray-200 p-2.5 pl-9 rounded-xl text-xs focus:outline-none focus:border-forest font-semibold shadow-sm font-mono">
+                            <i class="fa-solid fa-credit-card absolute left-3 top-3 text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Fecha Expira</label>
+                            <input id="payCardExpiry" type="text" placeholder="MM/AA" maxlength="5" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl text-xs focus:outline-none focus:border-forest font-semibold shadow-sm font-mono text-center">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">CVV / Clave</label>
+                            <input id="payCardCVV" type="password" placeholder="•••" maxlength="4" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl text-xs focus:outline-none focus:border-forest font-semibold shadow-sm font-mono text-center">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Fintoc Simulado -->
+                <div id="fintocPaymentForm" class="hidden space-y-3 bg-gray-50 p-4 rounded-2xl border border-gray-100 text-center">
+                    <span class="text-3xl block">🏦</span>
+                    <h4 class="font-extrabold text-xs text-slateDark">Transferencia Directa Bancaria</h4>
+                    <p class="text-[10px] text-gray-500 leading-relaxed font-semibold">
+                        Se abrirá una conexión segura con tu banco (BancoEstado, Santander, BCI, Chile) para validar tu saldo y autorizar el pago al instante.
+                    </p>
+                </div>
+
+                <!-- Botones de Acción: Pagar y Cancelar -->
+                <div class="flex space-x-3 mt-4">
+                    <button type="button" onclick="closePaymentModal()" class="w-1/3 border border-gray-200 text-gray-500 font-bold py-3.5 rounded-2xl hover:bg-gray-50 transition text-xs bg-white">Cancelar ❌</button>
+                    <button type="button" onclick="processSecurePayment()" class="w-2/3 bg-forest hover:bg-forest/95 text-white font-bold py-3.5 rounded-2xl shadow-md transition text-xs flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-lock"></i>
+                        <span id="btnPaymentText">Pagar Membresía</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Pie de la Pasarela -->
+            <div class="bg-gray-50 py-3 text-center border-t border-gray-100 text-[9px] text-gray-400 font-semibold flex items-center justify-center space-x-1.5">
+                <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+                <span>Cumple Normativa de Ciberseguridad Ley 21.663 Chile</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL DE ÉXITO DE CUPÓN CON QR Y DISEÑO v50 -->
+    <div id="couponSuccessModal" class="fixed inset-0 bg-slateDark/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl border border-gray-150 flex flex-col overflow-hidden animate-fadeIn">
+            <!-- Header -->
+            <div class="bg-forest text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                    <i class="fa-solid fa-circle-check text-xl text-accent animate-bounce"></i>
+                    <div>
+                        <h3 class="font-extrabold text-sm uppercase tracking-wider">¡Cupón Generado!</h3>
+                        <p class="text-[9px] text-white/80 font-semibold">Toma una captura de pantalla de tu beneficio</p>
+                    </div>
+                </div>
+                <button onclick="closeCouponSuccessModal()" class="text-white hover:text-accent text-xl focus:outline-none"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <!-- Cuerpo (Diseño del Cupón Tipo Wallet) -->
+            <div class="p-6 space-y-4 text-center font-sans">
+                <div id="couponWalletCard" class="border-2 border-dashed border-forest/30 bg-[#FAF8F5] rounded-3xl p-5 relative overflow-hidden shadow-sm">
+                    <!-- Decoración superior del cupón -->
+                    <div class="absolute -left-3 top-1/3 w-6 h-6 bg-white rounded-full border-r border-dashed border-forest/30"></div>
+                    <div class="absolute -right-3 top-1/3 w-6 h-6 bg-white rounded-full border-l border-dashed border-forest/30"></div>
+                    
+                    <div class="flex items-center justify-center space-x-3 pb-3 border-b border-dashed border-gray-200">
+                        <img id="successEstLogo" src="logo bienestar png.jpeg" class="w-10 h-10 rounded-full object-cover border border-forest/20 shadow-sm" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo bienestar png.jpeg';">
+                        <div class="text-left">
+                            <h4 class="font-black text-xs text-slateDark uppercase" id="successEstName">Nombre Comercial</h4>
+                            <p class="text-[8px] text-gray-400 font-bold uppercase tracking-widest">Ecosistema Bienestar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="py-4 space-y-2">
+                        <span class="text-[9px] text-gray-400 uppercase font-black tracking-wider block">Beneficio Activado</span>
+                        <h3 class="text-sm font-black text-accent uppercase leading-none" id="successEstPromo">15% de Descuento</h3>
+                        <div class="text-[10px] text-gray-500 font-semibold" id="successClaimName">Paciente: María Silva</div>
+                    </div>
+
+                    <!-- Código QR Dinámico -->
+                    <div class="flex flex-col items-center justify-center py-2 bg-white rounded-2xl border border-gray-150 p-3 max-w-[170px] mx-auto shadow-inner">
+                        <img id="successQRCode" crossorigin="anonymous" src="" class="w-28 h-28 object-contain" alt="QR Code">
+                        <span class="text-[10px] font-black text-forest mt-1.5 font-mono tracking-wider" id="successEstCode">LAWEN-FOOD</span>
+                    </div>
+                    
+                    <!-- Fecha y Ciberseguridad -->
+                    <div class="pt-3 text-[8px] text-gray-400 font-semibold border-t border-dashed border-gray-100 mt-4 leading-relaxed">
+                        <p>Validado bajo la Ley de Ciberseguridad N° 21.663.</p>
+                        <p class="font-bold text-forest">© 2026 BIENESTAR</p>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="space-y-2 pt-1">
+                    <button onclick="shareSuccessCouponViaWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center space-x-1.5 focus:outline-none">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Enviar Copia a mi WhatsApp 💬</span>
+                    </button>
+                    <button onclick="downloadCouponImage()" class="w-full bg-forest hover:bg-forest/95 text-white font-extrabold py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center space-x-1.5 focus:outline-none">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Descargar Cupón en mi Celular 📷</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- ========================================== -->
+        <!-- MÓDULO HÍBRIDO: WHATSAPP + BUSINESS + TELEGRAM -->
+        <!-- ========================================== -->
+        <section id="seccion-chat-hibrido" class="bg-white rounded-3xl p-6 shadow-xl border border-emerald-100 my-8 hidden">
+            <div class="flex flex-col md:flex-row items-center justify-between border-b pb-4 mb-6 gap-4">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Centro de Comunicación</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-1 flex items-center gap-2">
+                        <span>💬</span> Bienestar Chat & Canales
+                    </h2>
+                    <p class="text-sm text-gray-500">Híbrido inteligente de mensajería directa, gestión comercial y canales comunitarios.</p>
+                </div>
+                <!-- Selector de Modo / Pestañas Híbridas -->
+                <div class="flex bg-gray-100 p-1.5 rounded-2xl w-full md:w-auto overflow-x-auto gap-1">
+                    <button onclick="switchChatMode('whatsapp')" id="btn-mode-wa" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-emerald-600 text-white shadow-sm">
+                        <span>🟢</span> WhatsApp Directo
+                    </button>
+                    <button onclick="switchChatMode('business')" id="btn-mode-biz" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-gray-600 hover:bg-gray-200">
+                        <span>💼</span> Business & Catálogo
+                    </button>
+                    <button onclick="switchChatMode('telegram')" id="btn-mode-tg" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-gray-600 hover:bg-gray-200">
+                        <span>✈️</span> Telegram Canales
+                    </button>
+                </div>
+            </div>
+
+            <!-- VISTA 1: WHATSAPP DIRECTO (Mensajería 1 a 1) -->
+            <div id="chat-view-whatsapp" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border rounded-2xl p-4 bg-gray-50 space-y-3">
+                    <h3 class="font-bold text-gray-700 text-sm flex justify-between items-center">
+                        <span>Chats Activos</span>
+                        <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded-full">3 nuevos</span>
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="p-3 bg-white rounded-xl shadow-sm border border-emerald-200 flex items-center gap-3 cursor-pointer hover:bg-emerald-50">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center gap-1 justify-center text-emerald-700 font-bold">DR</div>
+                            <div class="flex-1 text-xs">
+                                <div class="flex justify-between font-bold text-gray-800">
+                                    <span>Dr. Mateo Silva</span>
+                                    <span class="text-gray-400 font-normal">10:42 AM</span>
+                                </div>
+                                <p class="text-gray-500 truncate">Hola, confirmamos tu sesión de meditación guiada...</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 cursor-pointer hover:bg-gray-50">
+                            <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold">CB</div>
+                            <div class="flex-1 text-xs">
+                                <div class="flex justify-between font-bold text-gray-800">
+                                    <span>Centro Bienestar Norte</span>
+                                    <span class="text-gray-400 font-normal">Ayer</span>
+                                </div>
+                                <p class="text-gray-500 truncate">Tu cupón de 15% de descuento está listo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 border rounded-2xl p-4 bg-emerald-50/40 flex flex-col justify-between h-96">
+                    <div class="flex items-center justify-between border-b border-emerald-100 pb-3 bg-white p-3 rounded-xl shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MS</div>
+                            <div>
+                                <h4 class="font-bold text-xs text-gray-800">Dr. Mateo Silva</h4>
+                                <span class="text-[10px] text-emerald-600 font-medium flex items-center gap-1">● En línea (Especialista Bienestar)</span>
+                            </div>
+                        </div>
+                        <button class="text-xs bg-emerald-100 text-emerald-700 font-bold px-3 py-1.5 rounded-lg hover:bg-emerald-200">
+                            📅 Agendar Cita
+                        </button>
+                    </div>
+
+                    <div class="space-y-3 overflow-y-auto p-2 text-xs">
+                        <div class="bg-white p-3 rounded-2xl shadow-sm max-w-[80%] border border-gray-100">
+                            <p class="text-gray-700">¡Hola! He revisado los resultados de tu Test Biométrico. Recomiendo comenzar con ejercicios de respiración guiada 10 min al día.</p>
+                            <span class="text-[9px] text-gray-400 block mt-1 text-right">10:40 AM</span>
+                        </div>
+                        <div class="bg-emerald-600 text-white p-3 rounded-2xl shadow-sm max-w-[80%] ml-auto">
+                            <p>¡Muchas gracias Doctor! Me gustaría agendar la sesión para mañana jueves.</p>
+                            <span class="text-[9px] text-emerald-200 block mt-1 text-right">10:42 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 border-t pt-3 bg-white p-2 rounded-xl border-emerald-100">
+                        <input type="text" placeholder="Escribe un mensaje seguro..." class="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <button class="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-emerald-700">
+                            Enviar 🚀
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: WHATSAPP BUSINESS (Catálogo & Gestión) -->
+            <div id="chat-view-business" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border rounded-2xl p-4 bg-amber-50/50 space-y-4">
+                    <h3 class="font-bold text-gray-800 text-sm flex items-center gap-2">
+                        <span>🛍️</span> Catálogo de Servicios
+                    </h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="bg-white p-3 rounded-xl border border-amber-200 shadow-sm space-y-1">
+                            <div class="flex justify-between font-bold text-gray-800">
+                                <span>Sesión Fitoterapia / Hierbas</span>
+                                <span class="text-emerald-600">5.000 CLP</span>
+                            </div>
+                            <p class="text-gray-500">Evaluación naturista y formulación personalizada de infusiones.</p>
+                            <button class="w-full mt-2 bg-amber-600 text-white font-bold py-1.5 rounded-lg text-[11px] hover:bg-amber-700">
+                                Compartir Ficha por Chat
+                            </button>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm space-y-1">
+                            <div class="flex justify-between font-bold text-gray-800">
+                                <span>Pase Libre Gimnasio (3 Días)</span>
+                                <span class="text-emerald-600">Gratis con Membresía</span>
+                            </div>
+                            <p class="text-gray-500">Convenio con centros deportivos asociados.</p>
+                            <button class="w-full mt-2 bg-gray-800 text-white font-bold py-1.5 rounded-lg text-[11px] hover:bg-gray-900">
+                                Validar Cupones
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 border rounded-2xl p-5 bg-white space-y-4">
+                    <h3 class="font-bold text-gray-800 text-sm flex items-center gap-2 border-b pb-2">
+                        <span>🏷️</span> Etiquetas & Automatización Business
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-center">
+                            <span class="text-xl block mb-1">🆕</span>
+                            <span class="font-bold text-emerald-800 block">Nuevo Paciente</span>
+                            <span class="text-[10px] text-emerald-600">5 registrados</span>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 text-center">
+                            <span class="text-xl block mb-1">📅</span>
+                            <span class="font-bold text-blue-800 block">Cita Pendiente</span>
+                            <span class="text-[10px] text-blue-600">3 por confirmar</span>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded-xl border border-purple-200 text-center">
+                            <span class="text-xl block mb-1">💳</span>
+                            <span class="font-bold text-purple-800 block">Pago Recibido</span>
+                            <span class="text-[10px] text-purple-600">12 este mes</span>
+                        </div>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-center">
+                            <span class="text-xl block mb-1">⭐</span>
+                            <span class="font-bold text-amber-800 block">Paciente Frecuente</span>
+                            <span class="text-[10px] text-amber-600">8 activos</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2 text-xs">
+                        <h4 class="font-bold text-gray-700">⚡ Respuestas Rápidas Automatizadas</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div class="bg-white p-2 rounded-lg border text-gray-600">
+                                <strong>/horarios:</strong> "Nuestro horario de atención es de Lunes a Viernes de 9:00 a 19:00 hrs."
+                            </div>
+                            <div class="bg-white p-2 rounded-lg border text-gray-600">
+                                <strong>/ubicacion:</strong> "Centros asociados en Santiago, Viña del Mar y Concepción."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 3: TELEGRAM CANALES & COMUNIDAD -->
+            <div id="chat-view-telegram" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border rounded-2xl p-4 bg-sky-50/50 space-y-3">
+                    <h3 class="font-bold text-sky-900 text-sm flex items-center justify-between">
+                        <span>📢 Canales de Difusión</span>
+                        <span class="bg-sky-500 text-white text-[10px] px-2 py-0.5 rounded-full">Oficial</span>
+                    </h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-3 bg-white rounded-xl border border-sky-200 shadow-sm cursor-pointer hover:bg-sky-50">
+                            <div class="flex justify-between font-bold text-gray-800">
+                                <span>🌿 Canal Meditación & Mente</span>
+                                <span class="text-sky-600">1.2k miembros</span>
+                            </div>
+                            <p class="text-gray-500 truncate">Audio diario de 5 minutos enviado hoy a las 8:00 AM</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-gray-100 shadow-sm cursor-pointer hover:bg-gray-50">
+                            <div class="flex justify-between font-bold text-gray-800">
+                                <span>🥑 Nutrición Antiinflamatoria</span>
+                                <span class="text-sky-600">850 miembros</span>
+                            </div>
+                            <p class="text-gray-500 truncate">Recetario PDF descargable de batidos verdes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 border rounded-2xl p-5 bg-sky-900 text-white space-y-4 flex flex-col justify-between h-96">
+                    <div>
+                        <div class="flex justify-between items-center border-b border-sky-800 pb-3 mb-4">
+                            <div>
+                                <h4 class="font-bold text-sm flex items-center gap-2">
+                                    <span>📢</span> Canal Oficial: Bienestar Integral Bienestar
+                                </h4>
+                                <span class="text-[10px] text-sky-300">Transmisión unidireccional y archivos pesados sin límite</span>
+                            </div>
+                            <span class="bg-sky-700 text-sky-200 text-xs px-3 py-1 rounded-full">Suscrito</span>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-sky-800/80 p-3 rounded-2xl border border-sky-700 max-w-[90%]">
+                                <span class="text-[10px] text-sky-300 font-bold block mb-1">🎙️ AUDIO EXCLUSIVO DE HOY</span>
+                                <p class="mb-2">Escucha la guía de relajación para reducir el cortisol antes de dormir.</p>
+                                <div class="bg-sky-950 p-2 rounded-xl flex items-center gap-3">
+                                    <button class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">▶</button>
+                                    <div class="flex-1 bg-sky-800 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-emerald-400 h-full w-1/3"></div>
+                                    </div>
+                                    <span class="text-[10px] text-sky-300">03:45</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-[11px] text-sky-300 border-t border-sky-800 pt-3">
+                        Solo los administradores certificados de Bienestar pueden publicar en este canal.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCRIPT PARA CONMUTAR MÓDULOS DE CHAT -->
+        
+
+
+
+    <!-- MODAL CAMARA -->
+    <div id="cameraModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
+            <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
+                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📷 Cámara Bienestar</h3>
+                <button onclick="closeCameraModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="w-full h-56 bg-slate-950 rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-emerald-500/40 relative overflow-hidden mb-4">
+                    <span class="text-5xl mb-2 animate-pulse">📸</span>
+                    <p class="text-xs text-emerald-400 font-medium">Vista previa de cámara activada</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Captura fotos de fichas médicas, exámenes o consultas</p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    <button onclick="alert('¡Fotografía capturada con éxito!'); closeCameraModal();" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg shadow-emerald-900/40 transition">
+                        <span>🔘</span> Tomar Foto
+                    </button>
+                    <button onclick="closeCameraModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 px-5 rounded-full border border-slate-600">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADJUNTAR ARCHIVO -->
+    <div id="fileModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
+            <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
+                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📎 Adjuntar Documento o Receta</h3>
+                <button onclick="closeFileModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
+            </div>
+            <div class="p-6">
+                <div class="border-2 border-dashed border-emerald-500/50 hover:border-emerald-400 rounded-2xl p-6 text-center bg-slate-950/50 cursor-pointer transition mb-4">
+                    <span class="text-4xl">📄</span>
+                    <p class="text-sm font-semibold text-slate-200 mt-2">Arrastra tu archivo aquí o haz clic</p>
+                    <p class="text-xs text-slate-400 mt-1">Soporta PDF, JPG, PNG, DOCX (Máx 25MB)</p>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <button onclick="alert('Documento PDF seleccionado'); closeFileModal();" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 flex items-center gap-2 text-xs font-medium">
+                        <span class="text-red-400 text-base">📑</span> Ficha Médica PDF
+                    </button>
+                    <button onclick="alert('Examen de laboratorio seleccionado'); closeFileModal();" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 flex items-center gap-2 text-xs font-medium">
+                        <span class="text-emerald-400 text-base">🧪</span> Examen Clínico
+                    </button>
+                </div>
+                <button onclick="closeFileModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2.5 rounded-xl border border-slate-600">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LLAMADA DE VOZ -->
+    <div id="voiceCallModal" class="fixed inset-0 z-[9900] bg-slate-950/95 backdrop-blur-lg hidden flex flex-col items-center justify-between p-8 text-white">
+        <div class="text-center mt-12">
+            <div class="w-24 h-24 rounded-full bg-emerald-600/30 border-2 border-emerald-400 flex items-center justify-center mx-auto mb-4 animate-pulse">
+                <span class="text-5xl">📞</span>
+            </div>
+            <h2 id="callTargetName" class="text-2xl font-bold">Especialista Bienestar</h2>
+            <p class="text-emerald-400 text-sm font-medium mt-1">Llamada de voz en curso (00:14)...</p>
+        </div>
+        <div class="flex items-center gap-6 mb-12">
+            <button onclick="alert('Micrófono silenciado')" class="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xl hover:bg-slate-700">
+                🎙️
+            </button>
+            <button onclick="endVoiceCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-lg shadow-red-900/50 flex items-center justify-center text-2xl text-white">
+                📞
+            </button>
+            <button onclick="alert('Altavoz activado')" class="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xl hover:bg-slate-700">
+                🔊
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL VIDEOLLAMADA HD -->
+    <div id="videoCallModal" class="fixed inset-0 z-[9900] bg-slate-950 hidden flex flex-col justify-between p-6 text-white relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-emerald-950/40 to-slate-950 -z-10 flex items-center justify-center">
+            <div class="text-center opacity-40">
+                <span class="text-8xl">🧘‍♂️</span>
+                <p class="text-sm mt-4 font-mono">Transmisión de Video HD cifrada extremo a extremo</p>
+            </div>
+        </div>
+        <!-- PIP propia cámara -->
+        <div class="absolute top-6 right-6 w-32 h-44 bg-slate-800 border-2 border-emerald-400 rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden">
+            <span class="text-3xl">👤</span>
+            <span class="absolute bottom-1 right-2 text-[9px] bg-black/60 px-1 rounded text-emerald-300">Tú</span>
+        </div>
+        <div class="mt-4">
+            <h2 id="videoTargetName" class="text-xl font-bold text-white">Consulta Online HD</h2>
+            <p class="text-xs text-emerald-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> En vivo · 01:25 min</p>
+        </div>
+        <div class="flex justify-center items-center gap-6 mb-8">
+            <button onclick="alert('Cámara alternada')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
+                🔄
+            </button>
+            <button onclick="endVideoCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-xl shadow-red-900/60 flex items-center justify-center text-2xl text-white">
+                📞
+            </button>
+            <button onclick="alert('Pantalla compartida')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
+                🖥️
+            </button>
+        </div>
+    </div>
+
+
+    
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        if (typeof lucide !== 'undefined' && lucide.createIcons) {
+            lucide.createIcons();
+        }
+    } catch(e) { console.warn('Lucide init error:', e); }
+
+    // Auto-hide splash screen after 1 second
+    setTimeout(function() {
+        if (window.hideAppSplashScreen) window.hideAppSplashScreen();
+    }, 1000);
+});
+
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAF8F5',
+                        forest: '#52796F',
+                        sage: '#84A59D',
+                        slateDark: '#2F3E46',
+                        accent: '#F28482'
+                    }
+                }
+            }
+        }
+    
+
+
         // =================================================================
         // CONFIGURACIÓN DE CONEXIÓN CON TU BASE DE DATOS (SUPABASE)
         // =================================================================
@@ -2724,396 +3261,9 @@
 
         // Auto-initialize slide verify on load
         setTimeout(initSlideVerify, 300);
-    </script>
     
 
-<!-- MODAL DE PAGO SEGURO SAAS (CHECKOUT SIMULATOR) -->
-    <div id="paymentModal" class="fixed inset-0 bg-slateDark/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-gray-100 overflow-hidden animate-[fadeIn_0.3s_ease-out]">
-            <!-- Cabecera de la Pasarela -->
-            <div class="bg-slateDark text-white p-5 flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <span class="text-xl">🔒</span>
-                    <div>
-                        <h3 class="font-extrabold text-sm uppercase tracking-wider text-accent">Pago Seguro Flow / Webpay</h3>
-                        <p class="text-[9px] text-gray-400">Pasarela Oficial Encriptada BIENESTAR</p>
-                    </div>
-                </div>
-                <button onclick="closePaymentModal()" class="text-gray-400 hover:text-white transition focus:outline-none text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
 
-            <!-- Contenido del Checkout -->
-            <div class="p-6 space-y-4">
-                <!-- Resumen de Compra -->
-                <div class="bg-forest/5 border border-forest/15 rounded-2xl p-4 flex justify-between items-center">
-                    <div>
-                        <span class="text-[9px] uppercase font-bold text-forest/70 block">Membresía Seleccionada</span>
-                        <span id="checkoutPlanName" class="font-black text-slateDark text-sm uppercase font-sans">Plan Trimestral</span>
-                        <span class="text-[9px] text-gray-400 block mt-0.5">SaaS de Gestión & Ficha SOAP</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-[10px] uppercase font-bold text-gray-400 block">Total a Pagar</span>
-                        <span id="checkoutPlanPriceCLP" class="font-black text-forest text-base block font-sans">$48.000 CLP</span>
-                        <span id="checkoutPlanPriceCLP" class="text-xs font-bold text-gray-500 block">~$48.125 CLP</span>
-                    </div>
-                </div>
-
-                <!-- Selección de Medio de Pago -->
-                <div class="space-y-2">
-                    <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Selecciona tu Medio de Pago</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button id="pay-method-card" onclick="selectPaymentMethod('card')" class="pay-method-btn border-2 border-forest bg-forest/5 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition">
-                            <i class="fa-solid fa-credit-card text-forest"></i>
-                            <span class="text-xs font-bold text-slateDark">Webpay (Tarjetas)</span>
-                        </button>
-                        <button id="pay-method-fintoc" onclick="selectPaymentMethod('fintoc')" class="pay-method-btn border border-gray-200 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition bg-white">
-                            <i class="fa-solid fa-building-columns text-gray-400"></i>
-                            <span class="text-xs font-semibold text-gray-600">Fintoc (Transferencia)</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Formulario de Tarjeta Simulado -->
-                <div id="cardPaymentForm" class="space-y-3">
-                    <div>
-                        <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Nombre en la Tarjeta</label>
-                        <input id="payCardName" type="text" placeholder="Ej: Francisco Mora" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl text-xs focus:outline-none focus:border-forest font-semibold shadow-sm">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Número de Tarjeta</label>
-                        <div class="relative">
-                            <input id="payCardNumber" type="text" placeholder="•••• •••• •••• ••••" maxlength="19" class="w-full bg-gray-50 border border-gray-200 p-2.5 pl-9 rounded-xl text-xs focus:outline-none focus:border-forest font-semibold shadow-sm font-mono">
-                            <i class="fa-solid fa-credit-card absolute left-3 top-3 text-gray-300"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Fecha Expira</label>
-                            <input id="payCardExpiry" type="text" placeholder="MM/AA" maxlength="5" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl text-xs focus:outline-none focus:border-forest font-semibold shadow-sm font-mono text-center">
-                        </div>
-                        <div>
-                            <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">CVV / Clave</label>
-                            <input id="payCardCVV" type="password" placeholder="•••" maxlength="4" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl text-xs focus:outline-none focus:border-forest font-semibold shadow-sm font-mono text-center">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Formulario de Fintoc Simulado -->
-                <div id="fintocPaymentForm" class="hidden space-y-3 bg-gray-50 p-4 rounded-2xl border border-gray-100 text-center">
-                    <span class="text-3xl block">🏦</span>
-                    <h4 class="font-extrabold text-xs text-slateDark">Transferencia Directa Bancaria</h4>
-                    <p class="text-[10px] text-gray-500 leading-relaxed font-semibold">
-                        Se abrirá una conexión segura con tu banco (BancoEstado, Santander, BCI, Chile) para validar tu saldo y autorizar el pago al instante.
-                    </p>
-                </div>
-
-                <!-- Botones de Acción: Pagar y Cancelar -->
-                <div class="flex space-x-3 mt-4">
-                    <button type="button" onclick="closePaymentModal()" class="w-1/3 border border-gray-200 text-gray-500 font-bold py-3.5 rounded-2xl hover:bg-gray-50 transition text-xs bg-white">Cancelar ❌</button>
-                    <button type="button" onclick="processSecurePayment()" class="w-2/3 bg-forest hover:bg-forest/95 text-white font-bold py-3.5 rounded-2xl shadow-md transition text-xs flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-lock"></i>
-                        <span id="btnPaymentText">Pagar Membresía</span>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Pie de la Pasarela -->
-            <div class="bg-gray-50 py-3 text-center border-t border-gray-100 text-[9px] text-gray-400 font-semibold flex items-center justify-center space-x-1.5">
-                <i class="fa-solid fa-shield-halved text-emerald-600"></i>
-                <span>Cumple Normativa de Ciberseguridad Ley 21.663 Chile</span>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- MODAL DE ÉXITO DE CUPÓN CON QR Y DISEÑO v50 -->
-    <div id="couponSuccessModal" class="fixed inset-0 bg-slateDark/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl border border-gray-150 flex flex-col overflow-hidden animate-fadeIn">
-            <!-- Header -->
-            <div class="bg-forest text-white p-5 flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                    <i class="fa-solid fa-circle-check text-xl text-accent animate-bounce"></i>
-                    <div>
-                        <h3 class="font-extrabold text-sm uppercase tracking-wider">¡Cupón Generado!</h3>
-                        <p class="text-[9px] text-white/80 font-semibold">Toma una captura de pantalla de tu beneficio</p>
-                    </div>
-                </div>
-                <button onclick="closeCouponSuccessModal()" class="text-white hover:text-accent text-xl focus:outline-none"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <!-- Cuerpo (Diseño del Cupón Tipo Wallet) -->
-            <div class="p-6 space-y-4 text-center font-sans">
-                <div id="couponWalletCard" class="border-2 border-dashed border-forest/30 bg-[#FAF8F5] rounded-3xl p-5 relative overflow-hidden shadow-sm">
-                    <!-- Decoración superior del cupón -->
-                    <div class="absolute -left-3 top-1/3 w-6 h-6 bg-white rounded-full border-r border-dashed border-forest/30"></div>
-                    <div class="absolute -right-3 top-1/3 w-6 h-6 bg-white rounded-full border-l border-dashed border-forest/30"></div>
-                    
-                    <div class="flex items-center justify-center space-x-3 pb-3 border-b border-dashed border-gray-200">
-                        <img id="successEstLogo" src="logo bienestar png.jpeg" class="w-10 h-10 rounded-full object-cover border border-forest/20 shadow-sm" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo bienestar png.jpeg';">
-                        <div class="text-left">
-                            <h4 class="font-black text-xs text-slateDark uppercase" id="successEstName">Nombre Comercial</h4>
-                            <p class="text-[8px] text-gray-400 font-bold uppercase tracking-widest">Ecosistema Bienestar</p>
-                        </div>
-                    </div>
-                    
-                    <div class="py-4 space-y-2">
-                        <span class="text-[9px] text-gray-400 uppercase font-black tracking-wider block">Beneficio Activado</span>
-                        <h3 class="text-sm font-black text-accent uppercase leading-none" id="successEstPromo">15% de Descuento</h3>
-                        <div class="text-[10px] text-gray-500 font-semibold" id="successClaimName">Paciente: María Silva</div>
-                    </div>
-
-                    <!-- Código QR Dinámico -->
-                    <div class="flex flex-col items-center justify-center py-2 bg-white rounded-2xl border border-gray-150 p-3 max-w-[170px] mx-auto shadow-inner">
-                        <img id="successQRCode" crossorigin="anonymous" src="" class="w-28 h-28 object-contain" alt="QR Code">
-                        <span class="text-[10px] font-black text-forest mt-1.5 font-mono tracking-wider" id="successEstCode">LAWEN-FOOD</span>
-                    </div>
-                    
-                    <!-- Fecha y Ciberseguridad -->
-                    <div class="pt-3 text-[8px] text-gray-400 font-semibold border-t border-dashed border-gray-100 mt-4 leading-relaxed">
-                        <p>Validado bajo la Ley de Ciberseguridad N° 21.663.</p>
-                        <p class="font-bold text-forest">© 2026 BIENESTAR</p>
-                    </div>
-                </div>
-
-                <!-- Botones de Acción -->
-                <div class="space-y-2 pt-1">
-                    <button onclick="shareSuccessCouponViaWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center space-x-1.5 focus:outline-none">
-                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                        <span>Enviar Copia a mi WhatsApp 💬</span>
-                    </button>
-                    <button onclick="downloadCouponImage()" class="w-full bg-forest hover:bg-forest/95 text-white font-extrabold py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center space-x-1.5 focus:outline-none">
-                        <i class="fa-solid fa-download"></i>
-                        <span>Descargar Cupón en mi Celular 📷</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-        <!-- ========================================== -->
-        <!-- MÓDULO HÍBRIDO: WHATSAPP + BUSINESS + TELEGRAM -->
-        <!-- ========================================== -->
-        <section id="seccion-chat-hibrido" class="bg-white rounded-3xl p-6 shadow-xl border border-emerald-100 my-8 hidden">
-            <div class="flex flex-col md:flex-row items-center justify-between border-b pb-4 mb-6 gap-4">
-                <div>
-                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Centro de Comunicación</span>
-                    <h2 class="text-2xl font-bold text-gray-800 mt-1 flex items-center gap-2">
-                        <span>💬</span> Bienestar Chat & Canales
-                    </h2>
-                    <p class="text-sm text-gray-500">Híbrido inteligente de mensajería directa, gestión comercial y canales comunitarios.</p>
-                </div>
-                <!-- Selector de Modo / Pestañas Híbridas -->
-                <div class="flex bg-gray-100 p-1.5 rounded-2xl w-full md:w-auto overflow-x-auto gap-1">
-                    <button onclick="switchChatMode('whatsapp')" id="btn-mode-wa" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-emerald-600 text-white shadow-sm">
-                        <span>🟢</span> WhatsApp Directo
-                    </button>
-                    <button onclick="switchChatMode('business')" id="btn-mode-biz" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-gray-600 hover:bg-gray-200">
-                        <span>💼</span> Business & Catálogo
-                    </button>
-                    <button onclick="switchChatMode('telegram')" id="btn-mode-tg" class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-gray-600 hover:bg-gray-200">
-                        <span>✈️</span> Telegram Canales
-                    </button>
-                </div>
-            </div>
-
-            <!-- VISTA 1: WHATSAPP DIRECTO (Mensajería 1 a 1) -->
-            <div id="chat-view-whatsapp" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="border rounded-2xl p-4 bg-gray-50 space-y-3">
-                    <h3 class="font-bold text-gray-700 text-sm flex justify-between items-center">
-                        <span>Chats Activos</span>
-                        <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded-full">3 nuevos</span>
-                    </h3>
-                    <div class="space-y-2">
-                        <div class="p-3 bg-white rounded-xl shadow-sm border border-emerald-200 flex items-center gap-3 cursor-pointer hover:bg-emerald-50">
-                            <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center gap-1 justify-center text-emerald-700 font-bold">DR</div>
-                            <div class="flex-1 text-xs">
-                                <div class="flex justify-between font-bold text-gray-800">
-                                    <span>Dr. Mateo Silva</span>
-                                    <span class="text-gray-400 font-normal">10:42 AM</span>
-                                </div>
-                                <p class="text-gray-500 truncate">Hola, confirmamos tu sesión de meditación guiada...</p>
-                            </div>
-                        </div>
-                        <div class="p-3 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 cursor-pointer hover:bg-gray-50">
-                            <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold">CB</div>
-                            <div class="flex-1 text-xs">
-                                <div class="flex justify-between font-bold text-gray-800">
-                                    <span>Centro Bienestar Norte</span>
-                                    <span class="text-gray-400 font-normal">Ayer</span>
-                                </div>
-                                <p class="text-gray-500 truncate">Tu cupón de 15% de descuento está listo.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="md:col-span-2 border rounded-2xl p-4 bg-emerald-50/40 flex flex-col justify-between h-96">
-                    <div class="flex items-center justify-between border-b border-emerald-100 pb-3 bg-white p-3 rounded-xl shadow-sm">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MS</div>
-                            <div>
-                                <h4 class="font-bold text-xs text-gray-800">Dr. Mateo Silva</h4>
-                                <span class="text-[10px] text-emerald-600 font-medium flex items-center gap-1">● En línea (Especialista Bienestar)</span>
-                            </div>
-                        </div>
-                        <button class="text-xs bg-emerald-100 text-emerald-700 font-bold px-3 py-1.5 rounded-lg hover:bg-emerald-200">
-                            📅 Agendar Cita
-                        </button>
-                    </div>
-
-                    <div class="space-y-3 overflow-y-auto p-2 text-xs">
-                        <div class="bg-white p-3 rounded-2xl shadow-sm max-w-[80%] border border-gray-100">
-                            <p class="text-gray-700">¡Hola! He revisado los resultados de tu Test Biométrico. Recomiendo comenzar con ejercicios de respiración guiada 10 min al día.</p>
-                            <span class="text-[9px] text-gray-400 block mt-1 text-right">10:40 AM</span>
-                        </div>
-                        <div class="bg-emerald-600 text-white p-3 rounded-2xl shadow-sm max-w-[80%] ml-auto">
-                            <p>¡Muchas gracias Doctor! Me gustaría agendar la sesión para mañana jueves.</p>
-                            <span class="text-[9px] text-emerald-200 block mt-1 text-right">10:42 AM</span>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2 border-t pt-3 bg-white p-2 rounded-xl border-emerald-100">
-                        <input type="text" placeholder="Escribe un mensaje seguro..." class="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        <button class="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-emerald-700">
-                            Enviar 🚀
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- VISTA 2: WHATSAPP BUSINESS (Catálogo & Gestión) -->
-            <div id="chat-view-business" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="border rounded-2xl p-4 bg-amber-50/50 space-y-4">
-                    <h3 class="font-bold text-gray-800 text-sm flex items-center gap-2">
-                        <span>🛍️</span> Catálogo de Servicios
-                    </h3>
-                    <div class="space-y-3 text-xs">
-                        <div class="bg-white p-3 rounded-xl border border-amber-200 shadow-sm space-y-1">
-                            <div class="flex justify-between font-bold text-gray-800">
-                                <span>Sesión Fitoterapia / Hierbas</span>
-                                <span class="text-emerald-600">5.000 CLP</span>
-                            </div>
-                            <p class="text-gray-500">Evaluación naturista y formulación personalizada de infusiones.</p>
-                            <button class="w-full mt-2 bg-amber-600 text-white font-bold py-1.5 rounded-lg text-[11px] hover:bg-amber-700">
-                                Compartir Ficha por Chat
-                            </button>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm space-y-1">
-                            <div class="flex justify-between font-bold text-gray-800">
-                                <span>Pase Libre Gimnasio (3 Días)</span>
-                                <span class="text-emerald-600">Gratis con Membresía</span>
-                            </div>
-                            <p class="text-gray-500">Convenio con centros deportivos asociados.</p>
-                            <button class="w-full mt-2 bg-gray-800 text-white font-bold py-1.5 rounded-lg text-[11px] hover:bg-gray-900">
-                                Validar Cupones
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="md:col-span-2 border rounded-2xl p-5 bg-white space-y-4">
-                    <h3 class="font-bold text-gray-800 text-sm flex items-center gap-2 border-b pb-2">
-                        <span>🏷️</span> Etiquetas & Automatización Business
-                    </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-center">
-                            <span class="text-xl block mb-1">🆕</span>
-                            <span class="font-bold text-emerald-800 block">Nuevo Paciente</span>
-                            <span class="text-[10px] text-emerald-600">5 registrados</span>
-                        </div>
-                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 text-center">
-                            <span class="text-xl block mb-1">📅</span>
-                            <span class="font-bold text-blue-800 block">Cita Pendiente</span>
-                            <span class="text-[10px] text-blue-600">3 por confirmar</span>
-                        </div>
-                        <div class="p-3 bg-purple-50 rounded-xl border border-purple-200 text-center">
-                            <span class="text-xl block mb-1">💳</span>
-                            <span class="font-bold text-purple-800 block">Pago Recibido</span>
-                            <span class="text-[10px] text-purple-600">12 este mes</span>
-                        </div>
-                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-center">
-                            <span class="text-xl block mb-1">⭐</span>
-                            <span class="font-bold text-amber-800 block">Paciente Frecuente</span>
-                            <span class="text-[10px] text-amber-600">8 activos</span>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2 text-xs">
-                        <h4 class="font-bold text-gray-700">⚡ Respuestas Rápidas Automatizadas</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <div class="bg-white p-2 rounded-lg border text-gray-600">
-                                <strong>/horarios:</strong> "Nuestro horario de atención es de Lunes a Viernes de 9:00 a 19:00 hrs."
-                            </div>
-                            <div class="bg-white p-2 rounded-lg border text-gray-600">
-                                <strong>/ubicacion:</strong> "Centros asociados en Santiago, Viña del Mar y Concepción."
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- VISTA 3: TELEGRAM CANALES & COMUNIDAD -->
-            <div id="chat-view-telegram" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="border rounded-2xl p-4 bg-sky-50/50 space-y-3">
-                    <h3 class="font-bold text-sky-900 text-sm flex items-center justify-between">
-                        <span>📢 Canales de Difusión</span>
-                        <span class="bg-sky-500 text-white text-[10px] px-2 py-0.5 rounded-full">Oficial</span>
-                    </h3>
-                    <div class="space-y-2 text-xs">
-                        <div class="p-3 bg-white rounded-xl border border-sky-200 shadow-sm cursor-pointer hover:bg-sky-50">
-                            <div class="flex justify-between font-bold text-gray-800">
-                                <span>🌿 Canal Meditación & Mente</span>
-                                <span class="text-sky-600">1.2k miembros</span>
-                            </div>
-                            <p class="text-gray-500 truncate">Audio diario de 5 minutos enviado hoy a las 8:00 AM</p>
-                        </div>
-                        <div class="p-3 bg-white rounded-xl border border-gray-100 shadow-sm cursor-pointer hover:bg-gray-50">
-                            <div class="flex justify-between font-bold text-gray-800">
-                                <span>🥑 Nutrición Antiinflamatoria</span>
-                                <span class="text-sky-600">850 miembros</span>
-                            </div>
-                            <p class="text-gray-500 truncate">Recetario PDF descargable de batidos verdes</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="md:col-span-2 border rounded-2xl p-5 bg-sky-900 text-white space-y-4 flex flex-col justify-between h-96">
-                    <div>
-                        <div class="flex justify-between items-center border-b border-sky-800 pb-3 mb-4">
-                            <div>
-                                <h4 class="font-bold text-sm flex items-center gap-2">
-                                    <span>📢</span> Canal Oficial: Bienestar Integral Bienestar
-                                </h4>
-                                <span class="text-[10px] text-sky-300">Transmisión unidireccional y archivos pesados sin límite</span>
-                            </div>
-                            <span class="bg-sky-700 text-sky-200 text-xs px-3 py-1 rounded-full">Suscrito</span>
-                        </div>
-
-                        <div class="space-y-3 text-xs">
-                            <div class="bg-sky-800/80 p-3 rounded-2xl border border-sky-700 max-w-[90%]">
-                                <span class="text-[10px] text-sky-300 font-bold block mb-1">🎙️ AUDIO EXCLUSIVO DE HOY</span>
-                                <p class="mb-2">Escucha la guía de relajación para reducir el cortisol antes de dormir.</p>
-                                <div class="bg-sky-950 p-2 rounded-xl flex items-center gap-3">
-                                    <button class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">▶</button>
-                                    <div class="flex-1 bg-sky-800 h-2 rounded-full overflow-hidden">
-                                        <div class="bg-emerald-400 h-full w-1/3"></div>
-                                    </div>
-                                    <span class="text-[10px] text-sky-300">03:45</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center text-[11px] text-sky-300 border-t border-sky-800 pt-3">
-                        Solo los administradores certificados de Bienestar pueden publicar en este canal.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SCRIPT PARA CONMUTAR MÓDULOS DE CHAT -->
-        <script>
             function switchChatMode(mode) {
                 const waView = document.getElementById('chat-view-whatsapp');
                 const bizView = document.getElementById('chat-view-business');
@@ -3155,117 +3305,9 @@
                     chatSection.classList.remove('hidden');
                 }
             });
-        </script>
+        
 
 
-
-    <!-- MODAL CAMARA -->
-    <div id="cameraModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
-            <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
-                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📷 Cámara Bienestar</h3>
-                <button onclick="closeCameraModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
-            </div>
-            <div class="p-6 text-center">
-                <div class="w-full h-56 bg-slate-950 rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-emerald-500/40 relative overflow-hidden mb-4">
-                    <span class="text-5xl mb-2 animate-pulse">📸</span>
-                    <p class="text-xs text-emerald-400 font-medium">Vista previa de cámara activada</p>
-                    <p class="text-[10px] text-slate-500 mt-1">Captura fotos de fichas médicas, exámenes o consultas</p>
-                </div>
-                <div class="flex justify-center gap-4">
-                    <button onclick="alert('¡Fotografía capturada con éxito!'); closeCameraModal();" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg shadow-emerald-900/40 transition">
-                        <span>🔘</span> Tomar Foto
-                    </button>
-                    <button onclick="closeCameraModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 px-5 rounded-full border border-slate-600">
-                        Cancelar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL ADJUNTAR ARCHIVO -->
-    <div id="fileModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
-            <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
-                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📎 Adjuntar Documento o Receta</h3>
-                <button onclick="closeFileModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
-            </div>
-            <div class="p-6">
-                <div class="border-2 border-dashed border-emerald-500/50 hover:border-emerald-400 rounded-2xl p-6 text-center bg-slate-950/50 cursor-pointer transition mb-4">
-                    <span class="text-4xl">📄</span>
-                    <p class="text-sm font-semibold text-slate-200 mt-2">Arrastra tu archivo aquí o haz clic</p>
-                    <p class="text-xs text-slate-400 mt-1">Soporta PDF, JPG, PNG, DOCX (Máx 25MB)</p>
-                </div>
-                <div class="grid grid-cols-2 gap-3 mb-4">
-                    <button onclick="alert('Documento PDF seleccionado'); closeFileModal();" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 flex items-center gap-2 text-xs font-medium">
-                        <span class="text-red-400 text-base">📑</span> Ficha Médica PDF
-                    </button>
-                    <button onclick="alert('Examen de laboratorio seleccionado'); closeFileModal();" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 flex items-center gap-2 text-xs font-medium">
-                        <span class="text-emerald-400 text-base">🧪</span> Examen Clínico
-                    </button>
-                </div>
-                <button onclick="closeFileModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2.5 rounded-xl border border-slate-600">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL LLAMADA DE VOZ -->
-    <div id="voiceCallModal" class="fixed inset-0 z-[9900] bg-slate-950/95 backdrop-blur-lg hidden flex flex-col items-center justify-between p-8 text-white">
-        <div class="text-center mt-12">
-            <div class="w-24 h-24 rounded-full bg-emerald-600/30 border-2 border-emerald-400 flex items-center justify-center mx-auto mb-4 animate-pulse">
-                <span class="text-5xl">📞</span>
-            </div>
-            <h2 id="callTargetName" class="text-2xl font-bold">Especialista Bienestar</h2>
-            <p class="text-emerald-400 text-sm font-medium mt-1">Llamada de voz en curso (00:14)...</p>
-        </div>
-        <div class="flex items-center gap-6 mb-12">
-            <button onclick="alert('Micrófono silenciado')" class="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xl hover:bg-slate-700">
-                🎙️
-            </button>
-            <button onclick="endVoiceCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-lg shadow-red-900/50 flex items-center justify-center text-2xl text-white">
-                📞
-            </button>
-            <button onclick="alert('Altavoz activado')" class="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xl hover:bg-slate-700">
-                🔊
-            </button>
-        </div>
-    </div>
-
-    <!-- MODAL VIDEOLLAMADA HD -->
-    <div id="videoCallModal" class="fixed inset-0 z-[9900] bg-slate-950 hidden flex flex-col justify-between p-6 text-white relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-emerald-950/40 to-slate-950 -z-10 flex items-center justify-center">
-            <div class="text-center opacity-40">
-                <span class="text-8xl">🧘‍♂️</span>
-                <p class="text-sm mt-4 font-mono">Transmisión de Video HD cifrada extremo a extremo</p>
-            </div>
-        </div>
-        <!-- PIP propia cámara -->
-        <div class="absolute top-6 right-6 w-32 h-44 bg-slate-800 border-2 border-emerald-400 rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden">
-            <span class="text-3xl">👤</span>
-            <span class="absolute bottom-1 right-2 text-[9px] bg-black/60 px-1 rounded text-emerald-300">Tú</span>
-        </div>
-        <div class="mt-4">
-            <h2 id="videoTargetName" class="text-xl font-bold text-white">Consulta Online HD</h2>
-            <p class="text-xs text-emerald-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> En vivo · 01:25 min</p>
-        </div>
-        <div class="flex justify-center items-center gap-6 mb-8">
-            <button onclick="alert('Cámara alternada')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
-                🔄
-            </button>
-            <button onclick="endVideoCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-xl shadow-red-900/60 flex items-center justify-center text-2xl text-white">
-                📞
-            </button>
-            <button onclick="alert('Pantalla compartida')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
-                🖥️
-            </button>
-        </div>
-    </div>
-
-
-    <script>
         // Control de la Splash Screen
         document.addEventListener('DOMContentLoaded', () => {
             const progressBar = document.getElementById('splashProgressBar');
@@ -3325,9 +3367,9 @@
         }
 
 
-    </script>
+    
 
-<script>
+
     // ==========================================
     // INTEGRACIÓN CÁMARA & VIDEOLLAMADA WEBRTC
     // ==========================================
@@ -3512,6 +3554,7 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
     }
+
 </script>
 </body>
 </html>
