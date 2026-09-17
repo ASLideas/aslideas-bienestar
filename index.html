@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MORFEO - Ecosistema Híbrido de Salud & Estilo de Vida</title>
+    <title>BIENESTAR - Ecosistema Híbrido de Salud & Estilo de Vida</title>
     <!-- Tailwind CSS 3.x CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -153,20 +153,20 @@ tailwind.config = {
                     <div class="splash-logo-glow w-32 h-32 rounded-full bg-[#FAF8EE] p-3 flex items-center justify-center border-4 border-[#D4AF37] shadow-2xl relative z-10">
                         <div class="flex flex-col items-center justify-center text-[#2C7A7B]">
                             <i data-lucide="heart-handshake" class="w-14 h-14 text-[#2C7A7B] mb-1"></i>
-                            <span class="text-[15px] font-black tracking-widest text-[#123838]">MORFEO</span>
+                            <span class="text-[15px] font-black tracking-widest text-[#123838]">BIENESTAR</span>
                             <span class="text-[8px] font-bold tracking-widest text-[#D4AF37] uppercase">Pantone Certified</span>
                         </div>
                     </div>
                 </div>
 
-                <h1 class="text-2xl font-black text-[#FAF8EE] tracking-tight mb-1">MORFEO</h1>
-                <p class="text-xs text-[#E0F7F4] font-medium tracking-wide max-w-[260px]">Tu Ecosistema Híbrido de Salud, Comunidad, PyMEs & Descanso Morfeo</p>
+                <h1 class="text-2xl font-black text-[#FAF8EE] tracking-tight mb-1">BIENESTAR</h1>
+                <p class="text-xs text-[#E0F7F4] font-medium tracking-wide max-w-[260px]">Tu Ecosistema Híbrido de Salud, Comunidad, PyMEs & Descanso Bienestar</p>
             </div>
 
             <!-- Bottom Progress & Download Wait Area -->
             <div class="w-full flex flex-col items-center gap-3 pb-6">
                 <div class="flex justify-between w-full text-xs text-[#E0F7F4] font-semibold px-1">
-                    <span id="splash-status-text">Cargando módulos de Morfeo...</span>
+                    <span id="splash-status-text">Cargando módulos de Bienestar...</span>
                     <span id="splash-percentage" class="font-bold text-[#D4AF37]">0%</span>
                 </div>
 
@@ -198,7 +198,7 @@ tailwind.config = {
                 </div>
                 <div>
                     <h2 class="text-base font-black text-[#123838] leading-tight tracking-tight flex items-center gap-1.5">
-                        MORFEO 
+                        BIENESTAR 
                         <span class="text-[9px] bg-[#2C7A7B] text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Híbrido</span>
                     </h2>
                     <p class="text-[10px] text-[#2C7A7B] font-semibold">Ecosistema Integral & Social</p>
@@ -211,7 +211,7 @@ tailwind.config = {
                     <i data-lucide="bell" class="w-5 h-5"></i>
                     <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-[#E53E3E] rounded-full ring-2 ring-white"></span>
                 </button>
-                <button onclick="toggleMainMenu()" class="p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition">
+                <button onclick="openChatOptionsMenu()" class="p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition">
                     <i data-lucide="more-vertical" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -219,14 +219,14 @@ tailwind.config = {
 
         <!-- Dropdown Menu -->
         <div id="main-context-menu" class="hidden absolute top-14 right-4 z-50 w-52 bg-white rounded-2xl shadow-xl border border-[#33BCA9]/30 p-2 text-xs font-semibold text-[#123838]">
-            <button onclick="triggerMenuAction('Ajustes de Cuenta')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
+            <button onclick="openWhatsAppSettings()" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
                 <i data-lucide="settings" class="w-4 h-4 text-[#2C7A7B]"></i> Ajustes de Perfil
             </button>
             <button onclick="triggerMenuAction('Estado de Ánimo')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
                 <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i> Mi Estado de Ánimo
             </button>
             <button onclick="triggerMenuAction('Sincronizar Spotify')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
-                <i data-lucide="music" class="w-4 h-4 text-[#1DB954]"></i> Vincular Spotify Morfeo
+                <i data-lucide="music" class="w-4 h-4 text-[#1DB954]"></i> Vincular Spotify Bienestar
             </button>
             <div class="my-1 border-t border-slate-100"></div>
             <button onclick="triggerMenuAction('Soporte y Ayuda')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2 text-slate-500">
@@ -346,8 +346,8 @@ tailwind.config = {
                         </div>
                     </div>
 
-                    <!-- Chat Item 3: Asistente IA Morfeo -->
-                    <div onclick="openChat('Asistente IA Morfeo', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=120&h=120', '¿Te gustaría un consejo personalizado para conciliar el sueño hoy?', 'Activo 24/7', 'ia')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/30 bg-gradient-to-r from-[#E0F7F4]/40 to-white">
+                    <!-- Chat Item 3: Asistente IA Bienestar -->
+                    <div onclick="openChat('Asistente IA Bienestar', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=120&h=120', '¿Te gustaría un consejo personalizado para conciliar el sueño hoy?', 'Activo 24/7', 'ia')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/30 bg-gradient-to-r from-[#E0F7F4]/40 to-white">
                         <div class="relative shrink-0">
                             <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#2C7A7B] to-[#D4AF37] p-0.5">
                                 <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=120&h=120" class="w-full h-full rounded-full object-cover" alt="IA">
@@ -357,7 +357,7 @@ tailwind.config = {
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-start mb-0.5">
                                 <h3 class="text-xs font-bold text-[#123838] truncate flex items-center gap-1">
-                                    Asistente IA Morfeo <span class="text-[9px] bg-[#D4AF37] text-white px-1 rounded font-extrabold">IA</span>
+                                    Asistente IA Bienestar <span class="text-[9px] bg-[#D4AF37] text-white px-1 rounded font-extrabold">IA</span>
                                 </h3>
                                 <span class="text-[10px] text-slate-400 font-medium">Ahora</span>
                             </div>
@@ -420,7 +420,7 @@ tailwind.config = {
                     <!-- Sample Incoming Msg -->
                     <div class="flex items-start gap-2 max-w-[85%]">
                         <div id="chat-first-message" class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-xs text-[#123838] border border-[#33BCA9]/20">
-                            ¡Hola! Bienvenido al chat de Morfeo. ¿En qué puedo ayudarte hoy?
+                            ¡Hola! Bienvenido al chat de Bienestar. ¿En qué puedo ayudarte hoy?
                         </div>
                     </div>
                 </div>
@@ -438,7 +438,7 @@ tailwind.config = {
                         <button onclick="sendAttachment('💊 Dosis')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
                             <i data-lucide="pill" class="w-3.5 h-3.5"></i> Dosis
                         </button>
-                        <button onclick="sendAttachment('😃 Emoji')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
+                        <button onclick="openFullEmojiPicker()" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
                             <i data-lucide="smile" class="w-3.5 h-3.5"></i> Ánimo
                         </button>
                     </div>
@@ -517,7 +517,7 @@ tailwind.config = {
                         </label>
                         <label class="flex items-center gap-2.5 text-xs font-semibold text-[#123838] cursor-pointer p-2 rounded-xl hover:bg-[#E0F7F4]/50 transition">
                             <input type="checkbox" class="w-4 h-4 accent-[#2C7A7B] rounded">
-                            <span>Sesión de Relajación en Morfeo (22:30 hrs)</span>
+                            <span>Sesión de Relajación en Bienestar (22:30 hrs)</span>
                         </label>
                     </div>
                 </div>
@@ -559,7 +559,7 @@ tailwind.config = {
                 <div class="bg-gradient-to-r from-[#2C7A7B] to-[#123838] text-white p-4 rounded-2xl shadow-md relative overflow-hidden">
                     <div class="relative z-10 space-y-1">
                         <span class="text-[10px] bg-[#D4AF37] text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">MercadoLibre Local + IA</span>
-                        <h3 class="text-base font-black tracking-tight">Emprende Morfeo PyME</h3>
+                        <h3 class="text-base font-black tracking-tight">Emprende Bienestar PyME</h3>
                         <p class="text-xs text-[#E0F7F4]">Descubre productos artesanales, conecta con clientes mediante Match y crea videos con IA.</p>
                     </div>
                     <i data-lucide="shopping-bag" class="w-24 h-24 absolute -bottom-4 -right-4 text-white/10"></i>
@@ -610,7 +610,7 @@ tailwind.config = {
                         </div>
                         <div>
                             <h3 class="text-sm font-black text-[#123838]">Match PyME & Cliente Local</h3>
-                            <p class="text-xs text-slate-500 mt-1">Conecta automáticamente con emprendedores de Morfeo cercanos a tu ubicación.</p>
+                            <p class="text-xs text-slate-500 mt-1">Conecta automáticamente con emprendedores de Bienestar cercanos a tu ubicación.</p>
                         </div>
                         <button onclick="triggerPymeMatch()" class="w-full bg-[#2C7A7B] text-white font-bold text-xs py-3 rounded-xl shadow-md hover:bg-[#123838] transition">
                             🎯 Buscar Match Cercano Ahora
@@ -635,16 +635,16 @@ tailwind.config = {
 
 
             <!-- ----------------------------------------------------- -->
-            <!-- TAB 4: MORFEO (DIOS DEL SUEÑO, DESCANSO & SPOTIFY)     -->
+            <!-- TAB 4: BIENESTAR (DIOS DEL SUEÑO, DESCANSO & SPOTIFY)     -->
             <!-- ----------------------------------------------------- -->
-            <div id="screen-morfeo" class="tab-content p-4 space-y-4">
+            <div id="screen-bienestar" class="tab-content p-4 space-y-4">
                 
-                <!-- Morfeo Branding Header -->
+                <!-- Bienestar Branding Header -->
                 <div class="bg-gradient-to-b from-[#123838] via-[#1A4D4E] to-[#123838] text-white p-5 rounded-3xl shadow-xl relative overflow-hidden border border-[#33BCA9]/30">
                     <div class="flex justify-between items-start relative z-10">
                         <div>
                             <span class="text-[10px] bg-[#D4AF37] text-white px-2.5 py-0.5 rounded-full font-black uppercase tracking-widest">Dios del Sueño & Descanso</span>
-                            <h2 class="text-xl font-black tracking-tight mt-1 text-[#FAF8EE]">MORFEO</h2>
+                            <h2 class="text-xl font-black tracking-tight mt-1 text-[#FAF8EE]">BIENESTAR</h2>
                             <p class="text-xs text-[#E0F7F4] font-medium">Música Binaural, Meditación & Relajación Profunda</p>
                         </div>
                         <div class="w-10 h-10 rounded-full bg-[#FAF8EE]/10 flex items-center justify-center border border-white/20">
@@ -656,7 +656,7 @@ tailwind.config = {
                     <div class="mt-5 pt-4 border-t border-white/10 space-y-3 relative z-10">
                         <div class="flex justify-between items-center text-xs">
                             <div>
-                                <span id="player-track-title" class="font-bold text-[#FAF8EE] block">Lluvia en el Jardín de Morfeo</span>
+                                <span id="player-track-title" class="font-bold text-[#FAF8EE] block">Lluvia en el Jardín de Bienestar</span>
                                 <span id="player-track-sub" class="text-[10px] text-[#33BCA9]">Ondas Delta 432Hz — Sueño Reparador</span>
                             </div>
                             <span class="text-[10px] bg-[#33BCA9]/20 text-[#33BCA9] px-2 py-0.5 rounded-full font-bold">HD Audio</span>
@@ -704,7 +704,7 @@ tailwind.config = {
                     </button>
                 </div>
 
-                <!-- MORFEO TRACK LIST -->
+                <!-- BIENESTAR TRACK LIST -->
                 <div class="glass-card p-4 rounded-2xl border border-[#33BCA9]/20 space-y-2.5">
                     <h3 class="text-xs font-black text-[#123838] uppercase tracking-wider flex items-center justify-between">
                         <span>Pistas de Relajación & Sueño</span>
@@ -712,7 +712,7 @@ tailwind.config = {
                     </h3>
 
                     <!-- Track Item 1 -->
-                    <div onclick="selectTrack('Lluvia en el Jardín de Morfeo', 'Ondas Delta 432Hz')" class="p-2.5 rounded-xl bg-[#E0F7F4]/60 hover:bg-[#E0F7F4] cursor-pointer flex items-center justify-between transition">
+                    <div onclick="selectTrack('Lluvia en el Jardín de Bienestar', 'Ondas Delta 432Hz')" class="p-2.5 rounded-xl bg-[#E0F7F4]/60 hover:bg-[#E0F7F4] cursor-pointer flex items-center justify-between transition">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="cloud-rain" class="w-4 h-4 text-[#2C7A7B]"></i>
                             <div>
@@ -726,11 +726,11 @@ tailwind.config = {
                     </div>
 
                     <!-- Track Item 2 -->
-                    <div onclick="selectTrack('Estero de Morfeo & Pájaros', 'Sonido Natural 528Hz')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
+                    <div onclick="selectTrack('Estero de Bienestar & Pájaros', 'Sonido Natural 528Hz')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="waves" class="w-4 h-4 text-[#2C7A7B]"></i>
                             <div>
-                                <span class="text-xs font-bold text-[#123838] block">Estero de Morfeo</span>
+                                <span class="text-xs font-bold text-[#123838] block">Estero de Bienestar</span>
                                 <span class="text-[10px] text-slate-500">Fluidez & Paz Interior — 15 min</span>
                             </div>
                         </div>
@@ -740,11 +740,11 @@ tailwind.config = {
                     </div>
 
                     <!-- Track Item 3 -->
-                    <div onclick="selectTrack('Meditación Morfeo Guiada', 'Voz Suave & Respiración')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
+                    <div onclick="selectTrack('Meditación Bienestar Guiada', 'Voz Suave & Respiración')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="sparkles" class="w-4 h-4 text-[#D4AF37]"></i>
                             <div>
-                                <span class="text-xs font-bold text-[#123838] block">Meditación Morfeo</span>
+                                <span class="text-xs font-bold text-[#123838] block">Meditación Bienestar</span>
                                 <span class="text-[10px] text-slate-500">Inducción al Sueño Profundo — 20 min</span>
                             </div>
                         </div>
@@ -780,10 +780,10 @@ tailwind.config = {
                 <span class="text-[10px] font-bold tracking-tight">Emprende</span>
             </button>
 
-            <!-- Tab 4: Morfeo -->
-            <button id="nav-morfeo" onclick="switchMainTab('morfeo', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
+            <!-- Tab 4: Bienestar -->
+            <button id="nav-bienestar" onclick="switchMainTab('bienestar', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
                 <i data-lucide="moon" class="w-5 h-5"></i>
-                <span class="text-[10px] font-bold tracking-tight">Morfeo</span>
+                <span class="text-[10px] font-bold tracking-tight">Bienestar</span>
             </button>
         </nav>
 
@@ -826,7 +826,7 @@ tailwind.config = {
                 percentageText.textContent = progress + '%';
 
                 if (progress > 30 && progress < 70) {
-                    statusText.textContent = 'Sincronizando Módulos de Morfeo & Morfeo...';
+                    statusText.textContent = 'Sincronizando Módulos de Bienestar & Bienestar...';
                 } else if (progress >= 70 && progress < 100) {
                     statusText.textContent = 'Aplicando Colores Corporativos Pantone...';
                 }
@@ -927,7 +927,7 @@ tailwind.config = {
                 inDiv.className = 'flex items-start gap-2 max-w-[85%]';
                 inDiv.innerHTML = `
                     <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-xs text-[#123838] border border-[#33BCA9]/20">
-                        ¡Recibido! Gracias por escribir a Morfeo. Quedó registrado correctamente. 🌿
+                        ¡Recibido! Gracias por escribir a Bienestar. Quedó registrado correctamente. 🌿
                     </div>
                 `;
                 container.appendChild(inDiv);
@@ -984,7 +984,7 @@ tailwind.config = {
             alert('🎯 ¡Match Encontrado! Te hemos conectado con Herbolaria Monterilla (a 1.2 km). Puedes chatear con ellos directamente en la pestaña de Chats.');
         }
 
-        // 8. MORFEO PLAYER CONTROLS
+        // 8. BIENESTAR PLAYER CONTROLS
         let isPlaying = true;
         function togglePlay() {
             isPlaying = !isPlaying;
@@ -1066,11 +1066,11 @@ tailwind.config = {
         }
 
         function capturePhotoToChat() {
-            alert('📸 Foto capturada. Adjuntada al chat de Morfeo.');
+            alert('📸 Foto capturada. Adjuntada al chat de Bienestar.');
             closeCameraModal();
         }
 
-        async function startVideoCall(doctorName = 'Especialista Morfeo') {
+        async function startVideoCall(doctorName = 'Especialista Bienestar') {
             const modal = document.getElementById('videoCallModal');
             if (!modal) return;
             modal.classList.remove('hidden');
@@ -1110,7 +1110,7 @@ tailwind.config = {
 <div id="cameraModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
             <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
-                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📷 Cámara Morfeo</h3>
+                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📷 Cámara Bienestar</h3>
                 <button onclick="closeCameraModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
             </div>
             <div class="p-6 text-center">
@@ -1203,7 +1203,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5enZ5Z3l6dGhtb3Vkc2Vwd3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3OTA2ODYsImV4cCI6MjEwMzM2NjY4Nn0.hF8OJh8ux6XQvl-YplGCI4x6fIOFzhZf94dDJqV25Xo'; 
         const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // --- SISTEMA DE RESERVAS REALES EN SUPABASE (TEST DE MORFEO) v48 ---
+        // --- SISTEMA DE RESERVAS REALES EN SUPABASE (TEST DE BIENESTAR) v48 ---
         async function saveAppointmentToSupabase() {
             if (supabaseKey === '') return;
             const specialistName = selections.selectedSpecialist ? selections.selectedSpecialist.name : 'Dra. Eliana Ruiz';
@@ -1243,7 +1243,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (insertError) throw insertError;
                 console.log("✅ Cita agendada exitosamente en Supabase (tabla citas) con código:", bookingCode);
             } catch (err) {
-                console.error("❌ Error al guardar cita en Supabase desde el Test de Morfeo:", err.message);
+                console.error("❌ Error al guardar cita en Supabase desde el Test de Bienestar:", err.message);
             }
         }
 
@@ -1352,7 +1352,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const emailVal = document.getElementById('inputEmail') ? document.getElementById('inputEmail').value.trim() : '';
                 const phoneVal = document.getElementById('inputPhone') ? document.getElementById('inputPhone').value.trim() : '';
                 if (!firstNameVal || !lastNameVal || !emailVal || !phoneVal) {
-                    alert("⚠️ Por favor, ingresa tu Nombre, Apellido, Correo Electrónico y Teléfono Celular para continuar y personalizar tu plan de Morfeo.");
+                    alert("⚠️ Por favor, ingresa tu Nombre, Apellido, Correo Electrónico y Teléfono Celular para continuar y personalizar tu plan de Bienestar.");
                     return;
                 }
                 if (!emailVal.includes('@') || !emailVal.includes('.')) {
@@ -1554,7 +1554,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 bookingDerivationText.innerHTML = "🧠 <strong class='text-forest font-bold'>Derivación Salud Mental / Neurodivergencia:</strong> Mostrando especialistas y psicólogos clínicos capacitados en acompañamiento integrativo y respetuoso (" + selections.mental + ").";
             } else {
                 filteredSpecialists = specialists;
-                bookingDerivationText.innerHTML = "Mostrando profesionales de medicina integrativa de MORFEO disponibles para tu consulta.";
+                bookingDerivationText.innerHTML = "Mostrando profesionales de medicina integrativa de BIENESTAR disponibles para tu consulta.";
             }
 
             filteredSpecialists.forEach((specialist, index) => {
@@ -1659,7 +1659,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function addAppointmentToCalendar() {
-            const specialistName = selections.selectedSpecialist ? selections.selectedSpecialist.name : "Especialista MORFEO";
+            const specialistName = selections.selectedSpecialist ? selections.selectedSpecialist.name : "Especialista BIENESTAR";
             const address = selections.mode === 'online' ? 'Sala Virtual de Telemedicina' : selections.selectedSpecialist.address;
             const dateStr = selections.bookingDate; // Ej: "Lunes 24 de Agosto"
             const timeStr = selections.bookingTime; // Ej: "09:30"
@@ -1671,7 +1671,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Crear el enlace directo para Google Calendar
             const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE` +
-                `&text=${encodeURIComponent('Consulta Médica MORFEO - ' + specialistName)}` +
+                `&text=${encodeURIComponent('Consulta Médica BIENESTAR - ' + specialistName)}` +
                 `&dates=202608${day}T${startHour}${startMin}00/202608${day}T${(parseInt(startHour)+1).toString().padStart(2, '0')}${startMin}00` +
                 `&details=${encodeURIComponent('Tu consulta integrativa ha sido agendada con éxito. Por favor llegar 10 minutos antes. Modalidad: ' + selections.mode.toUpperCase())}` +
                 `&location=${encodeURIComponent(address)}` +
@@ -1710,7 +1710,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div style="display: inline-block; vertical-align: middle; text-align: left;">
                     <h2 style="font-size: 9px; font-weight: 900; color: #84A59D; margin: 0; letter-spacing: 1.5px; text-transform: uppercase;">Ecosistema de Salud Integrativa</h2>
-                    <h1 style="font-size: 18px; font-weight: 900; color: #52796F; margin: 2px 0 0 0;">MORFEO</h1>
+                    <h1 style="font-size: 18px; font-weight: 900; color: #52796F; margin: 2px 0 0 0;">BIENESTAR</h1>
                 </div>
             `;
 
@@ -1732,7 +1732,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.left = '0';
             document.body.style.top = '0';
 
-            // 1. Mostrar hermoso overlay herbolario de carga MORFEO
+            // 1. Mostrar hermoso overlay herbolario de carga BIENESTAR
             const overlay = document.createElement('div');
             overlay.style.position = 'fixed';
             overlay.style.top = '0';
@@ -1749,9 +1749,9 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.innerHTML = `
                 <div style="text-align: center; max-width: 320px; padding: 20px;">
                     <div style="width: 70px; height: 70px; margin: 0 auto 20px auto; border-radius: 50%; border: 3px solid #52796F; box-shadow: 0 4px 12px rgba(82,121,111,0.25); overflow: hidden; animation: pulse 1.5s infinite ease-in-out;">
-                        <img src="logo morfeo png.jpeg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_morfeo/logo morfeo png.jpeg';">
+                        <img src="logo bienestar png.jpeg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
                     </div>
-                    <h4 style="color: #2F3E46; font-size: 15px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">MORFEO</h4>
+                    <h4 style="color: #2F3E46; font-size: 15px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">BIENESTAR</h4>
                     <p style="color: #52796F; font-size: 11px; font-weight: 600; margin: 0 0 20px 0;">Preparando pauta de salud digital centrado...</p>
                     <div style="width: 100%; height: 4px; background: #E2E8F0; border-radius: 2px; overflow: hidden; position: relative;">
                         <div style="position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: #52796F; border-radius: 2px; animation: loading-bar 1.5s infinite linear;"></div>
@@ -1820,13 +1820,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                 ${svg_logo}
                             </div>
                             <div style="display: table-cell; vertical-align: middle; text-align: right; border-left: 1.5px solid #52796F; padding-left: 12px; width: 180px;">
-                                <span style="font-size: 8px; background-color: #F28482; color: white; font-weight: bold; padding: 3px 8px; border-radius: 6px; text-transform: uppercase;">REPORTE DE MORFEO</span>
+                                <span style="font-size: 8px; background-color: #F28482; color: white; font-weight: bold; padding: 3px 8px; border-radius: 6px; text-transform: uppercase;">REPORTE DE BIENESTAR</span>
                                 <p style="font-size: 8px; color: #718096; margin: 4px 0 0 0; font-weight: bold;">CÓDIGO: EVAL-LAWEN-${Math.floor(1000 + Math.random() * 9000)}</p>
                             </div>
                         </div>
 
                         <div style="text-align: center; margin-bottom: 5px;">
-                            <h2 style="font-size: 14px; font-weight: 800; color: #2F3E46; text-transform: uppercase; margin: 0; letter-spacing: 0.5px;">EVALUACIÓN INTEGRAL DE MORFEO</h2>
+                            <h2 style="font-size: 14px; font-weight: 800; color: #2F3E46; text-transform: uppercase; margin: 0; letter-spacing: 0.5px;">EVALUACIÓN INTEGRAL DE BIENESTAR</h2>
                             <p style="font-size: 8.5px; color: #718096; font-weight: 600; margin: 2px 0 0 0;">Análisis Biométrico y Recomendaciones de Salud Natural</p>
                         </div>
 
@@ -1885,8 +1885,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div>
                             <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📍 IV. Derivaciones y Convenios Activados</h3>
                             <div style="font-size: 9.5px; margin-bottom: 10px; color: #4A5568; background-color: white; padding: 10px; border-radius: 12px; border: 1px solid #E2E8F0; line-height: 1.4; box-sizing: border-box;">
-                                <p style="margin: 0 0 3px 0;"><strong>Especialista Asignado de MORFEO:</strong> ${selections.selectedSpecialist ? selections.selectedSpecialist.name : 'No asignado'} (${selections.selectedSpecialist ? selections.selectedSpecialist.spec : 'Especialista de Turno'})</p>
-                                <p style="margin: 0 0 3px 0;"><strong>Pase de Convenio B2B Recomendado:</strong> Pase de Morfeo para Gimnasio SportLife o Yoga Postural</p>
+                                <p style="margin: 0 0 3px 0;"><strong>Especialista Asignado de BIENESTAR:</strong> ${selections.selectedSpecialist ? selections.selectedSpecialist.name : 'No asignado'} (${selections.selectedSpecialist ? selections.selectedSpecialist.spec : 'Especialista de Turno'})</p>
+                                <p style="margin: 0 0 3px 0;"><strong>Pase de Convenio B2B Recomendado:</strong> Pase de Bienestar para Gimnasio SportLife o Yoga Postural</p>
                                 <p style="margin: 0;"><strong>Código de Descuento en Alimentación:</strong> 15% DCTO en Restaurante "Huerto Orgánico" con tu receta digital.</p>
                             </div>
                             <div style="background-color: #FFF5F5; border-left: 4px solid #F28482; padding: 10px; border-radius: 10px; font-size: 9.5px; color: #2D3748; font-weight: 600; line-height: 1.4; box-sizing: border-box;">
@@ -1897,7 +1897,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         <!-- Footer Legal Centrado -->
                         <div style="text-align: center; border-top: 1.5px dashed #CBD5E0; padding-top: 12px; font-size: 8px; color: #A0AEC0; line-height: 1.4; margin-top: 10px;">
-                            <p style="margin: 0; font-weight: bold; color: #52796F;">© 2026 MORFEO Chile. Registro Clínico y Ecosistema de Salud Integrativa Protegido.</p>
+                            <p style="margin: 0; font-weight: bold; color: #52796F;">© 2026 BIENESTAR Chile. Registro Clínico y Ecosistema de Salud Integrativa Protegido.</p>
                             <p style="margin: 2px 0 0 0; font-weight: 600;">Documento emitido y encriptado bajo la Ley Marco de Ciberseguridad N° 21.663.</p>
                         </div>
                     </div>
@@ -1906,7 +1906,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             element.innerHTML = contentHtml;
 
-            const filenameText = isFreeOnly ? `MORFEO_Plan_Preventivo_${selections.firstName}_${selections.lastName}.pdf` : `MORFEO_Pauta_Clinica_${selections.firstName}_${selections.lastName}.pdf`;
+            const filenameText = isFreeOnly ? `BIENESTAR_Plan_Preventivo_${selections.firstName}_${selections.lastName}.pdf` : `BIENESTAR_Pauta_Clinica_${selections.firstName}_${selections.lastName}.pdf`;
 
             const opt = {
                 margin:       0,
@@ -2044,9 +2044,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     gymAllianceCard.classList.remove('hidden');
                     let message = "";
                     if (isWeightLossGoal) {
-                        message = "Dado tu objetivo de **Bajar de Peso e incrementar tu salud**, MORFEO ha gestionado de forma automática beneficios exclusivos para ti: un **Pase Libre de 3 días en SportLife**, un **15% de descuento en clases de Yoga Restaurativo** para cuidar tu cuerpo, o **1 sesión gratis con un Personal Trainer**. Puedes agendar una hora para que uno de nuestros especialistas médicos evalúe tu caso, o pinchar el botón de abajo para ver los centros.";
+                        message = "Dado tu objetivo de **Bajar de Peso e incrementar tu salud**, BIENESTAR ha gestionado de forma automática beneficios exclusivos para ti: un **Pase Libre de 3 días en SportLife**, un **15% de descuento en clases de Yoga Restaurativo** para cuidar tu cuerpo, o **1 sesión gratis con un Personal Trainer**. Puedes agendar una hora para que uno de nuestros especialistas médicos evalúe tu caso, o pinchar el botón de abajo para ver los centros.";
                     } else {
-                        message = "Dado tu índice de masa corporal (" + imc + " - Sobrepeso), MORFEO ha gestionado de forma automática un **Pase Libre de 3 días en SportLife**, un **15% de descuento en clases de Yoga Restaurativo** (para cuidar tus articulaciones lumbares), o **1 sesión gratis con Personal Trainer**.";
+                        message = "Dado tu índice de masa corporal (" + imc + " - Sobrepeso), BIENESTAR ha gestionado de forma automática un **Pase Libre de 3 días en SportLife**, un **15% de descuento en clases de Yoga Restaurativo** (para cuidar tus articulaciones lumbares), o **1 sesión gratis con Personal Trainer**.";
                     }
                     document.getElementById('resGymAllianceText').innerHTML = message;
                 } else {
@@ -2149,8 +2149,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <path d="M50,70 Q38,65 40,55 Q52,58 50,70" fill="#84A59D" stroke="#52796F" stroke-width="1" />
                         <circle cx="50" cy="20" r="3" fill="#F28482" />
                     </svg>
-                    <h2 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 800; color: #52796F; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">MORFEO</h2>
-                    <p style="font-size: 8px; color: #84A59D; margin: 2px 0 0 0; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Ecosistema de Morfeo</p>
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 800; color: #52796F; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">BIENESTAR</h2>
+                    <p style="font-size: 8px; color: #84A59D; margin: 2px 0 0 0; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Ecosistema de Bienestar</p>
                 </div>
             `;
 
@@ -2162,7 +2162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalBodyLeft = document.body.style.left;
             const originalBodyTop = document.body.style.top;
 
-            // Mostrar hermoso overlay herbolario de carga MORFEO
+            // Mostrar hermoso overlay herbolario de carga BIENESTAR
             const overlay = document.createElement('div');
             overlay.style.position = 'fixed';
             overlay.style.top = '0';
@@ -2179,9 +2179,9 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.innerHTML = `
                 <div style="text-align: center; max-width: 320px; padding: 20px;">
                     <div style="width: 70px; height: 70px; margin: 0 auto 15px auto; border-radius: 50%; overflow: hidden; border: 3px solid #52796F; box-shadow: 0 4px 10px rgba(82, 121, 111, 0.15); animation: pulse 1.5s infinite ease-in-out;">
-                        <img src="logo morfeo png.jpeg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_morfeo/logo morfeo png.jpeg';">
+                        <img src="logo bienestar png.jpeg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
                     </div>
-                    <h4 style="color: #2F3E46; font-size: 15px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">MORFEO</h4>
+                    <h4 style="color: #2F3E46; font-size: 15px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">BIENESTAR</h4>
                     <p style="color: #52796F; font-size: 11px; font-weight: 600; margin: 0 0 20px 0;">Preparando cupón de descuento digital...</p>
                     <div style="width: 100%; height: 4px; background: #E2E8F0; border-radius: 2px; overflow: hidden; position: relative;">
                         <div style="position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: #52796F; border-radius: 2px; animation: loading-bar 1.5s infinite linear;"></div>
@@ -2238,10 +2238,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${svg_logo_coupon}
                     
                     <div style="display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 2px solid #52796F; padding-bottom: 12px; margin-bottom: 15px;">
-                        <img src="${activeClaimB2B.logo || 'logo morfeo png.jpeg'}" crossorigin="anonymous" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #52796F;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_morfeo/logo morfeo png.jpeg';">
+                        <img src="${activeClaimB2B.logo || 'logo bienestar png.jpeg'}" crossorigin="anonymous" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #52796F;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
                         <div style="text-align: left;">
                             <h4 style="font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 800; color: #52796F; margin: 0; text-transform: uppercase;">${activeClaimB2B.name}</h4>
-                            <p style="font-size: 8px; font-weight: bold; color: #84A59D; margin: 1px 0 0 0; letter-spacing: 1px; text-transform: uppercase;">Ecosistema MORFEO</p>
+                            <p style="font-size: 8px; font-weight: bold; color: #84A59D; margin: 1px 0 0 0; letter-spacing: 1px; text-transform: uppercase;">Ecosistema BIENESTAR</p>
                         </div>
                     </div>
                     <div style="margin: 15px 0;">
@@ -2255,14 +2255,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div style="font-size: 7.5px; color: #A0AEC0; margin-top: 15px;">
                         <p>Validado bajo la Ley de Ciberseguridad N° 21.663.</p>
-                        <p>© 2026 MORFEO Chile</p>
+                        <p>© 2026 BIENESTAR Chile</p>
                     </div>
                 </div>
             `;
 
             const opt = {
                 margin:       0,
-                filename:     `MORFEO_Cupon_${activeClaimB2B.code}.pdf`,
+                filename:     `BIENESTAR_Cupon_${activeClaimB2B.code}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { 
                     scale: 2.5, 
@@ -2310,7 +2310,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const couponCode = `LW-${Math.floor(100000 + Math.random() * 900000)}`;
 
-            const msg = `*🎫 CUPÓN DIGITAL RECLAMADO - MORFEO*\n\n` +
+            const msg = `*🎫 CUPÓN DIGITAL RECLAMADO - BIENESTAR*\n\n` +
                         `Hola, he obtenido mi cupón de beneficio exclusivo:\n` +
                         `• *Establecimiento:* ${partnerName}\n` +
                         `• *Beneficio:* ${benefit}\n` +
@@ -2405,7 +2405,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Validar verificación humana (Deslizador Anti-Bots)
             const verifiedVal = document.getElementById('slideVerifyCompleted') ? document.getElementById('slideVerifyCompleted').value === 'true' : true;
             if (!verifiedVal) {
-                alert("⚠️ Por favor desliza la hojita de morfeo herbolario hacia la derecha para verificar que eres un humano.");
+                alert("⚠️ Por favor desliza la hojita de bienestar herbolario hacia la derecha para verificar que eres un humano.");
                 return;
             }
             // Validar campos del formulario de postulación antes de abrir la pasarela
@@ -2421,7 +2421,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Validar sintaxis de correo electrónico para evitar envíos incompletos
             if (!email.includes('@') || !email.includes('.') || email.endsWith('.')) {
-                alert("⚠️ CORREO INCOMPLETO O INVÁLIDO:\n\nPor favor, ingresa un correo electrónico válido completo (por ejemplo: nuevo.doctor@morfeo.cl).\n\nEl correo que escribiste (" + email + ") parece estar incompleto o faltarle el dominio final (.cl o .com).");
+                alert("⚠️ CORREO INCOMPLETO O INVÁLIDO:\n\nPor favor, ingresa un correo electrónico válido completo (por ejemplo: nuevo.doctor@bienestar.cl).\n\nEl correo que escribiste (" + email + ") parece estar incompleto o faltarle el dominio final (.cl o .com).");
                 return;
             }
 
@@ -2536,7 +2536,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   `• Estado de Cuenta: ACTIVADO (SaaS B2B)\n` +
                   `• Código de Transacción: ${clientPasarela}\n` +
                   `• Credenciales de Acceso: Usa tu correo (${emailVal}) y contraseña para ingresar a tu panel clínico.\n\n` +
-                  `Se ha generado tu cuenta de especialista en MORFEO. Ya tienes acceso al portal clínico SOAP, la vitrina geolocalizada y el chat herbolario con tus credenciales de seguridad. ¡Bienvenido a MORFEO!`);
+                  `Se ha generado tu cuenta de especialista en BIENESTAR. Ya tienes acceso al portal clínico SOAP, la vitrina geolocalizada y el chat herbolario con tus credenciales de seguridad. ¡Bienvenido a BIENESTAR!`);
             
             // Limpiar campos del registro
             document.querySelector('#stepJoin input[placeholder="Ej: Dr. Francisco Mora"]').value = "";
@@ -2651,7 +2651,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // --- INJECT v55 SECURITY PACK ---
 
-        // --- SISTEMA INTERACTIVO ANTI-BOTS: DESLIZADOR DE MORFEO 🌿 ---
+        // --- SISTEMA INTERACTIVO ANTI-BOTS: DESLIZADOR DE BIENESTAR 🌿 ---
         function initSlideVerify() {
             const handle = document.getElementById('slideVerifyHandle');
             const container = document.getElementById('slideVerifyContainer');
@@ -2794,7 +2794,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => { progressBar.style.width = '80%'; statusText.textContent = 'Cargando herramientas business...'; }, 1000);
                 setTimeout(() => { 
                     progressBar.style.width = '100%'; 
-                    statusText.textContent = '¡Bienvenido a Morfeo!'; 
+                    statusText.textContent = '¡Bienvenido a Bienestar!'; 
                 }, 1600);
                 
                 setTimeout(() => {
@@ -2833,7 +2833,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('fileModal')?.classList.add('hidden');
         }
 
-        function startVoiceCall(name = 'Especialista Morfeo') {
+        function startVoiceCall(name = 'Especialista Bienestar') {
             document.getElementById('callTargetName').textContent = name;
             document.getElementById('voiceCallModal')?.classList.remove('hidden');
         }
@@ -3031,5 +3031,234 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 </script>
+
+<!-- ========================================================= -->
+<!-- MODAL DE AJUSTES GENERALES ESTILO WHATSAPP DE BIENESTAR    -->
+<!-- ========================================================= -->
+<div id="whatsappSettingsModal" class="fixed inset-0 z-[9950] bg-slate-900/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-md w-full h-[90vh] flex flex-col overflow-hidden shadow-2xl text-[#123838] relative">
+        
+        <!-- Header -->
+        <div class="p-4 bg-gradient-to-r from-[#2C7A7B] to-[#123838] text-white flex justify-between items-center shadow-md">
+            <div class="flex items-center gap-2.5">
+                <button onclick="closeWhatsAppSettings()" class="p-1 hover:bg-white/10 rounded-full transition">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </button>
+                <h3 class="font-extrabold text-base tracking-tight">Ajustes de Bienestar</h3>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="alert('Buscando en ajustes...')" class="p-1.5 hover:bg-white/10 rounded-full transition">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Scrollable Settings Body -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-4">
+            
+            <!-- User Profile Header Card -->
+            <div class="glass-card p-3.5 rounded-2xl border border-[#33BCA9]/20 flex items-center justify-between shadow-xs bg-white">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <img id="settingsUserAvatar" src="logo bienestar png.jpeg" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';" class="w-14 h-14 rounded-full object-cover border-2 border-[#2C7A7B] shadow-sm">
+                        <button onclick="alert('Cambiar foto de perfil')" class="absolute bottom-0 right-0 p-1 bg-[#2C7A7B] text-white rounded-full shadow-md">
+                            <i data-lucide="camera" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <h4 class="font-extrabold text-sm text-[#123838]">Ecosistema Bienestar Pro</h4>
+                        <p class="text-xs text-slate-500 font-medium">¡Hola! Estoy usando Bienestar 🌿</p>
+                        <span class="text-[9px] bg-[#E0F7F4] text-[#2C7A7B] px-2 py-0.5 rounded-full font-bold mt-1 inline-block">Cuenta Verificada</span>
+                    </div>
+                </div>
+                <button onclick="openQRCodeModal()" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full transition">
+                    <i data-lucide="qr-code" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Settings Categories List -->
+            <div class="space-y-1 bg-white rounded-2xl border border-[#33BCA9]/20 p-2 shadow-xs">
+                
+                <!-- 1. Cuenta -->
+                <div onclick="openSettingsDetail('Cuenta')" class="flex items-center gap-3 p-3 hover:bg-[#E0F7F4]/50 rounded-xl cursor-pointer transition">
+                    <div class="w-9 h-9 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center font-bold">
+                        <i data-lucide="key" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-[#123838]">Cuenta</h5>
+                        <p class="text-[10px] text-slate-500">Notificaciones de seguridad, cambiar número</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </div>
+
+                <!-- 2. Privacidad -->
+                <div onclick="openSettingsDetail('Privacidad')" class="flex items-center gap-3 p-3 hover:bg-[#E0F7F4]/50 rounded-xl cursor-pointer transition">
+                    <div class="w-9 h-9 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center font-bold">
+                        <i data-lucide="lock" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-[#123838]">Privacidad</h5>
+                        <p class="text-[10px] text-slate-500">Bloquear contactos, mensajes temporales, huella</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </div>
+
+                <!-- 3. Chats -->
+                <div onclick="openSettingsDetail('Chats')" class="flex items-center gap-3 p-3 hover:bg-[#E0F7F4]/50 rounded-xl cursor-pointer transition">
+                    <div class="w-9 h-9 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center font-bold">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-[#123838]">Chats</h5>
+                        <p class="text-[10px] text-slate-500">Tema, fondos de pantalla, copia de seguridad</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </div>
+
+                <!-- 4. Notificaciones -->
+                <div onclick="openSettingsDetail('Notificaciones')" class="flex items-center gap-3 p-3 hover:bg-[#E0F7F4]/50 rounded-xl cursor-pointer transition">
+                    <div class="w-9 h-9 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center font-bold">
+                        <i data-lucide="bell" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-[#123838]">Notificaciones</h5>
+                        <p class="text-[10px] text-slate-500">Tonos de mensajes, grupos y llamadas</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </div>
+
+                <!-- 5. Almacenamiento y Datos -->
+                <div onclick="openSettingsDetail('Almacenamiento')" class="flex items-center gap-3 p-3 hover:bg-[#E0F7F4]/50 rounded-xl cursor-pointer transition">
+                    <div class="w-9 h-9 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center font-bold">
+                        <i data-lucide="database" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-[#123838]">Almacenamiento y datos</h5>
+                        <p class="text-[10px] text-slate-500">Uso de red, descarga automática</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </div>
+
+                <!-- 6. Idioma -->
+                <div onclick="openSettingsDetail('Idioma')" class="flex items-center gap-3 p-3 hover:bg-[#E0F7F4]/50 rounded-xl cursor-pointer transition">
+                    <div class="w-9 h-9 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center font-bold">
+                        <i data-lucide="globe" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-[#123838]">Idioma de la aplicación</h5>
+                        <p class="text-[10px] text-slate-500">Español (idioma del dispositivo)</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </div>
+
+                <!-- 7. Ayuda -->
+                <div onclick="openSettingsDetail('Ayuda')" class="flex items-center gap-3 p-3 hover:bg-[#E0F7F4]/50 rounded-xl cursor-pointer transition">
+                    <div class="w-9 h-9 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center font-bold">
+                        <i data-lucide="help-circle" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-[#123838]">Ayuda</h5>
+                        <p class="text-[10px] text-slate-500">Centro de ayuda, contáctanos, política de privacidad</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </div>
+
+                <!-- 8. Invitar a un amigo -->
+                <div onclick="alert('Compartiendo enlace de invitación a Bienestar por WhatsApp...')" class="flex items-center gap-3 p-3 hover:bg-[#E0F7F4]/50 rounded-xl cursor-pointer transition">
+                    <div class="w-9 h-9 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center font-bold">
+                        <i data-lucide="users" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-[#123838]">Invitar a un amigo</h5>
+                        <p class="text-[10px] text-slate-500">Comparte Bienestar con tus contactos</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center text-[10px] text-slate-400 font-mono py-2">
+                Ecosistema Bienestar Pro v169.0<br>
+                Cifrado extremo a extremo activado
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- MODAL DE MENÚ DE OPCIONES DEL CHAT INDIVIDUAL (3 PUNTOS)   -->
+<!-- ========================================================= -->
+<div id="chatOptionsMenuModal" class="fixed inset-0 z-[9960] bg-black/50 backdrop-blur-xs hidden flex items-start justify-end p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl w-56 shadow-2xl overflow-hidden mt-12 text-xs font-semibold text-[#123838] animate-in fade-in duration-200">
+        <button onclick="triggerChatOption('Ver contacto')" class="w-full text-left p-3 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+            <i data-lucide="user" class="w-4 h-4 text-[#2C7A7B]"></i>
+            <span>Ver contacto</span>
+        </button>
+        <button onclick="triggerChatOption('Archivos y docs')" class="w-full text-left p-3 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+            <i data-lucide="folder" class="w-4 h-4 text-[#2C7A7B]"></i>
+            <span>Archivos, enlaces y docs</span>
+        </button>
+        <button onclick="triggerChatOption('Buscar')" class="w-full text-left p-3 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+            <i data-lucide="search" class="w-4 h-4 text-[#2C7A7B]"></i>
+            <span>Buscar en el chat</span>
+        </button>
+        <button onclick="triggerChatOption('Silenciar')" class="w-full text-left p-3 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+            <i data-lucide="bell-off" class="w-4 h-4 text-[#2C7A7B]"></i>
+            <span>Silenciar notificaciones</span>
+        </button>
+        <button onclick="triggerChatOption('Mensajes temporales')" class="w-full text-left p-3 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+            <i data-lucide="timer" class="w-4 h-4 text-[#2C7A7B]"></i>
+            <span>Mensajes temporales</span>
+        </button>
+        <button onclick="triggerChatOption('Fondo de pantalla')" class="w-full text-left p-3 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+            <i data-lucide="image" class="w-4 h-4 text-[#2C7A7B]"></i>
+            <span>Fondo de pantalla</span>
+        </button>
+        <div class="border-t border-slate-100 my-0.5"></div>
+        <button onclick="triggerChatOption('Vaciar chat')" class="w-full text-left p-3 hover:bg-red-50 text-red-600 flex items-center gap-2.5 transition">
+            <i data-lucide="trash-2" class="w-4 h-4 text-red-500"></i>
+            <span>Vaciar chat</span>
+        </button>
+        <button onclick="triggerChatOption('Exportar chat')" class="w-full text-left p-3 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+            <i data-lucide="download" class="w-4 h-4 text-[#2C7A7B]"></i>
+            <span>Exportar chat</span>
+        </button>
+        <button onclick="closeChatOptionsMenu()" class="w-full text-center py-2 bg-slate-50 text-slate-500 hover:bg-slate-100 font-bold border-t border-slate-100">
+            Cerrar
+        </button>
+    </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- MODAL SELECTOR COMPLETO DE EMOJIS CATEGORIZADO              -->
+<!-- ========================================================= -->
+<div id="fullEmojiPickerModal" class="fixed inset-0 z-[9970] bg-black/40 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-2">
+    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-md w-full h-[60vh] flex flex-col overflow-hidden shadow-2xl text-[#123838]">
+        
+        <!-- Header con Categorías -->
+        <div class="p-3 bg-[#E0F7F4] border-b border-[#33BCA9]/20 flex justify-between items-center">
+            <div class="flex gap-2 overflow-x-auto text-base no-scrollbar" id="emojiCatTabs">
+                <button onclick="filterEmojiCat('caras')" class="emoji-cat-btn bg-[#2C7A7B] text-white px-2 py-1 rounded-lg">😃</button>
+                <button onclick="filterEmojiCat('gestos')" class="emoji-cat-btn bg-white px-2 py-1 rounded-lg">👍</button>
+                <button onclick="filterEmojiCat('naturaleza')" class="emoji-cat-btn bg-white px-2 py-1 rounded-lg">🌿</button>
+                <button onclick="filterEmojiCat('comida')" class="emoji-cat-btn bg-white px-2 py-1 rounded-lg">🍎</button>
+                <button onclick="filterEmojiCat('actividades')" class="emoji-cat-btn bg-white px-2 py-1 rounded-lg">⚽️</button>
+                <button onclick="filterEmojiCat('simbolos')" class="emoji-cat-btn bg-white px-2 py-1 rounded-lg">💖</button>
+            </div>
+            <button onclick="closeEmojiPickerModal()" class="text-slate-400 hover:text-[#123838] font-bold text-lg px-2">✕</button>
+        </div>
+
+        <!-- Grid de Emojis -->
+        <div class="flex-1 overflow-y-auto p-3 text-2xl grid grid-cols-7 gap-2 text-center" id="emojiGridContainer">
+            <!-- Emojis populated dynamically -->
+        </div>
+
+        <div class="p-2 text-center bg-slate-50 text-[10px] text-slate-400 font-medium border-t border-slate-100">
+            Toca cualquier emoji para insertarlo en tu mensaje
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
