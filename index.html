@@ -1,0 +1,3035 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MORFEO - Ecosistema Híbrido de Salud & Estilo de Vida</title>
+    <!-- Tailwind CSS 3.x CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pantone: {
+                            verde: '#2C7A7B',
+                            turquesa: '#33BCA9',
+                            oscuro: '#123838',
+                            oro: '#D4AF37',
+                            fondo: '#FAF8EE',
+                            menta: '#E0F7F4',
+                            rosado: '#E53E3E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['System-UI', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+</script>
+    <style>
+        :root {
+            --p-verde: #2C7A7B;
+            --p-turquesa: #33BCA9;
+            --p-oscuro: #123838;
+            --p-oro: #D4AF37;
+            --p-fondo: #FAF8EE;
+        }
+
+        body {
+            background-color: #0F172A;
+            color: #2D3748;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Phone frame simulation on desktop */
+        .app-container {
+            max-width: 440px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background-color: var(--p-fondo);
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.03);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #33BCA9;
+            border-radius: 4px;
+        }
+
+        /* Pulsing Glow Animation for Splash Logo */
+        @keyframes logoPulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 25px rgba(51, 188, 169, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0); }
+        }
+
+        .splash-logo-glow {
+            animation: logoPulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes progressGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .progress-bar-animated {
+            background: linear-gradient(270deg, #33BCA9, #2C7A7B, #D4AF37, #33BCA9);
+            background-size: 300% 300%;
+            animation: progressGlow 2s ease infinite;
+        }
+
+        /* Tab Transition */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease-out forwards;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphism */
+        .glass-header {
+            background: rgba(250, 248, 238, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(51, 188, 169, 0.18);
+        }
+    </style>
+</head>
+<body class="bg-[#0F172A] flex justify-center items-center min-h-screen p-0 sm:p-4">
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-container relative w-full sm:rounded-[36px] border-0 sm:border-8 border-[#1E293B]">
+
+        <!-- ========================================================= -->
+        <!-- PANTALLA DE CARGA / ESPERA DE DESCARGA (SPLASH SCREEN)    -->
+        <!-- ========================================================= -->
+        <div id="splash-screen" class="absolute inset-0 z-[100] bg-gradient-to-b from-[#123838] via-[#2C7A7B] to-[#123838] flex flex-col justify-between items-center p-8 text-white transition-opacity duration-700">
+            
+            <!-- Top Status Bar Simulation -->
+            <div class="w-full flex justify-between items-center text-xs text-[#FAF8EE]/70 pt-2">
+                <span id="splash-time">09:41</span>
+                <div class="flex items-center gap-1.5">
+                    <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+                    <i data-lucide="battery-charging" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <!-- Central Branding Circle with Corporate Pantone Logo -->
+            <div class="flex flex-col items-center justify-center text-center my-auto w-full">
+                
+                <!-- Glowing Circle Logo Container -->
+                <div class="relative w-36 h-36 mb-6 flex items-center justify-center">
+                    <div class="absolute inset-0 rounded-full bg-[#33BCA9]/30 blur-xl"></div>
+                    <div class="splash-logo-glow w-32 h-32 rounded-full bg-[#FAF8EE] p-3 flex items-center justify-center border-4 border-[#D4AF37] shadow-2xl relative z-10">
+                        <div class="flex flex-col items-center justify-center text-[#2C7A7B]">
+                            <i data-lucide="heart-handshake" class="w-14 h-14 text-[#2C7A7B] mb-1"></i>
+                            <span class="text-[15px] font-black tracking-widest text-[#123838]">MORFEO</span>
+                            <span class="text-[8px] font-bold tracking-widest text-[#D4AF37] uppercase">Pantone Certified</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="text-2xl font-black text-[#FAF8EE] tracking-tight mb-1">MORFEO</h1>
+                <p class="text-xs text-[#E0F7F4] font-medium tracking-wide max-w-[260px]">Tu Ecosistema Híbrido de Salud, Comunidad, PyMEs & Descanso Morfeo</p>
+            </div>
+
+            <!-- Bottom Progress & Download Wait Area -->
+            <div class="w-full flex flex-col items-center gap-3 pb-6">
+                <div class="flex justify-between w-full text-xs text-[#E0F7F4] font-semibold px-1">
+                    <span id="splash-status-text">Cargando módulos de Morfeo...</span>
+                    <span id="splash-percentage" class="font-bold text-[#D4AF37]">0%</span>
+                </div>
+
+                <!-- Progress Track -->
+                <div class="w-full bg-[#123838]/80 h-3 rounded-full overflow-hidden p-0.5 border border-[#33BCA9]/40 shadow-inner">
+                    <div id="splash-progress-bar" class="progress-bar-animated h-full w-0% rounded-full transition-all duration-300 ease-out"></div>
+                </div>
+
+                <!-- Corporate Palette Indicator -->
+                <div class="flex items-center gap-2 mt-2 text-[10px] text-[#FAF8EE]/60">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#2C7A7B] border border-white/30" title="Verde Pantone"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#33BCA9] border border-white/30" title="Turquesa Menta"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#D4AF37] border border-white/30" title="Oro Corp"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#FAF8EE] border border-white/30" title="Fondo Crema"></span>
+                    <span>Colores Corporativos Oficiales</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- APP HEADER (BARRA SUPERIOR)                               -->
+        <!-- ========================================================= -->
+        <header class="glass-header sticky top-0 z-40 border-b border-[#33BCA9]/20 px-4 py-3 flex items-center justify-between shadow-sm">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#2C7A7B] to-[#33BCA9] p-0.5 flex items-center justify-center shadow-md">
+                    <div class="w-full h-full bg-[#FAF8EE] rounded-full flex items-center justify-center">
+                        <i data-lucide="leaf" class="w-5 h-5 text-[#2C7A7B]"></i>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-base font-black text-[#123838] leading-tight tracking-tight flex items-center gap-1.5">
+                        MORFEO 
+                        <span class="text-[9px] bg-[#2C7A7B] text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Híbrido</span>
+                    </h2>
+                    <p class="text-[10px] text-[#2C7A7B] font-semibold">Ecosistema Integral & Social</p>
+                </div>
+            </div>
+
+            <!-- Quick Action Buttons Header -->
+            <div class="flex items-center gap-2">
+                <button onclick="openMedicalNotification()" class="relative p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                    <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-[#E53E3E] rounded-full ring-2 ring-white"></span>
+                </button>
+                <button onclick="toggleMainMenu()" class="p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition">
+                    <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dropdown Menu -->
+        <div id="main-context-menu" class="hidden absolute top-14 right-4 z-50 w-52 bg-white rounded-2xl shadow-xl border border-[#33BCA9]/30 p-2 text-xs font-semibold text-[#123838]">
+            <button onclick="triggerMenuAction('Ajustes de Cuenta')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
+                <i data-lucide="settings" class="w-4 h-4 text-[#2C7A7B]"></i> Ajustes de Perfil
+            </button>
+            <button onclick="triggerMenuAction('Estado de Ánimo')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
+                <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i> Mi Estado de Ánimo
+            </button>
+            <button onclick="triggerMenuAction('Sincronizar Spotify')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
+                <i data-lucide="music" class="w-4 h-4 text-[#1DB954]"></i> Vincular Spotify Morfeo
+            </button>
+            <div class="my-1 border-t border-slate-100"></div>
+            <button onclick="triggerMenuAction('Soporte y Ayuda')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2 text-slate-500">
+                <i data-lucide="help-circle" class="w-4 h-4"></i> Ayuda & Guía
+            </button>
+        </div>
+
+        <!-- Medical Toast / Notification Alert -->
+        <div id="medical-toast" class="transform -translate-y-64 transition-transform duration-500 absolute top-16 left-4 right-4 z-50 bg-[#123838] text-white p-3.5 rounded-2xl shadow-2xl border border-[#33BCA9] flex items-start gap-3">
+            <div class="p-2 bg-[#2C7A7B] rounded-xl shrink-0">
+                <i data-lucide="calendar-check" class="w-5 h-5 text-[#D4AF37]"></i>
+            </div>
+            <div class="flex-1 text-xs">
+                <div class="flex justify-between items-center font-bold text-[#33BCA9] mb-0.5">
+                    <span>RECORDATORIO MÉDICO</span>
+                    <span class="text-[10px] text-slate-300">Hoy 18:30</span>
+                </div>
+                <p class="font-medium text-slate-100">Cita con Dr. Aldo Licandeo — Evaluación Nutricional & Herbolaria.</p>
+            </div>
+            <button onclick="closeMedicalToast()" class="text-slate-400 hover:text-white p-1">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- CONTENIDO PRINCIPAL (TABS)                                -->
+        <!-- ========================================================= -->
+        <main class="flex-1 overflow-y-auto pb-24 relative">
+
+            <!-- ----------------------------------------------------- -->
+            <!-- TAB 1: COMUNIDAD & CHATS HÍBRIDOS (AMIGOS + IA + MÉDICO)-->
+            <!-- ----------------------------------------------------- -->
+            <div id="screen-chats" class="tab-content active p-4 space-y-4">
+                
+                <!-- MOOD / ESTADO DE ÁNIMO SELECTOR (Social Connection) -->
+                <div class="glass-card p-3.5 rounded-2xl shadow-sm border border-[#33BCA9]/20">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <span class="text-xs font-bold text-[#123838] flex items-center gap-1.5">
+                            <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            ¿Cómo te sientes hoy? (Comparte con tus amigos)
+                        </span>
+                        <span id="current-mood-badge" class="text-[11px] font-bold text-[#2C7A7B] bg-[#E0F7F4] px-2 py-0.5 rounded-full">😊 Feliz</span>
+                    </div>
+                    <div class="flex justify-between items-center gap-1 overflow-x-auto pb-1">
+                        <button onclick="setMood('😊 Feliz', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-[#E0F7F4] border border-[#33BCA9] shrink-0 min-w-[62px]">
+                            <span class="text-xl mb-0.5">😊</span>
+                            <span class="text-[10px] font-bold text-[#123838]">Feliz</span>
+                        </button>
+                        <button onclick="setMood('🌿 Relajado', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 shrink-0 min-w-[62px]">
+                            <span class="text-xl mb-0.5">🌿</span>
+                            <span class="text-[10px] font-bold text-[#123838]">Relajado</span>
+                        </button>
+                        <button onclick="setMood('😴 Cansado', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 shrink-0 min-w-[62px]">
+                            <span class="text-xl mb-0.5">😴</span>
+                            <span class="text-[10px] font-bold text-[#123838]">Cansado</span>
+                        </button>
+                        <button onclick="setMood('⚡ Energético', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 shrink-0 min-w-[62px]">
+                            <span class="text-xl mb-0.5">⚡</span>
+                            <span class="text-[10px] font-bold text-[#123838]">Energía</span>
+                        </button>
+                        <button onclick="setMood('🧘 Meditativo', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 shrink-0 min-w-[62px]">
+                            <span class="text-xl mb-0.5">🧘</span>
+                            <span class="text-[10px] font-bold text-[#123838]">Meditativo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CHAT FILTER CHIPS -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                    <button onclick="filterChats('todos', this)" class="chat-chip bg-[#2C7A7B] text-white px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0 shadow-sm">
+                        Todos
+                    </button>
+                    <button onclick="filterChats('amigos', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
+                        👥 Amigos
+                    </button>
+                    <button onclick="filterChats('medicos', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
+                        🩺 Profesionales
+                    </button>
+                    <button onclick="filterChats('ia', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
+                        🤖 Asistente IA
+                    </button>
+                </div>
+
+                <!-- CHAT LIST -->
+                <div class="space-y-2.5" id="chat-list-container">
+                    
+                    <!-- Chat Item 1: Amigo Social -->
+                    <div onclick="openChat('Camila Silva', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120', '¡Hola! ¿Vamos al parque a hacer yoga más tarde? 🧘‍♀️', 'En línea', 'amigos')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/20">
+                        <div class="relative shrink-0">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120" class="w-12 h-12 rounded-full object-cover border-2 border-[#33BCA9]" alt="Camila">
+                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#33BCA9] border-2 border-white rounded-full"></span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start mb-0.5">
+                                <h3 class="text-xs font-bold text-[#123838] truncate">Camila Silva</h3>
+                                <span class="text-[10px] text-slate-400 font-medium">10:14</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">¡Hola! ¿Vamos al parque a hacer yoga más tarde? 🧘‍♀️</p>
+                        </div>
+                        <span class="w-5 h-5 rounded-full bg-[#2C7A7B] text-white text-[10px] font-bold flex items-center justify-center shrink-0">2</span>
+                    </div>
+
+                    <!-- Chat Item 2: Médico / Profesional -->
+                    <div onclick="openChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120', 'Recordatorio: Tu infusión de Melisa a las 22:00 hrs', 'En línea', 'medicos')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/20">
+                        <div class="relative shrink-0">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120" class="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]" alt="Dr. Aldo">
+                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#D4AF37] border-2 border-white rounded-full"></span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start mb-0.5">
+                                <h3 class="text-xs font-bold text-[#123838] truncate flex items-center gap-1">
+                                    Dr. Aldo Licandeo <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#2C7A7B]"></i>
+                                </h3>
+                                <span class="text-[10px] text-slate-400 font-medium">09:30</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Recordatorio: Tu infusión de Melisa a las 22:00 hrs</p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Item 3: Asistente IA Morfeo -->
+                    <div onclick="openChat('Asistente IA Morfeo', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=120&h=120', '¿Te gustaría un consejo personalizado para conciliar el sueño hoy?', 'Activo 24/7', 'ia')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/30 bg-gradient-to-r from-[#E0F7F4]/40 to-white">
+                        <div class="relative shrink-0">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#2C7A7B] to-[#D4AF37] p-0.5">
+                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=120&h=120" class="w-full h-full rounded-full object-cover" alt="IA">
+                            </div>
+                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#33BCA9] border-2 border-white rounded-full"></span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start mb-0.5">
+                                <h3 class="text-xs font-bold text-[#123838] truncate flex items-center gap-1">
+                                    Asistente IA Morfeo <span class="text-[9px] bg-[#D4AF37] text-white px-1 rounded font-extrabold">IA</span>
+                                </h3>
+                                <span class="text-[10px] text-slate-400 font-medium">Ahora</span>
+                            </div>
+                            <p class="text-xs text-slate-600 truncate font-medium">¿Te gustaría un consejo personalizado para conciliar el sueño hoy?</p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Item 4: PyME Local Herbolaria -->
+                    <div onclick="openChat('Herbolaria Monterilla', 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=120&h=120', '¡Tu pedido de ungüento orgánico está listo para despacho!', 'En línea', 'pyme')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/20">
+                        <div class="relative shrink-0">
+                            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=120&h=120" class="w-12 h-12 rounded-full object-cover border-2 border-[#2C7A7B]" alt="Herbolaria">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start mb-0.5">
+                                <h3 class="text-xs font-bold text-[#123838] truncate">Herbolaria Monterilla</h3>
+                                <span class="text-[10px] text-slate-400 font-medium">Ayer</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">¡Tu pedido de ungüento orgánico está listo para despacho!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTERFAZ COMPLETA DE CHAT INDIVIDUAL (MODAL / FULL VIEW) -->
+            <div id="active-chat-view" class="hidden fixed inset-0 z-50 bg-[#FAF8EE] flex flex-col max-w-[440px] mx-auto">
+                
+                <!-- Chat Header -->
+                <div class="glass-header border-b border-[#33BCA9]/20 px-4 py-3 flex items-center justify-between shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <button onclick="closeChatView()" class="p-1.5 rounded-full hover:bg-[#E0F7F4] text-[#123838]">
+                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        </button>
+                        <div class="relative">
+                            <img id="chat-user-avatar" src="" class="w-10 h-10 rounded-full object-cover border-2 border-[#2C7A7B]" alt="Avatar">
+                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#33BCA9] border-2 border-white rounded-full"></span>
+                        </div>
+                        <div>
+                            <h3 id="chat-user-name" class="text-xs font-bold text-[#123838]">Usuario</h3>
+                            <span id="chat-user-status" class="text-[10px] text-[#2C7A7B] font-semibold">En línea</span>
+                        </div>
+                    </div>
+
+                    <!-- Call & Options Buttons -->
+                    <div class="flex items-center gap-1">
+                        <button onclick="triggerCall('video')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full">
+                            <i data-lucide="video" class="w-5 h-5"></i>
+                        </button>
+                        <button onclick="triggerCall('voz')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Body -->
+                <div id="chat-messages-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-[#FAF8EE] to-[#E0F7F4]/30">
+                    <div class="text-center my-2">
+                        <span class="text-[10px] bg-slate-200/80 text-slate-600 px-3 py-1 rounded-full font-semibold">Hoy, Cifrado de Extremo a Extremo 🔒</span>
+                    </div>
+
+                    <!-- Sample Incoming Msg -->
+                    <div class="flex items-start gap-2 max-w-[85%]">
+                        <div id="chat-first-message" class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-xs text-[#123838] border border-[#33BCA9]/20">
+                            ¡Hola! Bienvenido al chat de Morfeo. ¿En qué puedo ayudarte hoy?
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Bottom Quick Attach & Input Bar -->
+                <div class="p-3 bg-white border-t border-[#33BCA9]/20 flex flex-col gap-2">
+                    <!-- Attachment Shortcuts -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 text-[11px] font-semibold text-[#2C7A7B]">
+                        <button onclick="sendAttachment('📷 Foto')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
+                            <i data-lucide="camera" class="w-3.5 h-3.5"></i> Foto
+                        </button>
+                        <button onclick="sendAttachment('🎥 Video')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
+                            <i data-lucide="video" class="w-3.5 h-3.5"></i> Video
+                        </button>
+                        <button onclick="sendAttachment('💊 Dosis')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
+                            <i data-lucide="pill" class="w-3.5 h-3.5"></i> Dosis
+                        </button>
+                        <button onclick="sendAttachment('😃 Emoji')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
+                            <i data-lucide="smile" class="w-3.5 h-3.5"></i> Ánimo
+                        </button>
+                    </div>
+
+                    <!-- Input & Send Button -->
+                    <div class="flex items-center gap-2">
+                        <input id="chat-text-input" type="text" placeholder="Escribe un mensaje..." class="flex-1 bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:border-[#2C7A7B]">
+                        <button onclick="sendMessage()" class="w-10 h-10 rounded-full bg-[#2C7A7B] text-white flex items-center justify-center shrink-0 shadow-md hover:bg-[#123838] transition">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ----------------------------------------------------- -->
+            <!-- TAB 2: WELLNESS (SALUD, HÁBITOS, PASOS & ALIMENTACIÓN)  -->
+            <!-- ----------------------------------------------------- -->
+            <div id="screen-wellness" class="tab-content p-4 space-y-4">
+                
+                <!-- Wellness Subtabs Navigation -->
+                <div class="flex items-center justify-between bg-white p-1.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 text-xs font-bold text-[#123838]">
+                    <button onclick="switchWellnessSubtab('resumen', this)" class="wellness-sub-btn flex-1 py-1.5 text-center rounded-xl bg-[#2C7A7B] text-white shadow-xs">Resumen</button>
+                    <button onclick="switchWellnessSubtab('pasos', this)" class="wellness-sub-btn flex-1 py-1.5 text-center rounded-xl text-slate-500 hover:text-[#2C7A7B]">Pasos & Agua</button>
+                    <button onclick="switchWellnessSubtab('citas', this)" class="wellness-sub-btn flex-1 py-1.5 text-center rounded-xl text-slate-500 hover:text-[#2C7A7B]">Citas Médicas</button>
+                </div>
+
+                <!-- Subtab 1: Resumen Diario -->
+                <div id="wellness-sub-resumen" class="space-y-3">
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Water Card -->
+                        <div class="glass-card p-3.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-[#123838]">Hidratación</span>
+                                <i data-lucide="droplet" class="w-4 h-4 text-[#33BCA9]"></i>
+                            </div>
+                            <div class="my-1">
+                                <span class="text-xl font-black text-[#2C7A7B]">1.8 L</span>
+                                <span class="text-[10px] text-slate-400 font-bold">/ 2.5 L</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-[#33BCA9] h-full w-[72%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Steps Card -->
+                        <div class="glass-card p-3.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-[#123838]">Pasos Diarios</span>
+                                <i data-lucide="footprints" class="w-4 h-4 text-[#D4AF37]"></i>
+                            </div>
+                            <div class="my-1">
+                                <span class="text-xl font-black text-[#123838]">6,420</span>
+                                <span class="text-[10px] text-slate-400 font-bold">/ 10k</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-[#D4AF37] h-full w-[64%]"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Habit Progress Checklist -->
+                    <div class="glass-card p-4 rounded-2xl shadow-sm border border-[#33BCA9]/20 space-y-2.5">
+                        <h3 class="text-xs font-black text-[#123838] uppercase tracking-wider flex items-center gap-1.5">
+                            <i data-lucide="check-square" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            Hábitos Saludables de Hoy
+                        </h3>
+                        
+                        <label class="flex items-center gap-2.5 text-xs font-semibold text-[#123838] cursor-pointer p-2 rounded-xl hover:bg-[#E0F7F4]/50 transition">
+                            <input type="checkbox" checked class="w-4 h-4 accent-[#2C7A7B] rounded">
+                            <span>Infusión de Romero y Melisa (Mañana)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 text-xs font-semibold text-[#123838] cursor-pointer p-2 rounded-xl hover:bg-[#E0F7F4]/50 transition">
+                            <input type="checkbox" checked class="w-4 h-4 accent-[#2C7A7B] rounded">
+                            <span>Caminata de 20 minutos al aire libre</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 text-xs font-semibold text-[#123838] cursor-pointer p-2 rounded-xl hover:bg-[#E0F7F4]/50 transition">
+                            <input type="checkbox" class="w-4 h-4 accent-[#2C7A7B] rounded">
+                            <span>Sesión de Relajación en Morfeo (22:30 hrs)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Subtab 2: Pasos & Agua -->
+                <div id="wellness-sub-pasos" class="hidden space-y-3">
+                    <div class="glass-card p-4 rounded-2xl text-center space-y-2 border border-[#33BCA9]/30">
+                        <i data-lucide="activity" class="w-8 h-8 text-[#2C7A7B] mx-auto"></i>
+                        <h3 class="text-sm font-black text-[#123838]">Seguimiento Detallado de Actividad</h3>
+                        <p class="text-xs text-slate-500">Sincronizado con tus sensores móviles para medir distancia, ritmo cardíaco y calorías quemadas.</p>
+                    </div>
+                </div>
+
+                <!-- Subtab 3: Citas Médicas -->
+                <div id="wellness-sub-citas" class="hidden space-y-3">
+                    <div class="glass-card p-4 rounded-2xl space-y-3 border border-[#33BCA9]/30">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xs font-bold text-[#123838]">Próximas Consultas</h3>
+                            <button onclick="alert('Solicitando nueva hora médica...')" class="text-xs bg-[#2C7A7B] text-white px-3 py-1 rounded-full font-bold">+ Agendar</button>
+                        </div>
+                        <div class="p-3 bg-[#E0F7F4] rounded-xl flex items-center justify-between text-xs">
+                            <div>
+                                <span class="font-bold text-[#123838] block">Dr. Aldo Licandeo</span>
+                                <span class="text-slate-500 text-[11px]">Medicina Herbolaria & Nutrición</span>
+                            </div>
+                            <span class="bg-white text-[#2C7A7B] px-2.5 py-1 rounded-lg font-black shadow-xs">Hoy 18:30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ----------------------------------------------------- -->
+            <!-- TAB 3: EMPRENDE (TIENDA PYME + MATCH + AGENTE IA)     -->
+            <!-- ----------------------------------------------------- -->
+            <div id="screen-emprende" class="tab-content p-4 space-y-4">
+                
+                <!-- Emprende Header Banner -->
+                <div class="bg-gradient-to-r from-[#2C7A7B] to-[#123838] text-white p-4 rounded-2xl shadow-md relative overflow-hidden">
+                    <div class="relative z-10 space-y-1">
+                        <span class="text-[10px] bg-[#D4AF37] text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">MercadoLibre Local + IA</span>
+                        <h3 class="text-base font-black tracking-tight">Emprende Morfeo PyME</h3>
+                        <p class="text-xs text-[#E0F7F4]">Descubre productos artesanales, conecta con clientes mediante Match y crea videos con IA.</p>
+                    </div>
+                    <i data-lucide="shopping-bag" class="w-24 h-24 absolute -bottom-4 -right-4 text-white/10"></i>
+                </div>
+
+                <!-- Emprende Subtabs -->
+                <div class="flex items-center justify-between bg-white p-1.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 text-xs font-bold text-[#123838]">
+                    <button onclick="switchEmprendeSubtab('vitrina', this)" class="emprende-sub-btn flex-1 py-1.5 text-center rounded-xl bg-[#2C7A7B] text-white">Vitrina</button>
+                    <button onclick="switchEmprendeSubtab('match', this)" class="emprende-sub-btn flex-1 py-1.5 text-center rounded-xl text-slate-500 hover:text-[#2C7A7B]">🎯 Match PyME</button>
+                    <button onclick="switchEmprendeSubtab('ia', this)" class="emprende-sub-btn flex-1 py-1.5 text-center rounded-xl text-slate-500 hover:text-[#2C7A7B]">🤖 Agente IA</button>
+                </div>
+
+                <!-- Vitrina Subtab -->
+                <div id="emprende-sub-vitrina" class="grid grid-cols-2 gap-3">
+                    
+                    <!-- Product Card 1 -->
+                    <div class="glass-card p-3 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=200&h=150" class="w-full h-24 rounded-xl object-cover mb-2" alt="Ungüento">
+                        <span class="text-[10px] text-[#2C7A7B] font-bold uppercase">Herbolaria Monterilla</span>
+                        <h4 class="text-xs font-bold text-[#123838] leading-tight my-0.5">Ungüento de Melisa & Caléndula</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs font-black text-[#2C7A7B]">$8.900 CLP</span>
+                            <button onclick="alert('Añadido al carrito de compra')" class="p-1.5 bg-[#2C7A7B] text-white rounded-lg hover:bg-[#123838]">
+                                <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="glass-card p-3 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
+                        <img src="https://images.unsplash.com/photo-1512290900673-7002fe5dc6a8?auto=format&fit=crop&q=80&w=200&h=150" class="w-full h-24 rounded-xl object-cover mb-2" alt="Aceite">
+                        <span class="text-[10px] text-[#2C7A7B] font-bold uppercase">Aromas del Sur</span>
+                        <h4 class="text-xs font-bold text-[#123838] leading-tight my-0.5">Aceite Esencial Lavanda 30ml</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs font-black text-[#2C7A7B]">$12.500 CLP</span>
+                            <button onclick="alert('Añadido al carrito de compra')" class="p-1.5 bg-[#2C7A7B] text-white rounded-lg hover:bg-[#123838]">
+                                <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Match PyME Subtab -->
+                <div id="emprende-sub-match" class="hidden space-y-3">
+                    <div class="glass-card p-4 rounded-2xl text-center space-y-3 border border-[#33BCA9]/30 bg-gradient-to-b from-white to-[#E0F7F4]/30">
+                        <div class="w-12 h-12 bg-[#D4AF37] text-white rounded-full flex items-center justify-center mx-auto shadow-md">
+                            <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-[#123838]">Match PyME & Cliente Local</h3>
+                            <p class="text-xs text-slate-500 mt-1">Conecta automáticamente con emprendedores de Morfeo cercanos a tu ubicación.</p>
+                        </div>
+                        <button onclick="triggerPymeMatch()" class="w-full bg-[#2C7A7B] text-white font-bold text-xs py-3 rounded-xl shadow-md hover:bg-[#123838] transition">
+                            🎯 Buscar Match Cercano Ahora
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Agente IA Subtab -->
+                <div id="emprende-sub-ia" class="hidden space-y-3">
+                    <div class="glass-card p-4 rounded-2xl space-y-3 border border-[#33BCA9]/30">
+                        <h3 class="text-xs font-black text-[#123838] uppercase tracking-wider flex items-center gap-1.5">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-[#D4AF37]"></i>
+                            Creación de Catálogo & Video con IA
+                        </h3>
+                        <p class="text-xs text-slate-600">Genera afiches, guiones y videos promocionales automáticamente para tu emprendimiento.</p>
+                        <button onclick="alert('Generando video promocional de tu catálogo con Agente IA...')" class="w-full bg-[#D4AF37] text-white font-bold text-xs py-2.5 rounded-xl shadow-xs">
+                            🎬 Generar Video Promocional con IA
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ----------------------------------------------------- -->
+            <!-- TAB 4: MORFEO (DIOS DEL SUEÑO, DESCANSO & SPOTIFY)     -->
+            <!-- ----------------------------------------------------- -->
+            <div id="screen-morfeo" class="tab-content p-4 space-y-4">
+                
+                <!-- Morfeo Branding Header -->
+                <div class="bg-gradient-to-b from-[#123838] via-[#1A4D4E] to-[#123838] text-white p-5 rounded-3xl shadow-xl relative overflow-hidden border border-[#33BCA9]/30">
+                    <div class="flex justify-between items-start relative z-10">
+                        <div>
+                            <span class="text-[10px] bg-[#D4AF37] text-white px-2.5 py-0.5 rounded-full font-black uppercase tracking-widest">Dios del Sueño & Descanso</span>
+                            <h2 class="text-xl font-black tracking-tight mt-1 text-[#FAF8EE]">MORFEO</h2>
+                            <p class="text-xs text-[#E0F7F4] font-medium">Música Binaural, Meditación & Relajación Profunda</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-[#FAF8EE]/10 flex items-center justify-center border border-white/20">
+                            <i data-lucide="moon" class="w-5 h-5 text-[#D4AF37]"></i>
+                        </div>
+                    </div>
+
+                    <!-- Audio Player Box -->
+                    <div class="mt-5 pt-4 border-t border-white/10 space-y-3 relative z-10">
+                        <div class="flex justify-between items-center text-xs">
+                            <div>
+                                <span id="player-track-title" class="font-bold text-[#FAF8EE] block">Lluvia en el Jardín de Morfeo</span>
+                                <span id="player-track-sub" class="text-[10px] text-[#33BCA9]">Ondas Delta 432Hz — Sueño Reparador</span>
+                            </div>
+                            <span class="text-[10px] bg-[#33BCA9]/20 text-[#33BCA9] px-2 py-0.5 rounded-full font-bold">HD Audio</span>
+                        </div>
+
+                        <!-- Progress Line -->
+                        <div class="space-y-1">
+                            <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden">
+                                <div id="player-progress-bar" class="bg-[#33BCA9] h-full w-[40%]"></div>
+                            </div>
+                            <div class="flex justify-between text-[9px] text-slate-300 font-mono">
+                                <span>04:12</span>
+                                <span>10:00</span>
+                            </div>
+                        </div>
+
+                        <!-- Player Controls -->
+                        <div class="flex justify-between items-center pt-1 px-4">
+                            <button onclick="prevTrack()" class="text-slate-300 hover:text-white transition p-1">
+                                <i data-lucide="skip-back" class="w-5 h-5"></i>
+                            </button>
+                            <button id="play-pause-btn" onclick="togglePlay()" class="w-12 h-12 rounded-full bg-[#33BCA9] text-[#123838] flex items-center justify-center shadow-lg hover:scale-105 transition">
+                                <i data-lucide="pause" class="w-6 h-6 fill-current"></i>
+                            </button>
+                            <button onclick="nextTrack()" class="text-slate-300 hover:text-white transition p-1">
+                                <i data-lucide="skip-forward" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPOTIFY VINCULACIÓN & INTEGRACIÓN -->
+                <div class="glass-card p-4 rounded-2xl border border-[#1DB954]/30 bg-gradient-to-r from-[#1DB954]/10 to-white flex items-center justify-between shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-[#1DB954] text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                            <i data-lucide="music-2" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-[#123838]">Vincular con Spotify</h4>
+                            <p class="text-[10px] text-slate-500">Sincroniza tus Playlists de Meditación y Relajación</p>
+                        </div>
+                    </div>
+                    <button onclick="alert('Conectando con tu cuenta oficial de Spotify...')" class="bg-[#1DB954] text-white text-xs font-bold px-3 py-1.5 rounded-full hover:bg-black transition shadow-xs">
+                        Conectar
+                    </button>
+                </div>
+
+                <!-- MORFEO TRACK LIST -->
+                <div class="glass-card p-4 rounded-2xl border border-[#33BCA9]/20 space-y-2.5">
+                    <h3 class="text-xs font-black text-[#123838] uppercase tracking-wider flex items-center justify-between">
+                        <span>Pistas de Relajación & Sueño</span>
+                        <i data-lucide="headphones" class="w-4 h-4 text-[#2C7A7B]"></i>
+                    </h3>
+
+                    <!-- Track Item 1 -->
+                    <div onclick="selectTrack('Lluvia en el Jardín de Morfeo', 'Ondas Delta 432Hz')" class="p-2.5 rounded-xl bg-[#E0F7F4]/60 hover:bg-[#E0F7F4] cursor-pointer flex items-center justify-between transition">
+                        <div class="flex items-center gap-2.5">
+                            <i data-lucide="cloud-rain" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            <div>
+                                <span class="text-xs font-bold text-[#123838] block">Lluvia en el Jardín</span>
+                                <span class="text-[10px] text-slate-500">Ondas Delta 432Hz — 10 min</span>
+                            </div>
+                        </div>
+                        <button onclick="event.stopPropagation(); alert('Descargando pista offline...')" class="p-1 text-[#2C7A7B] hover:text-[#123838]">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <!-- Track Item 2 -->
+                    <div onclick="selectTrack('Estero de Morfeo & Pájaros', 'Sonido Natural 528Hz')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
+                        <div class="flex items-center gap-2.5">
+                            <i data-lucide="waves" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            <div>
+                                <span class="text-xs font-bold text-[#123838] block">Estero de Morfeo</span>
+                                <span class="text-[10px] text-slate-500">Fluidez & Paz Interior — 15 min</span>
+                            </div>
+                        </div>
+                        <button onclick="event.stopPropagation(); alert('Descargando pista offline...')" class="p-1 text-[#2C7A7B] hover:text-[#123838]">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <!-- Track Item 3 -->
+                    <div onclick="selectTrack('Meditación Morfeo Guiada', 'Voz Suave & Respiración')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
+                        <div class="flex items-center gap-2.5">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-[#D4AF37]"></i>
+                            <div>
+                                <span class="text-xs font-bold text-[#123838] block">Meditación Morfeo</span>
+                                <span class="text-[10px] text-slate-500">Inducción al Sueño Profundo — 20 min</span>
+                            </div>
+                        </div>
+                        <button onclick="event.stopPropagation(); alert('Descargando pista offline...')" class="p-1 text-[#2C7A7B] hover:text-[#123838]">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- ========================================================= -->
+        <!-- BOTTOM NAVIGATION BAR (BARRA DE NAVEGACIÓN INFERIOR)       -->
+        <!-- ========================================================= -->
+        <nav class="glass-header absolute bottom-0 inset-x-0 z-40 border-t border-[#33BCA9]/20 px-3 py-2 flex items-center justify-around shadow-lg">
+            
+            <!-- Tab 1: Chats / Comunidad -->
+            <button id="nav-chats" onclick="switchMainTab('chats', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-[#2C7A7B] transition">
+                <i data-lucide="message-square" class="w-5 h-5"></i>
+                <span class="text-[10px] font-black tracking-tight">Chats</span>
+            </button>
+
+            <!-- Tab 2: Wellness -->
+            <button id="nav-wellness" onclick="switchMainTab('wellness', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i>
+                <span class="text-[10px] font-bold tracking-tight">Wellness</span>
+            </button>
+
+            <!-- Tab 3: Emprende -->
+            <button id="nav-emprende" onclick="switchMainTab('emprende', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
+                <i data-lucide="store" class="w-5 h-5"></i>
+                <span class="text-[10px] font-bold tracking-tight">Emprende</span>
+            </button>
+
+            <!-- Tab 4: Morfeo -->
+            <button id="nav-morfeo" onclick="switchMainTab('morfeo', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
+                <i data-lucide="moon" class="w-5 h-5"></i>
+                <span class="text-[10px] font-bold tracking-tight">Morfeo</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- JAVASCRIPT LOGIC & INTERACTIVITY                          -->
+    <!-- ========================================================= -->
+    <script>
+        // Initialize Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            startSplashDownloadProcess();
+        });
+
+        // 1. SPLASH SCREEN PROGRESS LOGIC (Espera de Descarga)
+        function startSplashDownloadProcess() {
+            let progress = 0;
+            const progressBar = document.getElementById('splash-progress-bar');
+            const percentageText = document.getElementById('splash-percentage');
+            const statusText = document.getElementById('splash-status-text');
+            const splashScreen = document.getElementById('splash-screen');
+
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 15) + 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    statusText.textContent = '¡Ecosistema Cargado con Éxito!';
+                    
+                    setTimeout(() => {
+                        splashScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            splashScreen.style.display = 'none';
+                        }, 700);
+                    }, 500);
+                }
+
+                progressBar.style.width = progress + '%';
+                percentageText.textContent = progress + '%';
+
+                if (progress > 30 && progress < 70) {
+                    statusText.textContent = 'Sincronizando Módulos de Morfeo & Morfeo...';
+                } else if (progress >= 70 && progress < 100) {
+                    statusText.textContent = 'Aplicando Colores Corporativos Pantone...';
+                }
+            }, 180);
+        }
+
+        // 2. MAIN TAB NAVIGATION
+        function switchMainTab(tabId, element) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            const targetTab = document.getElementById('screen-' + tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // Reset navbar button styles
+            document.querySelectorAll('.main-nav-btn').forEach(btn => {
+                btn.classList.remove('text-[#2C7A7B]', 'font-black');
+                btn.classList.add('text-slate-400', 'font-bold');
+            });
+
+            // Highlight active button
+            if (element) {
+                element.classList.remove('text-slate-400', 'font-bold');
+                element.classList.add('text-[#2C7A7B]', 'font-black');
+            }
+        }
+
+        // 3. MOOD SELECTION
+        function setMood(moodName, btn) {
+            document.getElementById('current-mood-badge').textContent = moodName;
+            document.querySelectorAll('.mood-btn').forEach(b => {
+                b.classList.remove('bg-[#E0F7F4]', 'border-[#33BCA9]');
+                b.classList.add('bg-white', 'border-slate-200');
+            });
+            btn.classList.remove('bg-white', 'border-slate-200');
+            btn.classList.add('bg-[#E0F7F4]', 'border-[#33BCA9]');
+        }
+
+        // 4. CHAT FILTERING
+        function filterChats(category, btn) {
+            document.querySelectorAll('.chat-chip').forEach(c => {
+                c.classList.remove('bg-[#2C7A7B]', 'text-white');
+                c.classList.add('bg-white', 'text-slate-600');
+            });
+            btn.classList.remove('bg-white', 'text-slate-600');
+            btn.classList.add('bg-[#2C7A7B]', 'text-white');
+
+            const chatCards = document.querySelectorAll('.chat-card');
+            chatCards.forEach(card => {
+                if (category === 'todos') {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = card.getAttribute('onclick').includes(category) ? 'flex' : 'none';
+                }
+            });
+        }
+
+        // 5. FULL CHAT INTERACTION
+        function openChat(name, avatar, firstMsg, status) {
+            document.getElementById('chat-user-name').textContent = name;
+            document.getElementById('chat-user-avatar').src = avatar;
+            document.getElementById('chat-user-status').textContent = status;
+            document.getElementById('chat-first-message').textContent = firstMsg;
+            document.getElementById('active-chat-view').classList.remove('hidden');
+        }
+
+        function closeChatView() {
+            document.getElementById('active-chat-view').classList.add('hidden');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-text-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const container = document.getElementById('chat-messages-container');
+
+            // Add Outgoing Message
+            const outDiv = document.createElement('div');
+            outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+            outDiv.innerHTML = `
+                <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs">
+                    ${text}
+                </div>
+            `;
+            container.appendChild(outDiv);
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            // Simulated Reply
+            setTimeout(() => {
+                const inDiv = document.createElement('div');
+                inDiv.className = 'flex items-start gap-2 max-w-[85%]';
+                inDiv.innerHTML = `
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-xs text-[#123838] border border-[#33BCA9]/20">
+                        ¡Recibido! Gracias por escribir a Morfeo. Quedó registrado correctamente. 🌿
+                    </div>
+                `;
+                container.appendChild(inDiv);
+                container.scrollTop = container.scrollHeight;
+            }, 1000);
+        }
+
+        function sendAttachment(type) {
+            const container = document.getElementById('chat-messages-container');
+            const outDiv = document.createElement('div');
+            outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+            outDiv.innerHTML = `
+                <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs flex items-center gap-2">
+                    <span>Adjuntado: ${type}</span>
+                </div>
+            `;
+            container.appendChild(outDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // 6. WELLNESS SUBTABS
+        function switchWellnessSubtab(subId, btn) {
+            document.querySelectorAll('.wellness-sub-btn').forEach(b => {
+                b.classList.remove('bg-[#2C7A7B]', 'text-white');
+                b.classList.add('text-slate-500');
+            });
+            btn.classList.remove('text-slate-500');
+            btn.classList.add('bg-[#2C7A7B]', 'text-white');
+
+            document.getElementById('wellness-sub-resumen').classList.add('hidden');
+            document.getElementById('wellness-sub-pasos').classList.add('hidden');
+            document.getElementById('wellness-sub-citas').classList.add('hidden');
+
+            document.getElementById('wellness-sub-' + subId).classList.remove('hidden');
+        }
+
+        // 7. EMPRENDE SUBTABS
+        function switchEmprendeSubtab(subId, btn) {
+            document.querySelectorAll('.emprende-sub-btn').forEach(b => {
+                b.classList.remove('bg-[#2C7A7B]', 'text-white');
+                b.classList.add('text-slate-500');
+            });
+            btn.classList.remove('text-slate-500');
+            btn.classList.add('bg-[#2C7A7B]', 'text-white');
+
+            document.getElementById('emprende-sub-vitrina').classList.add('hidden');
+            document.getElementById('emprende-sub-match').classList.add('hidden');
+            document.getElementById('emprende-sub-ia').classList.add('hidden');
+
+            document.getElementById('emprende-sub-' + subId).classList.remove('hidden');
+        }
+
+        function triggerPymeMatch() {
+            alert('🎯 ¡Match Encontrado! Te hemos conectado con Herbolaria Monterilla (a 1.2 km). Puedes chatear con ellos directamente en la pestaña de Chats.');
+        }
+
+        // 8. MORFEO PLAYER CONTROLS
+        let isPlaying = true;
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            const btn = document.getElementById('play-pause-btn');
+            btn.innerHTML = isPlaying 
+                ? '<i data-lucide="pause" class="w-6 h-6 fill-current"></i>'
+                : '<i data-lucide="play" class="w-6 h-6 fill-current ml-0.5"></i>';
+            lucide.createIcons();
+        }
+
+        function selectTrack(title, sub) {
+            document.getElementById('player-track-title').textContent = title;
+            document.getElementById('player-track-sub').textContent = sub;
+            isPlaying = true;
+            togglePlay();
+            togglePlay();
+        }
+
+        function prevTrack() { alert('Reproduciendo pista anterior'); }
+        function nextTrack() { alert('Reproduciendo siguiente pista'); }
+
+        // 9. HEADER & TOAST CONTROLS
+        function toggleMainMenu() {
+            const menu = document.getElementById('main-context-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function openMedicalNotification() {
+            const toast = document.getElementById('medical-toast');
+            toast.classList.remove('-translate-y-64');
+        }
+
+        function closeMedicalToast() {
+            const toast = document.getElementById('medical-toast');
+            toast.classList.add('-translate-y-64');
+        }
+
+        function triggerMenuAction(actionName) {
+            alert('Acción seleccionada: ' + actionName);
+            toggleMainMenu();
+        }
+
+        // --- CÁMARA EN VIVO Y VIDEOLLAMADAS HD ---
+        let currentStream = null;
+
+        async function openCameraModal() {
+            const modal = document.getElementById('cameraModal');
+            const video = document.getElementById('cameraFeed');
+            if (!modal || !video) return;
+            modal.classList.remove('hidden');
+            try {
+                if (currentStream) {
+                    currentStream.getTracks().forEach(track => track.stop());
+                }
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+                currentStream = stream;
+                video.srcObject = stream;
+            } catch (err) {
+                console.error('Error accediendo a la cámara:', err);
+                alert('No se pudo acceder a la cámara. Revisa los permisos de tu navegador.');
+            }
+        }
+
+        function closeCameraModal() {
+            const modal = document.getElementById('cameraModal');
+            const video = document.getElementById('cameraFeed');
+            if (modal) modal.classList.add('hidden');
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+            if (video) video.srcObject = null;
+        }
+
+        async function switchCameraFacing() {
+            alert('Cambiando entre cámara frontal y trasera...');
+            closeCameraModal();
+            setTimeout(openCameraModal, 300);
+        }
+
+        function capturePhotoToChat() {
+            alert('📸 Foto capturada. Adjuntada al chat de Morfeo.');
+            closeCameraModal();
+        }
+
+        async function startVideoCall(doctorName = 'Especialista Morfeo') {
+            const modal = document.getElementById('videoCallModal');
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                currentStream = stream;
+                const userVideo = document.getElementById('userCallVideo');
+                if (userVideo) userVideo.srcObject = stream;
+            } catch (err) {
+                console.log('Modo simulación de videollamada HD activado.');
+            }
+        }
+
+        function toggleCameraVideo() {
+            if (currentStream) {
+                const videoTrack = currentStream.getVideoTracks()[0];
+                if (videoTrack) {
+                    videoTrack.enabled = !videoTrack.enabled;
+                    alert(videoTrack.enabled ? 'Cámara activada' : 'Cámara desactivada');
+                }
+            }
+        }
+
+        function endVideoCall() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+            const modal = document.getElementById('videoCallModal');
+            if (modal) modal.classList.add('hidden');
+        }
+    
+</script>
+
+
+<!-- MODALES DE CÁMARA Y VIDEOLLAMADA HD -->
+<div id="cameraModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
+            <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
+                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📷 Cámara Morfeo</h3>
+                <button onclick="closeCameraModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="w-full h-56 bg-slate-950 rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-emerald-500/40 relative overflow-hidden mb-4">
+                    <span class="text-5xl mb-2 animate-pulse">📸</span>
+                    <p class="text-xs text-emerald-400 font-medium">Vista previa de cámara activada</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Captura fotos de fichas médicas, exámenes o consultas</p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    <button onclick="alert('¡Fotografía capturada con éxito!'); closeCameraModal();" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg shadow-emerald-900/40 transition">
+                        <span>🔘</span> Tomar Foto
+                    </button>
+                    <button onclick="closeCameraModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 px-5 rounded-full border border-slate-600">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+<div id="videoCallModal" class="fixed inset-0 z-[9900] bg-slate-950 hidden flex flex-col justify-between p-6 text-white relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-emerald-950/40 to-slate-950 -z-10 flex items-center justify-center">
+            <div class="text-center opacity-40">
+                <span class="text-8xl">🧘‍♂️</span>
+                <p class="text-sm mt-4 font-mono">Transmisión de Video HD cifrada extremo a extremo</p>
+            </div>
+        </div>
+        <!-- PIP propia cámara -->
+        <div class="absolute top-6 right-6 w-32 h-44 bg-slate-800 border-2 border-emerald-400 rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden">
+            <span class="text-3xl">👤</span>
+            <span class="absolute bottom-1 right-2 text-[9px] bg-black/60 px-1 rounded text-emerald-300">Tú</span>
+        </div>
+        <div class="mt-4">
+            <h2 id="videoTargetName" class="text-xl font-bold text-white">Consulta Online HD</h2>
+            <p class="text-xs text-emerald-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> En vivo · 01:25 min</p>
+        </div>
+        <div class="flex justify-center items-center gap-6 mb-8">
+            <button onclick="alert('Cámara alternada')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
+                🔄
+            </button>
+            <button onclick="endVideoCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-xl shadow-red-900/60 flex items-center justify-center text-2xl text-white">
+                📞
+            </button>
+            <button onclick="alert('Pantalla compartida')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
+                🖥️
+            </button>
+        </div>
+    </div>
+
+
+    
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        if (typeof lucide !== 'undefined' && lucide.createIcons) {
+            lucide.createIcons();
+        }
+    } catch(e) { console.warn('Lucide init error:', e); }
+
+    // Auto-hide splash screen after 1 second
+    setTimeout(function() {
+        if (window.hideAppSplashScreen) window.hideAppSplashScreen();
+    }, 1000);
+});
+
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAF8F5',
+                        forest: '#52796F',
+                        sage: '#84A59D',
+                        slateDark: '#2F3E46',
+                        accent: '#F28482'
+                    }
+                }
+            }
+        }
+    
+
+
+        // =================================================================
+        // CONFIGURACIÓN DE CONEXIÓN CON TU BASE DE DATOS (SUPABASE)
+        // =================================================================
+        const supabaseUrl = 'https://kyzvygyzthmoudsepwsi.supabase.co';
+        // ⚠️ REEMPLAZA ESTE TEXTO CON TU LLAVE ANON COPIADA DE SUPABASE:
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5enZ5Z3l6dGhtb3Vkc2Vwd3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3OTA2ODYsImV4cCI6MjEwMzM2NjY4Nn0.hF8OJh8ux6XQvl-YplGCI4x6fIOFzhZf94dDJqV25Xo'; 
+        const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // --- SISTEMA DE RESERVAS REALES EN SUPABASE (TEST DE MORFEO) v48 ---
+        async function saveAppointmentToSupabase() {
+            if (supabaseKey === '') return;
+            const specialistName = selections.selectedSpecialist ? selections.selectedSpecialist.name : 'Dra. Eliana Ruiz';
+            const bookingCode = `CLINIC-${Math.floor(1000 + Math.random() * 9000)}`;
+            const patientNameVal = selections.firstName + ' ' + selections.lastName;
+            const phoneVal = selections.phone || '+56912345678';
+            
+            try {
+                // 1. Obtener ID real del terapeuta en Supabase
+                const { data: therapistData, error: tError } = await _supabase
+                    .from('terapeutas')
+                    .select('id')
+                    .eq('nombre', specialistName)
+                    .maybeSingle();
+
+                if (tError) throw tError;
+
+                // 2. Insertar cita en Supabase en la tabla citas
+                const { error: insertError } = await _supabase
+                    .from('citas')
+                    .insert([
+                        {
+                            terapeuta_id: therapistData ? therapistData.id : null,
+                            fecha_cita: selections.bookingDate,
+                            hora_cita: selections.bookingTime,
+                            lugar_cita: selections.mode === 'online' ? 'Online / Telemedicina' : (selections.selectedSpecialist ? selections.selectedSpecialist.address : 'Av. Providencia 1240'),
+                            modalidad_cita: selections.mode === 'online' ? 'Online' : 'Presencial',
+                            modal_cita: selections.mode === 'online' ? 'Online' : 'Presencial',
+                            estado_cita: 'Agendada',
+                            codigo_reserva: bookingCode,
+                            telefono_contacto: phoneVal,
+                            nombre_paciente: patientNameVal,
+                            consentimiento_datos: true
+                        }
+                    ]);
+
+                if (insertError) throw insertError;
+                console.log("✅ Cita agendada exitosamente en Supabase (tabla citas) con código:", bookingCode);
+            } catch (err) {
+                console.error("❌ Error al guardar cita en Supabase desde el Test de Morfeo:", err.message);
+            }
+        }
+
+        const sleepMap = {
+            'radiant': 'Energía Radiante 🌅',
+            'fatigue': 'Fatiga Media 🥱',
+            'insomnia': 'Insomnio 🦉'
+        };
+        const stressMap = {
+            'calm': 'Calma Total 🧘',
+            'moderate': 'Estrés Moderado ⚖️',
+            'burnout': 'Estrés Crónico 🌋'
+        };
+
+        let currentStep = 1;
+        let selections = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            gender: 'woman',
+
+            age: 30,
+            height: 170,
+            weight: 75,
+            fat: 25,
+            chronic: false,
+            selectedChronical: [],
+            selectedPlan: 'trimestral',
+            planPriceUF: 1.25,
+            goal: '',
+            mode: 'online',
+            time: '',
+            bookingDate: 'Lunes 24 de Agosto',
+            bookingTime: '09:30',
+            selectedSpecialist: null,
+            mental: 'Ninguna',
+            bypass: false,
+            sleep: 'radiant',
+            stress: 'calm'
+        };
+
+                const specialists = [
+            {
+                id: 'ruiz',
+                name: 'Dra. Eliana Ruiz',
+                specialty: 'Médico Integrativo (Especialista en Fitoterapia y Crónicos)',
+                chronicSafe: true,
+                mentalSafe: true,
+                address: 'Av. Providencia 1240, Providencia',
+                lat: -33.4285,
+                lon: -70.6125,
+                distance: 'A 1.2 km de ti',
+                type: 'Presencial / Online',
+                emoji: '👩‍⚕️',
+                photo: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?q=80&w=150&auto=format&fit=crop'
+            },
+            {
+                id: 'mendoza',
+                name: 'Klgo. Carlos Mendoza',
+                specialty: 'Kinesiólogo Integrativo y Acupuntor',
+                chronicSafe: true,
+                mentalSafe: false,
+                address: 'Av. Vitacura 3568, Vitacura',
+                lat: -33.4022,
+                lon: -70.5891,
+                distance: 'A 3.4 km de ti',
+                type: 'Presencial / Online',
+                emoji: '👨‍⚕️',
+                photo: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=150&auto=format&fit=crop'
+            },
+            {
+                id: 'araya',
+                name: 'Ps. Tomás Araya',
+                specialty: 'Psicólogo Clínico Integrativo y Neurodivergencias (TDAH/TEA)',
+                chronicSafe: false,
+                mentalSafe: true,
+                address: 'Avenida Ñuñoa 480, Ñuñoa',
+                lat: -33.4542,
+                lon: -70.6015,
+                distance: 'A 2.1 km de ti',
+                type: 'Online / Telemedicina',
+                emoji: '🧠',
+                photo: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=150&auto=format&fit=crop'
+            },
+            {
+                id: 'soler',
+                name: 'Naturópata Maite Soler',
+                specialty: 'Fitoterapeuta Pura y Consejera Herbal',
+                chronicSafe: false,
+                mentalSafe: false,
+                address: 'Calle General Holley 142, Providencia',
+                lat: -33.4211,
+                lon: -70.6099,
+                distance: 'A 1.0 km de ti',
+                type: 'Online / Telemedicina',
+                emoji: '🌿',
+                photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=150&auto=format&fit=crop'
+            }
+        ];
+
+        function nextStep(step) {
+            if (currentStep === 2 && step === 3) {
+                const firstNameVal = document.getElementById('inputFirstName') ? document.getElementById('inputFirstName').value.trim() : '';
+                const lastNameVal = document.getElementById('inputLastName') ? document.getElementById('inputLastName').value.trim() : '';
+                const emailVal = document.getElementById('inputEmail') ? document.getElementById('inputEmail').value.trim() : '';
+                const phoneVal = document.getElementById('inputPhone') ? document.getElementById('inputPhone').value.trim() : '';
+                if (!firstNameVal || !lastNameVal || !emailVal || !phoneVal) {
+                    alert("⚠️ Por favor, ingresa tu Nombre, Apellido, Correo Electrónico y Teléfono Celular para continuar y personalizar tu plan de Morfeo.");
+                    return;
+                }
+                if (!emailVal.includes('@') || !emailVal.includes('.')) {
+                    alert("⚠️ Por favor, ingresa un Correo Electrónico válido para recibir tu boleta y ficha SOAP.");
+                    return;
+                }
+                if (phoneVal.length < 8) {
+                    alert("⚠️ Por favor, ingresa un Teléfono Celular válido para recibir tus avisos de cita y notificaciones de WhatsApp.");
+                    return;
+                }
+                selections.firstName = firstNameVal;
+                selections.lastName = lastNameVal;
+                selections.email = emailVal;
+                selections.phone = phoneVal;
+            }
+
+            document.querySelector(`#step${currentStep}`).classList.remove('active');
+            
+            const pBar = document.getElementById('progressBarContainer');
+            if (step === 'Join') {
+                pBar.classList.add('hidden');
+                currentStep = 'Join';
+            } else {
+                if (step > 1 && step < 10) {
+                    pBar.classList.remove('hidden');
+                    document.getElementById('progressBar').style.width = ((step - 1) / 8 * 100) + '%';
+                } else {
+                    pBar.classList.add('hidden');
+                }
+                currentStep = step;
+            }
+            document.querySelector(`#step${currentStep}`).classList.add('active');
+        }
+
+        // CONTROLES DE BOTONES MANUALES (+ / -)
+        function adjustVal(type, amount) {
+            const el = document.getElementById('input' + type.charAt(0).toUpperCase() + type.slice(1));
+            let val = parseInt(el.value) + amount;
+            
+            // Límites de seguridad
+            if (type === 'age') { if(val < 15) val = 15; if(val > 100) val = 100; }
+            else if (type === 'height') { if(val < 120) val = 120; if(val > 220) val = 220; }
+            else if (type === 'weight') { if(val < 40) val = 40; if(val > 150) val = 150; }
+            
+            el.value = val;
+            validateAndSet(type);
+        }
+
+        function validateAndSet(type) {
+            const el = document.getElementById('input' + type.charAt(0).toUpperCase() + type.slice(1));
+            let val = parseInt(el.value);
+            if (isNaN(val)) val = (type === 'age' ? 30 : (type === 'height' ? 170 : 75));
+            selections[type] = val;
+        }
+
+        function setFat(val, btn) {
+            selections.fat = val;
+            document.getElementById('inputFat').value = val;
+            document.querySelectorAll('.fat-btn').forEach(b => {
+                b.className = "fat-btn border border-gray-200 rounded-xl py-2 text-center text-xs hover:border-forest transition focus:outline-none bg-white";
+            });
+            btn.className = "fat-btn border-forest bg-forest/5 rounded-xl py-2 text-center text-xs transition focus:outline-none font-medium text-forest";
+        }
+
+        function setGender(val, btn) {
+            selections.gender = val;
+            document.getElementById('inputGender').value = val;
+            document.querySelectorAll('.gender-btn').forEach(b => {
+                b.className = "gender-btn border border-gray-200 rounded-xl py-2 text-center text-[10px] hover:border-forest transition focus:outline-none bg-white font-medium text-slateDark";
+            });
+            btn.className = "gender-btn border-2 border-forest bg-forest/5 rounded-xl py-2 text-center text-[10px] transition focus:outline-none font-bold text-forest";
+            
+            // Ajustar edad sugerida según selección
+            const ageInput = document.getElementById('inputAge');
+            if (val === 'child') {
+                ageInput.value = 8;
+            } else if (val === 'adolescent') {
+                ageInput.value = 14;
+            } else if (ageInput.value < 18) {
+                ageInput.value = 30;
+            }
+            validateAndSet('age');
+        }
+
+        
+        function setSleepOption(value, btn) {
+            selections.sleep = value;
+            document.getElementById('inputSleep').value = value;
+            document.querySelectorAll('.sleep-opt').forEach(b => {
+                b.className = "sleep-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-forest hover:bg-forest/5 transition focus:outline-none shadow-sm bg-white";
+            });
+            btn.className = "sleep-opt w-full text-left border-forest bg-forest/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-forest font-bold";
+            
+            document.getElementById('btnToStep5_new').removeAttribute('disabled');
+            document.getElementById('btnToStep5_new').style.opacity = 1;
+        }
+
+        function setStressOption(value, btn) {
+            selections.stress = value;
+            document.getElementById('inputStress').value = value;
+            document.querySelectorAll('.stress-opt').forEach(b => {
+                b.className = "stress-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-forest hover:bg-forest/5 transition focus:outline-none shadow-sm bg-white";
+            });
+            btn.className = "stress-opt w-full text-left border-forest bg-forest/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-forest font-bold";
+            
+            document.getElementById('btnToStep6_new').removeAttribute('disabled');
+            document.getElementById('btnToStep6_new').style.opacity = 1;
+        }
+
+        function toggleChronicFields(val, btn) {
+            selections.chronic = val;
+            document.getElementById('inputChronic').value = val ? "Sí" : "No";
+
+            document.querySelectorAll('.chronic-yes-btn, .chronic-no-btn').forEach(b => {
+                b.className = "w-full border border-gray-200 p-4 rounded-2xl text-center hover:border-forest hover:bg-forest/5 transition focus:outline-none bg-white";
+            });
+
+            btn.className = "w-full border-forest bg-forest/5 p-4 rounded-2xl text-center transition focus:outline-none font-medium text-forest";
+
+            const optionsContainer = document.getElementById('chronicOptionsContainer');
+            const bypassContainer = document.getElementById('bypassContainer');
+            if (val) {
+                optionsContainer.classList.remove('hidden');
+                bypassContainer.classList.add('hidden');
+            } else {
+                optionsContainer.classList.add('hidden');
+                bypassContainer.classList.remove('hidden');
+                selections.selectedChronical = [];
+                optionsContainer.querySelectorAll('input').forEach(i => i.checked = false);
+            }
+
+            document.getElementById('btnToStep4').removeAttribute('disabled');
+            document.getElementById('btnToStep4').style.opacity = 1;
+        }
+
+        function updateSelectedChronical() {
+            const checkboxes = document.querySelectorAll('#chronicOptionsContainer input:checked');
+            selections.selectedChronical = Array.from(checkboxes).map(c => c.value);
+        }
+
+        function setMentalOption(val, btn) {
+            selections.mental = val;
+            document.getElementById('inputMental').value = val;
+            document.querySelectorAll('.mental-opt').forEach(b => {
+                b.className = "mental-opt border border-gray-200 p-3 rounded-2xl text-left text-xs font-bold hover:border-forest transition flex justify-between items-center shadow-sm bg-white";
+                b.querySelector('i').className = "fa-solid fa-circle-check text-gray-100";
+            });
+            btn.className = "mental-opt border-forest bg-forest/5 p-3 rounded-2xl text-left text-xs font-bold transition flex justify-between items-center shadow-sm";
+            btn.querySelector('i').className = "fa-solid fa-circle-check text-forest";
+        }
+
+        function setOption(type, value, btn) {
+            selections[type] = value;
+            document.getElementById(`input${type.charAt(0).toUpperCase() + type.slice(1)}`).value = value;
+            document.querySelectorAll(`.${type}-opt`).forEach(b => {
+                b.className = `${type}-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-forest hover:bg-forest/5 transition focus:outline-none shadow-sm bg-white`;
+            });
+            btn.className = `${type}-opt w-full text-left border-forest bg-forest/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-forest font-bold`;
+
+            if (type === 'goal') {
+                document.getElementById('btnToStep7').removeAttribute('disabled');
+                document.getElementById('btnToStep7').style.opacity = 1;
+            } else if (type === 'mode') {
+                document.getElementById('btnToStep8').removeAttribute('disabled');
+                document.getElementById('btnToStep8').style.opacity = 1;
+            } else if (type === 'timeCommit') {
+                document.getElementById('btnToStep9').removeAttribute('disabled');
+                document.getElementById('btnToStep9').style.opacity = 1;
+            }
+        }
+
+        function selectDate(date, btn) {
+            selections.bookingDate = date;
+            document.querySelectorAll('.date-btn').forEach(b => {
+                b.className = "date-btn border border-gray-200 p-2.5 rounded-xl text-xs hover:border-forest transition focus:outline-none bg-white";
+            });
+            btn.className = "date-btn border border-forest bg-forest/5 text-forest font-bold p-2.5 rounded-xl text-xs transition focus:outline-none";
+        }
+
+        function selectTime(time, btn) {
+            selections.bookingTime = time;
+            document.querySelectorAll('.time-slot').forEach(b => {
+                b.className = "time-slot border border-gray-200 py-2 rounded-xl text-xs hover:border-forest transition focus:outline-none bg-white";
+            });
+            btn.className = "time-slot border border-forest bg-forest/5 text-forest font-bold py-2 rounded-xl text-xs transition focus:outline-none";
+        }
+
+        function initBookingPanel() {
+            const listContainer = document.getElementById('specialistList');
+            const bookingDerivationText = document.getElementById('bookingDerivationText');
+            listContainer.innerHTML = '';
+            let filteredSpecialists = [];
+
+            if (selections.chronic === true) {
+                filteredSpecialists = specialists.filter(s => s.chronicSafe === true);
+                bookingDerivationText.innerHTML = "⚠️ <strong class='text-red-700 font-bold'>Derivación Clínica:</strong> Mostrando médicos clínicos y especialistas integrativos certificados para el manejo seguro de " + selections.selectedChronical.join(', ') + ".";
+            } else if (selections.mental !== 'Ninguna') {
+                filteredSpecialists = specialists.filter(s => s.mentalSafe === true);
+                bookingDerivationText.innerHTML = "🧠 <strong class='text-forest font-bold'>Derivación Salud Mental / Neurodivergencia:</strong> Mostrando especialistas y psicólogos clínicos capacitados en acompañamiento integrativo y respetuoso (" + selections.mental + ").";
+            } else {
+                filteredSpecialists = specialists;
+                bookingDerivationText.innerHTML = "Mostrando profesionales de medicina integrativa de MORFEO disponibles para tu consulta.";
+            }
+
+            filteredSpecialists.forEach((specialist, index) => {
+                const isActive = index === 0;
+                if (isActive) selections.selectedSpecialist = specialist;
+                const cardHtml = `
+                    <button onclick="selectSpecialist('${specialist.id}', this)" class="specialist-card w-full text-left p-3.5 rounded-2xl border ${isActive ? 'border-forest bg-forest/5' : 'border-gray-100 bg-white'} transition focus:outline-none flex items-center justify-between shadow-sm">
+                        <div class="flex items-center space-x-3.5">
+                            <div class="w-10 h-10 rounded-full overflow-hidden shadow-sm border border-gray-100 flex-shrink-0 flex items-center justify-center bg-gray-50">
+                                <img src="${specialist.photo}" class="w-full h-full object-cover" alt="${specialist.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <span class="w-full h-full rounded-full flex items-center justify-center text-xl bg-forest/10 text-forest">${specialist.emoji}</span>
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-xs text-slateDark">${specialist.name}</h4>
+                                <p class="text-[9px] text-gray-500 font-medium">${specialist.specialty}</p>
+                                <div class="flex space-x-2 mt-1">
+                                    <span class="text-[8px] bg-sage/20 text-forest px-1.5 py-0.5 rounded-full font-bold">${specialist.type}</span>
+                                    <span class="text-[8px] text-gray-400 font-semibold flex items-center"><i class="fa-solid fa-location-dot text-accent mr-0.5"></i> ${specialist.distance}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-check ${isActive ? 'text-forest' : 'text-gray-200'} text-lg flex-shrink-0"></i>
+                    </button>
+                `;
+                listContainer.insertAdjacentHTML('beforeend', cardHtml);
+            });
+            updateMap(selections.selectedSpecialist);
+        }
+
+        function selectSpecialist(id, btn) {
+            const specialist = specialists.find(s => s.id === id);
+            selections.selectedSpecialist = specialist;
+            document.querySelectorAll('.specialist-card').forEach(card => {
+                card.className = "specialist-card w-full text-left p-3.5 rounded-2xl border border-gray-100 bg-white transition focus:outline-none flex items-center justify-between shadow-sm";
+                card.querySelector('i.fa-circle-check').className = "fa-solid fa-circle-check text-gray-200 text-lg flex-shrink-0";
+            });
+            btn.className = "specialist-card w-full text-left p-3.5 rounded-2xl border border-forest bg-forest/5 transition focus:outline-none flex items-center justify-between shadow-sm";
+            btn.querySelector('i.fa-circle-check').className = "fa-solid fa-circle-check text-forest text-lg flex-shrink-0";
+            updateMap(specialist);
+        }
+
+        let mapObj;
+        let currentMarker;
+        function updateMap(specialist) {
+            const mapContainer = document.getElementById('mapContainer');
+            const distanceLabel = document.getElementById('distanceLabel');
+            const addressLabel = document.getElementById('addressLabel');
+            distanceLabel.innerText = specialist.distance;
+            addressLabel.innerText = specialist.address;
+
+            if (selections.mode === 'online') {
+                mapContainer.classList.add('hidden');
+            } else {
+                mapContainer.classList.remove('hidden');
+                setTimeout(() => {
+                    if (!mapObj) {
+                        mapObj = L.map('map').setView([specialist.lat, specialist.lon], 15);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '© OpenStreetMap'
+                        }).addTo(mapObj);
+                        currentMarker = L.marker([specialist.lat, specialist.lon]).addTo(mapObj)
+                            .bindPopup(`<b>${specialist.name}</b><br>${specialist.address}`).openPopup();
+                    } else {
+                        mapObj.setView([specialist.lat, specialist.lon], 15);
+                        if (currentMarker) mapObj.removeLayer(currentMarker);
+                        currentMarker = L.marker([specialist.lat, specialist.lon]).addTo(mapObj)
+                            .bindPopup(`<b>${specialist.name}</b><br>${specialist.address}`).openPopup();
+                    }
+                    mapObj.invalidateSize();
+                }, 100);
+            }
+        }
+
+        async function confirmBooking() {
+            // Guardar cita real en Supabase (tabla citas) antes de mostrar el ticket
+            await saveAppointmentToSupabase();
+
+            document.getElementById('ticketDate').innerText = selections.bookingDate;
+            document.getElementById('ticketTime').innerText = selections.bookingTime + " hrs";
+            document.getElementById('ticketMode').innerText = selections.mode === 'online' ? '💻 Consulta Online' : '🏢 Presencial';
+            document.getElementById('ticketSpecialist').innerText = selections.selectedSpecialist.name;
+            if (document.getElementById('successEmailSpan')) {
+                document.getElementById('successEmailSpan').innerText = selections.email;
+            }
+            if (document.getElementById('successPhoneSpan')) {
+                document.getElementById('successPhoneSpan').innerText = selections.phone;
+            }
+            document.getElementById('ticketAddress').innerText = selections.mode === 'online' ? 'Enlace de sala virtual enviado al correo' : selections.selectedSpecialist.address;
+            
+            const emailContainer = document.getElementById('ticketEmail');
+            if (emailContainer && selections.email) {
+                emailContainer.innerText = selections.email;
+            }
+            
+            // Set specialist photo on the final ticket
+            const ticketPhoto = document.getElementById('ticketSpecialistPhoto');
+            if (ticketPhoto && selections.selectedSpecialist && selections.selectedSpecialist.photo) {
+                ticketPhoto.src = selections.selectedSpecialist.photo;
+            }
+            nextStep('Success');
+        }
+
+        function addAppointmentToCalendar() {
+            const specialistName = selections.selectedSpecialist ? selections.selectedSpecialist.name : "Especialista MORFEO";
+            const address = selections.mode === 'online' ? 'Sala Virtual de Telemedicina' : selections.selectedSpecialist.address;
+            const dateStr = selections.bookingDate; // Ej: "Lunes 24 de Agosto"
+            const timeStr = selections.bookingTime; // Ej: "09:30"
+            
+            // Mapear fecha de Agosto 2026 para el archivo del calendario
+            const day = dateStr.includes('24') ? '24' : (dateStr.includes('25') ? '25' : '26');
+            const startHour = timeStr.split(':')[0];
+            const startMin = timeStr.split(':')[1];
+            
+            // Crear el enlace directo para Google Calendar
+            const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+                `&text=${encodeURIComponent('Consulta Médica MORFEO - ' + specialistName)}` +
+                `&dates=202608${day}T${startHour}${startMin}00/202608${day}T${(parseInt(startHour)+1).toString().padStart(2, '0')}${startMin}00` +
+                `&details=${encodeURIComponent('Tu consulta integrativa ha sido agendada con éxito. Por favor llegar 10 minutos antes. Modalidad: ' + selections.mode.toUpperCase())}` +
+                `&location=${encodeURIComponent(address)}` +
+                `&sf=true&output=xml`;
+                
+            // Abrir Google Calendar en una nueva pestaña para el usuario
+            window.open(googleCalendarUrl, '_blank');
+        }
+
+        function downloadEvaluationPDF(isFreeOnly) {
+            const sleepMap = {
+                radiant: 'Energía Radiante 🌅',
+                fatigue: 'Fatiga Media 🥱',
+                insomnia: 'Insomnio severo 🛌'
+            };
+            const stressMap = {
+                calm: 'Calma Total 🧘',
+                moderate: 'Estrés Moderado ⚖️',
+                severe: 'Agotamiento Extremo 💥'
+            };
+
+            const svg_logo = `
+                <div style="display: inline-block; vertical-align: middle; margin-right: 12px; text-align: left;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 100 100" style="display: block;">
+                        <circle cx="50" cy="50" r="46" fill="#FAF8F5" stroke="#52796F" stroke-width="3" />
+                        <circle cx="50" cy="50" r="41" fill="none" stroke="#84A59D" stroke-dasharray="3 3" stroke-width="1" />
+                        <path d="M50,80 Q48,50 50,25" fill="none" stroke="#52796F" stroke-width="2.5" stroke-linecap="round" />
+                        <path d="M50,45 Q65,30 60,18 Q45,25 50,45" fill="#84A59D" stroke="#52796F" stroke-width="1" />
+                        <path d="M50,45 Q35,30 40,18 Q55,25 50,45" fill="#84A59D" stroke="#52796F" stroke-width="1" />
+                        <path d="M50,58 Q68,48 65,38 Q48,42 50,58" fill="#52796F" stroke="#3A5F53" stroke-width="1" />
+                        <path d="M50,58 Q32,48 35,38 Q52,42 50,58" fill="#52796F" stroke="#3A5F53" stroke-width="1" />
+                        <path d="M50,70 Q62,65 60,55 Q48,58 50,70" fill="#84A59D" stroke="#52796F" stroke-width="1" />
+                        <path d="M50,70 Q38,65 40,55 Q52,58 50,70" fill="#84A59D" stroke="#52796F" stroke-width="1" />
+                        <circle cx="50" cy="20" r="3" fill="#F28482" />
+                    </svg>
+                </div>
+                <div style="display: inline-block; vertical-align: middle; text-align: left;">
+                    <h2 style="font-size: 9px; font-weight: 900; color: #84A59D; margin: 0; letter-spacing: 1.5px; text-transform: uppercase;">Ecosistema de Salud Integrativa</h2>
+                    <h1 style="font-size: 18px; font-weight: 900; color: #52796F; margin: 2px 0 0 0;">MORFEO</h1>
+                </div>
+            `;
+
+            // Guardar anchos y estilos de body originales para restaurar después de la captura
+            const originalBodyWidth = document.body.style.width;
+            const originalHtmlWidth = document.documentElement.style.width;
+            const originalBodyMargin = document.body.style.margin;
+            const originalBodyPadding = document.body.style.padding;
+            const originalBodyPosition = document.body.style.position;
+            const originalBodyLeft = document.body.style.left;
+            const originalBodyTop = document.body.style.top;
+
+            // Forzar entorno de diseño de escritorio exacto de 794px para evitar desfasamientos y clipping móvil
+            document.body.style.width = '794px';
+            document.documentElement.style.width = '794px';
+            document.body.style.margin = '0';
+            document.body.style.padding = '0';
+            document.body.style.position = 'relative';
+            document.body.style.left = '0';
+            document.body.style.top = '0';
+
+            // 1. Mostrar hermoso overlay herbolario de carga MORFEO
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100vw';
+            overlay.style.height = '100vh';
+            overlay.style.backgroundColor = 'rgba(250, 248, 245, 0.98)';
+            overlay.style.zIndex = '99999999';
+            overlay.style.display = 'flex';
+            overlay.style.flexDirection = 'column';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+            overlay.innerHTML = `
+                <div style="text-align: center; max-width: 320px; padding: 20px;">
+                    <div style="width: 70px; height: 70px; margin: 0 auto 20px auto; border-radius: 50%; border: 3px solid #52796F; box-shadow: 0 4px 12px rgba(82,121,111,0.25); overflow: hidden; animation: pulse 1.5s infinite ease-in-out;">
+                        <img src="logo morfeo png.jpeg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_morfeo/logo morfeo png.jpeg';">
+                    </div>
+                    <h4 style="color: #2F3E46; font-size: 15px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">MORFEO</h4>
+                    <p style="color: #52796F; font-size: 11px; font-weight: 600; margin: 0 0 20px 0;">Preparando pauta de salud digital centrado...</p>
+                    <div style="width: 100%; height: 4px; background: #E2E8F0; border-radius: 2px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: #52796F; border-radius: 2px; animation: loading-bar 1.5s infinite linear;"></div>
+                    </div>
+                </div>
+                <style>
+                    @keyframes pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.15); }
+                        100% { transform: scale(1); }
+                    }
+                    @keyframes loading-bar {
+                        0% { left: -50%; }
+                        100% { left: 100%; }
+                    }
+                </style>
+            `;
+            document.body.appendChild(overlay);
+
+            // 2. Apagar scroll suave y guardar posición actual
+            const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+            const currentScrollX = window.pageXOffset || document.documentElement.scrollLeft;
+            const htmlStyle = document.documentElement.style.scrollBehavior;
+            const bodyStyle = document.body.style.scrollBehavior;
+            document.documentElement.style.scrollBehavior = 'auto';
+            document.body.style.scrollBehavior = 'auto';
+
+            // 3. Saltar al tope (0,0) de forma instantánea
+            window.scrollTo(0, 0);
+
+            // 4. Crear contenedor temporal absoluto posicionado en top: 0 con ancho estricto de 794px para evitar achicamiento móvil
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '0';
+            wrapper.style.top = '0';
+            wrapper.style.width = '794px';
+            wrapper.style.height = 'auto';
+            wrapper.style.overflow = 'hidden';
+            wrapper.style.display = 'block';
+            wrapper.style.margin = '0';
+            wrapper.style.padding = '0';
+            wrapper.style.textAlign = 'left';
+            wrapper.style.background = '#FAF8F5';
+            wrapper.style.zIndex = '99999998';
+
+            const element = document.createElement('div');
+            element.className = "p-0 font-sans text-xs text-gray-700 leading-relaxed";
+            element.style.color = "#2F3E46";
+            element.style.width = "794px";
+            element.style.minWidth = "794px";
+            element.style.maxWidth = "794px";
+            element.style.background = "#FAF8F5";
+            element.style.boxSizing = "border-box";
+
+            const imcVal = document.getElementById('resIMC') ? document.getElementById('resIMC').innerText : '25.0';
+            const imcCatVal = document.getElementById('resIMCCat') ? document.getElementById('resIMCCat').innerText : 'Normal';
+            const metabolicAge = selections.age + 3;
+
+            let contentHtml = `
+                <div style="width: 794px !important; min-width: 794px !important; max-width: 794px !important; padding: 45px; box-sizing: border-box; background-color: #FAF8F5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #2F3E46;">
+                    <!-- Bordered Box Container -->
+                    <div style="width: 704px !important; min-width: 704px !important; max-width: 704px !important; border: 2px solid #52796F; border-radius: 20px; padding: 30px; background-color: #FAF8F5; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 15px; box-sizing: border-box;">
+                        <!-- Header Oficial Epicrisis con Logo Circular SVG Vectorial No-CORS -->
+                        <div style="display: table; width: 100%; border-bottom: 2px solid #52796F; padding-bottom: 12px; margin-bottom: 5px;">
+                            <div style="display: table-cell; vertical-align: middle; text-align: left;">
+                                ${svg_logo}
+                            </div>
+                            <div style="display: table-cell; vertical-align: middle; text-align: right; border-left: 1.5px solid #52796F; padding-left: 12px; width: 180px;">
+                                <span style="font-size: 8px; background-color: #F28482; color: white; font-weight: bold; padding: 3px 8px; border-radius: 6px; text-transform: uppercase;">REPORTE DE MORFEO</span>
+                                <p style="font-size: 8px; color: #718096; margin: 4px 0 0 0; font-weight: bold;">CÓDIGO: EVAL-LAWEN-${Math.floor(1000 + Math.random() * 9000)}</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-bottom: 5px;">
+                            <h2 style="font-size: 14px; font-weight: 800; color: #2F3E46; text-transform: uppercase; margin: 0; letter-spacing: 0.5px;">EVALUACIÓN INTEGRAL DE MORFEO</h2>
+                            <p style="font-size: 8.5px; color: #718096; font-weight: 600; margin: 2px 0 0 0;">Análisis Biométrico y Recomendaciones de Salud Natural</p>
+                        </div>
+
+                        <!-- 1. IDENTIFICACIÓN DEL PACIENTE EN TABLAS NATIVAS DE ANCHO COMPLETO PARA EVITAR FRAGMENTACIÓN MÓVIL -->
+                        <div>
+                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 6px; text-transform: uppercase; font-weight: 900;">📋 I. Antecedentes y Demográficos</h3>
+                            <table style="width: 100%; border-collapse: collapse; font-size: 9.5px; color: #4A5568; background-color: white; border-radius: 12px; border: 1px solid #E2E8F0;">
+                                <tr>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: 1px solid #F0F2F5;"><strong>Nombre Completo:</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.firstName} ${selections.lastName}</span></td>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: 1px solid #F0F2F5;"><strong>Edad del Paciente:</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.age} años (Metabólica: ${metabolicAge} años)</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: none;"><strong>Celular de Contacto:</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.phone || 'No registrado'}</span></td>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: none;"><strong>Correo Electrónico:</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.email || 'No registrado'}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- 2. PARÁMETROS BIOMÉTRICOS Y ESTILO DE VIDA -->
+                        <div>
+                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📊 II. Parámetros Biométricos y Estilo de Vida</h3>
+                            <table style="width: 100%; border-collapse: collapse; font-size: 9.5px; color: #4A5568; background-color: white; border-radius: 12px; border: 1px solid #E2E8F0;">
+                                <tr>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: 1px solid #F0F2F5;"><strong>Estatura (Talla):</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.height} cm</span></td>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: 1px solid #F0F2F5;"><strong>Peso Corporal:</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.weight} kg</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: 1px solid #F0F2F5;"><strong>Índice de Masa Corporal (IMC):</strong> <span style="font-weight: bold; color: #2F3E46;">${imcVal} (${imcCatVal})</span></td>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: 1px solid #F0F2F5;"><strong>Grasa Corporal Estimada:</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.fat}%</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: none;"><strong>Calidad de Sueño:</strong> <span style="font-weight: bold; color: #2F3E46;">${sleepMap[selections.sleep] || 'Normal'}</span></td>
+                                    <td style="width: 50%; padding: 6px 12px; border-bottom: none;"><strong>Nivel de Estrés:</strong> <span style="font-weight: bold; color: #2F3E46;">${stressMap[selections.stress] || 'Calma'}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- 3. DIAGNÓSTICO Y ANTECEDENTES CLÍNICOS -->
+                        <div>
+                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">🩺 III. Diagnóstico y Antecedentes Clínicos</h3>
+                            <div style="font-size: 9.5px; color: #4A5568; background-color: white; padding: 10px; border-radius: 12px; border: 1px solid #E2E8F0; line-height: 1.4; box-sizing: border-box;">
+                                <p style="margin: 0 0 3px 0;"><strong>Antecedentes Crónicos:</strong> ${selections.chronic ? selections.selectedChronical.join(', ') : 'Ninguno diagnosticado'}</p>
+                                <p style="margin: 0;"><strong>Salud Neurodivergente / Enfoque Cognitivo:</strong> ${selections.mental || 'Ninguna'}</p>
+                            </div>
+                        </div>
+
+                        <!-- 4. PAUTA / DERIVACIONES -->
+                        ${isFreeOnly ? `
+                        <div>
+                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📋 IV. Pauta Preventiva Autoguiada de Fitoterapia</h3>
+                            <div style="background-color: #EBF8FF; border-left: 4px solid #3182CE; padding: 12px; border-radius: 10px; font-size: 9.5px; color: #2D3748; font-weight: 600; line-height: 1.4; box-sizing: border-box;">
+                                Se recomienda incorporar infusiones preventivas de Melisa para el sistema nervioso y Boldo con naranja asada después de las comidas principales para desinflamar el tracto digestivo de forma natural de manera segura.
+                            </div>
+                        </div>
+                        ` : `
+                        <div>
+                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📍 IV. Derivaciones y Convenios Activados</h3>
+                            <div style="font-size: 9.5px; margin-bottom: 10px; color: #4A5568; background-color: white; padding: 10px; border-radius: 12px; border: 1px solid #E2E8F0; line-height: 1.4; box-sizing: border-box;">
+                                <p style="margin: 0 0 3px 0;"><strong>Especialista Asignado de MORFEO:</strong> ${selections.selectedSpecialist ? selections.selectedSpecialist.name : 'No asignado'} (${selections.selectedSpecialist ? selections.selectedSpecialist.spec : 'Especialista de Turno'})</p>
+                                <p style="margin: 0 0 3px 0;"><strong>Pase de Convenio B2B Recomendado:</strong> Pase de Morfeo para Gimnasio SportLife o Yoga Postural</p>
+                                <p style="margin: 0;"><strong>Código de Descuento en Alimentación:</strong> 15% DCTO en Restaurante "Huerto Orgánico" con tu receta digital.</p>
+                            </div>
+                            <div style="background-color: #FFF5F5; border-left: 4px solid #F28482; padding: 10px; border-radius: 10px; font-size: 9.5px; color: #2D3748; font-weight: 600; line-height: 1.4; box-sizing: border-box;">
+                                <strong>⚠️ Información Importante sobre tu Cita:</strong> Tu reserva ha sido registrada en Supabase con éxito. El profesional completará tu ficha clínica SOAP de forma privada durante la atención presencial o en tu sala de telemedicina.
+                            </div>
+                        </div>
+                        `}
+
+                        <!-- Footer Legal Centrado -->
+                        <div style="text-align: center; border-top: 1.5px dashed #CBD5E0; padding-top: 12px; font-size: 8px; color: #A0AEC0; line-height: 1.4; margin-top: 10px;">
+                            <p style="margin: 0; font-weight: bold; color: #52796F;">© 2026 MORFEO Chile. Registro Clínico y Ecosistema de Salud Integrativa Protegido.</p>
+                            <p style="margin: 2px 0 0 0; font-weight: 600;">Documento emitido y encriptado bajo la Ley Marco de Ciberseguridad N° 21.663.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            element.innerHTML = contentHtml;
+
+            const filenameText = isFreeOnly ? `MORFEO_Plan_Preventivo_${selections.firstName}_${selections.lastName}.pdf` : `MORFEO_Pauta_Clinica_${selections.firstName}_${selections.lastName}.pdf`;
+
+            const opt = {
+                margin:       0,
+                filename:     filenameText,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { 
+                    scale: 2.5, 
+                    useCORS: true, 
+                    scrollY: 0, 
+                    scrollX: 0, 
+                    windowWidth: 794, 
+                    width: 794,
+                    onclone: function(clonedDoc) {
+                        clonedDoc.body.style.width = '794px';
+                        clonedDoc.body.style.minWidth = '794px';
+                        clonedDoc.body.style.display = 'block';
+                        clonedDoc.body.style.margin = '0';
+                        clonedDoc.body.style.padding = '0';
+                        clonedDoc.documentElement.style.width = '794px';
+                        clonedDoc.documentElement.style.minWidth = '794px';
+                    }
+                },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            wrapper.appendChild(element);
+            document.documentElement.appendChild(wrapper);
+
+            // Wait for all images to complete loading to prevent missing logo on mobile slow networks
+            const imgs = element.querySelectorAll('img');
+            const promises = Array.from(imgs).map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                });
+            });
+
+            Promise.all(promises).then(() => {
+                setTimeout(() => {
+                    html2pdf().from(element).set(opt).save().then(() => {
+                        document.documentElement.removeChild(wrapper);
+                        document.body.removeChild(overlay);
+                        // Restaurar estilos de layout originales
+                        document.body.style.width = originalBodyWidth;
+                        document.documentElement.style.width = originalHtmlWidth;
+                        document.body.style.margin = originalBodyMargin;
+                        document.body.style.padding = originalBodyPadding;
+                        document.body.style.position = originalBodyPosition;
+                        document.body.style.left = originalBodyLeft;
+                        document.body.style.top = originalBodyTop;
+                        window.scrollTo(currentScrollX, currentScrollY); // Restore scroll position instantly
+                        document.documentElement.style.scrollBehavior = htmlStyle;
+                        document.body.style.scrollBehavior = bodyStyle;
+            });
+                }, 500);
+            });
+        }
+
+        async function saveTestData() {
+            // Validar que el usuario haya reemplazado la llave por defecto para evitar errores
+            if (supabaseKey === '') {
+                console.warn('⚠️ Base de Datos: No se han guardado los datos porque no has pegado tu llave ANON de Supabase.');
+                return;
+            }
+
+            try {
+                const { data, error } = await _supabase
+                    .from('respuestas_test')
+                    .insert([
+                        {
+                            nombre_paciente: selections.firstName + ' ' + selections.lastName,
+                            genero: selections.gender,
+                            edad: parseInt(selections.age) || 30,
+                            talla: parseInt(selections.height) || 170,
+                            peso: parseInt(selections.weight) || 75,
+                            grasa: parseInt(selections.fat) || 25,
+                            sueno: sleepMap[selections.sleep] || 'Normal 🌅',
+                            estres: stressMap[selections.stress] || 'Calma Total 🧘',
+                            cronica: selections.chronic, // Guarda true o false
+                            enfermedades: selections.selectedChronical.join(', ') || 'Ninguna',
+                            email_paciente: selections.email,
+                            telefono_paciente: selections.phone
+                        }
+                    ]);
+
+                if (error) {
+                    console.error('❌ Error de Supabase al guardar datos:', error.message);
+                } else {
+                    console.log('✅ ¡Datos guardados exitosamente en Supabase respuestas_test!:', data);
+                }
+            } catch (err) {
+                console.error('❌ Error de red o conexión al intentar guardar en Supabase:', err);
+            }
+        }
+
+        function generatePlan() {
+            nextStep('Loading');
+            // Guardar respuestas en Supabase en segundo plano de forma asíncrona
+            saveTestData();
+
+            setTimeout(() => {
+                // Actualizar textos de la tarjeta de Estilo de Vida (Global para crónicos y preventivos)
+                document.getElementById('resSleepText').innerText = sleepMap[selections.sleep] || 'Normal 🌅';
+                document.getElementById('resStressText').innerText = stressMap[selections.stress] || 'Calma Total 🧘';
+                
+                const hMeters = selections.height / 100;
+                const imc = (selections.weight / (hMeters * hMeters)).toFixed(1);
+                
+                let imcCat = "Normal";
+                if (imc < 18.5) { imcCat = "Bajo Peso"; }
+                else if (imc >= 18.5 && imc < 25) { imcCat = "Peso Saludable"; }
+                else if (imc >= 25 && imc < 30) { imcCat = "Sobrepeso Moderado"; }
+                else { imcCat = "Obesidad"; }
+
+                document.getElementById('resIMC').innerText = imc;
+                document.getElementById('resIMCCat').innerText = imcCat;
+
+                let calBase = 0;
+                if (selections.gender === 'woman') {
+                    calBase = Math.round((10 * selections.weight) + (6.25 * selections.height) - (5 * selections.age) - 161);
+                } else if (selections.gender === 'man') {
+                    calBase = Math.round((10 * selections.weight) + (6.25 * selections.height) - (5 * selections.age) + 5);
+                } else { // child or adolescent
+                    calBase = Math.round((22.7 * selections.weight) + 495); // OMS pediatric standard
+                }
+                let targetCal = calBase - 400;
+                document.getElementById('resCalories').innerText = targetCal + " kcal";
+
+                const isOverweight = imc >= 25;
+                const isWeightLossGoal = selections.goal === 'activate';
+                const gymAllianceCard = document.getElementById('gymAllianceCard');
+                
+                if (isWeightLossGoal || isOverweight) {
+                    gymAllianceCard.classList.remove('hidden');
+                    let message = "";
+                    if (isWeightLossGoal) {
+                        message = "Dado tu objetivo de **Bajar de Peso e incrementar tu salud**, MORFEO ha gestionado de forma automática beneficios exclusivos para ti: un **Pase Libre de 3 días en SportLife**, un **15% de descuento en clases de Yoga Restaurativo** para cuidar tu cuerpo, o **1 sesión gratis con un Personal Trainer**. Puedes agendar una hora para que uno de nuestros especialistas médicos evalúe tu caso, o pinchar el botón de abajo para ver los centros.";
+                    } else {
+                        message = "Dado tu índice de masa corporal (" + imc + " - Sobrepeso), MORFEO ha gestionado de forma automática un **Pase Libre de 3 días en SportLife**, un **15% de descuento en clases de Yoga Restaurativo** (para cuidar tus articulaciones lumbares), o **1 sesión gratis con Personal Trainer**.";
+                    }
+                    document.getElementById('resGymAllianceText').innerHTML = message;
+                } else {
+                    gymAllianceCard.classList.add('hidden');
+                }
+
+                if (selections.chronic === true) {
+                    document.getElementById('resEmoji').innerText = "🩺";
+                    document.getElementById('resTitle').innerText = "Plan Clínico Asistido";
+                    document.getElementById('resBiometricsCard').classList.add('hidden');
+                    document.getElementById('resultsBlockContainer').classList.add('hidden');
+                    document.getElementById('chronicBlock').classList.remove('hidden');
+                    
+                    let textExplanation = "Al presentar antecedentes activos de **" + selections.selectedChronical.join(' e ') + "**, tu pauta de ejercicio automático ha sido bloqueada por motivos éticos de salud. ";
+                    if (selections.selectedChronical.includes("Hipertensión")) {
+                        textExplanation += "Estabilizaremos tu salud cardiovascular usando fitoterapeutas calificados que eviten plantas que puedan elevar la tensión.";
+                    } else if (selections.selectedChronical.includes("Diabetes")) {
+                        textExplanation += "Se recetará una pauta nutricional de bajo índice glicémico combinada con medicina herbolaria reguladora de glucosa.";
+                    } else if (selections.selectedChronical.includes("Hipotiroidismo")) {
+                        textExplanation += "Se integrarán adaptógenos naturales bajo estricto control médico para regular la glándula tiroidea.";
+                    } else {
+                        textExplanation += "Las pautas herbolarias e inmunomoduladoras deben ser prescritas con la supervisión de un médico integrativo.";
+                    }
+                    document.getElementById('chronicExplanationText').innerHTML = textExplanation;
+                } else {
+                    document.getElementById('resEmoji').innerText = "🎉";
+                    document.getElementById('resTitle').innerText = "¡Tu Plan está listo!";
+                    document.getElementById('resBiometricsCard').classList.remove('hidden');
+                    document.getElementById('resultsBlockContainer').classList.remove('hidden');
+                    document.getElementById('chronicBlock').classList.add('hidden');
+
+                    let textApproach = "Tu plan priorizará el uso de hierbas nativas y extractos naturales para regular tu metabolismo de manera complementaria y armónica. ";
+                    
+                    if (selections.sleep === 'insomnia') {
+                        textApproach += "Para tratar tu **insomnio y alerta nocturna**, te recetamos infusiones relajantes de **Melisa y Pasiflora** por las tardes, evitando estimulantes. ";
+                    } else if (selections.sleep === 'fatigue') {
+                        textApproach += "Para combatir la **fatiga diaria**, incorporaremos adaptógenos naturales como **Ashwagandha** para equilibrar el cortisol por las mañanas. ";
+                    }
+
+                    if (selections.stress === 'burnout') {
+                        textApproach += "Dado tu nivel de **estrés crónico / burnout**, se priorizará la derivación a terapias mente-cuerpo como clases de **Yoga Restaurativo** o meditación guiada, además de recomendar una consulta preventiva con nuestro psicólogo **Ps. Tomás Araya**. ";
+                    } else if (selections.stress === 'moderate') {
+                        textApproach += "Para mitigar tu **estrés moderado**, sugerimos incorporar infusiones relajantes a media tarde y breves pausas de desconexión activa. ";
+                    }
+                    
+                    // Aseguramiento defensivo de la tarjeta de enfoque
+                    const resApproachEl = document.getElementById('resApproach');
+                    if (resApproachEl) { resApproachEl.innerHTML = textApproach; }
+
+
+
+                    let textNut = "Plan de alimentación equilibrada limpia de " + targetCal + " kcal. Consumirás un plato distribuido en 50% verduras, 25% proteína magra y 25% carbohidratos complejos.";
+                    let textMov = "Entrenamiento de tonificación muscular en casa. 4 rondas de: 15 sentadillas libres, 10 flexiones de brazos completas y 30 segundos de plancha abdominal.";
+                    
+                    document.getElementById('resNut').innerText = textNut;
+                    document.getElementById('resMov').innerText = textMov;
+                }
+                nextStep('Result');
+            }, 500); // Carga ultra-rápida de 0.5s
+        }
+
+        function showPartnerDetails(partnerType) {
+            document.querySelectorAll('.partner-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`partner-${partnerType}`).classList.remove('hidden');
+            document.querySelectorAll('.partner-tab').forEach(tab => {
+                tab.className = "partner-tab border border-gray-200 p-2.5 rounded-xl text-center transition focus:outline-none bg-white shadow-sm flex flex-col items-center justify-center";
+            });
+            document.getElementById(`tab-${partnerType}`).className = "partner-tab border border-forest bg-forest/5 p-2.5 rounded-xl text-center transition focus:outline-none shadow-sm flex flex-col items-center justify-center";
+        }
+
+        
+        // --- CODES & COUPON SUCCESS MODAL SYSTEM v143 (DESIGN REFINEMENT BY REQUEST) ---
+        let activeClaimB2B = { name: '', benefit: '', code: '', logo: '' };
+        let activeClaimPatientName = "";
+        let activeClaimPhone = "";
+        let activeClaimMsg = "";
+
+        function closeCouponSuccessModal() {
+            document.getElementById('couponSuccessModal').classList.add('hidden');
+        }
+
+        function shareSuccessCouponViaWhatsApp() {
+            window.open(`https://api.whatsapp.com/send?phone=${activeClaimPhone}&text=${encodeURIComponent(activeClaimMsg)}`, '_blank');
+        }
+
+        function downloadCouponImage() {
+            const svg_logo_coupon = `
+                <div style="text-align: center; margin-bottom: 12px; width: 100%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 100 100" style="display: block; margin: 0 auto 6px auto;">
+                        <circle cx="50" cy="50" r="46" fill="#FAF8F5" stroke="#52796F" stroke-width="3" />
+                        <circle cx="50" cy="50" r="41" fill="none" stroke="#84A59D" stroke-dasharray="3 3" stroke-width="1" />
+                        <path d="M50,80 Q48,50 50,25" fill="none" stroke="#52796F" stroke-width="2.5" stroke-linecap="round" />
+                        <path d="M50,45 Q65,30 60,18 Q45,25 50,45" fill="#84A59D" stroke="#52796F" stroke-width="1" />
+                        <path d="M50,45 Q35,30 40,18 Q55,25 50,45" fill="#84A59D" stroke="#52796F" stroke-width="1" />
+                        <path d="M50,58 Q68,48 65,38 Q48,42 50,58" fill="#52796F" stroke="#3A5F53" stroke-width="1" />
+                        <path d="M50,58 Q32,48 35,38 Q52,42 50,58" fill="#52796F" stroke="#3A5F53" stroke-width="1" />
+                        <path d="M50,70 Q62,65 60,55 Q48,58 50,70" fill="#84A59D" stroke="#52796F" stroke-width="1" />
+                        <path d="M50,70 Q38,65 40,55 Q52,58 50,70" fill="#84A59D" stroke="#52796F" stroke-width="1" />
+                        <circle cx="50" cy="20" r="3" fill="#F28482" />
+                    </svg>
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 800; color: #52796F; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">MORFEO</h2>
+                    <p style="font-size: 8px; color: #84A59D; margin: 2px 0 0 0; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Ecosistema de Morfeo</p>
+                </div>
+            `;
+
+            const originalBodyWidth = document.body.style.width;
+            const originalHtmlWidth = document.documentElement.style.width;
+            const originalBodyMargin = document.body.style.margin;
+            const originalBodyPadding = document.body.style.padding;
+            const originalBodyPosition = document.body.style.position;
+            const originalBodyLeft = document.body.style.left;
+            const originalBodyTop = document.body.style.top;
+
+            // Mostrar hermoso overlay herbolario de carga MORFEO
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100vw';
+            overlay.style.height = '100vh';
+            overlay.style.backgroundColor = 'rgba(250, 248, 245, 0.98)';
+            overlay.style.zIndex = '99999999';
+            overlay.style.display = 'flex';
+            overlay.style.flexDirection = 'column';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+            overlay.innerHTML = `
+                <div style="text-align: center; max-width: 320px; padding: 20px;">
+                    <div style="width: 70px; height: 70px; margin: 0 auto 15px auto; border-radius: 50%; overflow: hidden; border: 3px solid #52796F; box-shadow: 0 4px 10px rgba(82, 121, 111, 0.15); animation: pulse 1.5s infinite ease-in-out;">
+                        <img src="logo morfeo png.jpeg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_morfeo/logo morfeo png.jpeg';">
+                    </div>
+                    <h4 style="color: #2F3E46; font-size: 15px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">MORFEO</h4>
+                    <p style="color: #52796F; font-size: 11px; font-weight: 600; margin: 0 0 20px 0;">Preparando cupón de descuento digital...</p>
+                    <div style="width: 100%; height: 4px; background: #E2E8F0; border-radius: 2px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: #52796F; border-radius: 2px; animation: loading-bar 1.5s infinite linear;"></div>
+                    </div>
+                </div>
+                <style>
+                    @keyframes pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.1); }
+                        100% { transform: scale(1); }
+                    }
+                    @keyframes loading-bar {
+                        0% { left: -50%; }
+                        100% { left: 100%; }
+                    }
+                </style>
+            `;
+            document.body.appendChild(overlay);
+
+            const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+            const currentScrollX = window.pageXOffset || document.documentElement.scrollLeft;
+            const htmlStyle = document.documentElement.style.scrollBehavior;
+            const bodyStyle = document.body.style.scrollBehavior;
+            document.documentElement.style.scrollBehavior = 'auto';
+            document.body.style.scrollBehavior = 'auto';
+
+            window.scrollTo(0, 0);
+
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '0';
+            wrapper.style.top = '0';
+            wrapper.style.width = '400px';
+            wrapper.style.height = 'auto';
+            wrapper.style.overflow = 'hidden';
+            wrapper.style.display = 'block';
+            wrapper.style.margin = '0';
+            wrapper.style.padding = '0';
+            wrapper.style.textAlign = 'left';
+            wrapper.style.background = '#FAF8F5';
+            wrapper.style.zIndex = '99999998';
+
+            const element = document.createElement('div');
+            element.className = "p-6 bg-white font-sans text-xs text-gray-700 leading-relaxed";
+            element.style.color = "#2F3E46";
+            element.style.width = "400px";
+            element.style.minWidth = "400px";
+            element.style.maxWidth = "400px";
+            element.style.background = "#FAF8F5";
+            element.style.boxSizing = "border-box";
+
+            element.innerHTML = `
+                <div style="border: 2px dashed #52796F; border-radius: 24px; padding: 25px; background-color: #FAF8F5; text-align: center; box-sizing: border-box; width: 352px !important; min-width: 352px !important; max-width: 352px !important;">
+                    ${svg_logo_coupon}
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 2px solid #52796F; padding-bottom: 12px; margin-bottom: 15px;">
+                        <img src="${activeClaimB2B.logo || 'logo morfeo png.jpeg'}" crossorigin="anonymous" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #52796F;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_morfeo/logo morfeo png.jpeg';">
+                        <div style="text-align: left;">
+                            <h4 style="font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 800; color: #52796F; margin: 0; text-transform: uppercase;">${activeClaimB2B.name}</h4>
+                            <p style="font-size: 8px; font-weight: bold; color: #84A59D; margin: 1px 0 0 0; letter-spacing: 1px; text-transform: uppercase;">Ecosistema MORFEO</p>
+                        </div>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <span style="font-size: 9px; color: #718096; text-transform: uppercase; font-weight: bold; display: block;">Beneficio Activado</span>
+                        <h3 style="font-size: 16px; font-weight: 900; color: #F28482; margin: 5px 0; text-transform: uppercase;">${activeClaimB2B.benefit}</h3>
+                        <p style="font-size: 10px; color: #4A5568; font-weight: bold;">Paciente: ${activeClaimPatientName}</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; padding: 10px; border-radius: 12px; border: 1px solid #E2E8F0; width: 140px; margin: 10px auto;">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(activeClaimMsg)}&t=${Date.now()}" crossorigin="anonymous" style="width: 110px; height: 110px; object-fit: contain;">
+                        <span style="font-size: 10px; font-weight: bold; color: #52796F; font-family: monospace; margin-top: 5px;">${activeClaimB2B.code}</span>
+                    </div>
+                    <div style="font-size: 7.5px; color: #A0AEC0; margin-top: 15px;">
+                        <p>Validado bajo la Ley de Ciberseguridad N° 21.663.</p>
+                        <p>© 2026 MORFEO Chile</p>
+                    </div>
+                </div>
+            `;
+
+            const opt = {
+                margin:       0,
+                filename:     `MORFEO_Cupon_${activeClaimB2B.code}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { 
+                    scale: 2.5, 
+                    useCORS: true, 
+                    scrollY: 0, 
+                    scrollX: 0, 
+                    windowWidth: 400, 
+                    width: 400,
+                    onclone: function(clonedDoc) {
+                        clonedDoc.body.style.width = '400px';
+                        clonedDoc.body.style.minWidth = '400px';
+                        clonedDoc.body.style.display = 'block';
+                        clonedDoc.body.style.margin = '0';
+                        clonedDoc.body.style.padding = '0';
+                        clonedDoc.documentElement.style.width = '400px';
+                        clonedDoc.documentElement.style.minWidth = '400px';
+                    }
+                },
+                jsPDF:        { unit: 'mm', format: [100, 150], orientation: 'portrait' }
+            };
+
+            wrapper.appendChild(element);
+            document.documentElement.appendChild(wrapper);
+
+            setTimeout(() => {
+                html2pdf().from(element).set(opt).save().then(() => {
+                    document.documentElement.removeChild(wrapper);
+                    document.body.removeChild(overlay);
+
+                    window.scrollTo(currentScrollX, currentScrollY); 
+                    document.documentElement.style.scrollBehavior = htmlStyle;
+                    document.body.style.scrollBehavior = bodyStyle;
+                });
+            }, 500);
+        }
+
+        function claimPartnerVoucher(partnerName, benefit) {
+            // Get patient name and phone from inputs in step 2 (selections or DOM fallback)
+            const inputFirstName = document.getElementById('inputFirstName') ? document.getElementById('inputFirstName').value.trim() : '';
+            const inputLastName = document.getElementById('inputLastName') ? document.getElementById('inputLastName').value.trim() : '';
+            const inputPhone = document.getElementById('inputPhone') ? document.getElementById('inputPhone').value.trim() : '';
+            
+            const fullName = (inputFirstName || inputLastName) ? `${inputFirstName} ${inputLastName}`.trim() : "Paciente Registrado";
+            const phone = (inputPhone && inputPhone !== '+569') ? inputPhone : "+56 9 8472 1049";
+            
+            const couponCode = `LW-${Math.floor(100000 + Math.random() * 900000)}`;
+
+            const msg = `*🎫 CUPÓN DIGITAL RECLAMADO - MORFEO*\n\n` +
+                        `Hola, he obtenido mi cupón de beneficio exclusivo:\n` +
+                        `• *Establecimiento:* ${partnerName}\n` +
+                        `• *Beneficio:* ${benefit}\n` +
+                        `• *Código de Validación:* ${couponCode}\n` +
+                        `• *Paciente:* ${fullName}\n` +
+                        `• *Celular:* ${phone}\n\n` +
+                        `_Cupón encriptado y validado bajo la Ley de Ciberseguridad N° 21.663._`;
+
+            activeClaimB2B = {
+                name: partnerName,
+                benefit: benefit,
+                code: couponCode,
+                logo: partnerName.includes('Huerto') ? 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=150&auto=format&fit=crop' : 'https://images.unsplash.com/photo-1571731956672-f2b94d7db0cb?q=80&w=150&auto=format&fit=crop'
+            };
+
+            activeClaimPatientName = fullName;
+            activeClaimPhone = phone;
+            activeClaimMsg = msg;
+
+            // Populate Success Modal Fields
+            document.getElementById('successEstLogo').src = activeClaimB2B.logo;
+            document.getElementById('successEstName').innerText = activeClaimB2B.name;
+            document.getElementById('successEstPromo').innerText = activeClaimB2B.benefit;
+            document.getElementById('successClaimName').innerText = 'Paciente: ' + fullName;
+            document.getElementById('successEstCode').innerText = activeClaimB2B.code;
+            
+            // Generate QR Code dynamically
+            document.getElementById('successQRCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(msg)}`;
+
+            // Open Success Modal
+            document.getElementById('couponSuccessModal').classList.remove('hidden');
+        }
+        
+            function toggleStartButton() {
+            const checkbox = document.getElementById('agreeConsent');
+            const btn = document.getElementById('btnStartTest');
+            const btnJoin = document.getElementById('btnJoinSpecialist');
+            if (checkbox.checked) {
+                btn.removeAttribute('disabled');
+                btn.className = "w-full bg-forest hover:bg-forest/95 text-white font-extrabold py-4 rounded-2xl shadow-md transition text-sm flex items-center justify-center space-x-2 opacity-100 cursor-pointer";
+                
+                btnJoin.removeAttribute('disabled');
+                btnJoin.className = "w-full border border-gray-200 text-gray-500 hover:bg-gray-50 font-bold py-3.5 rounded-2xl shadow-md transition text-xs opacity-100 cursor-pointer";
+            } else {
+                btn.setAttribute('disabled', 'true');
+                btn.className = "w-full bg-forest text-white font-extrabold py-4 rounded-2xl shadow-md transition text-sm flex items-center justify-center space-x-2 opacity-50 cursor-not-allowed";
+                
+                btnJoin.setAttribute('disabled', 'true');
+                btnJoin.className = "w-full border border-gray-200 text-gray-500 font-bold py-3.5 rounded-2xl shadow-md transition text-xs opacity-50 cursor-not-allowed";
+            }
+        }
+
+        function openConsentModal() {
+            const modal = document.getElementById('consentModal');
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeConsentModal() {
+            const modal = document.getElementById('consentModal');
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    
+        // --- INTERACTIVIDAD CHECKOUT SAAS (V21) ---
+        let payMethod = 'card';
+
+        function selectMembershipPlan(plan, price) {
+            selections.selectedPlan = plan;
+            selections.planPriceUF = price;
+            // Guardar precio directamente en CLP también
+            let clpPrice = 19000;
+            if (plan === 'trimestral') clpPrice = 48000;
+            else if (plan === 'anual') clpPrice = 155000;
+            selections.planPriceCLP = clpPrice;
+            
+            document.querySelectorAll('.membership-card').forEach(card => {
+                card.className = "membership-card border border-gray-200 rounded-2xl p-3 bg-white hover:border-forest/50 transition cursor-pointer shadow-sm";
+            });
+            
+            const activeCard = document.getElementById(`plan-${plan}`);
+            if (plan === 'trimestral') {
+                activeCard.className = "membership-card border-2 border-forest bg-forest/5 rounded-2xl p-3 relative overflow-hidden cursor-pointer shadow-sm";
+            } else if (plan === 'anual') {
+                activeCard.className = "membership-card border-2 border-forest bg-forest/5 rounded-2xl p-3 relative overflow-hidden cursor-pointer shadow-sm";
+            } else {
+                activeCard.className = "membership-card border-2 border-forest bg-forest/5 rounded-2xl p-3 cursor-pointer shadow-sm";
+            }
+        }
+
+        function openPaymentModal() {
+            // Validar verificación humana (Deslizador Anti-Bots)
+            const verifiedVal = document.getElementById('slideVerifyCompleted') ? document.getElementById('slideVerifyCompleted').value === 'true' : true;
+            if (!verifiedVal) {
+                alert("⚠️ Por favor desliza la hojita de morfeo herbolario hacia la derecha para verificar que eres un humano.");
+                return;
+            }
+            // Validar campos del formulario de postulación antes de abrir la pasarela
+            const name = document.querySelector('#stepJoin input[placeholder="Ej: Dr. Francisco Mora"]').value.trim();
+            const sis = document.querySelector('#stepJoin input[placeholder="Ej: Registro SIS N° 483920"]').value.trim();
+            const email = document.getElementById('joinEmail').value.trim();
+            const password = document.getElementById('joinPassword').value.trim();
+            
+            if (name === "" || sis === "" || email === "" || password === "") {
+                alert("⚠️ Por favor, completa tu Nombre, tu Registro SIS, Correo y Contraseña antes de proceder al pago.");
+                return;
+            }
+
+            // Validar sintaxis de correo electrónico para evitar envíos incompletos
+            if (!email.includes('@') || !email.includes('.') || email.endsWith('.')) {
+                alert("⚠️ CORREO INCOMPLETO O INVÁLIDO:\n\nPor favor, ingresa un correo electrónico válido completo (por ejemplo: nuevo.doctor@morfeo.cl).\n\nEl correo que escribiste (" + email + ") parece estar incompleto o faltarle el dominio final (.cl o .com).");
+                return;
+            }
+
+            document.getElementById('checkoutPlanName').innerText = 'Plan ' + selections.selectedPlan;
+            
+            // Calculate round CLP price cleanly
+            let clpPrice = 19000;
+            if (selections.selectedPlan === 'trimestral') clpPrice = 48000;
+            else if (selections.selectedPlan === 'anual') clpPrice = 155000;
+            
+            document.getElementById('checkoutPlanPriceCLP').innerText = '$' + clpPrice.toLocaleString('es-CL') + ' CLP';
+            document.getElementById('checkoutPlanPriceCLP').innerText = 'SaaS Especialista Activo';
+            
+            document.getElementById('paymentModal').classList.remove('hidden');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+
+        function selectPaymentMethod(method) {
+            payMethod = method;
+            document.querySelectorAll('.pay-method-btn').forEach(btn => {
+                btn.className = "pay-method-btn border border-gray-200 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition bg-white";
+            });
+            
+            const cardBtn = document.getElementById('pay-method-card');
+            const fintocBtn = document.getElementById('pay-method-fintoc');
+            const cardForm = document.getElementById('cardPaymentForm');
+            const fintocForm = document.getElementById('fintocPaymentForm');
+            
+            if (method === 'card') {
+                cardBtn.className = "pay-method-btn border-2 border-forest bg-forest/5 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition";
+                cardForm.classList.remove('hidden');
+                fintocForm.classList.add('hidden');
+                document.getElementById('btnPaymentText').innerText = "Confirmar y Pagar Mi Membresía";
+            } else {
+                fintocBtn.className = "pay-method-btn border-2 border-forest bg-forest/5 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition";
+                cardForm.classList.add('hidden');
+                fintocForm.classList.remove('hidden');
+                document.getElementById('btnPaymentText').innerText = "Autorizar Transferencia Directa";
+            }
+        }
+
+        function processSecurePayment() {
+            if (payMethod === 'card') {
+                const cardName = document.getElementById('payCardName').value.trim();
+                const cardNumber = document.getElementById('payCardNumber').value.trim();
+                const cardExpiry = document.getElementById('payCardExpiry').value.trim();
+                const cardCVV = document.getElementById('payCardCVV').value.trim();
+                
+                if (cardName === "" || cardNumber === "" || cardExpiry === "" || cardCVV === "") {
+                    alert("⚠️ Por favor, ingresa los datos de tu tarjeta para procesar el pago simulado.");
+                    return;
+                }
+            }
+            
+            const btnText = document.getElementById('btnPaymentText');
+            btnText.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Procesando transacción con Webpay...`;
+            
+            const nameVal = document.querySelector('#stepJoin input[placeholder="Ej: Dr. Francisco Mora"]').value.trim();
+            const sisVal = document.querySelector('#stepJoin input[placeholder="Ej: Registro SIS N° 483920"]').value.trim();
+            const emailVal = document.getElementById('joinEmail').value.trim();
+            const passVal = document.getElementById('joinPassword').value.trim();
+            const specVal = document.querySelector('#stepJoin select').value;
+            const clientPasarela = `Flow-TX-${Math.floor(100000 + Math.random() * 900000)}`;
+
+            // Guardar en Supabase en la tabla terapeutas con contraseña cifrada (hashing)
+            if (supabaseKey !== '') {
+                hashPassword(passVal).then(hashedPassVal => {
+                    _supabase
+                        .from('terapeutas')
+                        .insert([
+                            {
+                                nombre: nameVal,
+                                especialidad: specVal,
+                                registro_sis: sisVal,
+                                email: emailVal.toLowerCase(),
+                                password: hashedPassVal, // Secure Hashed Password!
+                                estado_suscripcion: 'activo',
+                                foto_profesional: document.getElementById('joinPhotoBase64').value || null,
+                                foto_titulo: document.getElementById('joinDocBase64').value || null,
+                                documento_acreditacion: document.getElementById('joinDocBase64').value || null,
+                                id_cliente_pasarela: clientPasarela
+                            }
+                        ])
+                        .then(({ error }) => {
+                            if (error) {
+                                console.error("❌ Error al registrar terapeuta en Supabase:", error.message);
+                                alert(`⚠️ ERROR DE INSCRIPCIÓN: El correo electrónico "${emailVal}" o el Registro SIS "${sisVal}" ya se encuentran registrados en nuestro sistema.\n\nPor favor utiliza credenciales diferentes o inicia sesión directamente en el Portal del Terapeuta.`);
+                                btnText.innerHTML = `<i class="fa-solid fa-lock"></i> <span>Pagar Membresía</span>`;
+                            } else {
+                                console.log("✅ Terapeuta registrado exitosamente en la base de datos.");
+                                finalizeRegistration(clientPasarela, emailVal);
+                            }
+                        });
+                }).catch(err => {
+                    console.error("❌ Error de hashing:", err);
+                    alert("⚠️ Ocurrió un error de seguridad al procesar la contraseña.");
+                    btnText.innerHTML = `<i class="fa-solid fa-lock"></i> <span>Pagar Membresía</span>`;
+                });
+            } else {
+                // Modo sin Supabase (Demo local)
+                finalizeRegistration(clientPasarela, emailVal);
+            }
+        }
+
+        function finalizeRegistration(clientPasarela, emailVal) {
+            closePaymentModal();
+            alert(`🎉 ¡PAGO EXITOSO Y MEMBRESÍA ACTIVADA!\n\n` +
+                  `• Plan contratado: Plan ${selections.selectedPlan.toUpperCase()}\n` +
+                  `• Estado de Cuenta: ACTIVADO (SaaS B2B)\n` +
+                  `• Código de Transacción: ${clientPasarela}\n` +
+                  `• Credenciales de Acceso: Usa tu correo (${emailVal}) y contraseña para ingresar a tu panel clínico.\n\n` +
+                  `Se ha generado tu cuenta de especialista en MORFEO. Ya tienes acceso al portal clínico SOAP, la vitrina geolocalizada y el chat herbolario con tus credenciales de seguridad. ¡Bienvenido a MORFEO!`);
+            
+            // Limpiar campos del registro
+            document.querySelector('#stepJoin input[placeholder="Ej: Dr. Francisco Mora"]').value = "";
+            document.querySelector('#stepJoin input[placeholder="Ej: Registro SIS N° 483920"]').value = "";
+            document.getElementById('joinEmail').value = "";
+            document.getElementById('joinPassword').value = "";
+            document.getElementById('joinPhotoBase64').value = "";
+            document.getElementById('joinDocBase64').value = "";
+            document.getElementById('joinPhotoFileName').innerText = "Mín 150x150px";
+            document.getElementById('joinDocFileName').innerText = "PDF, PNG, JPG";
+            document.getElementById('joinPhotoPreview').innerHTML = "📷";
+            document.getElementById('joinDocPreview').innerHTML = "📄";
+            nextStep(1);
+        }
+
+    
+        // Carga de Foto y Documento de Especialista B2B (Base64)
+
+        // --- FUNCIÓN DE COMPRESIÓN DE IMÁGENES (HTML5 CANVAS) ---
+        // Auto-comprime imágenes pesadas antes de convertirlas a Base64 y subirlas a Supabase
+        function compressImage(file, maxWidth, maxHeight, quality, callback) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width = Math.round((width * maxHeight) / height);
+                            height = maxHeight;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+                    callback(compressedBase64);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function uploadJoinPhoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                alert("⚠️ Por favor selecciona un archivo de imagen válido.");
+                return;
+            }
+
+            document.getElementById('joinPhotoPreview').innerHTML = `<i class="fa-solid fa-spinner animate-spin text-forest"></i>`;
+
+            // Auto-compresión
+            compressImage(file, 800, 800, 0.7, function(base64Data) {
+                document.getElementById('joinPhotoBase64').value = base64Data;
+                document.getElementById('joinPhotoFileName').innerText = file.name;
+                document.getElementById('joinPhotoPreview').innerHTML = `<img src="${base64Data}" class="w-full h-full object-cover">`;
+                alert("📸 ¡Foto de perfil cargada y optimizada con éxito!");
+            });
+        }
+
+        function uploadJoinDoc(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/') && file.type !== 'application/pdf') {
+                alert("⚠️ Por favor selecciona un archivo de imagen o PDF válido.");
+                return;
+            }
+
+            document.getElementById('joinDocPreview').innerHTML = `<i class="fa-solid fa-spinner animate-spin text-forest text-xs"></i>`;
+
+            if (file.type.startsWith('image/')) {
+                // Auto-compresión para imágenes de certificados
+                compressImage(file, 1000, 1000, 0.6, function(base64Data) {
+                    document.getElementById('joinDocBase64').value = base64Data;
+                    document.getElementById('joinDocFileName').innerText = file.name;
+                    document.getElementById('joinDocPreview').innerHTML = `<div class="text-[9px] text-forest font-bold uppercase">OK</div>`;
+                    alert("📄 ¡Certificado de Título cargado y optimizado con éxito!");
+                });
+            } else {
+                // Para PDF, lectura directa
+                if (file.size > 1.5 * 1024 * 1024) {
+                    alert("⚠️ Por favor, asegúrate de que el PDF no supere los 1.5 MB.");
+                    document.getElementById('joinDocPreview').innerHTML = `📄`;
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Data = e.target.result;
+                    document.getElementById('joinDocBase64').value = base64Data;
+                    document.getElementById('joinDocFileName').innerText = file.name;
+                    document.getElementById('joinDocPreview').innerHTML = `<div class="text-[9px] text-forest font-bold uppercase">OK</div>`;
+                    alert("📄 ¡Certificado de Título PDF cargado con éxito!");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // --- INJECT v55 SECURITY PACK ---
+
+        // --- SISTEMA INTERACTIVO ANTI-BOTS: DESLIZADOR DE MORFEO 🌿 ---
+        function initSlideVerify() {
+            const handle = document.getElementById('slideVerifyHandle');
+            const container = document.getElementById('slideVerifyContainer');
+            const bg = document.getElementById('slideVerifyBg');
+            const text = document.getElementById('slideVerifyText');
+            const completedInput = document.getElementById('slideVerifyCompleted');
+            
+            if (!handle || !container) return;
+            
+            let isDragging = false;
+            let startX = 0;
+            const handleWidth = handle.clientWidth || 44;
+            const containerWidth = container.clientWidth || 320;
+            const maxDrag = containerWidth - handleWidth;
+            
+            function onStart(e) {
+                if (completedInput.value === 'true') return;
+                isDragging = true;
+                startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+                handle.classList.remove('transition-all', 'duration-100');
+                bg.classList.remove('transition-all', 'duration-100');
+                handle.style.cursor = 'grabbing';
+            }
+            
+            function onMove(e) {
+                if (!isDragging) return;
+                const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                let walk = x - startX;
+                if (walk < 0) walk = 0;
+                if (walk > maxDrag) walk = maxDrag;
+                
+                handle.style.left = walk + 'px';
+                const percent = (walk / maxDrag) * 100;
+                bg.style.width = percent + '%';
+                
+                if (walk >= maxDrag) {
+                    isDragging = false;
+                    completedInput.value = 'true';
+                    handle.style.left = maxDrag + 'px';
+                    bg.style.width = '100%';
+                    bg.className = 'absolute left-0 top-0 h-full bg-emerald-500/20 rounded-2xl';
+                    handle.innerHTML = '✨';
+                    handle.className = 'absolute h-full w-11 bg-emerald-600 flex items-center justify-center text-sm rounded-2xl shadow-md z-20 cursor-default';
+                    text.innerText = '¡HUMANO VERIFICADO! 🌿';
+                    text.className = 'text-[9px] font-black text-emerald-800 uppercase tracking-wider relative z-10';
+                    handle.style.cursor = 'default';
+                }
+            }
+            
+            function onEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                handle.style.cursor = 'grab';
+                if (completedInput.value !== 'true') {
+                    handle.classList.add('transition-all', 'duration-100');
+                    bg.classList.add('transition-all', 'duration-100');
+                    handle.style.left = '0px';
+                    bg.style.width = '0%';
+                }
+            }
+            
+            handle.addEventListener('mousedown', onStart);
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup', onEnd);
+            
+            handle.addEventListener('touchstart', onStart, {passive: true});
+            document.addEventListener('touchmove', onMove, {passive: false});
+            document.addEventListener('touchend', onEnd);
+        }
+
+        // --- SISTEMA CRIPTOGRÁFICO DE SEGURIDAD: HASHING SHA-256 ---
+        async function hashPassword(password) {
+            if (!password) return '';
+            // Si ya es un hash SHA-256 (64 caracteres hex), no volver a hashear
+            if (/^[0-9a-fA-F]{64}$/.test(password)) return password;
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Auto-initialize slide verify on load
+        setTimeout(initSlideVerify, 300);
+    
+
+
+            function switchChatMode(mode) {
+                const waView = document.getElementById('chat-view-whatsapp');
+                const bizView = document.getElementById('chat-view-business');
+                const tgView = document.getElementById('chat-view-telegram');
+
+                const btnWa = document.getElementById('btn-mode-wa');
+                const btnBiz = document.getElementById('btn-mode-biz');
+                const btnTg = document.getElementById('btn-mode-tg');
+
+                // Ocultar todas las vistas
+                if (waView) waView.classList.add('hidden');
+                if (bizView) bizView.classList.add('hidden');
+                if (tgView) tgView.classList.add('hidden');
+
+                // Resetear botones
+                [btnWa, btnBiz, btnTg].forEach(btn => {
+                    if (btn) {
+                        btn.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-gray-600 hover:bg-gray-200';
+                    }
+                });
+
+                // Activar vista seleccionada
+                if (mode === 'whatsapp' && waView && btnWa) {
+                    waView.classList.remove('hidden');
+                    btnWa.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-emerald-600 text-white shadow-sm';
+                } else if (mode === 'business' && bizView && btnBiz) {
+                    bizView.classList.remove('hidden');
+                    btnBiz.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-amber-600 text-white shadow-sm';
+                } else if (mode === 'telegram' && tgView && btnTg) {
+                    tgView.classList.remove('hidden');
+                    btnTg.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-sky-600 text-white shadow-sm';
+                }
+            }
+
+            // Asegurar visibilidad de la sección de chat
+            document.addEventListener('DOMContentLoaded', () => {
+                const chatSection = document.getElementById('seccion-chat-hibrido');
+                if (chatSection) {
+                    chatSection.classList.remove('hidden');
+                }
+            });
+        
+
+
+        // Control de la Splash Screen
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBar = document.getElementById('splashProgressBar');
+            const statusText = document.getElementById('splashStatusText');
+            const splashScreen = document.getElementById('appSplashScreen');
+
+            if (progressBar && splashScreen) {
+                setTimeout(() => { progressBar.style.width = '40%'; statusText.textContent = 'Iniciando chat híbrido...'; }, 400);
+                setTimeout(() => { progressBar.style.width = '80%'; statusText.textContent = 'Cargando herramientas business...'; }, 1000);
+                setTimeout(() => { 
+                    progressBar.style.width = '100%'; 
+                    statusText.textContent = '¡Bienvenido a Morfeo!'; 
+                }, 1600);
+                
+                setTimeout(() => {
+                    splashScreen.classList.add('opacity-0', 'pointer-events-none');
+                    setTimeout(() => { splashScreen.style.display = 'none'; }, 700);
+                }, 2200);
+            }
+        });
+
+        function replaySplashScreen() {
+            const splashScreen = document.getElementById('appSplashScreen');
+            const progressBar = document.getElementById('splashProgressBar');
+            const statusText = document.getElementById('splashStatusText');
+            if (splashScreen) {
+                splashScreen.style.display = 'flex';
+                splashScreen.classList.remove('opacity-0', 'pointer-events-none');
+                if (progressBar) progressBar.style.width = '0%';
+                if (statusText) statusText.textContent = 'Cargando módulos...';
+                
+                setTimeout(() => { progressBar.style.width = '50%'; }, 300);
+                setTimeout(() => { progressBar.style.width = '100%'; }, 900);
+                setTimeout(() => {
+                    splashScreen.classList.add('opacity-0', 'pointer-events-none');
+                    setTimeout(() => { splashScreen.style.display = 'none'; }, 700);
+                }, 1500);
+            }
+        }
+
+        // Modales del Chat Híbrido
+
+
+        function openFileModal() {
+            document.getElementById('fileModal')?.classList.remove('hidden');
+        }
+        function closeFileModal() {
+            document.getElementById('fileModal')?.classList.add('hidden');
+        }
+
+        function startVoiceCall(name = 'Especialista Morfeo') {
+            document.getElementById('callTargetName').textContent = name;
+            document.getElementById('voiceCallModal')?.classList.remove('hidden');
+        }
+        function endVoiceCall() {
+            document.getElementById('voiceCallModal')?.classList.add('hidden');
+        }
+
+
+    
+
+
+    // ==========================================
+    // INTEGRACIÓN CÁMARA & VIDEOLLAMADA WEBRTC
+    // ==========================================
+    let cameraStream = null;
+    let callStream = null;
+    let currentFacingMode = 'user';
+    let isMicMuted = false;
+    let isCamOff = false;
+    let callTimerInterval = null;
+    let callSeconds = 0;
+
+    // --- SPLASH SCREEN AUTO HIDE ---
+    window.addEventListener('load', () => {
+        const progress = document.getElementById('splashProgress');
+        const splash = document.getElementById('splashScreen');
+        if (progress) progress.style.width = '100%';
+        setTimeout(() => {
+            if (splash) {
+                splash.style.opacity = '0';
+                splash.style.pointerEvents = 'none';
+                setTimeout(() => splash.style.display = 'none', 700);
+            }
+        }, 1200);
+    });
+
+    // Fallback if load already fired
+    setTimeout(() => {
+        const splash = document.getElementById('splashScreen');
+        if (splash && splash.style.display !== 'none') {
+            splash.style.opacity = '0';
+            splash.style.pointerEvents = 'none';
+            setTimeout(() => splash.style.display = 'none', 700);
+        }
+    }, 2000);
+
+    // --- CÁMARA EN VIVO ---
+    async function openCameraModal() {
+        const modal = document.getElementById('cameraModal');
+        const video = document.getElementById('cameraFeed');
+        const placeholder = document.getElementById('cameraPlaceholder');
+        
+        if (modal) modal.classList.remove('hidden');
+        if (placeholder) placeholder.classList.add('hidden');
+
+        try {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+            }
+            cameraStream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: currentFacingMode }
+            });
+            if (video) video.srcObject = cameraStream;
+        } catch (err) {
+            console.warn('Acceso a cámara no disponible o denegado:', err);
+            if (placeholder) placeholder.classList.remove('hidden');
+        }
+    }
+
+    function closeCameraModal() {
+        const modal = document.getElementById('cameraModal');
+        if (modal) modal.classList.add('hidden');
+        if (cameraStream) {
+            cameraStream.getTracks().forEach(track => track.stop());
+            cameraStream = null;
+        }
+    }
+
+    async function switchCameraFacing() {
+        currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+        await openCameraModal();
+    }
+
+    function capturePhotoToChat() {
+        const video = document.getElementById('cameraFeed');
+        const canvas = document.getElementById('cameraCanvas');
+        if (!video || !canvas) return;
+
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const photoData = canvas.toDataURL('image/png');
+
+        // Insert message with photo into chat
+        const chatBox = document.getElementById('chatMessages');
+        if (chatBox) {
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const msgHtml = `
+                <div class="flex justify-end mb-3">
+                    <div class="bg-emerald-700 text-white p-2.5 rounded-2xl rounded-tr-none max-w-xs shadow-md">
+                        <img src="${photoData}" class="w-full h-48 object-cover rounded-xl mb-1 border border-emerald-500/50">
+                        <p class="text-[10px] text-emerald-200 text-right font-mono">${timeStr} • Foto adjunta 📸</p>
+                    </div>
+                </div>
+            `;
+            chatBox.insertAdjacentHTML('beforeend', msgHtml);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        closeCameraModal();
+    }
+
+    // --- VIDEOLLAMADA WEBRTC ---
+    async function startVideoCall(doctorName = 'Dr. Carlos Mendoza') {
+        const modal = document.getElementById('videoCallModal');
+        const localVideo = document.getElementById('localVideoFeed');
+        const partnerElem = document.getElementById('callPartnerName');
+        
+        if (partnerElem) partnerElem.textContent = doctorName;
+        if (modal) modal.classList.remove('hidden');
+
+        try {
+            callStream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            });
+            if (localVideo) localVideo.srcObject = callStream;
+        } catch (err) {
+            console.warn('Acceso a cámara/micrófono restringido:', err);
+        }
+
+        // Start Timer
+        callSeconds = 0;
+        clearInterval(callTimerInterval);
+        callTimerInterval = setInterval(() => {
+            callSeconds++;
+            const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+            const secs = String(callSeconds % 60).padStart(2, '0');
+            const timerElem = document.getElementById('callTimer');
+            if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+        }, 1000);
+    }
+
+    function toggleMuteMic() {
+        if (!callStream) return;
+        isMicMuted = !isMicMuted;
+        callStream.getAudioTracks().forEach(t => t.enabled = !isMicMuted);
+        const btn = document.getElementById('btnMuteMic');
+        if (btn) {
+            btn.innerHTML = isMicMuted ? '🔇' : '🎙️';
+            btn.classList.toggle('bg-red-800', isMicMuted);
+        }
+    }
+
+    function toggleCameraVideo() {
+        if (!callStream) return;
+        isCamOff = !isCamOff;
+        callStream.getVideoTracks().forEach(t => t.enabled = !isCamOff);
+        const btn = document.getElementById('btnToggleCam');
+        if (btn) {
+            btn.innerHTML = isCamOff ? '📷' : '📹';
+            btn.classList.toggle('bg-red-800', isCamOff);
+        }
+    }
+
+    function endVideoCall() {
+        const modal = document.getElementById('videoCallModal');
+        if (modal) modal.classList.add('hidden');
+
+        if (callStream) {
+            callStream.getTracks().forEach(t => t.stop());
+            callStream = null;
+        }
+
+        clearInterval(callTimerInterval);
+
+        // Add call log to chat
+        const chatBox = document.getElementById('chatMessages');
+        if (chatBox) {
+            const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+            const secs = String(callSeconds % 60).padStart(2, '0');
+            const logHtml = `
+                <div class="flex justify-center my-3">
+                    <div class="bg-gray-800/80 border border-gray-700 text-gray-300 px-4 py-1.5 rounded-full text-xs font-mono flex items-center gap-2 shadow-sm">
+                        <span>📹 Videollamada finalizada</span>
+                        <span class="text-emerald-400 font-bold">${mins}:${secs}</span>
+                    </div>
+                </div>
+            `;
+            chatBox.insertAdjacentHTML('beforeend', logHtml);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    }
+
+</script>
+</body>
+</html>
