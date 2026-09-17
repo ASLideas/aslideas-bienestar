@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BIENESTAR - Ecosistema Híbrido de Salud & Estilo de Vida</title>
+    <title>BIENESTAR - Ecosistema de Salud, Comunidad & Estilo de Vida</title>
     <!-- Tailwind CSS 3.x CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -160,7 +160,7 @@ tailwind.config = {
                 </div>
 
                 <h1 class="text-2xl font-black text-[#FAF8EE] tracking-tight mb-1">BIENESTAR</h1>
-                <p class="text-xs text-[#E0F7F4] font-medium tracking-wide max-w-[260px]">Tu Ecosistema Híbrido de Salud, Comunidad, PyMEs & Descanso Bienestar</p>
+                <p class="text-xs text-[#E0F7F4] font-medium tracking-wide max-w-[260px]">Tu Ecosistema Integral de Salud, Comunidad, PyMEs & Descanso Bienestar</p>
             </div>
 
             <!-- Bottom Progress & Download Wait Area -->
@@ -191,27 +191,24 @@ tailwind.config = {
         <!-- ========================================================= -->
         <header class="glass-header sticky top-0 z-40 border-b border-[#33BCA9]/20 px-4 py-3 flex items-center justify-between shadow-sm">
             <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#2C7A7B] to-[#33BCA9] p-0.5 flex items-center justify-center shadow-md">
-                    <div class="w-full h-full bg-[#FAF8EE] rounded-full flex items-center justify-center">
-                        <i data-lucide="leaf" class="w-5 h-5 text-[#2C7A7B]"></i>
-                    </div>
+                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#2C7A7B] to-[#33BCA9] p-0.5 flex items-center justify-center shadow-md overflow-hidden">
+                    <img src="logo bienestar png.jpeg" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';" class="w-full h-full object-cover rounded-full" alt="Logo Bienestar">
                 </div>
                 <div>
-                    <h2 class="text-base font-black text-[#123838] leading-tight tracking-tight flex items-center gap-1.5">
-                        BIENESTAR 
-                        <span class="text-[9px] bg-[#2C7A7B] text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Híbrido</span>
+                    <h2 class="text-base font-black text-[#123838] leading-tight tracking-tight">
+                        BIENESTAR
                     </h2>
                     <p class="text-[10px] text-[#2C7A7B] font-semibold">Ecosistema Integral & Social</p>
                 </div>
             </div>
 
-            <!-- Quick Action Buttons Header -->
+            <!-- Quick Action Buttons Header (Monochrome) -->
             <div class="flex items-center gap-2">
-                <button onclick="openMedicalNotification()" class="relative p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition">
+                <button onclick="openMedicalNotification()" class="relative p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition" title="Notificaciones">
                     <i data-lucide="bell" class="w-5 h-5"></i>
                     <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-[#E53E3E] rounded-full ring-2 ring-white"></span>
                 </button>
-                <button onclick="openChatOptionsMenu()" class="p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition">
+                <button onclick="openWhatsAppSettings()" class="p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition" title="Ajustes de la App">
                     <i data-lucide="more-vertical" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -257,7 +254,7 @@ tailwind.config = {
         <main class="flex-1 overflow-y-auto pb-24 relative">
 
             <!-- ----------------------------------------------------- -->
-            <!-- TAB 1: COMUNIDAD & CHATS HÍBRIDOS (AMIGOS + IA + MÉDICO)-->
+            <!-- TAB 1: COMUNIDAD & CHATS integralS (AMIGOS + IA + MÉDICO)-->
             <!-- ----------------------------------------------------- -->
             <div id="screen-chats" class="tab-content active p-4 space-y-4">
                 
@@ -400,14 +397,54 @@ tailwind.config = {
                         </div>
                     </div>
 
-                    <!-- Call & Options Buttons -->
-                    <div class="flex items-center gap-1">
-                        <button onclick="triggerCall('video')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full">
+                    <!-- Call & Options Buttons (With 3 Dots Submenu) -->
+                    <div class="flex items-center gap-1 relative">
+                        <button onclick="triggerCall('video')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Videollamada HD">
                             <i data-lucide="video" class="w-5 h-5"></i>
                         </button>
-                        <button onclick="triggerCall('voz')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full">
+                        <button onclick="triggerCall('voz')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Llamada de voz">
                             <i data-lucide="phone" class="w-5 h-5"></i>
                         </button>
+                        <button onclick="toggleActiveChatMenu()" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Opciones de chat">
+                            <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                        </button>
+
+                        <!-- Submenú de Chat Estilo WhatsApp (3 Puntos) -->
+                        <div id="active-chat-menu" class="hidden absolute top-12 right-0 z-50 w-56 bg-white border border-[#33BCA9]/30 rounded-2xl shadow-xl py-2 text-xs font-semibold text-[#123838]">
+                            <button onclick="showChatContactInfo()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
+                                <i data-lucide="user" class="w-4 h-4 text-[#2C7A7B]"></i>
+                                <span>Ver contacto / Info</span>
+                            </button>
+                            <button onclick="showChatMediaDocs()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
+                                <i data-lucide="folder" class="w-4 h-4 text-[#2C7A7B]"></i>
+                                <span>Archivos, enlaces y docs</span>
+                            </button>
+                            <button onclick="showChatSearchModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
+                                <i data-lucide="search" class="w-4 h-4 text-[#2C7A7B]"></i>
+                                <span>Buscar en el chat</span>
+                            </button>
+                            <button onclick="toggleMuteChatNotifications()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
+                                <i data-lucide="bell-off" class="w-4 h-4 text-[#2C7A7B]"></i>
+                                <span>Silenciar notificaciones</span>
+                            </button>
+                            <button onclick="showDisappearingMessagesModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
+                                <i data-lucide="clock" class="w-4 h-4 text-[#2C7A7B]"></i>
+                                <span>Mensajes temporales</span>
+                            </button>
+                            <button onclick="showChatWallpaperModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
+                                <i data-lucide="image" class="w-4 h-4 text-[#2C7A7B]"></i>
+                                <span>Fondo de pantalla</span>
+                            </button>
+                            <div class="my-1 border-t border-gray-100"></div>
+                            <button onclick="clearCurrentChatMessages()" class="w-full text-left px-4 py-2.5 hover:bg-red-50 text-red-600 flex items-center gap-2.5">
+                                <i data-lucide="trash-2" class="w-4 h-4 text-red-500"></i>
+                                <span>Vaciar chat</span>
+                            </button>
+                            <button onclick="exportCurrentChatHistory()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
+                                <i data-lucide="download" class="w-4 h-4 text-[#2C7A7B]"></i>
+                                <span>Exportar chat (.txt)</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -637,15 +674,15 @@ tailwind.config = {
             <!-- ----------------------------------------------------- -->
             <!-- TAB 4: BIENESTAR (DIOS DEL SUEÑO, DESCANSO & SPOTIFY)     -->
             <!-- ----------------------------------------------------- -->
-            <div id="screen-bienestar" class="tab-content p-4 space-y-4">
+            <div id="screen-morfeo" class="tab-content p-4 space-y-4">
                 
-                <!-- Bienestar Branding Header -->
+                <!-- Morfeo Branding Header -->
                 <div class="bg-gradient-to-b from-[#123838] via-[#1A4D4E] to-[#123838] text-white p-5 rounded-3xl shadow-xl relative overflow-hidden border border-[#33BCA9]/30">
                     <div class="flex justify-between items-start relative z-10">
                         <div>
                             <span class="text-[10px] bg-[#D4AF37] text-white px-2.5 py-0.5 rounded-full font-black uppercase tracking-widest">Dios del Sueño & Descanso</span>
-                            <h2 class="text-xl font-black tracking-tight mt-1 text-[#FAF8EE]">BIENESTAR</h2>
-                            <p class="text-xs text-[#E0F7F4] font-medium">Música Binaural, Meditación & Relajación Profunda</p>
+                            <h2 class="text-xl font-black tracking-tight mt-1 text-[#FAF8EE]">MORFEO</h2>
+                            <p class="text-xs text-[#E0F7F4] font-medium">Música Binaural, Meditación & Relajación Profunda para un Buen Descanso</p>
                         </div>
                         <div class="w-10 h-10 rounded-full bg-[#FAF8EE]/10 flex items-center justify-center border border-white/20">
                             <i data-lucide="moon" class="w-5 h-5 text-[#D4AF37]"></i>
@@ -656,7 +693,7 @@ tailwind.config = {
                     <div class="mt-5 pt-4 border-t border-white/10 space-y-3 relative z-10">
                         <div class="flex justify-between items-center text-xs">
                             <div>
-                                <span id="player-track-title" class="font-bold text-[#FAF8EE] block">Lluvia en el Jardín de Bienestar</span>
+                                <span id="player-track-title" class="font-bold text-[#FAF8EE] block">Lluvia en el Jardín de Morfeo</span>
                                 <span id="player-track-sub" class="text-[10px] text-[#33BCA9]">Ondas Delta 432Hz — Sueño Reparador</span>
                             </div>
                             <span class="text-[10px] bg-[#33BCA9]/20 text-[#33BCA9] px-2 py-0.5 rounded-full font-bold">HD Audio</span>
@@ -712,7 +749,7 @@ tailwind.config = {
                     </h3>
 
                     <!-- Track Item 1 -->
-                    <div onclick="selectTrack('Lluvia en el Jardín de Bienestar', 'Ondas Delta 432Hz')" class="p-2.5 rounded-xl bg-[#E0F7F4]/60 hover:bg-[#E0F7F4] cursor-pointer flex items-center justify-between transition">
+                    <div onclick="selectTrack('Lluvia en el Jardín de Morfeo', 'Ondas Delta 432Hz')" class="p-2.5 rounded-xl bg-[#E0F7F4]/60 hover:bg-[#E0F7F4] cursor-pointer flex items-center justify-between transition">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="cloud-rain" class="w-4 h-4 text-[#2C7A7B]"></i>
                             <div>
@@ -726,11 +763,11 @@ tailwind.config = {
                     </div>
 
                     <!-- Track Item 2 -->
-                    <div onclick="selectTrack('Estero de Bienestar & Pájaros', 'Sonido Natural 528Hz')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
+                    <div onclick="selectTrack('Estero de Morfeo & Pájaros', 'Sonido Natural 528Hz')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="waves" class="w-4 h-4 text-[#2C7A7B]"></i>
                             <div>
-                                <span class="text-xs font-bold text-[#123838] block">Estero de Bienestar</span>
+                                <span class="text-xs font-bold text-[#123838] block">Estero de Morfeo</span>
                                 <span class="text-[10px] text-slate-500">Fluidez & Paz Interior — 15 min</span>
                             </div>
                         </div>
@@ -740,11 +777,11 @@ tailwind.config = {
                     </div>
 
                     <!-- Track Item 3 -->
-                    <div onclick="selectTrack('Meditación Bienestar Guiada', 'Voz Suave & Respiración')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
+                    <div onclick="selectTrack('Meditación Morfeo Guiada', 'Voz Suave & Respiración')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="sparkles" class="w-4 h-4 text-[#D4AF37]"></i>
                             <div>
-                                <span class="text-xs font-bold text-[#123838] block">Meditación Bienestar</span>
+                                <span class="text-xs font-bold text-[#123838] block">Meditación Morfeo</span>
                                 <span class="text-[10px] text-slate-500">Inducción al Sueño Profundo — 20 min</span>
                             </div>
                         </div>
@@ -781,7 +818,7 @@ tailwind.config = {
             </button>
 
             <!-- Tab 4: Bienestar -->
-            <button id="nav-bienestar" onclick="switchMainTab('bienestar', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
+            <button id="nav-morfeo" onclick="switchMainTab('morfeo', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
                 <i data-lucide="moon" class="w-5 h-5"></i>
                 <span class="text-[10px] font-bold tracking-tight">Bienestar</span>
             </button>
@@ -2790,7 +2827,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const splashScreen = document.getElementById('appSplashScreen');
 
             if (progressBar && splashScreen) {
-                setTimeout(() => { progressBar.style.width = '40%'; statusText.textContent = 'Iniciando chat híbrido...'; }, 400);
+                setTimeout(() => { progressBar.style.width = '40%'; statusText.textContent = 'Iniciando chat comunitario...'; }, 400);
                 setTimeout(() => { progressBar.style.width = '80%'; statusText.textContent = 'Cargando herramientas business...'; }, 1000);
                 setTimeout(() => { 
                     progressBar.style.width = '100%'; 
@@ -2823,7 +2860,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Modales del Chat Híbrido
+        // Modales del Comunidad & Chat
 
 
         function openFileModal() {
@@ -3029,6 +3066,79 @@ document.addEventListener('DOMContentLoaded', function() {
             chatBox.scrollTop = chatBox.scrollHeight;
         }
     }
+
+
+        // --- FUNCIONES DEL SUBMENÚ DE CHAT ACTIVO ESTILO WHATSAPP (3 PUNTOS) ---
+        function toggleActiveChatMenu() {
+            const menu = document.getElementById('active-chat-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        function showChatContactInfo() {
+            const name = document.getElementById('chat-user-name') ? document.getElementById('chat-user-name').textContent : 'Contacto';
+            alert(`👤 Información de Contacto:
+
+Nombre: ${name}
+Estatus: Profesional de Bienestar
+Ubicación: Santiago, Chile
+Estado: Disponible para consultas`);
+            toggleActiveChatMenu();
+        }
+
+        function showChatMediaDocs() {
+            alert(`📁 Archivos, Enlaces y Documentos del Chat:
+
+• Ficha SOAP Medicina Herbolaria.pdf
+• Prescripción Infusión Romero y Melisa.pdf
+• Imagen Tratamiento 1080p.jpg`);
+            toggleActiveChatMenu();
+        }
+
+        function showChatSearchModal() {
+            const query = prompt('🔍 Buscar en la conversación:');
+            if (query) {
+                alert('Buscando coincidencia para: "' + query + '" en el historial del chat...');
+            }
+            toggleActiveChatMenu();
+        }
+
+        function toggleMuteChatNotifications() {
+            const choice = confirm('🔔 ¿Deseas silenciar las notificaciones de este chat por 8 horas?');
+            if (choice) {
+                alert('🔕 Notificaciones silenciadas durante 8 horas.');
+            }
+            toggleActiveChatMenu();
+        }
+
+        function showDisappearingMessagesModal() {
+            alert(`⏳ Mensajes Temporales:
+
+Los mensajes nuevos desaparecerán de este chat después de 7 días.`);
+            toggleActiveChatMenu();
+        }
+
+        function showChatWallpaperModal() {
+            alert(`🖼️ Fondo de Pantalla:
+
+Se aplicó el fondo corporativo Cream Linen (#FAF8EE) al chat.`);
+            toggleActiveChatMenu();
+        }
+
+        function clearCurrentChatMessages() {
+            if (confirm('🧹 ¿Seguro que deseas vaciar todos los mensajes de este chat?')) {
+                const container = document.getElementById('chat-messages-container');
+                if (container) {
+                    container.innerHTML = '<div class="text-center my-2"><span class="text-[10px] bg-slate-200/80 text-slate-600 px-3 py-1 rounded-full font-semibold">Chat vaciado correctamente 🧹</span></div>';
+                }
+                alert('Chat vaciado.');
+            }
+            toggleActiveChatMenu();
+        }
+
+        function exportCurrentChatHistory() {
+            alert('📤 Exportando historial de chat en formato .txt descargable...');
+            toggleActiveChatMenu();
+        }
 
 </script>
 
