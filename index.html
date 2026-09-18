@@ -286,27 +286,37 @@ tailwind.config = {
                             <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i>
                             ¿Cómo te sientes hoy? (Comparte con tus amigos)
                         </span>
-                        <span id="current-mood-badge" class="text-[11px] font-bold text-[#2C7A7B] bg-[#E0F7F4] px-2 py-0.5 rounded-full">😊 Feliz</span>
+                        <span id="current-mood-badge" class="text-[11px] font-bold text-[#2C7A7B] bg-[#E0F7F4] px-2.5 py-0.5 rounded-full border border-[#33BCA9]/30">Feliz</span>
                     </div>
-                    <div class="flex justify-between items-center gap-1 overflow-x-auto pb-1">
-                        <button onclick="setMood('😊 Feliz', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-[#E0F7F4] border border-[#33BCA9] shrink-0 min-w-[62px]">
-                            <span class="text-xl mb-0.5">😊</span>
-                            <span class="text-[10px] font-bold text-[#123838]">Feliz</span>
+                    <div class="flex justify-between items-center gap-1 overflow-x-auto pb-1 no-scrollbar">
+                        <button onclick="setMood('Feliz', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-[#E0F7F4] border border-[#2C7A7B] text-[#2C7A7B] shrink-0 min-w-[62px] shadow-xs transition">
+                            <div class="w-7 h-7 rounded-full bg-white flex items-center justify-center mb-1 shadow-xs">
+                                <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            </div>
+                            <span class="text-[10px] font-black text-[#123838]">Feliz</span>
                         </button>
-                        <button onclick="setMood('🌿 Relajado', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 shrink-0 min-w-[62px]">
-                            <span class="text-xl mb-0.5">🌿</span>
+                        <button onclick="setMood('Relajado', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:border-[#2C7A7B] shrink-0 min-w-[62px] transition">
+                            <div class="w-7 h-7 rounded-full bg-[#E0F7F4]/50 flex items-center justify-center mb-1">
+                                <i data-lucide="leaf" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            </div>
                             <span class="text-[10px] font-bold text-[#123838]">Relajado</span>
                         </button>
-                        <button onclick="setMood('😴 Cansado', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 shrink-0 min-w-[62px]">
-                            <span class="text-xl mb-0.5">😴</span>
+                        <button onclick="setMood('Cansado', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:border-[#2C7A7B] shrink-0 min-w-[62px] transition">
+                            <div class="w-7 h-7 rounded-full bg-[#E0F7F4]/50 flex items-center justify-center mb-1">
+                                <i data-lucide="moon" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            </div>
                             <span class="text-[10px] font-bold text-[#123838]">Cansado</span>
                         </button>
-                        <button onclick="setMood('⚡ Energético', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 shrink-0 min-w-[62px]">
-                            <span class="text-xl mb-0.5">⚡</span>
+                        <button onclick="setMood('Energía', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:border-[#2C7A7B] shrink-0 min-w-[62px] transition">
+                            <div class="w-7 h-7 rounded-full bg-[#E0F7F4]/50 flex items-center justify-center mb-1">
+                                <i data-lucide="zap" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            </div>
                             <span class="text-[10px] font-bold text-[#123838]">Energía</span>
                         </button>
-                        <button onclick="setMood('🧘 Meditativo', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 shrink-0 min-w-[62px]">
-                            <span class="text-xl mb-0.5">🧘</span>
+                        <button onclick="setMood('Meditativo', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:border-[#2C7A7B] shrink-0 min-w-[62px] transition">
+                            <div class="w-7 h-7 rounded-full bg-[#E0F7F4]/50 flex items-center justify-center mb-1">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            </div>
                             <span class="text-[10px] font-bold text-[#123838]">Meditativo</span>
                         </button>
                     </div>
