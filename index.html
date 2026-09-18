@@ -450,10 +450,10 @@ tailwind.config = {
 
                     <!-- Call & Options Buttons (With 3 Dots Submenu) -->
                     <div class="flex items-center gap-1 relative">
-                        <button onclick="triggerCall('video')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Videollamada HD">
+                        <button onclick="startVideoCall(activeChatUser ? activeChatUser.name : 'Especialista Bienestar')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Videollamada HD">
                             <i data-lucide="video" class="w-5 h-5"></i>
                         </button>
-                        <button onclick="triggerCall('voz')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Llamada de voz">
+                        <button onclick="startVoiceCall(activeChatUser ? activeChatUser.name : 'Especialista Bienestar')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Llamada de voz">
                             <i data-lucide="phone" class="w-5 h-5"></i>
                         </button>
                         <button onclick="toggleActiveChatMenu()" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Opciones de chat">
@@ -965,13 +965,13 @@ tailwind.config = {
             <!-- Tab 3: Emprende -->
             <button id="nav-emprende" onclick="switchMainTab('emprende', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
                 <i data-lucide="store" class="w-5 h-5"></i>
-                <span class="text-[10px] font-bold tracking-tight">Emprende</span>
+                <span class="text-[10px] font-bold tracking-tight">Tienda</span>
             </button>
 
             <!-- Tab 4: Bienestar -->
             <button id="nav-morfeo" onclick="switchMainTab('morfeo', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
                 <i data-lucide="moon" class="w-5 h-5"></i>
-                <span class="text-[10px] font-bold tracking-tight">Bienestar</span>
+                <span class="text-[10px] font-bold tracking-tight">Morfeo</span>
             </button>
         </nav>
 
@@ -2276,18 +2276,38 @@ function filterChats(category, btn) {
 }
 
 function switchMainTab(tabId, btn) {
-    document.querySelectorAll('.nav-item').forEach(b => {
-        b.classList.remove('text-[#2C7A7B]', 'font-bold');
+    document.querySelectorAll('.main-nav-btn').forEach(b => {
+        b.classList.remove('text-[#2C7A7B]', 'font-black');
         b.classList.add('text-slate-400');
+        const span = b.querySelector('span');
+        if (span) {
+            span.classList.remove('font-black');
+            span.classList.add('font-bold');
+        }
     });
     if (btn) {
         btn.classList.remove('text-slate-400');
-        btn.classList.add('text-[#2C7A7B]', 'font-bold');
+        btn.classList.add('text-[#2C7A7B]');
+        const span = btn.querySelector('span');
+        if (span) {
+            span.classList.remove('font-bold');
+            span.classList.add('font-black');
+        }
     }
 
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-    const target = document.getElementById(tabId);
-    if (target) target.classList.remove('hidden');
+    document.querySelectorAll('.tab-content').forEach(t => {
+        t.classList.add('hidden');
+        t.classList.remove('active');
+    });
+    
+    const targetId = tabId.startsWith('screen-') ? tabId : 'screen-' + tabId;
+    const target = document.getElementById(targetId);
+    if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('active');
+    }
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function switchWellnessSubtab(subId, btn) {
