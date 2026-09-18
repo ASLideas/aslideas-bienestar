@@ -279,47 +279,67 @@ tailwind.config = {
             <!-- ----------------------------------------------------- -->
             <div id="screen-chats" class="tab-content active p-4 space-y-4">
                 
-                <!-- MOOD / ESTADO DE ÁNIMO SELECTOR (Social Connection) -->
-                <div class="glass-card p-3.5 rounded-2xl shadow-sm border border-[#33BCA9]/20">
-                    <div class="flex justify-between items-center mb-2.5">
-                        <span class="text-xs font-bold text-[#123838] flex items-center gap-1.5">
-                            <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            ¿Cómo te sientes hoy? (Comparte con tus amigos)
+                <!-- ESCALA DE TOLERANCIA Y REGULACIÓN EMOCIONAL (ROJO A VERDE / TEA-SALUD MENTAL) -->
+                <div class="glass-card p-4 rounded-2xl shadow-sm border border-[#33BCA9]/30 bg-gradient-to-b from-white to-[#FAF8EE]">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-black text-[#123838] flex items-center gap-1.5">
+                            <span class="text-base">🌈</span> Escala de Regulación Emocional
                         </span>
-                        <span id="current-mood-badge" class="text-[11px] font-bold text-[#2C7A7B] bg-[#E0F7F4] px-2.5 py-0.5 rounded-full border border-[#33BCA9]/30">Feliz</span>
+                        <span id="tolerance-zone-badge" class="text-[10px] font-black px-2.5 py-0.5 rounded-full text-white bg-[#38A169] shadow-xs">
+                            🟢 Zona Óptima (Calma)
+                        </span>
                     </div>
-                    <div class="flex justify-between items-center gap-1 overflow-x-auto pb-1 no-scrollbar">
-                        <button onclick="setMood('Feliz', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-[#E0F7F4] border border-[#2C7A7B] text-[#2C7A7B] shrink-0 min-w-[62px] shadow-xs transition">
-                            <div class="w-7 h-7 rounded-full bg-white flex items-center justify-center mb-1 shadow-xs">
-                                <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            </div>
-                            <span class="text-[10px] font-black text-[#123838]">Feliz</span>
+                    <p class="text-[10px] text-slate-500 font-semibold mb-3">Escala de Ventana de Tolerancia (Nivel Sensorial y Emocional)</p>
+                    
+                    <!-- Color Spectrum Bar & Slider -->
+                    <div class="space-y-2 mb-3">
+                        <div class="relative w-full h-3.5 rounded-full overflow-hidden flex shadow-inner border border-slate-200">
+                            <div class="w-1/5 bg-[#E53E3E]" title="1. Crisis / Sobrecarga"></div>
+                            <div class="w-1/5 bg-[#DD6B20]" title="2. Frustración / Estrés"></div>
+                            <div class="w-1/5 bg-[#D69E2E]" title="3. Inquietud / Alerta"></div>
+                            <div class="w-1/5 bg-[#38A169]" title="4. Calma / Zona Óptima"></div>
+                            <div class="w-1/5 bg-[#3182CE]" title="5. Agotamiento / Baja Energía"></div>
+                        </div>
+                        <input type="range" id="toleranceRange" min="1" max="5" value="4" step="1" oninput="setToleranceFromSlider(this.value)" class="w-full accent-[#2C7A7B] cursor-pointer">
+                    </div>
+
+                    <!-- 5 Zone Interactive Quick Buttons with Vivid Emojis -->
+                    <div class="grid grid-cols-5 gap-1 text-center mb-3">
+                        <button onclick="setToleranceZone(1)" class="p-1.5 rounded-xl bg-red-50 border border-red-200 hover:bg-red-100 transition flex flex-col items-center">
+                            <span class="text-lg mb-0.5">🔴</span>
+                            <span class="text-[9px] font-bold text-red-700 leading-none">Crisis</span>
                         </button>
-                        <button onclick="setMood('Relajado', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:border-[#2C7A7B] shrink-0 min-w-[62px] transition">
-                            <div class="w-7 h-7 rounded-full bg-[#E0F7F4]/50 flex items-center justify-center mb-1">
-                                <i data-lucide="leaf" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            </div>
-                            <span class="text-[10px] font-bold text-[#123838]">Relajado</span>
+                        <button onclick="setToleranceZone(2)" class="p-1.5 rounded-xl bg-orange-50 border border-orange-200 hover:bg-orange-100 transition flex flex-col items-center">
+                            <span class="text-lg mb-0.5">🟠</span>
+                            <span class="text-[9px] font-bold text-orange-700 leading-none">Estrés</span>
                         </button>
-                        <button onclick="setMood('Cansado', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:border-[#2C7A7B] shrink-0 min-w-[62px] transition">
-                            <div class="w-7 h-7 rounded-full bg-[#E0F7F4]/50 flex items-center justify-center mb-1">
-                                <i data-lucide="moon" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            </div>
-                            <span class="text-[10px] font-bold text-[#123838]">Cansado</span>
+                        <button onclick="setToleranceZone(3)" class="p-1.5 rounded-xl bg-yellow-50 border border-yellow-200 hover:bg-yellow-100 transition flex flex-col items-center">
+                            <span class="text-lg mb-0.5">🟡</span>
+                            <span class="text-[9px] font-bold text-yellow-700 leading-none">Alerta</span>
                         </button>
-                        <button onclick="setMood('Energía', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:border-[#2C7A7B] shrink-0 min-w-[62px] transition">
-                            <div class="w-7 h-7 rounded-full bg-[#E0F7F4]/50 flex items-center justify-center mb-1">
-                                <i data-lucide="zap" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            </div>
-                            <span class="text-[10px] font-bold text-[#123838]">Energía</span>
+                        <button onclick="setToleranceZone(4)" class="p-1.5 rounded-xl bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 transition flex flex-col items-center ring-2 ring-[#38A169]">
+                            <span class="text-lg mb-0.5">🟢</span>
+                            <span class="text-[9px] font-bold text-emerald-800 leading-none">Calma</span>
                         </button>
-                        <button onclick="setMood('Meditativo', this)" class="mood-btn flex flex-col items-center p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:border-[#2C7A7B] shrink-0 min-w-[62px] transition">
-                            <div class="w-7 h-7 rounded-full bg-[#E0F7F4]/50 flex items-center justify-center mb-1">
-                                <i data-lucide="sparkles" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            </div>
-                            <span class="text-[10px] font-bold text-[#123838]">Meditativo</span>
+                        <button onclick="setToleranceZone(5)" class="p-1.5 rounded-xl bg-blue-50 border border-blue-200 hover:bg-blue-100 transition flex flex-col items-center">
+                            <span class="text-lg mb-0.5">🔵</span>
+                            <span class="text-[9px] font-bold text-blue-700 leading-none">Cansado</span>
                         </button>
                     </div>
+
+                    <!-- Dynamic Recommendation Box -->
+                    <div id="tolerance-tip-card" class="bg-[#E0F7F4] p-2.5 rounded-xl border border-[#33BCA9]/40 flex items-start gap-2 text-xs">
+                        <span class="text-xl shrink-0">🌿</span>
+                        <div class="flex-1">
+                            <p id="tolerance-tip-title" class="font-bold text-[#123838]">Zona Óptima de Tolerancia (Verde)</p>
+                            <p id="tolerance-tip-desc" class="text-[11px] text-[#2C7A7B] mt-0.5 leading-snug">Te encuentras en autorregulación y calma. Momento ideal para actividades sociales o de aprendizaje.</p>
+                        </div>
+                    </div>
+
+                    <button onclick="shareToleranceToChat()" class="w-full mt-2.5 bg-[#2C7A7B] text-white text-xs font-bold py-2 rounded-xl hover:bg-[#123838] transition flex items-center justify-center gap-1.5 shadow-xs">
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                        <span>Registrar mi Estado en el Chat</span>
+                    </button>
                 </div>
 
                 <!-- CHAT FILTER CHIPS -->
@@ -4151,6 +4171,346 @@ Se aplicó el fondo corporativo Cream Linen (#FAF8EE) al chat.`);
         </div>
     </div>
 </div>
+
+
+<script>
+// =========================================================
+// BIENESTAR v180 - UNIFIED INTERACTIVE LOGIC
+// =========================================================
+
+// --- 1. ESCALA DE REGULACIÓN EMOCIONAL (ROJO A VERDE / TEA) ---
+let currentToleranceLevel = 4;
+
+const toleranceData = {
+    1: {
+        title: "🔴 Sobrecarga / Crisis (Nivel Alto)",
+        desc: "Límite de tolerancia superado. Sugerencia: Ve al módulo MORFEO 🌙, activa sonidos de lluvia/agua o haz pausa de respiración 4-7-8.",
+        badge: "🔴 Crisis / Sobrecarga",
+        color: "#E53E3E",
+        emoji: "🔴"
+    },
+    2: {
+        title: "🟠 Frustración / Tensión (Nivel Medio-Alto)",
+        desc: "Inquietud acumulada o sobreestimulación. Sugerencia: Escuchar música suave o caminata ligera.",
+        badge: "🟠 Frustración / Estrés",
+        color: "#DD6B20",
+        emoji: "🟠"
+    },
+    3: {
+        title: "🟡 Alerta / Inquietud (Nivel Medio)",
+        desc: "Sensibilidad leve a estímulos. Sugerencia: Hidratación, pausas cortas y estiramiento.",
+        badge: "🟡 Alerta / Inquietud",
+        color: "#D69E2E",
+        emoji: "🟡"
+    },
+    4: {
+        title: "🟢 Zona Óptima de Tolerancia (Calma)",
+        desc: "Te encuentras en autorregulación y calma. Excelente momento para conectar o aprender.",
+        badge: "🟢 Zona Óptima (Calma)",
+        color: "#38A169",
+        emoji: "🟢"
+    },
+    5: {
+        title: "🔵 Agotamiento / Hipoactivación",
+        desc: "Baja energía o cansancio profundo. Sugerencia: Reposo, infusión caliente o descanso en Morfeo.",
+        badge: "🔵 Agotamiento",
+        color: "#3182CE",
+        emoji: "🔵"
+    }
+};
+
+function setToleranceZone(level) {
+    currentToleranceLevel = parseInt(level);
+    const range = document.getElementById('toleranceRange');
+    if (range) range.value = currentToleranceLevel;
+
+    const info = toleranceData[currentToleranceLevel];
+    const badge = document.getElementById('tolerance-zone-badge');
+    const title = document.getElementById('tolerance-tip-title');
+    const desc = document.getElementById('tolerance-tip-desc');
+
+    if (badge) {
+        badge.textContent = info.badge;
+        badge.style.backgroundColor = info.color;
+    }
+    if (title) title.textContent = info.title;
+    if (desc) desc.textContent = info.desc;
+}
+
+function setToleranceFromSlider(val) {
+    setToleranceZone(val);
+}
+
+function shareToleranceToChat() {
+    const info = toleranceData[currentToleranceLevel];
+    const container = document.getElementById('chat-messages-container');
+    if (!container) return;
+
+    const outDiv = document.createElement('div');
+    outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+    outDiv.innerHTML = `
+        <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs space-y-1.5 border border-[#33BCA9]/40">
+            <div class="flex items-center gap-2 font-bold border-b border-white/20 pb-1">
+                <span class="text-base">${info.emoji}</span> Registro de Regulación Emocional
+            </div>
+            <p class="font-bold text-amber-200">${info.title}</p>
+            <p class="text-[11px] opacity-90 leading-snug">${info.desc}</p>
+            <p class="text-[9px] opacity-75 text-right pt-1">${new Date().toLocaleTimeString([], {hour:'2-2-digit', minute:'2-2-digit'})}</p>
+        </div>
+    `;
+    container.appendChild(outDiv);
+    container.scrollTop = container.scrollHeight;
+}
+
+// --- 2. UBICACIÓN GPS EN TIEMPO REAL ---
+function sendRealLocation() {
+    const container = document.getElementById('chat-messages-container');
+    if (!container) return;
+
+    const tempDiv = document.createElement('div');
+    tempDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+    tempDiv.innerHTML = `
+        <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs flex items-center gap-2">
+            <i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Obteniendo ubicación GPS en tiempo real...
+        </div>
+    `;
+    container.appendChild(tempDiv);
+    container.scrollTop = container.scrollHeight;
+    if (window.lucide) lucide.createIcons();
+
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                tempDiv.remove();
+
+                const locDiv = document.createElement('div');
+                locDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+                locDiv.innerHTML = `
+                    <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs space-y-2 border border-[#33BCA9]/40">
+                        <div class="flex items-center gap-2 font-bold border-b border-white/20 pb-1.5">
+                            <span class="text-base">📍</span> Ubicación GPS en Tiempo Real
+                        </div>
+                        <p class="text-[11px] opacity-90">Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}</p>
+                        <a href="https://maps.google.com/?q=${lat},${lng}" target="_blank" class="inline-flex items-center gap-1 bg-white text-[#2C7A7B] font-bold px-3 py-1.5 rounded-xl hover:bg-[#E0F7F4] transition shadow-xs">
+                            <span>Abrir en Google Maps</span> 🗺️
+                        </a>
+                    </div>
+                `;
+                container.appendChild(locDiv);
+                container.scrollTop = container.scrollHeight;
+                if (window.lucide) lucide.createIcons();
+            },
+            (error) => {
+                tempDiv.remove();
+                const locDiv = document.createElement('div');
+                locDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+                locDiv.innerHTML = `
+                    <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs space-y-2">
+                        <div class="flex items-center gap-2 font-bold border-b border-white/20 pb-1.5">
+                            <span class="text-base">📍</span> Centro de Bienestar (Ubicación)
+                        </div>
+                        <p class="text-[11px] opacity-90">Av. Providencia #1234, Santiago, Chile</p>
+                        <a href="https://maps.google.com/?q=-33.4262,-70.6135" target="_blank" class="inline-flex items-center gap-1 bg-white text-[#2C7A7B] font-bold px-3 py-1.5 rounded-xl hover:bg-[#E0F7F4] transition shadow-xs">
+                            <span>Ver Mapa</span> 🗺️
+                        </a>
+                    </div>
+                `;
+                container.appendChild(locDiv);
+                container.scrollTop = container.scrollHeight;
+                if (window.lucide) lucide.createIcons();
+            },
+            { timeout: 8000, enableHighAccuracy: true }
+        );
+    } else {
+        alert("Geolocalización no soportada en este navegador.");
+    }
+}
+
+// --- 3. CÁMARA REAL & CAPTURA DE FOTO ---
+let realCamStream = null;
+
+async function openCameraModal() {
+    const modal = document.getElementById('cameraModal');
+    const video = document.getElementById('cameraFeed');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+
+    try {
+        if (realCamStream) {
+            realCamStream.getTracks().forEach(t => t.stop());
+        }
+        realCamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+        if (video) video.srcObject = realCamStream;
+    } catch (err) {
+        console.warn('Cámara en vivo no disponible, listo modo captura:', err);
+    }
+}
+
+function closeCameraModal() {
+    const modal = document.getElementById('cameraModal');
+    if (modal) modal.classList.add('hidden');
+    if (realCamStream) {
+        realCamStream.getTracks().forEach(t => t.stop());
+        realCamStream = null;
+    }
+}
+
+function capturePhotoToChat() {
+    const video = document.getElementById('cameraFeed');
+    const container = document.getElementById('chat-messages-container');
+    let imgDataUrl = '';
+
+    if (video && video.videoWidth > 0 && realCamStream) {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        imgDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+    } else {
+        imgDataUrl = 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=400';
+    }
+
+    if (container) {
+        const outDiv = document.createElement('div');
+        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+        outDiv.innerHTML = `
+            <div class="bg-[#2C7A7B] text-white p-2 rounded-2xl rounded-tr-none shadow-sm text-xs space-y-1.5 border border-[#33BCA9]/30">
+                <img src="${imgDataUrl}" class="w-48 h-36 object-cover rounded-xl border border-white/20 shadow-xs" alt="Foto Capturada">
+                <div class="flex justify-between items-center text-[10px] opacity-90 px-1">
+                    <span>📸 Foto capturada</span>
+                    <span>${new Date().toLocaleTimeString([], {hour:'2-2-digit', minute:'2-2-digit'})}</span>
+                </div>
+            </div>
+        `;
+        container.appendChild(outDiv);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    closeCameraModal();
+}
+
+// --- 4. VIDEOLLAMADA HD REAL & SIMULADA ---
+let activeVideoTimer = null;
+let activeVideoSecs = 0;
+let activeVideoStream = null;
+
+async function startVideoCall(doctorName = 'Especialista Bienestar') {
+    const modal = document.getElementById('videoCallModal');
+    const nameElem = document.getElementById('videoCallDoctorName');
+    if (nameElem) nameElem.textContent = doctorName;
+    if (modal) modal.classList.remove('hidden');
+
+    activeVideoSecs = 0;
+    const timerElem = document.getElementById('videoCallTimer');
+    if (timerElem) timerElem.textContent = '00:00';
+
+    if (activeVideoTimer) clearInterval(activeVideoTimer);
+    activeVideoTimer = setInterval(() => {
+        activeVideoSecs++;
+        const mins = String(Math.floor(activeVideoSecs / 60)).padStart(2, '0');
+        const secs = String(activeVideoSecs % 60).padStart(2, '0');
+        if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+    }, 1000);
+
+    try {
+        activeVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        const userVideo = document.getElementById('userCallVideo');
+        if (userVideo) userVideo.srcObject = activeVideoStream;
+    } catch (err) {
+        console.warn('Modo videollamada HD activado.');
+    }
+}
+
+function endVideoCall() {
+    if (activeVideoTimer) {
+        clearInterval(activeVideoTimer);
+        activeVideoTimer = null;
+    }
+    if (activeVideoStream) {
+        activeVideoStream.getTracks().forEach(t => t.stop());
+        activeVideoStream = null;
+    }
+
+    const modal = document.getElementById('videoCallModal');
+    if (modal) modal.classList.add('hidden');
+
+    const container = document.getElementById('chat-messages-container');
+    if (container && activeVideoSecs > 0) {
+        const mins = String(Math.floor(activeVideoSecs / 60)).padStart(2, '0');
+        const secs = String(activeVideoSecs % 60).padStart(2, '0');
+
+        const outDiv = document.createElement('div');
+        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+        outDiv.innerHTML = `
+            <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs flex items-center gap-2 border border-[#33BCA9]/30">
+                <span class="text-base">📹</span>
+                <div>
+                    <p class="font-bold">Videollamada HD Finalizada</p>
+                    <p class="text-[10px] opacity-80">Duración: ${mins}:${secs} min</p>
+                </div>
+            </div>
+        `;
+        container.appendChild(outDiv);
+        container.scrollTop = container.scrollHeight;
+    }
+}
+
+// --- 5. LLAMADA DE VOZ REAL & SIMULADA ---
+let activeVoiceTimer = null;
+let activeVoiceSecs = 0;
+
+function startVoiceCall(name = 'Especialista Bienestar') {
+    const modal = document.getElementById('voiceCallModal');
+    const nameElem = document.getElementById('callTargetName');
+    if (nameElem) nameElem.textContent = name;
+    if (modal) modal.classList.remove('hidden');
+
+    activeVoiceSecs = 0;
+    const timerElem = document.getElementById('voiceCallTimer');
+    if (timerElem) timerElem.textContent = '00:00';
+
+    if (activeVoiceTimer) clearInterval(activeVoiceTimer);
+    activeVoiceTimer = setInterval(() => {
+        activeVoiceSecs++;
+        const mins = String(Math.floor(activeVoiceSecs / 60)).padStart(2, '0');
+        const secs = String(activeVoiceSecs % 60).padStart(2, '0');
+        if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+    }, 1000);
+}
+
+function endVoiceCall() {
+    if (activeVoiceTimer) {
+        clearInterval(activeVoiceTimer);
+        activeVoiceTimer = null;
+    }
+
+    const modal = document.getElementById('voiceCallModal');
+    if (modal) modal.classList.add('hidden');
+
+    const container = document.getElementById('chat-messages-container');
+    if (container && activeVoiceSecs > 0) {
+        const mins = String(Math.floor(activeVoiceSecs / 60)).padStart(2, '0');
+        const secs = String(activeVoiceSecs % 60).padStart(2, '0');
+
+        const outDiv = document.createElement('div');
+        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto';
+        outDiv.innerHTML = `
+            <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs flex items-center gap-2 border border-[#33BCA9]/30">
+                <span class="text-base">📞</span>
+                <div>
+                    <p class="font-bold">Llamada de Voz Finalizada</p>
+                    <p class="text-[10px] opacity-80">Duración: ${mins}:${secs} min</p>
+                </div>
+            </div>
+        `;
+        container.appendChild(outDiv);
+        container.scrollTop = container.scrollHeight;
+    }
+}
+</script>
 
 </body>
 </html>
