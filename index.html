@@ -204,9 +204,34 @@ tailwind.config = {
                     <i data-lucide="bell" class="w-5 h-5"></i>
                     <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-[#E53E3E] rounded-full ring-2 ring-white"></span>
                 </button>
-                <button onclick="openWhatsAppSettings()" class="p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition" title="Ajustes de la App">
+                <div class="relative">
+                <button onclick="toggleMainHeaderMenu()" class="p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition" title="Menú de opciones">
                     <i data-lucide="more-vertical" class="w-5 h-5"></i>
                 </button>
+                <div id="main-header-menu" class="hidden absolute top-10 right-0 z-50 w-56 bg-white border border-[#33BCA9]/30 rounded-2xl shadow-xl py-2 text-xs font-semibold text-[#123838]">
+                    <button onclick="openNewGroupModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+                        <i data-lucide="users" class="w-4 h-4 text-[#2C7A7B]"></i>
+                        <span>Nuevo grupo</span>
+                    </button>
+                    <button onclick="openNewCommunityModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+                        <i data-lucide="globe" class="w-4 h-4 text-[#2C7A7B]"></i>
+                        <span>Nueva comunidad</span>
+                    </button>
+                    <button onclick="openStarredMessagesModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+                        <i data-lucide="star" class="w-4 h-4 text-[#2C7A7B]"></i>
+                        <span>Mensajes destacados</span>
+                    </button>
+                    <button onclick="openLinkedDevicesModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+                        <i data-lucide="laptop" class="w-4 h-4 text-[#2C7A7B]"></i>
+                        <span>Dispositivos vinculados</span>
+                    </button>
+                    <div class="my-1 border-t border-gray-100"></div>
+                    <button onclick="openWhatsAppSettings(); toggleMainHeaderMenu();" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
+                        <i data-lucide="settings" class="w-4 h-4 text-[#2C7A7B]"></i>
+                        <span>Ajustes</span>
+                    </button>
+                </div>
+            </div>
             </div>
         </header>
 
@@ -1143,17 +1168,17 @@ tailwind.config = {
 <div id="cameraModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
             <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
-                <h3 class="font-bold flex items-center gap-2 text-emerald-400">📷 Cámara Bienestar</h3>
+                <h3 class="font-bold flex items-center gap-2 text-[#33BCA9]">📷 Cámara Bienestar</h3>
                 <button onclick="closeCameraModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
             </div>
             <div class="p-6 text-center">
                 <div class="w-full h-56 bg-slate-950 rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-emerald-500/40 relative overflow-hidden mb-4">
                     <span class="text-5xl mb-2 animate-pulse">📸</span>
-                    <p class="text-xs text-emerald-400 font-medium">Vista previa de cámara activada</p>
+                    <p class="text-xs text-[#33BCA9] font-medium">Vista previa de cámara activada</p>
                     <p class="text-[10px] text-slate-500 mt-1">Captura fotos de fichas médicas, exámenes o consultas</p>
                 </div>
                 <div class="flex justify-center gap-4">
-                    <button onclick="alert('¡Fotografía capturada con éxito!'); closeCameraModal();" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg shadow-emerald-900/40 transition">
+                    <button onclick="alert('¡Fotografía capturada con éxito!'); closeCameraModal();" class="bg-[#2C7A7B] hover:bg-[#2C7A7B] text-white font-bold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg shadow-emerald-900/40 transition">
                         <span>🔘</span> Tomar Foto
                     </button>
                     <button onclick="closeCameraModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 px-5 rounded-full border border-slate-600">
@@ -1173,11 +1198,11 @@ tailwind.config = {
         <!-- PIP propia cámara -->
         <div class="absolute top-6 right-6 w-32 h-44 bg-slate-800 border-2 border-emerald-400 rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden">
             <span class="text-3xl">👤</span>
-            <span class="absolute bottom-1 right-2 text-[9px] bg-black/60 px-1 rounded text-emerald-300">Tú</span>
+            <span class="absolute bottom-1 right-2 text-[9px] bg-black/60 px-1 rounded text-[#33BCA9]">Tú</span>
         </div>
         <div class="mt-4">
             <h2 id="videoTargetName" class="text-xl font-bold text-white">Consulta Online HD</h2>
-            <p class="text-xs text-emerald-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> En vivo · 01:25 min</p>
+            <p class="text-xs text-[#33BCA9] flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> En vivo · 01:25 min</p>
         </div>
         <div class="flex justify-center items-center gap-6 mb-8">
             <button onclick="alert('Cámara alternada')" class="w-14 h-14 rounded-full bg-slate-800/80 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700">
@@ -1217,8 +1242,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 extend: {
                     colors: {
                         cream: '#FAF8F5',
-                        forest: '#52796F',
-                        sage: '#84A59D',
+                        forest: '#2C7A7B',
+                        sage: '#33BCA9',
                         slateDark: '#2F3E46',
                         accent: '#F28482'
                     }
@@ -1445,18 +1470,18 @@ document.addEventListener('DOMContentLoaded', function() {
             selections.fat = val;
             document.getElementById('inputFat').value = val;
             document.querySelectorAll('.fat-btn').forEach(b => {
-                b.className = "fat-btn border border-gray-200 rounded-xl py-2 text-center text-xs hover:border-forest transition focus:outline-none bg-white";
+                b.className = "fat-btn border border-gray-200 rounded-xl py-2 text-center text-xs hover:border-[#2C7A7B] transition focus:outline-none bg-white";
             });
-            btn.className = "fat-btn border-forest bg-forest/5 rounded-xl py-2 text-center text-xs transition focus:outline-none font-medium text-forest";
+            btn.className = "fat-btn border-[#2C7A7B] bg-[#2C7A7B]/5 rounded-xl py-2 text-center text-xs transition focus:outline-none font-medium text-[#2C7A7B]";
         }
 
         function setGender(val, btn) {
             selections.gender = val;
             document.getElementById('inputGender').value = val;
             document.querySelectorAll('.gender-btn').forEach(b => {
-                b.className = "gender-btn border border-gray-200 rounded-xl py-2 text-center text-[10px] hover:border-forest transition focus:outline-none bg-white font-medium text-slateDark";
+                b.className = "gender-btn border border-gray-200 rounded-xl py-2 text-center text-[10px] hover:border-[#2C7A7B] transition focus:outline-none bg-white font-medium text-slateDark";
             });
-            btn.className = "gender-btn border-2 border-forest bg-forest/5 rounded-xl py-2 text-center text-[10px] transition focus:outline-none font-bold text-forest";
+            btn.className = "gender-btn border-2 border-[#2C7A7B] bg-[#2C7A7B]/5 rounded-xl py-2 text-center text-[10px] transition focus:outline-none font-bold text-[#2C7A7B]";
             
             // Ajustar edad sugerida según selección
             const ageInput = document.getElementById('inputAge');
@@ -1475,9 +1500,9 @@ document.addEventListener('DOMContentLoaded', function() {
             selections.sleep = value;
             document.getElementById('inputSleep').value = value;
             document.querySelectorAll('.sleep-opt').forEach(b => {
-                b.className = "sleep-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-forest hover:bg-forest/5 transition focus:outline-none shadow-sm bg-white";
+                b.className = "sleep-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-[#2C7A7B] hover:bg-[#2C7A7B]/5 transition focus:outline-none shadow-sm bg-white";
             });
-            btn.className = "sleep-opt w-full text-left border-forest bg-forest/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-forest font-bold";
+            btn.className = "sleep-opt w-full text-left border-[#2C7A7B] bg-[#2C7A7B]/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-[#2C7A7B] font-bold";
             
             document.getElementById('btnToStep5_new').removeAttribute('disabled');
             document.getElementById('btnToStep5_new').style.opacity = 1;
@@ -1487,9 +1512,9 @@ document.addEventListener('DOMContentLoaded', function() {
             selections.stress = value;
             document.getElementById('inputStress').value = value;
             document.querySelectorAll('.stress-opt').forEach(b => {
-                b.className = "stress-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-forest hover:bg-forest/5 transition focus:outline-none shadow-sm bg-white";
+                b.className = "stress-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-[#2C7A7B] hover:bg-[#2C7A7B]/5 transition focus:outline-none shadow-sm bg-white";
             });
-            btn.className = "stress-opt w-full text-left border-forest bg-forest/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-forest font-bold";
+            btn.className = "stress-opt w-full text-left border-[#2C7A7B] bg-[#2C7A7B]/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-[#2C7A7B] font-bold";
             
             document.getElementById('btnToStep6_new').removeAttribute('disabled');
             document.getElementById('btnToStep6_new').style.opacity = 1;
@@ -1500,10 +1525,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('inputChronic').value = val ? "Sí" : "No";
 
             document.querySelectorAll('.chronic-yes-btn, .chronic-no-btn').forEach(b => {
-                b.className = "w-full border border-gray-200 p-4 rounded-2xl text-center hover:border-forest hover:bg-forest/5 transition focus:outline-none bg-white";
+                b.className = "w-full border border-gray-200 p-4 rounded-2xl text-center hover:border-[#2C7A7B] hover:bg-[#2C7A7B]/5 transition focus:outline-none bg-white";
             });
 
-            btn.className = "w-full border-forest bg-forest/5 p-4 rounded-2xl text-center transition focus:outline-none font-medium text-forest";
+            btn.className = "w-full border-[#2C7A7B] bg-[#2C7A7B]/5 p-4 rounded-2xl text-center transition focus:outline-none font-medium text-[#2C7A7B]";
 
             const optionsContainer = document.getElementById('chronicOptionsContainer');
             const bypassContainer = document.getElementById('bypassContainer');
@@ -1530,20 +1555,20 @@ document.addEventListener('DOMContentLoaded', function() {
             selections.mental = val;
             document.getElementById('inputMental').value = val;
             document.querySelectorAll('.mental-opt').forEach(b => {
-                b.className = "mental-opt border border-gray-200 p-3 rounded-2xl text-left text-xs font-bold hover:border-forest transition flex justify-between items-center shadow-sm bg-white";
+                b.className = "mental-opt border border-gray-200 p-3 rounded-2xl text-left text-xs font-bold hover:border-[#2C7A7B] transition flex justify-between items-center shadow-sm bg-white";
                 b.querySelector('i').className = "fa-solid fa-circle-check text-gray-100";
             });
-            btn.className = "mental-opt border-forest bg-forest/5 p-3 rounded-2xl text-left text-xs font-bold transition flex justify-between items-center shadow-sm";
-            btn.querySelector('i').className = "fa-solid fa-circle-check text-forest";
+            btn.className = "mental-opt border-[#2C7A7B] bg-[#2C7A7B]/5 p-3 rounded-2xl text-left text-xs font-bold transition flex justify-between items-center shadow-sm";
+            btn.querySelector('i').className = "fa-solid fa-circle-check text-[#2C7A7B]";
         }
 
         function setOption(type, value, btn) {
             selections[type] = value;
             document.getElementById(`input${type.charAt(0).toUpperCase() + type.slice(1)}`).value = value;
             document.querySelectorAll(`.${type}-opt`).forEach(b => {
-                b.className = `${type}-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-forest hover:bg-forest/5 transition focus:outline-none shadow-sm bg-white`;
+                b.className = `${type}-opt w-full text-left border border-gray-200 p-3 rounded-2xl flex items-center space-x-3 hover:border-[#2C7A7B] hover:bg-[#2C7A7B]/5 transition focus:outline-none shadow-sm bg-white`;
             });
-            btn.className = `${type}-opt w-full text-left border-forest bg-forest/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-forest font-bold`;
+            btn.className = `${type}-opt w-full text-left border-[#2C7A7B] bg-[#2C7A7B]/5 p-3 rounded-2xl flex items-center space-x-3 transition focus:outline-none shadow-sm text-[#2C7A7B] font-bold`;
 
             if (type === 'goal') {
                 document.getElementById('btnToStep7').removeAttribute('disabled');
@@ -1560,17 +1585,17 @@ document.addEventListener('DOMContentLoaded', function() {
         function selectDate(date, btn) {
             selections.bookingDate = date;
             document.querySelectorAll('.date-btn').forEach(b => {
-                b.className = "date-btn border border-gray-200 p-2.5 rounded-xl text-xs hover:border-forest transition focus:outline-none bg-white";
+                b.className = "date-btn border border-gray-200 p-2.5 rounded-xl text-xs hover:border-[#2C7A7B] transition focus:outline-none bg-white";
             });
-            btn.className = "date-btn border border-forest bg-forest/5 text-forest font-bold p-2.5 rounded-xl text-xs transition focus:outline-none";
+            btn.className = "date-btn border border-[#2C7A7B] bg-[#2C7A7B]/5 text-[#2C7A7B] font-bold p-2.5 rounded-xl text-xs transition focus:outline-none";
         }
 
         function selectTime(time, btn) {
             selections.bookingTime = time;
             document.querySelectorAll('.time-slot').forEach(b => {
-                b.className = "time-slot border border-gray-200 py-2 rounded-xl text-xs hover:border-forest transition focus:outline-none bg-white";
+                b.className = "time-slot border border-gray-200 py-2 rounded-xl text-xs hover:border-[#2C7A7B] transition focus:outline-none bg-white";
             });
-            btn.className = "time-slot border border-forest bg-forest/5 text-forest font-bold py-2 rounded-xl text-xs transition focus:outline-none";
+            btn.className = "time-slot border border-[#2C7A7B] bg-[#2C7A7B]/5 text-[#2C7A7B] font-bold py-2 rounded-xl text-xs transition focus:outline-none";
         }
 
         function initBookingPanel() {
@@ -1584,7 +1609,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 bookingDerivationText.innerHTML = "⚠️ <strong class='text-red-700 font-bold'>Derivación Clínica:</strong> Mostrando médicos clínicos y especialistas integrativos certificados para el manejo seguro de " + selections.selectedChronical.join(', ') + ".";
             } else if (selections.mental !== 'Ninguna') {
                 filteredSpecialists = specialists.filter(s => s.mentalSafe === true);
-                bookingDerivationText.innerHTML = "🧠 <strong class='text-forest font-bold'>Derivación Salud Mental / Neurodivergencia:</strong> Mostrando especialistas y psicólogos clínicos capacitados en acompañamiento integrativo y respetuoso (" + selections.mental + ").";
+                bookingDerivationText.innerHTML = "🧠 <strong class='text-[#2C7A7B] font-bold'>Derivación Salud Mental / Neurodivergencia:</strong> Mostrando especialistas y psicólogos clínicos capacitados en acompañamiento integrativo y respetuoso (" + selections.mental + ").";
             } else {
                 filteredSpecialists = specialists;
                 bookingDerivationText.innerHTML = "Mostrando profesionales de medicina integrativa de BIENESTAR disponibles para tu consulta.";
@@ -1594,22 +1619,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 const isActive = index === 0;
                 if (isActive) selections.selectedSpecialist = specialist;
                 const cardHtml = `
-                    <button onclick="selectSpecialist('${specialist.id}', this)" class="specialist-card w-full text-left p-3.5 rounded-2xl border ${isActive ? 'border-forest bg-forest/5' : 'border-gray-100 bg-white'} transition focus:outline-none flex items-center justify-between shadow-sm">
+                    <button onclick="selectSpecialist('${specialist.id}', this)" class="specialist-card w-full text-left p-3.5 rounded-2xl border ${isActive ? 'border-[#2C7A7B] bg-[#2C7A7B]/5' : 'border-gray-100 bg-white'} transition focus:outline-none flex items-center justify-between shadow-sm">
                         <div class="flex items-center space-x-3.5">
                             <div class="w-10 h-10 rounded-full overflow-hidden shadow-sm border border-gray-100 flex-shrink-0 flex items-center justify-center bg-gray-50">
                                 <img src="${specialist.photo}" class="w-full h-full object-cover" alt="${specialist.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <span class="w-full h-full rounded-full flex items-center justify-center text-xl bg-forest/10 text-forest">${specialist.emoji}</span>
+                                <span class="w-full h-full rounded-full flex items-center justify-center text-xl bg-[#2C7A7B]/10 text-[#2C7A7B]">${specialist.emoji}</span>
                             </div>
                             <div>
                                 <h4 class="font-extrabold text-xs text-slateDark">${specialist.name}</h4>
                                 <p class="text-[9px] text-gray-500 font-medium">${specialist.specialty}</p>
                                 <div class="flex space-x-2 mt-1">
-                                    <span class="text-[8px] bg-sage/20 text-forest px-1.5 py-0.5 rounded-full font-bold">${specialist.type}</span>
+                                    <span class="text-[8px] bg-[#E0F7F4]/20 text-[#2C7A7B] px-1.5 py-0.5 rounded-full font-bold">${specialist.type}</span>
                                     <span class="text-[8px] text-gray-400 font-semibold flex items-center"><i class="fa-solid fa-location-dot text-accent mr-0.5"></i> ${specialist.distance}</span>
                                 </div>
                             </div>
                         </div>
-                        <i class="fa-solid fa-circle-check ${isActive ? 'text-forest' : 'text-gray-200'} text-lg flex-shrink-0"></i>
+                        <i class="fa-solid fa-circle-check ${isActive ? 'text-[#2C7A7B]' : 'text-gray-200'} text-lg flex-shrink-0"></i>
                     </button>
                 `;
                 listContainer.insertAdjacentHTML('beforeend', cardHtml);
@@ -1624,8 +1649,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.className = "specialist-card w-full text-left p-3.5 rounded-2xl border border-gray-100 bg-white transition focus:outline-none flex items-center justify-between shadow-sm";
                 card.querySelector('i.fa-circle-check').className = "fa-solid fa-circle-check text-gray-200 text-lg flex-shrink-0";
             });
-            btn.className = "specialist-card w-full text-left p-3.5 rounded-2xl border border-forest bg-forest/5 transition focus:outline-none flex items-center justify-between shadow-sm";
-            btn.querySelector('i.fa-circle-check').className = "fa-solid fa-circle-check text-forest text-lg flex-shrink-0";
+            btn.className = "specialist-card w-full text-left p-3.5 rounded-2xl border border-[#2C7A7B] bg-[#2C7A7B]/5 transition focus:outline-none flex items-center justify-between shadow-sm";
+            btn.querySelector('i.fa-circle-check').className = "fa-solid fa-circle-check text-[#2C7A7B] text-lg flex-shrink-0";
             updateMap(specialist);
         }
 
@@ -1728,11 +1753,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const svg_logo = `
                 <div style="display: inline-block; vertical-align: middle; margin-right: 12px; text-align: left;">
-                    <img src="logo bienestar png.jpeg" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #52796F; display: block;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
+                    <img src="logo bienestar png.jpeg" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #2C7A7B; display: block;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
                 </div>
                 <div style="display: inline-block; vertical-align: middle; text-align: left;">
-                    <h2 style="font-size: 9px; font-weight: 900; color: #84A59D; margin: 0; letter-spacing: 1.5px; text-transform: uppercase;">Ecosistema de Salud Integrativa</h2>
-                    <h1 style="font-size: 18px; font-weight: 900; color: #52796F; margin: 2px 0 0 0;">BIENESTAR</h1>
+                    <h2 style="font-size: 9px; font-weight: 900; color: #33BCA9; margin: 0; letter-spacing: 1.5px; text-transform: uppercase;">Ecosistema de Salud Integrativa</h2>
+                    <h1 style="font-size: 18px; font-weight: 900; color: #2C7A7B; margin: 2px 0 0 0;">BIENESTAR</h1>
                 </div>
             `;
 
@@ -1770,13 +1795,13 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
             overlay.innerHTML = `
                 <div style="text-align: center; max-width: 320px; padding: 20px;">
-                    <div style="width: 70px; height: 70px; margin: 0 auto 20px auto; border-radius: 50%; border: 3px solid #52796F; box-shadow: 0 4px 12px rgba(82,121,111,0.25); overflow: hidden; animation: pulse 1.5s infinite ease-in-out;">
+                    <div style="width: 70px; height: 70px; margin: 0 auto 20px auto; border-radius: 50%; border: 3px solid #2C7A7B; box-shadow: 0 4px 12px rgba(82,121,111,0.25); overflow: hidden; animation: pulse 1.5s infinite ease-in-out;">
                         <img src="logo bienestar png.jpeg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
                     </div>
                     <h4 style="color: #2F3E46; font-size: 15px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">BIENESTAR</h4>
-                    <p style="color: #52796F; font-size: 11px; font-weight: 600; margin: 0 0 20px 0;">Preparando pauta de salud digital centrado...</p>
+                    <p style="color: #2C7A7B; font-size: 11px; font-weight: 600; margin: 0 0 20px 0;">Preparando pauta de salud digital centrado...</p>
                     <div style="width: 100%; height: 4px; background: #E2E8F0; border-radius: 2px; overflow: hidden; position: relative;">
-                        <div style="position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: #52796F; border-radius: 2px; animation: loading-bar 1.5s infinite linear;"></div>
+                        <div style="position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: #2C7A7B; border-radius: 2px; animation: loading-bar 1.5s infinite linear;"></div>
                     </div>
                 </div>
                 <style>
@@ -1835,13 +1860,13 @@ document.addEventListener('DOMContentLoaded', function() {
             let contentHtml = `
                 <div style="width: 794px !important; min-width: 794px !important; max-width: 794px !important; padding: 45px; box-sizing: border-box; background-color: #FAF8F5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #2F3E46;">
                     <!-- Bordered Box Container -->
-                    <div style="width: 704px !important; min-width: 704px !important; max-width: 704px !important; border: 2px solid #52796F; border-radius: 20px; padding: 30px; background-color: #FAF8F5; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 15px; box-sizing: border-box;">
+                    <div style="width: 704px !important; min-width: 704px !important; max-width: 704px !important; border: 2px solid #2C7A7B; border-radius: 20px; padding: 30px; background-color: #FAF8F5; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 15px; box-sizing: border-box;">
                         <!-- Header Oficial Epicrisis con Logo Circular SVG Vectorial No-CORS -->
-                        <div style="display: table; width: 100%; border-bottom: 2px solid #52796F; padding-bottom: 12px; margin-bottom: 5px;">
+                        <div style="display: table; width: 100%; border-bottom: 2px solid #2C7A7B; padding-bottom: 12px; margin-bottom: 5px;">
                             <div style="display: table-cell; vertical-align: middle; text-align: left;">
                                 ${svg_logo}
                             </div>
-                            <div style="display: table-cell; vertical-align: middle; text-align: right; border-left: 1.5px solid #52796F; padding-left: 12px; width: 180px;">
+                            <div style="display: table-cell; vertical-align: middle; text-align: right; border-left: 1.5px solid #2C7A7B; padding-left: 12px; width: 180px;">
                                 <span style="font-size: 8px; background-color: #F28482; color: white; font-weight: bold; padding: 3px 8px; border-radius: 6px; text-transform: uppercase;">REPORTE DE BIENESTAR</span>
                                 <p style="font-size: 8px; color: #718096; margin: 4px 0 0 0; font-weight: bold;">CÓDIGO: EVAL-LAWEN-${Math.floor(1000 + Math.random() * 9000)}</p>
                             </div>
@@ -1854,7 +1879,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         <!-- 1. IDENTIFICACIÓN DEL PACIENTE EN TABLAS NATIVAS DE ANCHO COMPLETO PARA EVITAR FRAGMENTACIÓN MÓVIL -->
                         <div>
-                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 6px; text-transform: uppercase; font-weight: 900;">📋 I. Antecedentes y Demográficos</h3>
+                            <h3 style="color: #2C7A7B; font-size: 10px; border-bottom: 1.5px solid #2C7A7B; padding-bottom: 3px; margin-bottom: 6px; text-transform: uppercase; font-weight: 900;">📋 I. Antecedentes y Demográficos</h3>
                             <table style="width: 100%; border-collapse: collapse; font-size: 9.5px; color: #4A5568; background-color: white; border-radius: 12px; border: 1px solid #E2E8F0;">
                                 <tr>
                                     <td style="width: 50%; padding: 6px 12px; border-bottom: 1px solid #F0F2F5;"><strong>Nombre Completo:</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.firstName} ${selections.lastName}</span></td>
@@ -1869,7 +1894,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         <!-- 2. PARÁMETROS BIOMÉTRICOS Y ESTILO DE VIDA -->
                         <div>
-                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📊 II. Parámetros Biométricos y Estilo de Vida</h3>
+                            <h3 style="color: #2C7A7B; font-size: 10px; border-bottom: 1.5px solid #2C7A7B; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📊 II. Parámetros Biométricos y Estilo de Vida</h3>
                             <table style="width: 100%; border-collapse: collapse; font-size: 9.5px; color: #4A5568; background-color: white; border-radius: 12px; border: 1px solid #E2E8F0;">
                                 <tr>
                                     <td style="width: 50%; padding: 6px 12px; border-bottom: 1px solid #F0F2F5;"><strong>Estatura (Talla):</strong> <span style="font-weight: bold; color: #2F3E46;">${selections.height} cm</span></td>
@@ -1888,7 +1913,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         <!-- 3. DIAGNÓSTICO Y ANTECEDENTES CLÍNICOS -->
                         <div>
-                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">🩺 III. Diagnóstico y Antecedentes Clínicos</h3>
+                            <h3 style="color: #2C7A7B; font-size: 10px; border-bottom: 1.5px solid #2C7A7B; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">🩺 III. Diagnóstico y Antecedentes Clínicos</h3>
                             <div style="font-size: 9.5px; color: #4A5568; background-color: white; padding: 10px; border-radius: 12px; border: 1px solid #E2E8F0; line-height: 1.4; box-sizing: border-box;">
                                 <p style="margin: 0 0 3px 0;"><strong>Antecedentes Crónicos:</strong> ${selections.chronic ? selections.selectedChronical.join(', ') : 'Ninguno diagnosticado'}</p>
                                 <p style="margin: 0;"><strong>Salud Neurodivergente / Enfoque Cognitivo:</strong> ${selections.mental || 'Ninguna'}</p>
@@ -1898,14 +1923,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         <!-- 4. PAUTA / DERIVACIONES -->
                         ${isFreeOnly ? `
                         <div>
-                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📋 IV. Pauta Preventiva Autoguiada de Fitoterapia</h3>
+                            <h3 style="color: #2C7A7B; font-size: 10px; border-bottom: 1.5px solid #2C7A7B; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📋 IV. Pauta Preventiva Autoguiada de Fitoterapia</h3>
                             <div style="background-color: #EBF8FF; border-left: 4px solid #3182CE; padding: 12px; border-radius: 10px; font-size: 9.5px; color: #2D3748; font-weight: 600; line-height: 1.4; box-sizing: border-box;">
                                 Se recomienda incorporar infusiones preventivas de Melisa para el sistema nervioso y Boldo con naranja asada después de las comidas principales para desinflamar el tracto digestivo de forma natural de manera segura.
                             </div>
                         </div>
                         ` : `
                         <div>
-                            <h3 style="color: #52796F; font-size: 10px; border-bottom: 1.5px solid #52796F; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📍 IV. Derivaciones y Convenios Activados</h3>
+                            <h3 style="color: #2C7A7B; font-size: 10px; border-bottom: 1.5px solid #2C7A7B; padding-bottom: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: 900;">📍 IV. Derivaciones y Convenios Activados</h3>
                             <div style="font-size: 9.5px; margin-bottom: 10px; color: #4A5568; background-color: white; padding: 10px; border-radius: 12px; border: 1px solid #E2E8F0; line-height: 1.4; box-sizing: border-box;">
                                 <p style="margin: 0 0 3px 0;"><strong>Especialista Asignado de BIENESTAR:</strong> ${selections.selectedSpecialist ? selections.selectedSpecialist.name : 'No asignado'} (${selections.selectedSpecialist ? selections.selectedSpecialist.spec : 'Especialista de Turno'})</p>
                                 <p style="margin: 0 0 3px 0;"><strong>Pase de Convenio B2B Recomendado:</strong> Pase de Bienestar para Gimnasio SportLife o Yoga Postural</p>
@@ -1919,7 +1944,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         <!-- Footer Legal Centrado -->
                         <div style="text-align: center; border-top: 1.5px dashed #CBD5E0; padding-top: 12px; font-size: 8px; color: #A0AEC0; line-height: 1.4; margin-top: 10px;">
-                            <p style="margin: 0; font-weight: bold; color: #52796F;">© 2026 BIENESTAR Chile. Registro Clínico y Ecosistema de Salud Integrativa Protegido.</p>
+                            <p style="margin: 0; font-weight: bold; color: #2C7A7B;">© 2026 BIENESTAR Chile. Registro Clínico y Ecosistema de Salud Integrativa Protegido.</p>
                             <p style="margin: 2px 0 0 0; font-weight: 600;">Documento emitido y encriptado bajo la Ley Marco de Ciberseguridad N° 21.663.</p>
                         </div>
                     </div>
@@ -2138,7 +2163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.partner-tab').forEach(tab => {
                 tab.className = "partner-tab border border-gray-200 p-2.5 rounded-xl text-center transition focus:outline-none bg-white shadow-sm flex flex-col items-center justify-center";
             });
-            document.getElementById(`tab-${partnerType}`).className = "partner-tab border border-forest bg-forest/5 p-2.5 rounded-xl text-center transition focus:outline-none shadow-sm flex flex-col items-center justify-center";
+            document.getElementById(`tab-${partnerType}`).className = "partner-tab border border-[#2C7A7B] bg-[#2C7A7B]/5 p-2.5 rounded-xl text-center transition focus:outline-none shadow-sm flex flex-col items-center justify-center";
         }
 
         
@@ -2159,9 +2184,9 @@ document.addEventListener('DOMContentLoaded', function() {
         function downloadCouponImage() {
             const svg_logo_coupon = `
                 <div style="text-align: center; margin-bottom: 12px; width: 100%;">
-                    <img src="logo bienestar png.jpeg" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #52796F; margin: 0 auto 6px auto; display: block;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
-                    <h2 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 800; color: #52796F; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">BIENESTAR</h2>
-                    <p style="font-size: 8px; color: #84A59D; margin: 2px 0 0 0; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Ecosistema de Bienestar</p>
+                    <img src="logo bienestar png.jpeg" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #2C7A7B; margin: 0 auto 6px auto; display: block;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 800; color: #2C7A7B; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">BIENESTAR</h2>
+                    <p style="font-size: 8px; color: #33BCA9; margin: 2px 0 0 0; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Ecosistema de Bienestar</p>
                 </div>
             `;
 
@@ -2189,13 +2214,13 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
             overlay.innerHTML = `
                 <div style="text-align: center; max-width: 320px; padding: 20px;">
-                    <div style="width: 70px; height: 70px; margin: 0 auto 15px auto; border-radius: 50%; overflow: hidden; border: 3px solid #52796F; box-shadow: 0 4px 10px rgba(82, 121, 111, 0.15); animation: pulse 1.5s infinite ease-in-out;">
+                    <div style="width: 70px; height: 70px; margin: 0 auto 15px auto; border-radius: 50%; overflow: hidden; border: 3px solid #2C7A7B; box-shadow: 0 4px 10px rgba(82, 121, 111, 0.15); animation: pulse 1.5s infinite ease-in-out;">
                         <img src="logo bienestar png.jpeg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
                     </div>
                     <h4 style="color: #2F3E46; font-size: 15px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">BIENESTAR</h4>
-                    <p style="color: #52796F; font-size: 11px; font-weight: 600; margin: 0 0 20px 0;">Preparando cupón de descuento digital...</p>
+                    <p style="color: #2C7A7B; font-size: 11px; font-weight: 600; margin: 0 0 20px 0;">Preparando cupón de descuento digital...</p>
                     <div style="width: 100%; height: 4px; background: #E2E8F0; border-radius: 2px; overflow: hidden; position: relative;">
-                        <div style="position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: #52796F; border-radius: 2px; animation: loading-bar 1.5s infinite linear;"></div>
+                        <div style="position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: #2C7A7B; border-radius: 2px; animation: loading-bar 1.5s infinite linear;"></div>
                     </div>
                 </div>
                 <style>
@@ -2245,14 +2270,14 @@ document.addEventListener('DOMContentLoaded', function() {
             element.style.boxSizing = "border-box";
 
             element.innerHTML = `
-                <div style="border: 2px dashed #52796F; border-radius: 24px; padding: 25px; background-color: #FAF8F5; text-align: center; box-sizing: border-box; width: 352px !important; min-width: 352px !important; max-width: 352px !important;">
+                <div style="border: 2px dashed #2C7A7B; border-radius: 24px; padding: 25px; background-color: #FAF8F5; text-align: center; box-sizing: border-box; width: 352px !important; min-width: 352px !important; max-width: 352px !important;">
                     ${svg_logo_coupon}
                     
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 2px solid #52796F; padding-bottom: 12px; margin-bottom: 15px;">
-                        <img src="${activeClaimB2B.logo || 'logo bienestar png.jpeg'}" crossorigin="anonymous" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #52796F;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 2px solid #2C7A7B; padding-bottom: 12px; margin-bottom: 15px;">
+                        <img src="${activeClaimB2B.logo || 'logo bienestar png.jpeg'}" crossorigin="anonymous" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #2C7A7B;" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';">
                         <div style="text-align: left;">
-                            <h4 style="font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 800; color: #52796F; margin: 0; text-transform: uppercase;">${activeClaimB2B.name}</h4>
-                            <p style="font-size: 8px; font-weight: bold; color: #84A59D; margin: 1px 0 0 0; letter-spacing: 1px; text-transform: uppercase;">Ecosistema BIENESTAR</p>
+                            <h4 style="font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 800; color: #2C7A7B; margin: 0; text-transform: uppercase;">${activeClaimB2B.name}</h4>
+                            <p style="font-size: 8px; font-weight: bold; color: #33BCA9; margin: 1px 0 0 0; letter-spacing: 1px; text-transform: uppercase;">Ecosistema BIENESTAR</p>
                         </div>
                     </div>
                     <div style="margin: 15px 0;">
@@ -2262,7 +2287,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; padding: 10px; border-radius: 12px; border: 1px solid #E2E8F0; width: 140px; margin: 10px auto;">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(activeClaimMsg)}&t=${Date.now()}" crossorigin="anonymous" style="width: 110px; height: 110px; object-fit: contain;">
-                        <span style="font-size: 10px; font-weight: bold; color: #52796F; font-family: monospace; margin-top: 5px;">${activeClaimB2B.code}</span>
+                        <span style="font-size: 10px; font-weight: bold; color: #2C7A7B; font-family: monospace; margin-top: 5px;">${activeClaimB2B.code}</span>
                     </div>
                     <div style="font-size: 7.5px; color: #A0AEC0; margin-top: 15px;">
                         <p>Validado bajo la Ley de Ciberseguridad N° 21.663.</p>
@@ -2361,13 +2386,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const btnJoin = document.getElementById('btnJoinSpecialist');
             if (checkbox.checked) {
                 btn.removeAttribute('disabled');
-                btn.className = "w-full bg-forest hover:bg-forest/95 text-white font-extrabold py-4 rounded-2xl shadow-md transition text-sm flex items-center justify-center space-x-2 opacity-100 cursor-pointer";
+                btn.className = "w-full bg-[#2C7A7B] hover:bg-[#2C7A7B]/95 text-white font-extrabold py-4 rounded-2xl shadow-md transition text-sm flex items-center justify-center space-x-2 opacity-100 cursor-pointer";
                 
                 btnJoin.removeAttribute('disabled');
                 btnJoin.className = "w-full border border-gray-200 text-gray-500 hover:bg-gray-50 font-bold py-3.5 rounded-2xl shadow-md transition text-xs opacity-100 cursor-pointer";
             } else {
                 btn.setAttribute('disabled', 'true');
-                btn.className = "w-full bg-forest text-white font-extrabold py-4 rounded-2xl shadow-md transition text-sm flex items-center justify-center space-x-2 opacity-50 cursor-not-allowed";
+                btn.className = "w-full bg-[#2C7A7B] text-white font-extrabold py-4 rounded-2xl shadow-md transition text-sm flex items-center justify-center space-x-2 opacity-50 cursor-not-allowed";
                 
                 btnJoin.setAttribute('disabled', 'true');
                 btnJoin.className = "w-full border border-gray-200 text-gray-500 font-bold py-3.5 rounded-2xl shadow-md transition text-xs opacity-50 cursor-not-allowed";
@@ -2399,16 +2424,16 @@ document.addEventListener('DOMContentLoaded', function() {
             selections.planPriceCLP = clpPrice;
             
             document.querySelectorAll('.membership-card').forEach(card => {
-                card.className = "membership-card border border-gray-200 rounded-2xl p-3 bg-white hover:border-forest/50 transition cursor-pointer shadow-sm";
+                card.className = "membership-card border border-gray-200 rounded-2xl p-3 bg-white hover:border-[#2C7A7B]/50 transition cursor-pointer shadow-sm";
             });
             
             const activeCard = document.getElementById(`plan-${plan}`);
             if (plan === 'trimestral') {
-                activeCard.className = "membership-card border-2 border-forest bg-forest/5 rounded-2xl p-3 relative overflow-hidden cursor-pointer shadow-sm";
+                activeCard.className = "membership-card border-2 border-[#2C7A7B] bg-[#2C7A7B]/5 rounded-2xl p-3 relative overflow-hidden cursor-pointer shadow-sm";
             } else if (plan === 'anual') {
-                activeCard.className = "membership-card border-2 border-forest bg-forest/5 rounded-2xl p-3 relative overflow-hidden cursor-pointer shadow-sm";
+                activeCard.className = "membership-card border-2 border-[#2C7A7B] bg-[#2C7A7B]/5 rounded-2xl p-3 relative overflow-hidden cursor-pointer shadow-sm";
             } else {
-                activeCard.className = "membership-card border-2 border-forest bg-forest/5 rounded-2xl p-3 cursor-pointer shadow-sm";
+                activeCard.className = "membership-card border-2 border-[#2C7A7B] bg-[#2C7A7B]/5 rounded-2xl p-3 cursor-pointer shadow-sm";
             }
         }
 
@@ -2465,12 +2490,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const fintocForm = document.getElementById('fintocPaymentForm');
             
             if (method === 'card') {
-                cardBtn.className = "pay-method-btn border-2 border-forest bg-forest/5 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition";
+                cardBtn.className = "pay-method-btn border-2 border-[#2C7A7B] bg-[#2C7A7B]/5 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition";
                 cardForm.classList.remove('hidden');
                 fintocForm.classList.add('hidden');
                 document.getElementById('btnPaymentText').innerText = "Confirmar y Pagar Mi Membresía";
             } else {
-                fintocBtn.className = "pay-method-btn border-2 border-forest bg-forest/5 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition";
+                fintocBtn.className = "pay-method-btn border-2 border-[#2C7A7B] bg-[#2C7A7B]/5 rounded-xl py-2 px-3 text-center flex items-center justify-center space-x-1.5 focus:outline-none transition";
                 cardForm.classList.add('hidden');
                 fintocForm.classList.remove('hidden');
                 document.getElementById('btnPaymentText').innerText = "Autorizar Transferencia Directa";
@@ -2611,7 +2636,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            document.getElementById('joinPhotoPreview').innerHTML = `<i class="fa-solid fa-spinner animate-spin text-forest"></i>`;
+            document.getElementById('joinPhotoPreview').innerHTML = `<i class="fa-solid fa-spinner animate-spin text-[#2C7A7B]"></i>`;
 
             // Auto-compresión
             compressImage(file, 800, 800, 0.7, function(base64Data) {
@@ -2631,14 +2656,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            document.getElementById('joinDocPreview').innerHTML = `<i class="fa-solid fa-spinner animate-spin text-forest text-xs"></i>`;
+            document.getElementById('joinDocPreview').innerHTML = `<i class="fa-solid fa-spinner animate-spin text-[#2C7A7B] text-xs"></i>`;
 
             if (file.type.startsWith('image/')) {
                 // Auto-compresión para imágenes de certificados
                 compressImage(file, 1000, 1000, 0.6, function(base64Data) {
                     document.getElementById('joinDocBase64').value = base64Data;
                     document.getElementById('joinDocFileName').innerText = file.name;
-                    document.getElementById('joinDocPreview').innerHTML = `<div class="text-[9px] text-forest font-bold uppercase">OK</div>`;
+                    document.getElementById('joinDocPreview').innerHTML = `<div class="text-[9px] text-[#2C7A7B] font-bold uppercase">OK</div>`;
                     alert("📄 ¡Certificado de Título cargado y optimizado con éxito!");
                 });
             } else {
@@ -2653,7 +2678,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const base64Data = e.target.result;
                     document.getElementById('joinDocBase64').value = base64Data;
                     document.getElementById('joinDocFileName').innerText = file.name;
-                    document.getElementById('joinDocPreview').innerHTML = `<div class="text-[9px] text-forest font-bold uppercase">OK</div>`;
+                    document.getElementById('joinDocPreview').innerHTML = `<div class="text-[9px] text-[#2C7A7B] font-bold uppercase">OK</div>`;
                     alert("📄 ¡Certificado de Título PDF cargado con éxito!");
                 };
                 reader.readAsDataURL(file);
@@ -2703,9 +2728,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     completedInput.value = 'true';
                     handle.style.left = maxDrag + 'px';
                     bg.style.width = '100%';
-                    bg.className = 'absolute left-0 top-0 h-full bg-emerald-500/20 rounded-2xl';
+                    bg.className = 'absolute left-0 top-0 h-full bg-[#2C7A7B]/20 rounded-2xl';
                     handle.innerHTML = '✨';
-                    handle.className = 'absolute h-full w-11 bg-emerald-600 flex items-center justify-center text-sm rounded-2xl shadow-md z-20 cursor-default';
+                    handle.className = 'absolute h-full w-11 bg-[#2C7A7B] flex items-center justify-center text-sm rounded-2xl shadow-md z-20 cursor-default';
                     text.innerText = '¡HUMANO VERIFICADO! 🌿';
                     text.className = 'text-[9px] font-black text-emerald-800 uppercase tracking-wider relative z-10';
                     handle.style.cursor = 'default';
@@ -2774,7 +2799,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Activar vista seleccionada
                 if (mode === 'whatsapp' && waView && btnWa) {
                     waView.classList.remove('hidden');
-                    btnWa.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-emerald-600 text-white shadow-sm';
+                    btnWa.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-[#2C7A7B] text-white shadow-sm';
                 } else if (mode === 'business' && bizView && btnBiz) {
                     bizView.classList.remove('hidden');
                     btnBiz.className = 'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-amber-600 text-white shadow-sm';
@@ -2946,9 +2971,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const msgHtml = `
                 <div class="flex justify-end mb-3">
-                    <div class="bg-emerald-700 text-white p-2.5 rounded-2xl rounded-tr-none max-w-xs shadow-md">
+                    <div class="bg-[#123838] text-white p-2.5 rounded-2xl rounded-tr-none max-w-xs shadow-md">
                         <img src="${photoData}" class="w-full h-48 object-cover rounded-xl mb-1 border border-emerald-500/50">
-                        <p class="text-[10px] text-emerald-200 text-right font-mono">${timeStr} • Foto adjunta 📸</p>
+                        <p class="text-[10px] text-[#E0F7F4] text-right font-mono">${timeStr} • Foto adjunta 📸</p>
                     </div>
                 </div>
             `;
@@ -3032,7 +3057,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="flex justify-center my-3">
                     <div class="bg-gray-800/80 border border-gray-700 text-gray-300 px-4 py-1.5 rounded-full text-xs font-mono flex items-center gap-2 shadow-sm">
                         <span>📹 Videollamada finalizada</span>
-                        <span class="text-emerald-400 font-bold">${mins}:${secs}</span>
+                        <span class="text-[#33BCA9] font-bold">${mins}:${secs}</span>
                     </div>
                 </div>
             `;
@@ -3343,6 +3368,50 @@ Se aplicó el fondo corporativo Cream Linen (#FAF8EE) al chat.`);
         </div>
     </div>
 </div>
+
+
+    <script>
+        // --- MENÚ DE 3 PUNTOS Y SUBMENÚS DE WHATSAPP ---
+        function toggleMainHeaderMenu() {
+            const menu = document.getElementById('main-header-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        function openNewGroupModal() {
+            toggleMainHeaderMenu();
+            alert("👥 Nuevo Grupo:\n\nSelecciona participantes de tu lista de contactos para crear un nuevo grupo de conversación.");
+        }
+
+        function openNewCommunityModal() {
+            toggleMainHeaderMenu();
+            alert("🌐 Nueva Comunidad:\n\nOrganiza tus grupos de salud, deporte y bienestar en una sola comunidad unificada.");
+        }
+
+        function openStarredMessagesModal() {
+            toggleMainHeaderMenu();
+            alert("⭐ Mensajes Destacados:\n\nAquí aparecerán los mensajes, prescripciones y enlaces que guardes como favoritos.");
+        }
+
+        function openLinkedDevicesModal() {
+            toggleMainHeaderMenu();
+            alert("💻 Dispositivos Vinculados:\n\nEscanea el código QR desde tu navegador en PC o Tablet para sincronizar Bienestar Web.");
+        }
+
+        function openSettingsDetail(category) {
+            const details = {
+                'Cuenta': "🔑 Ajustes de Cuenta:\n\n• Notificaciones de seguridad\n• Verificación en dos pasos\n• Cambiar número\n• Solicitar info. de mi cuenta\n• Eliminar mi cuenta",
+                'Privacidad': "🔒 Privacidad & Seguridad:\n\n• Hora de últ. vez y En línea\n• Foto de perfil y Info\n• Confirmaciones de lectura (Doble check azul)\n• Mensajes temporales (24h, 7d, 90d)\n• Bloqueo con huella dactilar",
+                'Chats': "💬 Ajustes de Chats:\n\n• Tema: Claro / Oscuro / Teal Air\n• Fondo de pantalla de chat\n• Visibilidad de archivos multimedia\n• Copia de seguridad de chats en la nube",
+                'Notificaciones': "🔔 Notificaciones & Tonos:\n\n• Tonos de conversación\n• Tonos de mensajes de chat\n• Notificaciones de alta prioridad\n• Tonos de llamadas y videollamadas HD",
+                'Almacenamiento': "💾 Almacenamiento y Datos:\n\n• Administrar almacenamiento\n• Uso de red\n• Descarga automática con datos / Wi-Fi\n• Calidad de carga de archivos",
+                'Idioma': "🌐 Idioma de la Aplicación:\n\n• Español (Idioma del dispositivo)\n• English\n• Português",
+                'Ayuda': "❓ Ayuda & Soporte:\n\n• Centro de ayuda\n• Contáctanos y soporte técnico\n• Términos y políticas de privacidad\n• Info. de la app (Bienestar v175.0 Teal Air)"
+            };
+
+            const content = details[category] || ("⚙️ Ajustes de " + category);
+            alert(content);
+        }
+    </script>
 
 </body>
 </html>
