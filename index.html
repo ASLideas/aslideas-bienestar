@@ -17,7 +17,7 @@ tailwind.config = {
                             verde: '#2C7A7B',
                             turquesa: '#33BCA9',
                             oscuro: '#123838',
-                            oro: '#D4AF37',
+                            oro: '#2C7A7B',
                             fondo: '#FAF8EE',
                             menta: '#E0F7F4',
                             rosado: '#E53E3E'
@@ -35,7 +35,7 @@ tailwind.config = {
             --p-verde: #2C7A7B;
             --p-turquesa: #33BCA9;
             --p-oscuro: #123838;
-            --p-oro: #D4AF37;
+            --p-oro: #2C7A7B;
             --p-fondo: #FAF8EE;
         }
 
@@ -92,7 +92,7 @@ tailwind.config = {
         }
 
         .progress-bar-animated {
-            background: linear-gradient(270deg, #33BCA9, #2C7A7B, #D4AF37, #33BCA9);
+            background: linear-gradient(270deg, #33BCA9, #2C7A7B, #123838, #33BCA9);
             background-size: 300% 300%;
             animation: progressGlow 2s ease infinite;
         }
@@ -150,7 +150,7 @@ tailwind.config = {
                 <!-- Glowing Circle Logo Container -->
                 <div class="relative w-36 h-36 mb-6 flex items-center justify-center">
                     <div class="absolute inset-0 rounded-full bg-[#33BCA9]/30 blur-xl animate-pulse"></div>
-                    <div class="splash-logo-glow w-32 h-32 rounded-full bg-[#FAF8EE] p-2 flex items-center justify-center border-4 border-[#D4AF37] shadow-2xl relative z-10 overflow-hidden">
+                    <div class="splash-logo-glow w-32 h-32 rounded-full bg-[#FAF8EE] p-2 flex items-center justify-center border-4 border-[#33BCA9] shadow-2xl relative z-10 overflow-hidden">
                         <img src="logo bienestar png.jpeg" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';" class="w-full h-full object-cover rounded-full shadow-inner" alt="Logo Bienestar">
                     </div>
                 </div>
@@ -163,7 +163,7 @@ tailwind.config = {
             <div class="w-full flex flex-col items-center gap-3 pb-6">
                 <div class="flex justify-between w-full text-xs text-[#E0F7F4] font-semibold px-1">
                     <span id="splash-status-text">Cargando módulos de Bienestar...</span>
-                    <span id="splash-percentage" class="font-bold text-[#D4AF37]">0%</span>
+                    <span id="splash-percentage" class="font-bold text-[#2C7A7B]">0%</span>
                 </div>
 
                 <!-- Progress Track -->
@@ -175,7 +175,7 @@ tailwind.config = {
                 <div class="flex items-center gap-2 mt-2 text-[10px] text-[#FAF8EE]/60">
                     <span class="w-2.5 h-2.5 rounded-full bg-[#2C7A7B] border border-white/30" title="Verde Pantone"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-[#33BCA9] border border-white/30" title="Turquesa Menta"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#D4AF37] border border-white/30" title="Oro Corp"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#2C7A7B] border border-white/30" title="Oro Corp"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-[#FAF8EE] border border-white/30" title="Fondo Crema"></span>
                     <span>Colores Corporativos Oficiales</span>
                 </div>
@@ -244,7 +244,7 @@ tailwind.config = {
                 <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i> Mi Estado de Ánimo
             </button>
             <button onclick="triggerMenuAction('Sincronizar Spotify')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
-                <i data-lucide="music" class="w-4 h-4 text-[#1DB954]"></i> Vincular Spotify Bienestar
+                <i data-lucide="music" class="w-4 h-4 text-[#2C7A7B]"></i> Vincular Spotify Bienestar
             </button>
             <div class="my-1 border-t border-slate-100"></div>
             <button onclick="triggerMenuAction('Soporte y Ayuda')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2 text-slate-500">
@@ -255,7 +255,7 @@ tailwind.config = {
         <!-- Medical Toast / Notification Alert -->
         <div id="medical-toast" class="transform -translate-y-64 transition-transform duration-500 absolute top-16 left-4 right-4 z-50 bg-[#123838] text-white p-3.5 rounded-2xl shadow-2xl border border-[#33BCA9] flex items-start gap-3">
             <div class="p-2 bg-[#2C7A7B] rounded-xl shrink-0">
-                <i data-lucide="calendar-check" class="w-5 h-5 text-[#D4AF37]"></i>
+                <i data-lucide="calendar-check" class="w-5 h-5 text-[#2C7A7B]"></i>
             </div>
             <div class="flex-1 text-xs">
                 <div class="flex justify-between items-center font-bold text-[#33BCA9] mb-0.5">
@@ -351,7 +351,7 @@ tailwind.config = {
                     <div onclick="openChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120', 'Recordatorio: Tu infusión de Melisa a las 22:00 hrs', 'En línea', 'medicos')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/20">
                         <div class="relative shrink-0">
                             <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120" class="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]" alt="Dr. Aldo">
-                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#D4AF37] border-2 border-white rounded-full"></span>
+                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#2C7A7B] border-2 border-white rounded-full"></span>
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-start mb-0.5">
@@ -375,7 +375,7 @@ tailwind.config = {
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-start mb-0.5">
                                 <h3 class="text-xs font-bold text-[#123838] truncate flex items-center gap-1">
-                                    Asistente IA Bienestar <span class="text-[9px] bg-[#D4AF37] text-white px-1 rounded font-extrabold">IA</span>
+                                    Asistente IA Bienestar <span class="text-[9px] bg-[#2C7A7B] text-white px-1 rounded font-extrabold">IA</span>
                                 </h3>
                                 <span class="text-[10px] text-slate-400 font-medium">Ahora</span>
                             </div>
@@ -546,14 +546,14 @@ tailwind.config = {
                         <div class="glass-card p-3.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-xs font-bold text-[#123838]">Pasos Diarios</span>
-                                <i data-lucide="footprints" class="w-4 h-4 text-[#D4AF37]"></i>
+                                <i data-lucide="footprints" class="w-4 h-4 text-[#2C7A7B]"></i>
                             </div>
                             <div class="my-1">
                                 <span class="text-xl font-black text-[#123838]">6,420</span>
                                 <span class="text-[10px] text-slate-400 font-bold">/ 10k</span>
                             </div>
                             <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-[#D4AF37] h-full w-[64%]"></div>
+                                <div class="bg-[#2C7A7B] h-full w-[64%]"></div>
                             </div>
                         </div>
                     </div>
@@ -616,7 +616,7 @@ tailwind.config = {
                 <!-- Emprende Header Banner -->
                 <div class="bg-gradient-to-r from-[#2C7A7B] to-[#123838] text-white p-4 rounded-2xl shadow-md relative overflow-hidden">
                     <div class="relative z-10 space-y-1">
-                        <span class="text-[10px] bg-[#D4AF37] text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">MercadoLibre Local + IA</span>
+                        <span class="text-[10px] bg-[#2C7A7B] text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">MercadoLibre Local + IA</span>
                         <h3 class="text-base font-black tracking-tight">Emprende Bienestar PyME</h3>
                         <p class="text-xs text-[#E0F7F4]">Descubre productos artesanales, conecta con clientes mediante Match y crea videos con IA.</p>
                     </div>
@@ -663,7 +663,7 @@ tailwind.config = {
                 <!-- Match PyME Subtab -->
                 <div id="emprende-sub-match" class="hidden space-y-3">
                     <div class="glass-card p-4 rounded-2xl text-center space-y-3 border border-[#33BCA9]/30 bg-gradient-to-b from-white to-[#E0F7F4]/30">
-                        <div class="w-12 h-12 bg-[#D4AF37] text-white rounded-full flex items-center justify-center mx-auto shadow-md">
+                        <div class="w-12 h-12 bg-[#2C7A7B] text-white rounded-full flex items-center justify-center mx-auto shadow-md">
                             <i data-lucide="heart-handshake" class="w-6 h-6"></i>
                         </div>
                         <div>
@@ -680,11 +680,11 @@ tailwind.config = {
                 <div id="emprende-sub-ia" class="hidden space-y-3">
                     <div class="glass-card p-4 rounded-2xl space-y-3 border border-[#33BCA9]/30">
                         <h3 class="text-xs font-black text-[#123838] uppercase tracking-wider flex items-center gap-1.5">
-                            <i data-lucide="sparkles" class="w-4 h-4 text-[#D4AF37]"></i>
+                            <i data-lucide="sparkles" class="w-4 h-4 text-[#2C7A7B]"></i>
                             Creación de Catálogo & Video con IA
                         </h3>
                         <p class="text-xs text-slate-600">Genera afiches, guiones y videos promocionales automáticamente para tu emprendimiento.</p>
-                        <button onclick="alert('Generando video promocional de tu catálogo con Agente IA...')" class="w-full bg-[#D4AF37] text-white font-bold text-xs py-2.5 rounded-xl shadow-xs">
+                        <button onclick="alert('Generando video promocional de tu catálogo con Agente IA...')" class="w-full bg-[#2C7A7B] text-white font-bold text-xs py-2.5 rounded-xl shadow-xs">
                             🎬 Generar Video Promocional con IA
                         </button>
                     </div>
@@ -701,12 +701,12 @@ tailwind.config = {
                 <div class="bg-gradient-to-b from-[#123838] via-[#1A4D4E] to-[#123838] text-white p-5 rounded-3xl shadow-xl relative overflow-hidden border border-[#33BCA9]/30">
                     <div class="flex justify-between items-start relative z-10">
                         <div>
-                            <span class="text-[10px] bg-[#D4AF37] text-white px-2.5 py-0.5 rounded-full font-black uppercase tracking-widest">Dios del Sueño & Descanso</span>
+                            <span class="text-[10px] bg-[#2C7A7B] text-white px-2.5 py-0.5 rounded-full font-black uppercase tracking-widest">Dios del Sueño & Descanso</span>
                             <h2 class="text-xl font-black tracking-tight mt-1 text-[#FAF8EE]">MORFEO</h2>
                             <p class="text-xs text-[#E0F7F4] font-medium">Música Binaural, Meditación & Relajación Profunda para un Buen Descanso</p>
                         </div>
                         <div class="w-10 h-10 rounded-full bg-[#FAF8EE]/10 flex items-center justify-center border border-white/20">
-                            <i data-lucide="moon" class="w-5 h-5 text-[#D4AF37]"></i>
+                            <i data-lucide="moon" class="w-5 h-5 text-[#2C7A7B]"></i>
                         </div>
                     </div>
 
@@ -747,9 +747,9 @@ tailwind.config = {
                 </div>
 
                 <!-- SPOTIFY VINCULACIÓN & INTEGRACIÓN -->
-                <div class="glass-card p-4 rounded-2xl border border-[#1DB954]/30 bg-gradient-to-r from-[#1DB954]/10 to-white flex items-center justify-between shadow-sm">
+                <div class="glass-card p-4 rounded-2xl border border-[#33BCA9]/30 bg-gradient-to-r from-[#E0F7F4]/50 to-white flex items-center justify-between shadow-sm">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-[#1DB954] text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                        <div class="w-10 h-10 rounded-full bg-[#2C7A7B] text-white flex items-center justify-center font-bold text-lg shadow-sm">
                             <i data-lucide="music-2" class="w-5 h-5"></i>
                         </div>
                         <div>
@@ -757,7 +757,7 @@ tailwind.config = {
                             <p class="text-[10px] text-slate-500">Sincroniza tus Playlists de Meditación y Relajación</p>
                         </div>
                     </div>
-                    <button onclick="alert('Conectando con tu cuenta oficial de Spotify...')" class="bg-[#1DB954] text-white text-xs font-bold px-3 py-1.5 rounded-full hover:bg-black transition shadow-xs">
+                    <button onclick="alert('Conectando con tu cuenta oficial de Spotify...')" class="bg-[#2C7A7B] text-white text-xs font-bold px-3 py-1.5 rounded-full hover:bg-black transition shadow-xs">
                         Conectar
                     </button>
                 </div>
@@ -800,7 +800,7 @@ tailwind.config = {
                     <!-- Track Item 3 -->
                     <div onclick="selectTrack('Meditación Morfeo Guiada', 'Voz Suave & Respiración')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
                         <div class="flex items-center gap-2.5">
-                            <i data-lucide="sparkles" class="w-4 h-4 text-[#D4AF37]"></i>
+                            <i data-lucide="sparkles" class="w-4 h-4 text-[#2C7A7B]"></i>
                             <div>
                                 <span class="text-xs font-bold text-[#123838] block">Meditación Morfeo</span>
                                 <span class="text-[10px] text-slate-500">Inducción al Sueño Profundo — 20 min</span>
@@ -3411,7 +3411,316 @@ Se aplicó el fondo corporativo Cream Linen (#FAF8EE) al chat.`);
             const content = details[category] || ("⚙️ Ajustes de " + category);
             alert(content);
         }
-    </script>
+    
+        // Helper to close any modal by ID
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.add('hidden');
+        }
+
+        // --- SUBMENÚ CABECERA PRINCIPAL ---
+        function openNewGroupModal() {
+            document.getElementById('main-header-menu').classList.add('hidden');
+            document.getElementById('createGroupModal').classList.remove('hidden');
+        }
+
+        function createNewGroupSubmit() {
+            const name = document.getElementById('groupNameInput').value || 'Grupo Bienestar';
+            alert('👥 ¡Grupo "' + name + '" creado con éxito!');
+            closeModal('createGroupModal');
+        }
+
+        function openNewCommunityModal() {
+            document.getElementById('main-header-menu').classList.add('hidden');
+            document.getElementById('createCommunityModal').classList.remove('hidden');
+        }
+
+        function createNewCommunitySubmit() {
+            const name = document.getElementById('commNameInput').value || 'Comunidad Saludable';
+            alert('🌐 ¡Comunidad "' + name + '" registrada!');
+            closeModal('createCommunityModal');
+        }
+
+        function openStarredMessagesModal() {
+            document.getElementById('main-header-menu').classList.add('hidden');
+            document.getElementById('starredMessagesModal').classList.remove('hidden');
+        }
+
+        function openLinkedDevicesModal() {
+            document.getElementById('main-header-menu').classList.add('hidden');
+            document.getElementById('linkedDevicesModal').classList.remove('hidden');
+        }
+
+        // --- SUBMENÚ CHAT ACTIVO ---
+        function showChatContactInfo() {
+            toggleActiveChatMenu();
+            const name = document.getElementById('chat-user-name') ? document.getElementById('chat-user-name').textContent : 'Contacto';
+            const avatar = document.getElementById('chat-user-avatar') ? document.getElementById('chat-user-avatar').src : '';
+            if (document.getElementById('infoModalName')) document.getElementById('infoModalName').textContent = name;
+            if (avatar && document.getElementById('infoModalAvatar')) document.getElementById('infoModalAvatar').src = avatar;
+            document.getElementById('contactInfoModal').classList.remove('hidden');
+        }
+
+        function showChatMediaDocs() {
+            toggleActiveChatMenu();
+            document.getElementById('chatMediaModal').classList.remove('hidden');
+        }
+
+        function showChatWallpaperModal() {
+            toggleActiveChatMenu();
+            document.getElementById('wallpaperModal').classList.remove('hidden');
+        }
+
+        function setChatWallpaper(color) {
+            const container = document.getElementById('chat-messages-container');
+            if (container) {
+                container.style.backgroundColor = color;
+                container.style.backgroundImage = 'none';
+            }
+            alert('🖼️ Fondo de pantalla actualizado');
+            closeModal('wallpaperModal');
+        }
+
+        function exportCurrentChatHistory() {
+            toggleActiveChatMenu();
+            const name = document.getElementById('chat-user-name') ? document.getElementById('chat-user-name').textContent : 'Contacto';
+            const textContent = "HISTORIAL DE CHAT BIENESTAR - " + name + "\n" +
+                                "Fecha de exportación: " + new Date().toLocaleString() + "\n" +
+                                "--------------------------------------------------------\n\n" +
+                                "• [10:30] " + name + ": ¡Hola! Bienvenido a la consulta de medicina integrativa.\n" +
+                                "• [10:31] Paciente: Hola, me gustaría información sobre tratamientos herbolarios.\n" +
+                                "• [10:32] " + name + ": Perfecto. Te sugiero revisar las infusiones de Melisa y Romero.";
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'chat_bienestar_' + name.replace(/\s+/g, '_').toLowerCase() + '.txt';
+            link.click();
+        }
+
+</script>
+
+
+<!-- ========================================================= -->
+<!-- MODALES Y SUBMENÚS INTERACTIVOS DE BIENESTAR TEAL AIR     -->
+<!-- ========================================================= -->
+
+<!-- 1. Modal Nuevo Grupo -->
+<div id="createGroupModal" class="fixed inset-0 z-[9960] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 text-[#123838] space-y-4 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-[#33BCA9]/20 pb-3">
+            <h3 class="font-black text-sm flex items-center gap-2">
+                <i data-lucide="users" class="w-4 h-4 text-[#2C7A7B]"></i>
+                Nuevo Grupo de Bienestar
+            </h3>
+            <button onclick="closeModal('createGroupModal')" class="p-1 rounded-full hover:bg-slate-200">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] font-bold text-slate-500 uppercase">Nombre del Grupo</label>
+                <input id="groupNameInput" type="text" placeholder="Ej: Meditación & Yoga Mañanas" class="w-full text-xs p-2.5 rounded-xl border border-[#33BCA9]/30 bg-white focus:outline-none focus:ring-1 focus:ring-[#2C7A7B]">
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-slate-500 uppercase">Seleccionar Integrantes</label>
+                <div class="space-y-1.5 max-h-40 overflow-y-auto mt-1">
+                    <label class="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-100 text-xs">
+                        <span class="font-bold">Camila Silva (Yoga)</span>
+                        <input type="checkbox" checked class="accent-[#2C7A7B]">
+                    </label>
+                    <label class="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-100 text-xs">
+                        <span class="font-bold">Dr. Aldo Licandeo</span>
+                        <input type="checkbox" checked class="accent-[#2C7A7B]">
+                    </label>
+                    <label class="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-100 text-xs">
+                        <span class="font-bold">Herbolaria Monterilla</span>
+                        <input type="checkbox" class="accent-[#2C7A7B]">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <button onclick="createNewGroupSubmit()" class="w-full bg-[#2C7A7B] text-white text-xs font-bold py-2.5 rounded-xl shadow-md hover:bg-[#123838] transition">
+            👥 Crear Grupo Ahora
+        </button>
+    </div>
+</div>
+
+<!-- 2. Modal Nueva Comunidad -->
+<div id="createCommunityModal" class="fixed inset-0 z-[9960] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 text-[#123838] space-y-4 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-[#33BCA9]/20 pb-3">
+            <h3 class="font-black text-sm flex items-center gap-2">
+                <i data-lucide="globe" class="w-4 h-4 text-[#2C7A7B]"></i>
+                Nueva Comunidad Saludable
+            </h3>
+            <button onclick="closeModal('createCommunityModal')" class="p-1 rounded-full hover:bg-slate-200">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] font-bold text-slate-500 uppercase">Nombre de la Comunidad</label>
+                <input id="commNameInput" type="text" placeholder="Ej: Red de Medicina Integrativa Chile" class="w-full text-xs p-2.5 rounded-xl border border-[#33BCA9]/30 bg-white focus:outline-none">
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-slate-500 uppercase">Descripción</label>
+                <textarea id="commDescInput" rows="2" placeholder="Espacio de intercambio de saberes herbolarios y salud holística..." class="w-full text-xs p-2.5 rounded-xl border border-[#33BCA9]/30 bg-white focus:outline-none"></textarea>
+            </div>
+        </div>
+        <button onclick="createNewCommunitySubmit()" class="w-full bg-[#2C7A7B] text-white text-xs font-bold py-2.5 rounded-xl shadow-md hover:bg-[#123838] transition">
+            🌐 Crear Comunidad
+        </button>
+    </div>
+</div>
+
+<!-- 3. Modal Mensajes Destacados -->
+<div id="starredMessagesModal" class="fixed inset-0 z-[9960] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 text-[#123838] space-y-4 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-[#33BCA9]/20 pb-3">
+            <h3 class="font-black text-sm flex items-center gap-2">
+                <i data-lucide="star" class="w-4 h-4 text-[#2C7A7B]"></i>
+                Mensajes Destacados
+            </h3>
+            <button onclick="closeModal('starredMessagesModal')" class="p-1 rounded-full hover:bg-slate-200">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <div class="space-y-2 max-h-60 overflow-y-auto">
+            <div class="p-3 bg-white rounded-2xl border border-slate-100 text-xs space-y-1">
+                <span class="text-[10px] text-[#2C7A7B] font-bold block">Dr. Aldo Licandeo</span>
+                <p class="text-slate-700">"Toma 20 gotas de infusión de Melisa antes de acostarte para conciliar el sueño."</p>
+            </div>
+            <div class="p-3 bg-white rounded-2xl border border-slate-100 text-xs space-y-1">
+                <span class="text-[10px] text-[#2C7A7B] font-bold block">Herbolaria Monterilla</span>
+                <p class="text-slate-700">"Tu código de descuento en ungüento es: BIENESTAR15."</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 4. Modal Dispositivos Vinculados -->
+<div id="linkedDevicesModal" class="fixed inset-0 z-[9960] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 text-[#123838] space-y-4 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-[#33BCA9]/20 pb-3">
+            <h3 class="font-black text-sm flex items-center gap-2">
+                <i data-lucide="laptop" class="w-4 h-4 text-[#2C7A7B]"></i>
+                Dispositivos Vinculados
+            </h3>
+            <button onclick="closeModal('linkedDevicesModal')" class="p-1 rounded-full hover:bg-slate-200">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <div class="text-center p-4 bg-white rounded-2xl border border-[#33BCA9]/20 space-y-2">
+            <i data-lucide="qr-code" class="w-12 h-12 text-[#2C7A7B] mx-auto"></i>
+            <h4 class="text-xs font-bold">Bienestar Web / PC</h4>
+            <p class="text-[10px] text-slate-500">Usa Bienestar en tu computadora escaneando el código QR</p>
+            <button onclick="alert('📷 Abriendo escáner QR de cámara para vincular PC...')" class="bg-[#2C7A7B] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm">
+                Vincular un dispositivo
+            </button>
+        </div>
+        <div class="space-y-1.5 text-xs">
+            <span class="text-[10px] font-bold text-slate-500 uppercase">Sesiones Activas</span>
+            <div class="p-2.5 bg-white rounded-xl border border-slate-100 flex items-center justify-between">
+                <div>
+                    <span class="font-bold block">Chrome (Windows 11)</span>
+                    <span class="text-[10px] text-[#2C7A7B]">Santiago • Activo ahora</span>
+                </div>
+                <button onclick="alert('Sesión cerrada')" class="text-[10px] text-red-500 font-bold">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 5. Modal Ver Contacto / Info -->
+<div id="contactInfoModal" class="fixed inset-0 z-[9960] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 text-[#123838] space-y-4 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-[#33BCA9]/20 pb-3">
+            <h3 class="font-black text-sm flex items-center gap-2">
+                <i data-lucide="user" class="w-4 h-4 text-[#2C7A7B]"></i>
+                Info. del Contacto
+            </h3>
+            <button onclick="closeModal('contactInfoModal')" class="p-1 rounded-full hover:bg-slate-200">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <div class="text-center space-y-2">
+            <img id="infoModalAvatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120" class="w-20 h-20 rounded-full mx-auto object-cover border-2 border-[#2C7A7B] shadow-md">
+            <h4 id="infoModalName" class="font-extrabold text-sm text-[#123838]">Dr. Aldo Licandeo</h4>
+            <span class="text-[10px] bg-[#E0F7F4] text-[#2C7A7B] px-2.5 py-0.5 rounded-full font-bold">Especialista Certificado</span>
+            <p class="text-xs text-slate-500">"Acompañamiento integrativo y medicina herbolaria personalizada."</p>
+        </div>
+        <div class="p-3 bg-white rounded-2xl border border-slate-100 text-xs space-y-2">
+            <div class="flex items-center gap-2 text-slate-600">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-[#2C7A7B]"></i>
+                <span>+56 9 8765 4321</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-600">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#2C7A7B]"></i>
+                <span>Providencia, Santiago</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 6. Modal Archivos, Enlaces y Docs -->
+<div id="chatMediaModal" class="fixed inset-0 z-[9960] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 text-[#123838] space-y-4 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-[#33BCA9]/20 pb-3">
+            <h3 class="font-black text-sm flex items-center gap-2">
+                <i data-lucide="folder" class="w-4 h-4 text-[#2C7A7B]"></i>
+                Archivos y Documentos
+            </h3>
+            <button onclick="closeModal('chatMediaModal')" class="p-1 rounded-full hover:bg-slate-200">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <div class="space-y-2 text-xs">
+            <div class="p-2.5 bg-white rounded-xl border border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="file-text" class="w-4 h-4 text-[#2C7A7B]"></i>
+                    <span class="font-bold">Ficha_SOAP_Prescripcion.pdf</span>
+                </div>
+                <button onclick="alert('Descargando PDF...')" class="text-[10px] bg-[#E0F7F4] text-[#2C7A7B] px-2 py-1 rounded-lg font-bold">Ver</button>
+            </div>
+            <div class="p-2.5 bg-white rounded-xl border border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="image" class="w-4 h-4 text-[#2C7A7B]"></i>
+                    <span class="font-bold">Foto_Tratamiento_1080p.jpg</span>
+                </div>
+                <button onclick="alert('Abriendo imagen...')" class="text-[10px] bg-[#E0F7F4] text-[#2C7A7B] px-2 py-1 rounded-lg font-bold">Ver</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 7. Modal Fondos de Pantalla -->
+<div id="wallpaperModal" class="fixed inset-0 z-[9960] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 text-[#123838] space-y-4 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-[#33BCA9]/20 pb-3">
+            <h3 class="font-black text-sm flex items-center gap-2">
+                <i data-lucide="image" class="w-4 h-4 text-[#2C7A7B]"></i>
+                Fondo de Pantalla del Chat
+            </h3>
+            <button onclick="closeModal('wallpaperModal')" class="p-1 rounded-full hover:bg-slate-200">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs font-bold">
+            <button onclick="setChatWallpaper('#FAF8EE')" class="p-3 rounded-2xl bg-[#FAF8EE] border-2 border-[#2C7A7B] text-[#123838]">
+                🌾 Crema Lino
+            </button>
+            <button onclick="setChatWallpaper('#E0F7F4')" class="p-3 rounded-2xl bg-[#E0F7F4] border border-[#33BCA9] text-[#123838]">
+                🌿 Menta Fresca
+            </button>
+            <button onclick="setChatWallpaper('#123838')" class="p-3 rounded-2xl bg-[#123838] text-white">
+                🌲 Verde Pizarra
+            </button>
+            <button onclick="setChatWallpaper('#0F172A')" class="p-3 rounded-2xl bg-[#0F172A] text-white">
+                🌙 Oscuro Noche
+            </button>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
