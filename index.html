@@ -133,10 +133,10 @@ tailwind.config = {
         <!-- ========================================================= -->
         <!-- PANTALLA DE CARGA / ESPERA DE DESCARGA (SPLASH SCREEN)    -->
         <!-- ========================================================= -->
-        <div id="splash-screen" class="absolute inset-0 z-[100] bg-gradient-to-b from-[#123838] via-[#2C7A7B] to-[#123838] flex flex-col justify-between items-center p-8 text-white transition-opacity duration-700">
+        <div id="splash-screen" class="absolute inset-0 z-[100] bg-gradient-to-b from-[#FAF8EE] via-[#E0F7F4] to-[#FAF8EE] flex flex-col justify-between items-center p-8 text-[#123838] transition-opacity duration-700">
             
             <!-- Top Status Bar Simulation -->
-            <div class="w-full flex justify-between items-center text-xs text-[#FAF8EE]/70 pt-2">
+            <div class="w-full flex justify-between items-center text-xs text-[#2C7A7B] pt-2">
                 <span id="splash-time">09:41</span>
                 <div class="flex items-center gap-1.5">
                     <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
@@ -149,25 +149,25 @@ tailwind.config = {
                 
                 <!-- Glowing Circle Logo Container -->
                 <div class="relative w-36 h-36 mb-6 flex items-center justify-center">
-                    <div class="absolute inset-0 rounded-full bg-[#33BCA9]/30 blur-xl animate-pulse"></div>
-                    <div class="splash-logo-glow w-32 h-32 rounded-full bg-[#FAF8EE] p-2 flex items-center justify-center border-4 border-[#33BCA9] shadow-2xl relative z-10 overflow-hidden">
+                    <div class="absolute inset-0 rounded-full bg-[#33BCA9]/20 blur-xl animate-pulse"></div>
+                    <div class="splash-logo-glow w-32 h-32 rounded-full bg-white p-2 flex items-center justify-center border-4 border-[#33BCA9] shadow-xl relative z-10 overflow-hidden">
                         <img src="logo bienestar png.jpeg" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';" class="w-full h-full object-cover rounded-full shadow-inner" alt="Logo Bienestar">
                     </div>
                 </div>
 
-                <h1 class="text-2xl font-black text-[#FAF8EE] tracking-tight mb-1">BIENESTAR</h1>
-                <p class="text-xs text-[#E0F7F4] font-medium tracking-wide max-w-[260px]">Tu Ecosistema Integral de Salud, Comunidad, PyMEs & Descanso Bienestar</p>
+                <h1 class="text-2xl font-black text-[#123838] tracking-tight mb-1">BIENESTAR</h1>
+                <p class="text-xs text-[#2C7A7B] font-semibold tracking-wide max-w-[260px]">Tu Ecosistema Integral de Salud, Comunidad, PyMEs & Descanso Bienestar</p>
             </div>
 
             <!-- Bottom Progress & Download Wait Area -->
             <div class="w-full flex flex-col items-center gap-3 pb-6">
-                <div class="flex justify-between w-full text-xs text-[#E0F7F4] font-semibold px-1">
+                <div class="flex justify-between w-full text-xs text-[#2C7A7B] font-bold px-1">
                     <span id="splash-status-text">Cargando módulos de Bienestar...</span>
                     <span id="splash-percentage" class="font-bold text-[#2C7A7B]">0%</span>
                 </div>
 
                 <!-- Progress Track -->
-                <div class="w-full bg-[#123838]/80 h-3 rounded-full overflow-hidden p-0.5 border border-[#33BCA9]/40 shadow-inner">
+                <div class="w-full bg-[#E0F7F4] h-3 rounded-full overflow-hidden p-0.5 border border-[#33BCA9]/40 shadow-inner">
                     <div id="splash-progress-bar" class="progress-bar-animated h-full w-0% rounded-full transition-all duration-300 ease-out"></div>
                 </div>
 
@@ -328,13 +328,13 @@ tailwind.config = {
                         Todos
                     </button>
                     <button onclick="filterChats('amigos', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
-                        👥 Amigos
-                    </button>
-                    <button onclick="filterChats('medicos', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
-                        🩺 Profesionales
+                        Amigos
                     </button>
                     <button onclick="filterChats('ia', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
-                        🤖 Asistente IA
+                        Asistente IA
+                    </button>
+                    <button onclick="filterChats('unread', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
+                        No leídos
                     </button>
                 </div>
 
@@ -495,19 +495,19 @@ tailwind.config = {
 
                 <!-- Chat Bottom Quick Attach & Input Bar -->
                 <div class="p-3 bg-white border-t border-[#33BCA9]/20 flex flex-col gap-2">
-                    <!-- Attachment Shortcuts -->
+                    <!-- Attachment Shortcuts (Funcionales: Cámara, Micrófono y Videollamada) -->
                     <div class="flex items-center gap-2 overflow-x-auto pb-1 text-[11px] font-semibold text-[#2C7A7B]">
-                        <button onclick="sendAttachment('📷 Foto')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
-                            <i data-lucide="camera" class="w-3.5 h-3.5"></i> Foto
+                        <button onclick="openCameraModal()" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
+                            <i data-lucide="camera" class="w-3.5 h-3.5"></i> Cámara
                         </button>
-                        <button onclick="sendAttachment('🎥 Video')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
-                            <i data-lucide="video" class="w-3.5 h-3.5"></i> Video
+                        <button onclick="openVoiceRecorderModal()" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
+                            <i data-lucide="mic" class="w-3.5 h-3.5"></i> Grabadora
                         </button>
-                        <button onclick="sendAttachment('💊 Dosis')" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
-                            <i data-lucide="pill" class="w-3.5 h-3.5"></i> Dosis
+                        <button onclick="startVideoCall('Especialista Bienestar')" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
+                            <i data-lucide="video" class="w-3.5 h-3.5"></i> Videollamada
                         </button>
-                        <button onclick="openFullEmojiPicker()" class="flex items-center gap-1 bg-[#E0F7F4] px-2.5 py-1 rounded-full shrink-0">
-                            <i data-lucide="smile" class="w-3.5 h-3.5"></i> Ánimo
+                        <button onclick="openFullEmojiPicker()" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
+                            <i data-lucide="smile" class="w-3.5 h-3.5"></i> Emojis
                         </button>
                     </div>
 
@@ -3077,6 +3077,140 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+        
+        // --- FUNCIONES DE GRABADORA DE VOZ Y CÁMARA REAL ---
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let recordingInterval = null;
+        let recordingSeconds = 0;
+
+        function openVoiceRecorderModal() {
+            const modal = document.getElementById('voiceRecorderModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeVoiceRecorderModal() {
+            const modal = document.getElementById('voiceRecorderModal');
+            if (modal) modal.classList.add('hidden');
+            stopVoiceRecording();
+        }
+
+        async function toggleVoiceRecording() {
+            const btnText = document.getElementById('rec-btn-text');
+            const statusText = document.getElementById('recording-status');
+            
+            if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        sendVoiceNoteToChat(audioUrl);
+                    };
+
+                    mediaRecorder.start();
+                    recordingSeconds = 0;
+                    if (recordingInterval) clearInterval(recordingInterval);
+                    recordingInterval = setInterval(() => {
+                        recordingSeconds++;
+                        const mins = String(Math.floor(recordingSeconds / 60)).padStart(2, '0');
+                        const secs = String(recordingSeconds % 60).padStart(2, '0');
+                        const timer = document.getElementById('recording-timer');
+                        if (timer) timer.textContent = `${mins}:${secs}`;
+                    }, 1000);
+
+                    if (btnText) btnText.textContent = 'Detener y Enviar';
+                    if (statusText) statusText.textContent = '🎙️ Grabando audio en tiempo real...';
+                } catch (err) {
+                    console.error('Error accediendo al micrófono:', err);
+                    alert('No se pudo acceder al micrófono. Verifica los permisos de tu dispositivo.');
+                }
+            } else if (mediaRecorder.state === 'recording') {
+                stopVoiceRecording();
+            }
+        }
+
+        function stopVoiceRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+            }
+            if (recordingInterval) {
+                clearInterval(recordingInterval);
+                recordingInterval = null;
+            }
+            const btnText = document.getElementById('rec-btn-text');
+            const statusText = document.getElementById('recording-status');
+            const timer = document.getElementById('recording-timer');
+            if (btnText) btnText.textContent = 'Iniciar Grabación';
+            if (statusText) statusText.textContent = 'Presiona iniciar para grabar mensaje audio';
+            if (timer) timer.textContent = '00:00';
+            
+            const modal = document.getElementById('voiceRecorderModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function sendVoiceNoteToChat(audioUrl) {
+            const container = document.getElementById('chat-messages-container');
+            if (!container) return;
+            
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            
+            const noteHtml = `
+                <div class="flex items-end justify-end gap-2 my-2">
+                    <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] shadow-md">
+                        <div class="flex items-center gap-2 mb-1">
+                            <i data-lucide="mic" class="w-4 h-4 text-[#FAF8EE]"></i>
+                            <span class="text-xs font-bold">Nota de Voz (${recordingSeconds}s)</span>
+                        </div>
+                        <audio controls src="${audioUrl}" class="w-full h-8 rounded-lg my-1"></audio>
+                        <p class="text-[9px] text-teal-100 text-right mt-1">${timeStr} • Enviado</p>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', noteHtml);
+            container.scrollTop = container.scrollHeight;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            alert('🎙️ ¡Nota de voz enviada con éxito al chat!');
+        }
+
+        function capturePhotoToChat() {
+            const video = document.getElementById('cameraFeed');
+            if (!video) return;
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            const photoData = canvas.toDataURL('image/jpeg');
+            const container = document.getElementById('chat-messages-container');
+            if (container) {
+                const now = new Date();
+                const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+                const photoHtml = `
+                    <div class="flex items-end justify-end gap-2 my-2">
+                        <div class="bg-[#2C7A7B] text-white p-2.5 rounded-2xl rounded-tr-none max-w-xs shadow-md">
+                            <img src="${photoData}" class="w-full h-48 object-cover rounded-xl mb-1 border border-teal-300/50">
+                            <p class="text-[9px] text-teal-100 text-right font-mono">${timeStr} • Foto adjuntada</p>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', photoHtml);
+                container.scrollTop = container.scrollHeight;
+            }
+            closeCameraModal();
+            alert('📷 ¡Foto capturada y enviada con éxito al chat!');
+        }
+
         // --- FUNCIONES DEL SUBMENÚ DE CHAT ACTIVO ESTILO WHATSAPP (3 PUNTOS) ---
         function toggleActiveChatMenu() {
             const menu = document.getElementById('active-chat-menu');
@@ -3731,6 +3865,40 @@ Se aplicó el fondo corporativo Cream Linen (#FAF8EE) al chat.`);
         </div>
     </div>
 </div>
+
+
+    <!-- MODAL GRABADORA DE VOZ / NOTA DE AUDIO -->
+    <div id="voiceRecorderModal" class="fixed inset-0 z-[9920] bg-slate-900/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl relative">
+            <button onclick="closeVoiceRecorderModal()" class="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-[#123838] rounded-full hover:bg-slate-100 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="w-16 h-16 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center mx-auto shadow-inner border border-[#33BCA9]/30">
+                <i data-lucide="mic" class="w-8 h-8 animate-pulse"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-extrabold text-[#123838]">Grabadora de Nota de Voz</h3>
+                <p id="recording-status" class="text-xs text-[#2C7A7B] font-semibold mt-1">Presiona iniciar para grabar mensaje audio</p>
+                <div id="recording-timer" class="text-xl font-mono font-black text-[#123838] mt-2">00:00</div>
+            </div>
+            
+            <!-- Waveform Simulation -->
+            <div class="flex justify-center items-center gap-1 h-8">
+                <span class="w-1 bg-[#2C7A7B] h-3 rounded-full animate-pulse"></span>
+                <span class="w-1 bg-[#33BCA9] h-6 rounded-full animate-pulse"></span>
+                <span class="w-1 bg-[#2C7A7B] h-4 rounded-full animate-pulse"></span>
+                <span class="w-1 bg-[#33BCA9] h-7 rounded-full animate-pulse"></span>
+                <span class="w-1 bg-[#2C7A7B] h-5 rounded-full animate-pulse"></span>
+            </div>
+
+            <div class="flex items-center justify-center gap-3 pt-2">
+                <button id="btn-toggle-rec" onclick="toggleVoiceRecording()" class="flex-1 bg-[#2C7A7B] text-white font-bold text-xs py-3 rounded-xl shadow-md hover:bg-[#123838] transition flex items-center justify-center gap-2">
+                    <i data-lucide="disc" class="w-4 h-4"></i>
+                    <span id="rec-btn-text">Iniciar Grabación</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
