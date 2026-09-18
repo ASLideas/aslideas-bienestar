@@ -168,7 +168,7 @@ tailwind.config = {
 
                 <!-- Progress Track -->
                 <div class="w-full bg-[#E0F7F4] h-3 rounded-full overflow-hidden p-0.5 border border-[#33BCA9]/40 shadow-inner">
-                    <div id="splash-progress-bar" class="progress-bar-animated h-full w-0% rounded-full transition-all duration-300 ease-out"></div>
+                    <div id="splash-progress-bar" id="splash-progress-bar" class="progress-bar-animated h-full rounded-full transition-all duration-300 ease-out bg-gradient-to-r from-[#2C7A7B] to-[#33BCA9]" style="width: 0%;"></div>
                 </div>
 
                 <!-- Corporate Palette Indicator -->
@@ -1202,6 +1202,65 @@ tailwind.config = {
 
 
 <script>
+
+// --- 0. SPLASH SCREEN AUTO-LOADER & ANIMATION (SOLVES LOADING STUCK ISSUE) ---
+function initSplashScreenLoader() {
+    const splash = document.getElementById('splash-screen');
+    const progressBar = document.getElementById('splash-progress-bar');
+    const percentageText = document.getElementById('splash-percentage');
+    const statusText = document.getElementById('splash-status-text');
+
+    if (!splash) return;
+
+    // Fast backup click listener to skip splash screen immediately if tapped
+    splash.addEventListener('click', () => {
+        splash.style.opacity = '0';
+        splash.style.pointerEvents = 'none';
+        setTimeout(() => splash.style.display = 'none', 300);
+    });
+
+    let progress = 0;
+    const statuses = [
+        "Cargando módulos de Bienestar...",
+        "Conectando ecosistema de salud...",
+        "Sincronizando chats y agendas...",
+        "Inicializando Morfeo & Descanso...",
+        "¡Bienvenido a Bienestar!"
+    ];
+
+    const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 20) + 12;
+        if (progress > 100) progress = 100;
+
+        if (progressBar) progressBar.style.width = progress + '%';
+        if (percentageText) percentageText.textContent = progress + '%';
+
+        if (statusText) {
+            if (progress < 30) statusText.textContent = statuses[0];
+            else if (progress < 55) statusText.textContent = statuses[1];
+            else if (progress < 80) statusText.textContent = statuses[2];
+            else if (progress < 98) statusText.textContent = statuses[3];
+            else statusText.textContent = statuses[4];
+        }
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                splash.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 500);
+            }, 300);
+        }
+    }, 100);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initSplashScreenLoader();
+});
+
+
 // =========================================================
 // BIENESTAR v182 - MASTER UNIFIED SCRIPT (100% CLEAN & FULLY FUNCTIONAL)
 // =========================================================
