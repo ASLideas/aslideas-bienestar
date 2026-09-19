@@ -303,31 +303,38 @@ tailwind.config = {
                         <input type="range" id="toleranceRange" min="1" max="5" value="4" step="1" oninput="setToleranceFromSlider(this.value)" class="w-full accent-[#2C7A7B] cursor-pointer">
                     </div>
 
-                    
-                    <!-- 5 Mood Pills Style (Imagen de Referencia) -->
-                    <div class="grid grid-cols-5 gap-1.5 text-center mb-3">
-                        <button onclick="setToleranceZone(4)" class="p-2 rounded-2xl bg-[#F2E3D5] border border-[#E8D4C1] hover:bg-[#E8D4C1] transition flex flex-col items-center">
-                            <span class="text-xl mb-0.5">😊</span>
-                            <span class="text-[10px] font-bold text-[#4A3B32]">Feliz</span>
+                    <!-- 5 Zone Interactive Quick Buttons with Vivid Emojis -->
+                    <div class="grid grid-cols-5 gap-1 text-center mb-3">
+                        <button onclick="setToleranceZone(1)" class="p-1.5 rounded-xl bg-red-50 border border-red-200 hover:bg-red-100 transition flex flex-col items-center">
+                            <span class="text-lg mb-0.5">🔴</span>
+                            <span class="text-[9px] font-bold text-red-700 leading-none">Crisis</span>
                         </button>
-                        <button onclick="setToleranceZone(4)" class="p-2 rounded-2xl bg-[#F2E3D5] border border-[#E8D4C1] hover:bg-[#E8D4C1] transition flex flex-col items-center">
-                            <span class="text-xl mb-0.5">🌿</span>
-                            <span class="text-[10px] font-bold text-[#4A3B32]">Relajado</span>
+                        <button onclick="setToleranceZone(2)" class="p-1.5 rounded-xl bg-orange-50 border border-orange-200 hover:bg-orange-100 transition flex flex-col items-center">
+                            <span class="text-lg mb-0.5">🟠</span>
+                            <span class="text-[9px] font-bold text-orange-700 leading-none">Estrés</span>
                         </button>
-                        <button onclick="setToleranceZone(5)" class="p-2 rounded-2xl bg-[#F2E3D5] border border-[#E8D4C1] hover:bg-[#E8D4C1] transition flex flex-col items-center">
-                            <span class="text-xl mb-0.5">😴</span>
-                            <span class="text-[10px] font-bold text-[#4A3B32]">Cansado</span>
+                        <button onclick="setToleranceZone(3)" class="p-1.5 rounded-xl bg-yellow-50 border border-yellow-200 hover:bg-yellow-100 transition flex flex-col items-center">
+                            <span class="text-lg mb-0.5">🟡</span>
+                            <span class="text-[9px] font-bold text-yellow-700 leading-none">Alerta</span>
                         </button>
-                        <button onclick="setToleranceZone(3)" class="p-2 rounded-2xl bg-[#F2E3D5] border border-[#E8D4C1] hover:bg-[#E8D4C1] transition flex flex-col items-center">
-                            <span class="text-xl mb-0.5">⚡</span>
-                            <span class="text-[10px] font-bold text-[#4A3B32]">Energía</span>
+                        <button onclick="setToleranceZone(4)" class="p-1.5 rounded-xl bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 transition flex flex-col items-center ring-2 ring-[#38A169]">
+                            <span class="text-lg mb-0.5">🟢</span>
+                            <span class="text-[9px] font-bold text-emerald-800 leading-none">Calma</span>
                         </button>
-                        <button onclick="setToleranceZone(4)" class="p-2 rounded-2xl bg-[#F2E3D5] border border-[#E8D4C1] hover:bg-[#E8D4C1] transition flex flex-col items-center">
-                            <span class="text-xl mb-0.5">🧘</span>
-                            <span class="text-[10px] font-bold text-[#4A3B32]">Meditativo</span>
+                        <button onclick="setToleranceZone(5)" class="p-1.5 rounded-xl bg-blue-50 border border-blue-200 hover:bg-blue-100 transition flex flex-col items-center">
+                            <span class="text-lg mb-0.5">🔵</span>
+                            <span class="text-[9px] font-bold text-blue-700 leading-none">Cansado</span>
                         </button>
                     </div>
 
+                    <!-- Dynamic Recommendation Box -->
+                    <div id="tolerance-tip-card" class="bg-[#E0F7F4] p-2.5 rounded-xl border border-[#33BCA9]/40 flex items-start gap-2 text-xs">
+                        <span class="text-xl shrink-0">🌿</span>
+                        <div class="flex-1">
+                            <p id="tolerance-tip-title" class="font-bold text-[#123838]">Zona Óptima de Tolerancia (Verde)</p>
+                            <p id="tolerance-tip-desc" class="text-[11px] text-[#2C7A7B] mt-0.5 leading-snug">Te encuentras en autorregulación y calma. Momento ideal para actividades sociales o de aprendizaje.</p>
+                        </div>
+                    </div>
 
                     <button onclick="shareToleranceToChat()" class="w-full mt-2.5 bg-[#2C7A7B] text-white text-xs font-bold py-2 rounded-xl hover:bg-[#123838] transition flex items-center justify-center gap-1.5 shadow-xs">
                         <i data-lucide="send" class="w-3.5 h-3.5"></i>
@@ -2049,6 +2056,29 @@ function triggerMenuAction(act) { alert('Acción: ' + act); }
 
 function shareToleranceToChat() { sendToleranceToChat(); }
 function startLiveLocationTracking() { sendRealLocation(); }
+
+function setMoodPill(moodName, emoji) {
+    const badge = document.getElementById('current-mood-badge-pill');
+    if (badge) {
+        badge.innerHTML = `${emoji} ${moodName}`;
+    }
+    const container = document.getElementById('chat-messages-container');
+    if (container) {
+        const outDiv = document.createElement('div');
+        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
+        outDiv.innerHTML = `
+            <div class="bg-[#F5DBC4] text-[#4A3525] p-3 rounded-2xl rounded-tr-none shadow-md text-xs border border-[#E0B896]/50">
+                <p class="font-black text-xs flex items-center gap-1.5">
+                    <span>${emoji}</span> Estado de Ánimo Registrado: ${moodName}
+                </p>
+                <p class="text-[10px] opacity-80 mt-1">Sincronizado con tu diario de Salud Integral</p>
+            </div>
+        `;
+        container.appendChild(outDiv);
+        container.scrollTop = container.scrollHeight;
+    }
+}
+
 </script>
 
 </body>
