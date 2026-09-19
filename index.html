@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BIENESTAR App - Híbrido WhatsApp + Business + Instagram</title>
+  <title>BIENESTAR App - Regulación Emocional sin Emojis</title>
   <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +27,14 @@
       --radius-lg: 20px;
       --radius-md: 14px;
       --radius-full: 9999px;
+
+      /* Escala Arcoíris de Regulación Emocional */
+      --c-red: #FF5A5F;
+      --c-orange: #FF9F1C;
+      --c-yellow: #FFBF00;
+      --c-green: #2EC4B6;
+      --c-blue: #3A86FF;
+      --c-purple: #8338EC;
     }
 
     * {
@@ -267,17 +275,104 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ==================== HÍBRIDO HOME (INSTAGRAM + WHATSAPP + BUSINESS) ==================== */
-    
-    /* 1. Historias / Estados Estilo Instagram */
-    .stories-container {
+    /* ==================== REGULACIÓN EMOCIONAL SIN EMOJIS ==================== */
+    .emotional-regulation-section {
       padding: 12px 16px 8px 16px;
+      background: var(--white);
+      border-bottom: 1px solid rgba(51, 188, 169, 0.15);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .emotion-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .emotion-section-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--green-organic);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .emotion-status-active {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--turquoise);
+      background: var(--mint);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    .emotion-color-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+    }
+
+    .emotion-color-pill {
+      height: 42px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .emotion-color-pill:active {
+      transform: scale(0.93);
+    }
+
+    .emotion-color-pill.selected {
+      border-color: var(--dark-teal);
+      box-shadow: 0 0 0 2px var(--white), 0 4px 12px rgba(0,0,0,0.25);
+      transform: translateY(-2px);
+    }
+
+    .pill-red { background-color: var(--c-red); }
+    .pill-orange { background-color: var(--c-orange); }
+    .pill-yellow { background-color: var(--c-yellow); color: #4A3B00; }
+    .pill-green { background-color: var(--c-green); }
+    .pill-blue { background-color: var(--c-blue); }
+    .pill-purple { background-color: var(--c-purple); }
+
+    .pill-label {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+      line-height: 1;
+    }
+
+    .pill-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.8);
+      margin-top: 3px;
+    }
+
+    /* Carrusel de Estados / Historias */
+    .stories-container {
+      padding: 10px 16px 8px 16px;
       display: flex;
       gap: 14px;
       overflow-x: auto;
       scrollbar-width: none;
-      border-bottom: 1px solid rgba(51, 188, 169, 0.1);
       background: var(--bg-cream);
+      border-bottom: 1px solid rgba(51, 188, 169, 0.1);
     }
 
     .stories-container::-webkit-scrollbar { display: none; }
@@ -289,12 +384,12 @@
       gap: 5px;
       cursor: pointer;
       flex-shrink: 0;
-      width: 68px;
+      width: 64px;
     }
 
     .story-ring {
-      width: 62px;
-      height: 62px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       padding: 2.5px;
       background: linear-gradient(135deg, var(--turquoise), var(--green-organic));
@@ -337,7 +432,7 @@
     }
 
     .story-name {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       color: var(--dark-teal);
       text-align: center;
@@ -347,9 +442,9 @@
       width: 100%;
     }
 
-    /* 2. Buscador y Filtros Business */
+    /* Buscador y Filtros Business */
     .search-filter-section {
-      padding: 12px 16px 8px 16px;
+      padding: 10px 16px 8px 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -404,7 +499,7 @@
       border-color: var(--green-organic);
     }
 
-    /* 3. Lista de Contactos & Chats (WhatsApp + Business) */
+    /* Lista de Contactos & Chats */
     .contacts-list {
       flex: 1;
       overflow-y: auto;
@@ -527,7 +622,6 @@
       border-radius: var(--radius-full);
     }
 
-    /* Botón Flotante Nuevo Chat/Contacto */
     .fab-new-chat {
       position: absolute;
       bottom: 80px;
@@ -549,7 +643,7 @@
 
     .fab-new-chat:active { transform: scale(0.9); }
 
-    /* ==================== VISTA DE CHAT INDIVIDUAL (MODAL CONVERSACIÓN) ==================== */
+    /* VISTA DE CHAT INDIVIDUAL */
     .single-chat-view {
       display: none;
       position: absolute;
@@ -594,53 +688,6 @@
       object-fit: cover;
       border: 1.5px solid var(--turquoise);
     }
-
-    .rainbow-scale-card {
-      margin: 10px 14px;
-      padding: 10px 12px;
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--mint);
-    }
-
-    .rainbow-scale-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--green-organic);
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .rainbow-bars {
-      display: flex;
-      gap: 5px;
-    }
-
-    .rainbow-btn {
-      flex: 1;
-      height: 34px;
-      border-radius: 8px;
-      border: none;
-      color: var(--white);
-      font-size: 15px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.15s ease;
-    }
-
-    .rainbow-btn:active { transform: scale(1.1); }
-
-    .r-red { background-color: #FF5A5F; }
-    .r-orange { background-color: #FF9F1C; }
-    .r-yellow { background-color: #FFBF00; }
-    .r-green { background-color: #2EC4B6; }
-    .r-blue { background-color: #3A86FF; }
-    .r-purple { background-color: #8338EC; }
 
     .messages-area {
       flex: 1;
@@ -1176,7 +1223,7 @@
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial con Logo Centrado -->
+    <!-- Splash Screen Inicial -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
         <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
@@ -1186,7 +1233,7 @@
       <div class="loading-bar-wrap">
         <div class="loading-bar-fill"></div>
       </div>
-      <span style="font-size: 11px; color: var(--gray-muted); margin-top: 12px; font-weight: 500;">Cargando experiencia híbrida...</span>
+      <span style="font-size: 11px; color: var(--gray-muted); margin-top: 12px; font-weight: 500;">Cargando experiencia...</span>
     </div>
 
     <!-- Status Bar Top -->
@@ -1210,18 +1257,61 @@
       </div>
       <div class="header-actions">
         <button class="icon-btn" title="Buscar"><i data-lucide="search" size="18"></i></button>
-        <button class="icon-btn" title="Cámara / Historias" onclick="openVideoCall()"><i data-lucide="camera" size="18"></i></button>
-        <button class="icon-btn" title="Menú / Opciones"><i data-lucide="more-vertical" size="18"></i></button>
+        <button class="icon-btn" title="Cámara" onclick="openVideoCall()"><i data-lucide="camera" size="18"></i></button>
+        <button class="icon-btn" title="Menú"><i data-lucide="more-vertical" size="18"></i></button>
       </div>
     </div>
 
     <!-- Áreas de Contenido -->
     <div class="app-content">
 
-      <!-- ==================== TAB 1: HOME HÍBRIDO (CHATS, HISTORIAS & CONTACTOS) ==================== -->
+      <!-- ==================== TAB 1: HOME HÍBRIDO ==================== -->
       <div id="tab-chats" class="tab-page active">
         
-        <!-- 1. Carrusel de Historias / Estados Estilo Instagram -->
+        <!-- 1. MÓDULO DE REGULACIÓN EMOCIONAL AFUERA (SIN EMOJIS, SOLO COLORES) -->
+        <div class="emotional-regulation-section">
+          <div class="emotion-section-header">
+            <div class="emotion-section-title">
+              <i data-lucide="activity" size="14"></i>
+              Regulación Emocional
+            </div>
+            <span class="emotion-status-active" id="activeEmotionLabel">Calma</span>
+          </div>
+
+          <div class="emotion-color-grid">
+            <div class="emotion-color-pill pill-red" onclick="selectEmotionColor('Crisis / Sobrecarga', '🔴', this)" title="Sobrecarga / Crisis">
+              <span class="pill-label">Crisis</span>
+              <div class="pill-dot"></div>
+            </div>
+
+            <div class="emotion-color-pill pill-orange" onclick="selectEmotionColor('Ansioso / Inquieto', '🟠', this)" title="Ansioso">
+              <span class="pill-label">Ansiedad</span>
+              <div class="pill-dot"></div>
+            </div>
+
+            <div class="emotion-color-pill pill-yellow" onclick="selectEmotionColor('Alerta / Sensible', '🟡', this)" title="Alerta">
+              <span class="pill-label">Alerta</span>
+              <div class="pill-dot"></div>
+            </div>
+
+            <div class="emotion-color-pill pill-green selected" onclick="selectEmotionColor('Regulado / En Calma', '🟢', this)" title="Regulado">
+              <span class="pill-label">Calma</span>
+              <div class="pill-dot"></div>
+            </div>
+
+            <div class="emotion-color-pill pill-blue" onclick="selectEmotionColor('Tranquilo / Enfocado', '🔵', this)" title="Enfocado">
+              <span class="pill-label">Enfoque</span>
+              <div class="pill-dot"></div>
+            </div>
+
+            <div class="emotion-color-pill pill-purple" onclick="selectEmotionColor('Conectado / Seguro', '🟣', this)" title="Conectado">
+              <span class="pill-label">Vínculo</span>
+              <div class="pill-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Carrusel de Estados / Historias -->
         <div class="stories-container">
           <div class="story-item">
             <div class="story-ring my-story">
@@ -1238,7 +1328,7 @@
             <span class="story-name">Dra. Elena</span>
           </div>
 
-          <div class="story-item" onclick="switchTab('tienda', document.querySelectorAll('.nav-item')[1])">
+          <div class="story-item" onclick="switchTab('tienda', document.querySelectorAll('.nav-item'))">
             <div class="story-ring">
               <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Herbolaria">
             </div>
@@ -1260,7 +1350,7 @@
           </div>
         </div>
 
-        <!-- 2. Buscador y Filtros Business -->
+        <!-- 3. Buscador y Filtros Business -->
         <div class="search-filter-section">
           <div class="search-box">
             <i data-lucide="search" size="16" color="#2C7A7B"></i>
@@ -1276,10 +1366,9 @@
           </div>
         </div>
 
-        <!-- 3. Lista de Contactos (WhatsApp + WhatsApp Business) -->
+        <!-- 4. Lista de Contactos (WhatsApp + Business) -->
         <div class="contacts-list" id="contactsList">
           
-          <!-- Contacto 1: Asistente BIENESTAR -->
           <div class="contact-item" onclick="openSingleChat('Asistente BIENESTAR 🌿', 'logo_bienestar_png.jpeg', 'Especialista en Salud Integral')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
@@ -1291,7 +1380,7 @@
                   <span class="contact-name">Asistente BIENESTAR</span>
                   <span class="business-tag">Oficial</span>
                 </div>
-                <div class="last-msg">¡Hola! Recuerda registrar tu agua y ánimos hoy.</div>
+                <div class="last-msg">¡Hola! Estado emocional actualizado a Calma.</div>
               </div>
             </div>
             <div class="contact-right">
@@ -1300,7 +1389,6 @@
             </div>
           </div>
 
-          <!-- Contacto 2: Nutricionista -->
           <div class="contact-item" onclick="openSingleChat('Dra. Elena Ramos', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80', 'Nutricionista Clínica & Holística')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
@@ -1321,7 +1409,6 @@
             </div>
           </div>
 
-          <!-- Contacto 3: PyME Herbolaria -->
           <div class="contact-item" onclick="openSingleChat('Herbolaria Orgánica PyME', 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80', 'Productos Naturales & Infusiones')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
@@ -1341,7 +1428,6 @@
             </div>
           </div>
 
-          <!-- Contacto 4: Grupo Comunidad -->
           <div class="contact-item" onclick="openSingleChat('Comunidad Neurodivergente & Salubridad', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Grupo de Apoyo & Regulación Emocional')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
@@ -1363,8 +1449,7 @@
 
         </div>
 
-        <!-- Botón Flotante (FAB) Estilo WhatsApp -->
-        <button class="fab-new-chat" onclick="openSingleChat('Nuevo Contacto / Especialista', 'logo_bienestar_png.jpeg', 'Ecosistema BIENESTAR')" title="Nuevo Chat / Añadir Contacto">
+        <button class="fab-new-chat" onclick="openSingleChat('Nuevo Contacto / Especialista', 'logo_bienestar_png.jpeg', 'Ecosistema BIENESTAR')" title="Nuevo Chat">
           <i data-lucide="message-square-plus" size="24"></i>
         </button>
 
@@ -1472,7 +1557,7 @@
 
     </div>
 
-    <!-- VISTA MODAL CHAT INDIVIDUAL ACTIVO CON UN CONTACTO -->
+    <!-- VISTA MODAL CHAT INDIVIDUAL -->
     <div class="single-chat-view" id="singleChatView">
       <div class="chat-header-bar">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -1494,22 +1579,6 @@
         </div>
       </div>
 
-      <!-- Escala Arcoíris de Regulación Emocional -->
-      <div class="rainbow-scale-card">
-        <div class="rainbow-scale-title">
-          <span>🌈 Regulación Emocional (Ventana Tolerancia)</span>
-          <span style="font-size: 10px; opacity: 0.8;">Toca para registrar</span>
-        </div>
-        <div class="rainbow-bars">
-          <button class="rainbow-btn r-red" onclick="logEmotion('🔴 En crisis / Sobrecarga')">😡</button>
-          <button class="rainbow-btn r-orange" onclick="logEmotion('🟠 Ansioso / Inquieto')">😰</button>
-          <button class="rainbow-btn r-yellow" onclick="logEmotion('🟡 Alerta / Sensible')">😐</button>
-          <button class="rainbow-btn r-green" onclick="logEmotion('🟢 Regulado / En Calma')">😊</button>
-          <button class="rainbow-btn r-blue" onclick="logEmotion('🔵 Tranquilo / Enfocado')">😌</button>
-          <button class="rainbow-btn r-purple" onclick="logEmotion('🟣 Conectado / Seguro')">💜</button>
-        </div>
-      </div>
-
       <!-- Mensajes -->
       <div class="messages-area" id="messagesArea">
         <div class="message-row">
@@ -1526,7 +1595,6 @@
         <button class="pill-btn" onclick="openVideoCall()">📷 Foto</button>
         <button class="pill-btn" onclick="openVideoCall()">📹 Video</button>
         <button class="pill-btn" onclick="addPillMsg('💊 Dosis tomada: Multivitamínico')">💊 Dosis</button>
-        <button class="pill-btn" onclick="addPillMsg('😊 Ánimo: Positivo y en calma')">😊 Ánimo</button>
         <button class="pill-btn" onclick="addPillMsg('💧 Agua: +250ml')">💧 Hidratación</button>
       </div>
 
@@ -1579,9 +1647,6 @@
           <i data-lucide="lock" size="14"></i>
           <span>Cifrado de extremo a extremo</span>
         </div>
-        <div class="call-add-user">
-          <i data-lucide="user-plus" size="18"></i>
-        </div>
       </div>
 
       <div class="call-user-section">
@@ -1630,7 +1695,6 @@
   <script>
     lucide.createIcons();
 
-    // Ocultar pantalla de splash tras 1.8 segundos
     window.addEventListener('load', () => {
       setTimeout(() => {
         const splash = document.getElementById('splashScreen');
@@ -1645,7 +1709,16 @@
       btn.classList.add('active');
     }
 
-    // Abrir Chat Individual
+    function selectEmotionColor(emotionLabel, colorCode, element) {
+      document.querySelectorAll('.emotion-color-pill').forEach(pill => pill.classList.remove('selected'));
+      element.classList.add('selected');
+      
+      const labelEl = document.getElementById('activeEmotionLabel');
+      if (labelEl) labelEl.innerText = emotionLabel.split('/').trim();
+
+      addMessage(`Regulación Emocional registrada: ${emotionLabel}`, 'sent');
+    }
+
     function openSingleChat(name, avatarUrl, subtitle) {
       document.getElementById('activeChatName').innerText = name;
       document.getElementById('activeChatSubtitle').innerText = subtitle;
@@ -1663,7 +1736,6 @@
       document.getElementById('singleChatView').classList.remove('active');
     }
 
-    // Filtrar contactos
     function filterContacts(query) {
       const q = query.toLowerCase();
       document.querySelectorAll('.contact-item').forEach(item => {
@@ -1717,10 +1789,6 @@
     function toggleCallControl(element) {
       const btn = element.querySelector('.call-btn');
       if (btn) btn.classList.toggle('off');
-    }
-
-    function logEmotion(emotionText) {
-      addMessage(`Regulación Emocional registrada: ${emotionText}`, 'sent');
     }
 
     function addPillMsg(text) {
