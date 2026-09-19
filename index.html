@@ -1,2137 +1,1132 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BIENESTAR - Ecosistema de Salud, Comunidad & Estilo de Vida</title>
-    <!-- Tailwind CSS 3.x CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        pantone: {
-                            verde: '#2C7A7B',
-                            turquesa: '#33BCA9',
-                            oscuro: '#123838',
-                            oro: '#2C7A7B',
-                            fondo: '#FAF8EE',
-                            menta: '#E0F7F4',
-                            rosado: '#E53E3E'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['System-UI', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
-                    }
-                }
-            }
-        }
-</script>
-    <style>
-        :root {
-            --p-verde: #2C7A7B;
-            --p-turquesa: #33BCA9;
-            --p-oscuro: #123838;
-            --p-oro: #2C7A7B;
-            --p-fondo: #FAF8EE;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BIENESTAR App - v1</title>
+  <!-- Google Fonts & Lucide Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-        body {
-            background-color: #0F172A;
-            color: #2D3748;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
+  <style>
+    :root {
+      /* Paleta Pantone Teal Air */
+      --bg-cream: #FAF8EE;
+      --green-organic: #2C7A7B;
+      --turquoise: #33BCA9;
+      --mint: #E0F7F4;
+      --dark-teal: #123838;
+      --call-bg: #0F2E2E;
+      --red-alert: #E53E3E;
+      --gray-muted: #718096;
+      --white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(18, 56, 56, 0.06);
+      --shadow-md: 0 4px 16px rgba(18, 56, 56, 0.12);
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --radius-full: 9999px;
+    }
 
-        /* Phone frame simulation on desktop */
-        .app-container {
-            max-width: 440px;
-            margin: 0 auto;
-            min-height: 100vh;
-            background-color: var(--p-fondo);
-            position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        /* Custom Scrollbars */
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.03);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #33BCA9;
-            border-radius: 4px;
-        }
+    body {
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--dark-teal);
+    }
 
-        /* Pulsing Glow Animation for Splash Logo */
-        @keyframes logoPulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 25px rgba(51, 188, 169, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0); }
-        }
+    /* Contenedor Marco Móvil Responsive */
+    .app-frame {
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      max-height: 932px;
+      background-color: var(--bg-cream);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    }
 
-        .splash-logo-glow {
-            animation: logoPulse 2.5s infinite ease-in-out;
-        }
+    @media (min-width: 440px) {
+      .app-frame {
+        height: 880px;
+        border-radius: 36px;
+        border: 8px solid #222;
+      }
+    }
 
-        @keyframes progressGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    /* Barra de Estado Superior */
+    .status-bar {
+      height: 44px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark-teal);
+      background-color: var(--bg-cream);
+      z-index: 10;
+    }
 
-        .progress-bar-animated {
-            background: linear-gradient(270deg, #33BCA9, #2C7A7B, #123838, #33BCA9);
-            background-size: 300% 300%;
-            animation: progressGlow 2s ease infinite;
-        }
+    /* Áreas de Vistas */
+    .app-content {
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
 
-        /* Tab Transition */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.25s ease-out forwards;
-        }
-        .tab-content.active {
-            display: block;
-        }
+    .tab-page {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      animation: fadeIn 0.25s ease-in-out;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .tab-page.active {
+      display: flex;
+    }
 
-        /* Glassmorphism */
-        .glass-header {
-            background: rgba(250, 248, 238, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(51, 188, 169, 0.18);
-        }
-    </style>
+    /* Header Principal */
+    .app-header {
+      padding: 12px 18px;
+      background: var(--bg-cream);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(51, 188, 169, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--turquoise);
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--dark-teal);
+      letter-spacing: -0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 10px;
+      color: var(--green-organic);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: var(--mint);
+      border: none;
+      color: var(--dark-teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.92);
+      background-color: var(--turquoise);
+      color: var(--white);
+    }
+
+    /* Pestaña 1: Chats */
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg-cream);
+    }
+
+    .rainbow-scale-card {
+      margin: 12px 16px;
+      padding: 12px 14px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--mint);
+    }
+
+    .rainbow-scale-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green-organic);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rainbow-bars {
+      display: flex;
+      gap: 6px;
+    }
+
+    .rainbow-btn {
+      flex: 1;
+      height: 36px;
+      border-radius: 10px;
+      border: none;
+      color: var(--white);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease;
+    }
+
+    .rainbow-btn:active { transform: scale(1.1); }
+
+    .r-red { background-color: #FF5A5F; }
+    .r-orange { background-color: #FF9F1C; }
+    .r-yellow { background-color: #FFBF00; }
+    .r-green { background-color: #2EC4B6; }
+    .r-blue { background-color: #3A86FF; }
+    .r-purple { background-color: #8338EC; }
+
+    .messages-area {
+      flex: 1;
+      padding: 12px 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message-bubble {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.45;
+      position: relative;
+    }
+
+    .msg-received {
+      background-color: var(--white);
+      color: var(--dark-teal);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(51, 188, 169, 0.12);
+    }
+
+    .msg-sent {
+      background-color: var(--green-organic);
+      color: var(--white);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .msg-time {
+      font-size: 10px;
+      opacity: 0.75;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    .quick-pills-bar {
+      display: flex;
+      gap: 8px;
+      padding: 8px 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .quick-pills-bar::-webkit-scrollbar { display: none; }
+
+    .pill-btn {
+      padding: 6px 12px;
+      background-color: var(--white);
+      border: 1px solid var(--turquoise);
+      color: var(--dark-teal);
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-btn:active { background-color: var(--mint); }
+
+    .chat-input-bar {
+      padding: 10px 14px;
+      background-color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .chat-input {
+      flex: 1;
+      background-color: var(--bg-cream);
+      border: 1px solid transparent;
+      padding: 10px 16px;
+      border-radius: 24px;
+      font-size: 14px;
+      outline: none;
+      color: var(--dark-teal);
+    }
+
+    .chat-input:focus {
+      border-color: var(--turquoise);
+      background-color: var(--white);
+    }
+
+    .send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--turquoise);
+      color: var(--white);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .clip-menu {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      left: 16px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--mint);
+      z-index: 20;
+    }
+
+    .clip-menu.active { display: grid; }
+
+    .clip-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--dark-teal);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .clip-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--mint);
+      color: var(--green-organic);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Pestaña 2: Wellness */
+    .wellness-page {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+    }
+
+    .card-widget {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(51, 188, 169, 0.15);
+    }
+
+    .widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .widget-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark-teal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .water-progress {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .water-metric {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--green-organic);
+    }
+
+    .water-sub {
+      font-size: 12px;
+      color: var(--gray-muted);
+    }
+
+    .water-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .habit-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--bg-cream);
+    }
+
+    .habit-item:last-child { border-bottom: none; }
+
+    .habit-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .habit-checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--turquoise);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--white);
+    }
+
+    .habit-checkbox.checked { background-color: var(--turquoise); }
+
+    /* Pestaña 3: Tienda PyME */
+    .tienda-page {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+    }
+
+    .promo-banner {
+      background: linear-gradient(135deg, var(--green-organic), var(--turquoise));
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      color: var(--white);
+    }
+
+    .promo-banner h3 { font-size: 18px; margin-bottom: 6px; }
+    .promo-banner p { font-size: 12px; opacity: 0.9; margin-bottom: 14px; }
+
+    .pyme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .pyme-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pyme-img {
+      width: 100%;
+      height: 90px;
+      border-radius: 8px;
+      background-color: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .pyme-name { font-size: 13px; font-weight: 700; color: var(--dark-teal); }
+    .pyme-desc { font-size: 11px; color: var(--gray-muted); }
+    .pyme-price { font-size: 14px; font-weight: 800; color: var(--green-organic); }
+
+    /* Pestaña 4: Morfeo */
+    .morfeo-page {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: linear-gradient(180deg, var(--bg-cream) 0%, #E2F4F2 100%);
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .morfeo-card {
+      background: var(--dark-teal);
+      color: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .pulse-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(51, 188, 169, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 10px 0;
+    }
+
+    .pulse-circle::before {
+      content: '';
+      position: absolute;
+      width: 110%;
+      height: 110%;
+      border-radius: 50%;
+      border: 2px solid var(--turquoise);
+      animation: ripple 2s infinite ease-out;
+    }
+
+    @keyframes ripple {
+      0% { transform: scale(0.9); opacity: 1; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    /* Navbar Inferior */
+    .bottom-nav {
+      height: 68px;
+      background-color: var(--white);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid rgba(51, 188, 169, 0.15);
+      z-index: 10;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      color: var(--gray-muted);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 25%;
+      transition: color 0.2s;
+    }
+
+    .nav-item.active { color: var(--green-organic); }
+    .nav-item.active i { stroke: var(--turquoise); }
+
+    /* Modal Videollamada HD Estilo WhatsApp Nativo */
+    .video-call-modal {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--call-bg);
+      z-index: 100;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 24px 36px 24px;
+      color: var(--white);
+      box-sizing: border-box;
+      animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .video-call-modal.active { display: flex; }
+
+    @keyframes modalSlideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .call-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #8AA2A2;
+      font-weight: 500;
+    }
+
+    .call-lock {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .call-add-user { cursor: pointer; padding: 6px; }
+
+    .call-user-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .call-avatar-wrap {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3.5px solid var(--turquoise);
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: 0 0 20px rgba(51, 188, 169, 0.4);
+    }
+
+    .call-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .call-user-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .call-status {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--turquoise);
+      letter-spacing: 0.8px;
+    }
+
+    .call-video-card {
+      width: 100%;
+      max-width: 320px;
+      height: 220px;
+      background-color: #1A3C3C;
+      border-radius: 24px;
+      margin: 16px auto;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .call-video-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(15%);
+    }
+
+    .call-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px 16px;
+      margin-top: auto;
+      padding: 0 10px;
+    }
+
+    .call-control-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .call-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .call-btn:active {
+      transform: scale(0.9);
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .call-btn.off {
+      background-color: var(--white);
+      color: var(--dark-teal);
+    }
+
+    .call-btn.hangup {
+      background-color: var(--red-alert);
+      color: var(--white);
+      box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
+    }
+
+    .call-btn-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #B2C2C2;
+    }
+
+    .call-btn-label.red {
+      color: var(--red-alert);
+      font-weight: 700;
+    }
+  </style>
 </head>
-<body class="bg-[#0F172A] flex justify-center items-center min-h-screen p-0 sm:p-4">
+<body>
 
-    <!-- MAIN APP CONTAINER -->
-    <div class="app-container relative w-full sm:rounded-[36px] border-0 sm:border-8 border-[#1E293B]">
-
-        <!-- ========================================================= -->
-        <!-- PANTALLA DE CARGA / ESPERA DE DESCARGA (SPLASH SCREEN)    -->
-        <!-- ========================================================= -->
-        <div id="splash-screen" class="absolute inset-0 z-[100] bg-gradient-to-b from-[#FAF8EE] via-[#E0F7F4] to-[#FAF8EE] flex flex-col justify-between items-center p-8 text-[#123838] transition-opacity duration-700">
-            
-            <!-- Top Status Bar Simulation -->
-            <div class="w-full flex justify-between items-center text-xs text-[#2C7A7B] pt-2">
-                <span id="splash-time">09:41</span>
-                <div class="flex items-center gap-1.5">
-                    <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
-                    <i data-lucide="battery-charging" class="w-4 h-4"></i>
-                </div>
-            </div>
-
-            <!-- Central Branding Circle with Corporate Pantone Logo -->
-            <div class="flex flex-col items-center justify-center text-center my-auto w-full">
-                
-                <!-- Glowing Circle Logo Container -->
-                <div class="relative w-36 h-36 mb-6 flex items-center justify-center">
-                    <div class="absolute inset-0 rounded-full bg-[#33BCA9]/20 blur-xl animate-pulse"></div>
-                    <div class="splash-logo-glow w-32 h-32 rounded-full bg-white p-2 flex items-center justify-center border-4 border-[#33BCA9] shadow-xl relative z-10 overflow-hidden">
-                        <img src="logo bienestar png.jpeg" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';" class="w-full h-full object-cover rounded-full shadow-inner" alt="Logo Bienestar">
-                    </div>
-                </div>
-
-                <h1 class="text-2xl font-black text-[#123838] tracking-tight mb-1">BIENESTAR</h1>
-                <p class="text-xs text-[#2C7A7B] font-semibold tracking-wide max-w-[260px]">Tu Ecosistema Integral de Salud, Comunidad, PyMEs & Descanso Bienestar</p>
-            </div>
-
-            <!-- Bottom Progress & Download Wait Area -->
-            <div class="w-full flex flex-col items-center gap-3 pb-6">
-                <div class="flex justify-between w-full text-xs text-[#2C7A7B] font-bold px-1">
-                    <span id="splash-status-text">Cargando módulos de Bienestar...</span>
-                    <span id="splash-percentage" class="font-bold text-[#2C7A7B]">0%</span>
-                </div>
-
-                <!-- Progress Track -->
-                <div class="w-full bg-[#E0F7F4] h-3 rounded-full overflow-hidden p-0.5 border border-[#33BCA9]/40 shadow-inner">
-                    <div id="splash-progress-bar" id="splash-progress-bar" class="progress-bar-animated h-full rounded-full transition-all duration-300 ease-out bg-gradient-to-r from-[#2C7A7B] to-[#33BCA9]" style="width: 0%;"></div>
-                </div>
-
-                <!-- Corporate Palette Indicator -->
-                <div class="flex items-center gap-2 mt-2 text-[10px] text-[#FAF8EE]/60">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#2C7A7B] border border-white/30" title="Verde Pantone"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#33BCA9] border border-white/30" title="Turquesa Menta"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#2C7A7B] border border-white/30" title="Oro Corp"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#FAF8EE] border border-white/30" title="Fondo Crema"></span>
-                    <span>Colores Corporativos Oficiales</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================================= -->
-        <!-- APP HEADER (BARRA SUPERIOR)                               -->
-        <!-- ========================================================= -->
-        <header class="glass-header sticky top-0 z-40 border-b border-[#33BCA9]/20 px-4 py-3 flex items-center justify-between shadow-sm">
-            <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#2C7A7B] to-[#33BCA9] p-0.5 flex items-center justify-center shadow-md overflow-hidden">
-                    <img src="logo bienestar png.jpeg" onerror="this.src='https://kyzvygyzthmoudsepwsi.supabase.co/storage/v1/object/public/imagenes_bienestar/logo%20bienestar%20png.jpeg';" class="w-full h-full object-cover rounded-full" alt="Logo Bienestar">
-                </div>
-                <div>
-                    <h2 class="text-base font-black text-[#123838] leading-tight tracking-tight">
-                        BIENESTAR
-                    </h2>
-                    <p class="text-[10px] text-[#2C7A7B] font-semibold">Ecosistema Integral & Social</p>
-                </div>
-            </div>
-
-            <!-- Quick Action Buttons Header (Monochrome) -->
-            <div class="flex items-center gap-2">
-                <button onclick="openMedicalNotification()" class="relative p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition" title="Notificaciones">
-                    <i data-lucide="bell" class="w-5 h-5"></i>
-                    <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-[#E53E3E] rounded-full ring-2 ring-white"></span>
-                </button>
-                <div class="relative">
-                <button onclick="toggleMainHeaderMenu()" class="p-2 rounded-full hover:bg-[#E0F7F4] text-[#2C7A7B] transition" title="Menú de opciones">
-                    <i data-lucide="more-vertical" class="w-5 h-5"></i>
-                </button>
-                <div id="main-header-menu" class="hidden absolute top-10 right-0 z-50 w-56 bg-white border border-[#33BCA9]/30 rounded-2xl shadow-xl py-2 text-xs font-semibold text-[#123838]">
-                    <button onclick="openNewGroupModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
-                        <i data-lucide="users" class="w-4 h-4 text-[#2C7A7B]"></i>
-                        <span>Nuevo grupo</span>
-                    </button>
-                    <button onclick="openNewCommunityModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
-                        <i data-lucide="globe" class="w-4 h-4 text-[#2C7A7B]"></i>
-                        <span>Nueva comunidad</span>
-                    </button>
-                    <button onclick="openStarredMessagesModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
-                        <i data-lucide="star" class="w-4 h-4 text-[#2C7A7B]"></i>
-                        <span>Mensajes destacados</span>
-                    </button>
-                    <button onclick="openLinkedDevicesModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
-                        <i data-lucide="laptop" class="w-4 h-4 text-[#2C7A7B]"></i>
-                        <span>Dispositivos vinculados</span>
-                    </button>
-                    <div class="my-1 border-t border-gray-100"></div>
-                    <button onclick="openWhatsAppSettings(); toggleMainHeaderMenu();" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5 transition">
-                        <i data-lucide="settings" class="w-4 h-4 text-[#2C7A7B]"></i>
-                        <span>Ajustes</span>
-                    </button>
-                </div>
-            </div>
-            </div>
-        </header>
-
-        <!-- Dropdown Menu -->
-        <div id="main-context-menu" class="hidden absolute top-14 right-4 z-50 w-52 bg-white rounded-2xl shadow-xl border border-[#33BCA9]/30 p-2 text-xs font-semibold text-[#123838]">
-            <button onclick="openWhatsAppSettings()" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
-                <i data-lucide="settings" class="w-4 h-4 text-[#2C7A7B]"></i> Ajustes de Perfil
-            </button>
-            <button onclick="triggerMenuAction('Estado de Ánimo')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
-                <i data-lucide="smile" class="w-4 h-4 text-[#2C7A7B]"></i> Mi Estado de Ánimo
-            </button>
-            <button onclick="triggerMenuAction('Sincronizar Spotify')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2">
-                <i data-lucide="music" class="w-4 h-4 text-[#2C7A7B]"></i> Vincular Spotify Bienestar
-            </button>
-            <div class="my-1 border-t border-slate-100"></div>
-            <button onclick="triggerMenuAction('Soporte y Ayuda')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-[#E0F7F4] flex items-center gap-2 text-slate-500">
-                <i data-lucide="help-circle" class="w-4 h-4"></i> Ayuda & Guía
-            </button>
-        </div>
-
-        <!-- Medical Toast / Notification Alert -->
-        <div id="medical-toast" class="transform -translate-y-64 transition-transform duration-500 absolute top-16 left-4 right-4 z-50 bg-[#123838] text-white p-3.5 rounded-2xl shadow-2xl border border-[#33BCA9] flex items-start gap-3">
-            <div class="p-2 bg-[#2C7A7B] rounded-xl shrink-0">
-                <i data-lucide="calendar-check" class="w-5 h-5 text-[#2C7A7B]"></i>
-            </div>
-            <div class="flex-1 text-xs">
-                <div class="flex justify-between items-center font-bold text-[#33BCA9] mb-0.5">
-                    <span>RECORDATORIO MÉDICO</span>
-                    <span class="text-[10px] text-slate-300">Hoy 18:30</span>
-                </div>
-                <p class="font-medium text-slate-100">Cita con Dr. Aldo Licandeo — Evaluación Nutricional & Herbolaria.</p>
-            </div>
-            <button onclick="closeMedicalToast()" class="text-slate-400 hover:text-white p-1">
-                <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
-        </div>
-
-        <!-- ========================================================= -->
-        <!-- CONTENIDO PRINCIPAL (TABS)                                -->
-        <!-- ========================================================= -->
-        <main class="flex-1 overflow-y-auto pb-24 relative">
-
-            <!-- ----------------------------------------------------- -->
-            <!-- TAB 1: COMUNIDAD & CHATS integralS (AMIGOS + IA + MÉDICO)-->
-            <!-- ----------------------------------------------------- -->
-            <div id="screen-chats" class="tab-content active p-4 space-y-4">
-                
-                <!-- ESCALA DE TOLERANCIA Y REGULACIÓN EMOCIONAL (ROJO A VERDE / TEA-SALUD MENTAL) -->
-                <div class="glass-card p-4 rounded-2xl shadow-sm border border-[#33BCA9]/30 bg-gradient-to-b from-white to-[#FAF8EE]">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-black text-[#123838] flex items-center gap-1.5">
-                            <span class="text-base">🌈</span> Escala de Regulación Emocional
-                        </span>
-                        <span id="tolerance-zone-badge" class="text-[10px] font-black px-2.5 py-0.5 rounded-full text-white bg-[#38A169] shadow-xs">
-                            🟢 Zona Óptima (Calma)
-                        </span>
-                    </div>
-                    <p class="text-[10px] text-slate-500 font-semibold mb-3">Escala de Ventana de Tolerancia (Nivel Sensorial y Emocional)</p>
-                    
-                    <!-- Color Spectrum Bar & Slider -->
-                    <div class="space-y-2 mb-3">
-                        <div class="relative w-full h-3.5 rounded-full overflow-hidden flex shadow-inner border border-slate-200">
-                            <div class="w-1/5 bg-[#E53E3E]" title="1. Crisis / Sobrecarga"></div>
-                            <div class="w-1/5 bg-[#DD6B20]" title="2. Frustración / Estrés"></div>
-                            <div class="w-1/5 bg-[#D69E2E]" title="3. Inquietud / Alerta"></div>
-                            <div class="w-1/5 bg-[#38A169]" title="4. Calma / Zona Óptima"></div>
-                            <div class="w-1/5 bg-[#3182CE]" title="5. Agotamiento / Baja Energía"></div>
-                        </div>
-                        <input type="range" id="toleranceRange" min="1" max="5" value="4" step="1" oninput="setToleranceFromSlider(this.value)" class="w-full accent-[#2C7A7B] cursor-pointer">
-                    </div>
-
-                    <!-- 5 Interactive Mood Pills (Exact match to Image 19) -->
-                    <div class="space-y-2 mb-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-[#123838]">¿Cómo te sientes hoy? <span class="text-slate-500 font-normal">(Comparte con tus amigos)</span></span>
-                            <span id="current-mood-badge" class="text-[10px] font-black px-2.5 py-0.5 rounded-full text-[#5C4033] bg-[#F5E6D3] border border-[#E0D0C0]">
-                                😊 Feliz
-                            </span>
-                        </div>
-                        <div class="grid grid-cols-5 gap-1.5 text-center">
-                            <button onclick="setQuickMood('Feliz', '😊', 4)" class="p-2 rounded-2xl bg-[#F5E6D3]/80 hover:bg-[#F5E6D3] border border-[#E0D0C0] transition flex flex-col items-center shadow-2xs">
-                                <span class="text-xl mb-0.5">😊</span>
-                                <span class="text-[9px] font-black text-[#5C4033]">Feliz</span>
-                            </button>
-                            <button onclick="setQuickMood('Relajado', '🌿', 4)" class="p-2 rounded-2xl bg-[#F5E6D3]/80 hover:bg-[#F5E6D3] border border-[#E0D0C0] transition flex flex-col items-center shadow-2xs">
-                                <span class="text-xl mb-0.5">🌿</span>
-                                <span class="text-[9px] font-black text-[#5C4033]">Relajado</span>
-                            </button>
-                            <button onclick="setQuickMood('Cansado', '😴', 5)" class="p-2 rounded-2xl bg-[#F5E6D3]/80 hover:bg-[#F5E6D3] border border-[#E0D0C0] transition flex flex-col items-center shadow-2xs">
-                                <span class="text-xl mb-0.5">😴</span>
-                                <span class="text-[9px] font-black text-[#5C4033]">Cansado</span>
-                            </button>
-                            <button onclick="setQuickMood('Energía', '⚡', 3)" class="p-2 rounded-2xl bg-[#F5E6D3]/80 hover:bg-[#F5E6D3] border border-[#E0D0C0] transition flex flex-col items-center shadow-2xs">
-                                <span class="text-xl mb-0.5">⚡</span>
-                                <span class="text-[9px] font-black text-[#5C4033]">Energía</span>
-                            </button>
-                            <button onclick="setQuickMood('Meditativo', '🧘', 4)" class="p-2 rounded-2xl bg-[#F5E6D3]/80 hover:bg-[#F5E6D3] border border-[#E0D0C0] transition flex flex-col items-center shadow-2xs">
-                                <span class="text-xl mb-0.5">🧘</span>
-                                <span class="text-[9px] font-black text-[#5C4033]">Meditativo</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button onclick="shareToleranceToChat()" class="w-full mt-2.5 bg-[#2C7A7B] text-white text-xs font-bold py-2 rounded-xl hover:bg-[#123838] transition flex items-center justify-center gap-1.5 shadow-xs">
-                        <i data-lucide="send" class="w-3.5 h-3.5"></i>
-                        <span>Registrar mi Estado en el Chat</span>
-                    </button>
-                </div>
-
-                <!-- CHAT FILTER CHIPS -->
-                <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-                    <button onclick="filterChats('todos', this)" class="chat-chip bg-[#2C7A7B] text-white px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0 shadow-sm">
-                        Todos
-                    </button>
-                    <button onclick="filterChats('amigos', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
-                        Amigos
-                    </button>
-                    <button onclick="filterChats('ia', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
-                        Asistente IA
-                    </button>
-                    <button onclick="filterChats('unread', this)" class="chat-chip bg-white text-slate-600 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0">
-                        No leídos
-                    </button>
-                </div>
-
-                <!-- CHAT LIST -->
-                <div class="space-y-2.5" id="chat-list-container">
-                    
-                    <!-- Chat Item 1: Amigo Social -->
-                    <div onclick="openChat('Camila Silva', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120', '¡Hola! ¿Vamos al parque a hacer yoga más tarde? 🧘‍♀️', 'En línea', 'amigos')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/20">
-                        <div class="relative shrink-0">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120" class="w-12 h-12 rounded-full object-cover border-2 border-[#33BCA9]" alt="Camila">
-                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#33BCA9] border-2 border-white rounded-full"></span>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex justify-between items-start mb-0.5">
-                                <h3 class="text-xs font-bold text-[#123838] truncate">Camila Silva</h3>
-                                <span class="text-[10px] text-slate-400 font-medium">10:14</span>
-                            </div>
-                            <p class="text-xs text-slate-500 truncate">¡Hola! ¿Vamos al parque a hacer yoga más tarde? 🧘‍♀️</p>
-                        </div>
-                        <span class="w-5 h-5 rounded-full bg-[#2C7A7B] text-white text-[10px] font-bold flex items-center justify-center shrink-0">2</span>
-                    </div>
-
-                    <!-- Chat Item 2: Médico / Profesional -->
-                    <div onclick="openChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120', 'Recordatorio: Tu infusión de Melisa a las 22:00 hrs', 'En línea', 'medicos')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/20">
-                        <div class="relative shrink-0">
-                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120" class="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]" alt="Dr. Aldo">
-                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#2C7A7B] border-2 border-white rounded-full"></span>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex justify-between items-start mb-0.5">
-                                <h3 class="text-xs font-bold text-[#123838] truncate flex items-center gap-1">
-                                    Dr. Aldo Licandeo <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#2C7A7B]"></i>
-                                </h3>
-                                <span class="text-[10px] text-slate-400 font-medium">09:30</span>
-                            </div>
-                            <p class="text-xs text-slate-500 truncate">Recordatorio: Tu infusión de Melisa a las 22:00 hrs</p>
-                        </div>
-                    </div>
-
-                    <!-- Chat Item 3: Asistente IA Bienestar -->
-                    <div onclick="openChat('Asistente IA Bienestar', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=120&h=120', '¿Te gustaría un consejo personalizado para conciliar el sueño hoy?', 'Activo 24/7', 'ia')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/30 bg-gradient-to-r from-[#E0F7F4]/40 to-white">
-                        <div class="relative shrink-0">
-                            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#2C7A7B] to-[#D4AF37] p-0.5">
-                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=120&h=120" class="w-full h-full rounded-full object-cover" alt="IA">
-                            </div>
-                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#33BCA9] border-2 border-white rounded-full"></span>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex justify-between items-start mb-0.5">
-                                <h3 class="text-xs font-bold text-[#123838] truncate flex items-center gap-1">
-                                    Asistente IA Bienestar <span class="text-[9px] bg-[#2C7A7B] text-white px-1 rounded font-extrabold">IA</span>
-                                </h3>
-                                <span class="text-[10px] text-slate-400 font-medium">Ahora</span>
-                            </div>
-                            <p class="text-xs text-slate-600 truncate font-medium">¿Te gustaría un consejo personalizado para conciliar el sueño hoy?</p>
-                        </div>
-                    </div>
-
-                    <!-- Chat Item 4: PyME Local Herbolaria -->
-                    <div onclick="openChat('Herbolaria Monterilla', 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=120&h=120', '¡Tu pedido de ungüento orgánico está listo para despacho!', 'En línea', 'pyme')" class="chat-card glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:bg-white transition shadow-sm border border-[#33BCA9]/20">
-                        <div class="relative shrink-0">
-                            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=120&h=120" class="w-12 h-12 rounded-full object-cover border-2 border-[#2C7A7B]" alt="Herbolaria">
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex justify-between items-start mb-0.5">
-                                <h3 class="text-xs font-bold text-[#123838] truncate">Herbolaria Monterilla</h3>
-                                <span class="text-[10px] text-slate-400 font-medium">Ayer</span>
-                            </div>
-                            <p class="text-xs text-slate-500 truncate">¡Tu pedido de ungüento orgánico está listo para despacho!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- INTERFAZ COMPLETA DE CHAT INDIVIDUAL (MODAL / FULL VIEW) -->
-            <div id="active-chat-view" class="hidden fixed inset-0 z-50 bg-[#FAF8EE] flex flex-col max-w-[440px] mx-auto">
-                
-                <!-- Chat Header -->
-                <div class="glass-header border-b border-[#33BCA9]/20 px-4 py-3 flex items-center justify-between shadow-sm">
-                    <div class="flex items-center gap-3">
-                        <button onclick="closeChatView()" class="p-1.5 rounded-full hover:bg-[#E0F7F4] text-[#123838]">
-                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                        </button>
-                        <div class="relative">
-                            <img id="chat-user-avatar" src="" class="w-10 h-10 rounded-full object-cover border-2 border-[#2C7A7B]" alt="Avatar">
-                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#33BCA9] border-2 border-white rounded-full"></span>
-                        </div>
-                        <div>
-                            <h3 id="chat-user-name" class="text-xs font-bold text-[#123838]">Usuario</h3>
-                            <span id="chat-user-status" class="text-[10px] text-[#2C7A7B] font-semibold">En línea</span>
-                        </div>
-                    </div>
-
-                    <!-- Call & Options Buttons (With 3 Dots Submenu) -->
-                    <div class="flex items-center gap-1 relative">
-                        <button onclick="startVideoCall(activeChatUser ? activeChatUser.name : 'Especialista Bienestar')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Videollamada HD">
-                            <i data-lucide="video" class="w-5 h-5"></i>
-                        </button>
-                        <button onclick="startVoiceCall(activeChatUser ? activeChatUser.name : 'Especialista Bienestar')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Llamada de voz">
-                            <i data-lucide="phone" class="w-5 h-5"></i>
-                        </button>
-                        <button onclick="toggleActiveChatMenu()" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full" title="Opciones de chat">
-                            <i data-lucide="more-vertical" class="w-5 h-5"></i>
-                        </button>
-
-                        <!-- Submenú de Chat Estilo WhatsApp (3 Puntos) -->
-                        <div id="active-chat-menu" class="hidden absolute top-12 right-0 z-50 w-56 bg-white border border-[#33BCA9]/30 rounded-2xl shadow-xl py-2 text-xs font-semibold text-[#123838]">
-                            <button onclick="showChatContactInfo()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
-                                <i data-lucide="user" class="w-4 h-4 text-[#2C7A7B]"></i>
-                                <span>Ver contacto / Info</span>
-                            </button>
-                            <button onclick="showChatMediaDocs()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
-                                <i data-lucide="folder" class="w-4 h-4 text-[#2C7A7B]"></i>
-                                <span>Archivos, enlaces y docs</span>
-                            </button>
-                            <button onclick="showChatSearchModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
-                                <i data-lucide="search" class="w-4 h-4 text-[#2C7A7B]"></i>
-                                <span>Buscar en el chat</span>
-                            </button>
-                            <button onclick="toggleMuteChatNotifications()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
-                                <i data-lucide="bell-off" class="w-4 h-4 text-[#2C7A7B]"></i>
-                                <span>Silenciar notificaciones</span>
-                            </button>
-                            <button onclick="showDisappearingMessagesModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
-                                <i data-lucide="clock" class="w-4 h-4 text-[#2C7A7B]"></i>
-                                <span>Mensajes temporales</span>
-                            </button>
-                            <button onclick="showChatWallpaperModal()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
-                                <i data-lucide="image" class="w-4 h-4 text-[#2C7A7B]"></i>
-                                <span>Fondo de pantalla</span>
-                            </button>
-                            <div class="my-1 border-t border-gray-100"></div>
-                            <button onclick="clearCurrentChatMessages()" class="w-full text-left px-4 py-2.5 hover:bg-red-50 text-red-600 flex items-center gap-2.5">
-                                <i data-lucide="trash-2" class="w-4 h-4 text-red-500"></i>
-                                <span>Vaciar chat</span>
-                            </button>
-                            <button onclick="exportCurrentChatHistory()" class="w-full text-left px-4 py-2.5 hover:bg-[#E0F7F4] flex items-center gap-2.5">
-                                <i data-lucide="download" class="w-4 h-4 text-[#2C7A7B]"></i>
-                                <span>Exportar chat (.txt)</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chat Messages Body -->
-                <div id="chat-messages-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-[#FAF8EE] to-[#E0F7F4]/30">
-                    <div class="text-center my-2">
-                        <span class="text-[10px] bg-slate-200/80 text-slate-600 px-3 py-1 rounded-full font-semibold">Hoy, Cifrado de Extremo a Extremo 🔒</span>
-                    </div>
-
-                    <!-- Sample Incoming Msg -->
-                    <div class="flex items-start gap-2 max-w-[85%]">
-                        <div id="chat-first-message" class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-xs text-[#123838] border border-[#33BCA9]/20">
-                            ¡Hola! Bienvenido al chat de Bienestar. ¿En qué puedo ayudarte hoy?
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chat Bottom Quick Attach & Input Bar -->
-                <div class="p-3 bg-white border-t border-[#33BCA9]/20 flex flex-col gap-2 relative">
-                    
-                    <!-- Quick Floating Emoji Popover -->
-                    <div id="chat-emoji-popover" class="hidden absolute bottom-16 right-3 z-50 bg-white border border-[#33BCA9]/30 rounded-2xl shadow-xl p-2 flex items-center gap-1.5 text-xl select-none">
-                        <button onclick="insertEmoji('😊')" class="p-1 hover:bg-[#E0F7F4] rounded-lg">😊</button>
-                        <button onclick="insertEmoji('😂')" class="p-1 hover:bg-[#E0F7F4] rounded-lg">😂</button>
-                        <button onclick="insertEmoji('🌿')" class="p-1 hover:bg-[#E0F7F4] rounded-lg">🌿</button>
-                        <button onclick="insertEmoji('❤️')" class="p-1 hover:bg-[#E0F7F4] rounded-lg">❤️</button>
-                        <button onclick="insertEmoji('👍')" class="p-1 hover:bg-[#E0F7F4] rounded-lg">👍</button>
-                        <button onclick="insertEmoji('🙏')" class="p-1 hover:bg-[#E0F7F4] rounded-lg">🙏</button>
-                        <button onclick="openFullEmojiPicker()" class="text-xs font-bold bg-[#E0F7F4] text-[#2C7A7B] px-2 py-1 rounded-lg hover:bg-[#33BCA9]/20">Más...</button>
-                    </div>
-
-                    <!-- Attachment Popup Menu (Desplegable flotante estilo WhatsApp 📎) -->
-                    <div id="chat-attachment-menu" class="hidden absolute bottom-16 left-3 z-50 bg-white border border-[#33BCA9]/30 rounded-2xl shadow-2xl p-3.5 w-72 text-xs font-semibold text-[#123838] transition-all duration-200">
-                        <div class="text-[10px] uppercase font-black text-[#2C7A7B] mb-2.5 px-1 tracking-wider flex items-center justify-between border-b border-slate-100 pb-1.5">
-                            <span class="flex items-center gap-1"><i data-lucide="paperclip" class="w-3.5 h-3.5 text-[#2C7A7B]"></i> Adjuntar / Compartir</span>
-                            <button onclick="toggleAttachmentMenu()" class="text-slate-400 hover:text-slate-600 font-bold px-1">✕</button>
-                        </div>
-                        <div class="grid grid-cols-3 gap-2 text-center">
-                            <!-- 1. Documento -->
-                            <button onclick="triggerFileInput('document')" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="file-text" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Documento</span>
-                            </button>
-                            <!-- 2. Galería -->
-                            <button onclick="triggerFileInput('image')" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="image" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Galería</span>
-                            </button>
-                            <!-- 3. Cámara Foto -->
-                            <button onclick="openCameraModal()" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="camera" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Cámara</span>
-                            </button>
-                            <!-- 4. Videollamada HD -->
-                            <button onclick="startVideoCall('Dr. Aldo Licandeo')" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="video" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Videollamada</span>
-                            </button>
-                            <!-- 5. Llamada Voz -->
-                            <button onclick="startVoiceCall('Dr. Aldo Licandeo')" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="phone" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Llamar</span>
-                            </button>
-                            <!-- 6. Contacto -->
-                            <button onclick="openContactShareModal()" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="user" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Contacto</span>
-                            </button>
-                            <!-- 7. Ubicación GPS Actual -->
-                            <button onclick="sendRealLocation()" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Ubicación</span>
-                            </button>
-                            <!-- 8. Ubicación en Vivo -->
-                            <button onclick="startLiveLocationTracking()" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="navigation" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Ubicación Vivo</span>
-                            </button>
-                            <!-- 9. Grabadora Voz -->
-                            <button onclick="openVoiceRecorderModal()" class="flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-[#E0F7F4] transition text-[#2C7A7B]">
-                                <div class="w-10 h-10 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center shadow-xs border border-[#33BCA9]/20">
-                                    <i data-lucide="mic" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-[10px] font-bold">Nota Audio</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Hidden Native File Inputs -->
-                    <input type="file" id="chat-file-document" class="hidden" accept=".pdf,.doc,.docx,.txt,.csv" onchange="handleFileSelected(this, 'Documento')">
-                    <input type="file" id="chat-file-image" class="hidden" accept="image/*,video/*" onchange="handleFileSelected(this, 'Galería')">
-
-                    <!-- Attachment Shortcuts Shortcuts Bar -->
-                    <div class="flex items-center gap-2 overflow-x-auto pb-1 text-[11px] font-semibold text-[#2C7A7B] no-scrollbar">
-                        <button onclick="toggleAttachmentMenu()" class="flex items-center gap-1 bg-[#2C7A7B] text-white px-3 py-1.5 rounded-full shrink-0 font-bold hover:bg-[#123838] transition shadow-xs">
-                            <i data-lucide="paperclip" class="w-3.5 h-3.5"></i> Adjuntar 📎
-                        </button>
-                        <button onclick="openCameraModal()" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
-                            <i data-lucide="camera" class="w-3.5 h-3.5"></i> Cámara
-                        </button>
-                        <button onclick="openVoiceRecorderModal()" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
-                            <i data-lucide="mic" class="w-3.5 h-3.5"></i> Voz
-                        </button>
-                        <button onclick="startVideoCall('Especialista Bienestar')" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
-                            <i data-lucide="video" class="w-3.5 h-3.5"></i> Videollamada
-                        </button>
-                        <button onclick="sendRealLocation()" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
-                            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Ubicación
-                        </button>
-                        <button onclick="openFullEmojiPicker()" class="flex items-center gap-1 bg-[#E0F7F4] hover:bg-[#33BCA9]/20 text-[#2C7A7B] px-3 py-1.5 rounded-full shrink-0 font-bold transition">
-                            <i data-lucide="smile" class="w-3.5 h-3.5"></i> Emojis
-                        </button>
-                    </div>
-
-                    <!-- Input & Send Button -->
-                    <div class="flex items-center gap-2">
-                        <button onclick="toggleAttachmentMenu()" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full transition" title="Adjuntar archivo">
-                            <i data-lucide="paperclip" class="w-5 h-5"></i>
-                        </button>
-                        <button onclick="openFullEmojiPicker()" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full transition" title="Emojis">
-                            <i data-lucide="smile" class="w-5 h-5"></i>
-                        </button>
-                        <input id="chat-text-input" type="text" onkeypress="if(event.key==='Enter') sendMessage()" placeholder="Escribe un mensaje..." class="flex-1 bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:border-[#2C7A7B]">
-                        <button onclick="sendMessage()" class="w-10 h-10 rounded-full bg-[#2C7A7B] text-white flex items-center justify-center shrink-0 shadow-md hover:bg-[#123838] transition">
-                            <i data-lucide="send" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-<!-- ----------------------------------------------------- -->
-            <!-- TAB 2: WELLNESS (SALUD, HÁBITOS, PASOS & ALIMENTACIÓN)  -->
-            <!-- ----------------------------------------------------- -->
-            <div id="screen-wellness" class="tab-content p-4 space-y-4">
-                
-                <!-- Wellness Subtabs Navigation -->
-                <div class="flex items-center justify-between bg-white p-1.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 text-xs font-bold text-[#123838]">
-                    <button onclick="switchWellnessSubtab('resumen', this)" class="wellness-sub-btn flex-1 py-1.5 text-center rounded-xl bg-[#2C7A7B] text-white shadow-xs">Resumen</button>
-                    <button onclick="switchWellnessSubtab('pasos', this)" class="wellness-sub-btn flex-1 py-1.5 text-center rounded-xl text-slate-500 hover:text-[#2C7A7B]">Pasos & Agua</button>
-                    <button onclick="switchWellnessSubtab('citas', this)" class="wellness-sub-btn flex-1 py-1.5 text-center rounded-xl text-slate-500 hover:text-[#2C7A7B]">Citas Médicas</button>
-                </div>
-
-                <!-- Subtab 1: Resumen Diario -->
-                <div id="wellness-sub-resumen" class="space-y-3">
-                    <div class="grid grid-cols-2 gap-3">
-                        <!-- Water Card -->
-                        <div class="glass-card p-3.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-xs font-bold text-[#123838]">Hidratación</span>
-                                <i data-lucide="droplet" class="w-4 h-4 text-[#33BCA9]"></i>
-                            </div>
-                            <div class="my-1">
-                                <span class="text-xl font-black text-[#2C7A7B]">1.8 L</span>
-                                <span class="text-[10px] text-slate-400 font-bold">/ 2.5 L</span>
-                            </div>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-[#33BCA9] h-full w-[72%]"></div>
-                            </div>
-                        </div>
-
-                        <!-- Steps Card -->
-                        <div class="glass-card p-3.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-xs font-bold text-[#123838]">Pasos Diarios</span>
-                                <i data-lucide="footprints" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            </div>
-                            <div class="my-1">
-                                <span class="text-xl font-black text-[#123838]">6,420</span>
-                                <span class="text-[10px] text-slate-400 font-bold">/ 10k</span>
-                            </div>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-[#2C7A7B] h-full w-[64%]"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Habit Progress Checklist -->
-                    <div class="glass-card p-4 rounded-2xl shadow-sm border border-[#33BCA9]/20 space-y-2.5">
-                        <h3 class="text-xs font-black text-[#123838] uppercase tracking-wider flex items-center gap-1.5">
-                            <i data-lucide="check-square" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            Hábitos Saludables de Hoy
-                        </h3>
-                        
-                        <label class="flex items-center gap-2.5 text-xs font-semibold text-[#123838] cursor-pointer p-2 rounded-xl hover:bg-[#E0F7F4]/50 transition">
-                            <input type="checkbox" checked class="w-4 h-4 accent-[#2C7A7B] rounded">
-                            <span>Infusión de Romero y Melisa (Mañana)</span>
-                        </label>
-                        <label class="flex items-center gap-2.5 text-xs font-semibold text-[#123838] cursor-pointer p-2 rounded-xl hover:bg-[#E0F7F4]/50 transition">
-                            <input type="checkbox" checked class="w-4 h-4 accent-[#2C7A7B] rounded">
-                            <span>Caminata de 20 minutos al aire libre</span>
-                        </label>
-                        <label class="flex items-center gap-2.5 text-xs font-semibold text-[#123838] cursor-pointer p-2 rounded-xl hover:bg-[#E0F7F4]/50 transition">
-                            <input type="checkbox" class="w-4 h-4 accent-[#2C7A7B] rounded">
-                            <span>Sesión de Relajación en Bienestar (22:30 hrs)</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Subtab 2: Pasos & Agua -->
-                <div id="wellness-sub-pasos" class="hidden space-y-3">
-                    <div class="glass-card p-4 rounded-2xl text-center space-y-2 border border-[#33BCA9]/30">
-                        <i data-lucide="activity" class="w-8 h-8 text-[#2C7A7B] mx-auto"></i>
-                        <h3 class="text-sm font-black text-[#123838]">Seguimiento Detallado de Actividad</h3>
-                        <p class="text-xs text-slate-500">Sincronizado con tus sensores móviles para medir distancia, ritmo cardíaco y calorías quemadas.</p>
-                    </div>
-                </div>
-
-                <!-- Subtab 3: Citas Médicas -->
-                <div id="wellness-sub-citas" class="hidden space-y-3">
-                    <div class="glass-card p-4 rounded-2xl space-y-3 border border-[#33BCA9]/30">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xs font-bold text-[#123838]">Próximas Consultas</h3>
-                            <button onclick="alert('Solicitando nueva hora médica...')" class="text-xs bg-[#2C7A7B] text-white px-3 py-1 rounded-full font-bold">+ Agendar</button>
-                        </div>
-                        <div class="p-3 bg-[#E0F7F4] rounded-xl flex items-center justify-between text-xs">
-                            <div>
-                                <span class="font-bold text-[#123838] block">Dr. Aldo Licandeo</span>
-                                <span class="text-slate-500 text-[11px]">Medicina Herbolaria & Nutrición</span>
-                            </div>
-                            <span class="bg-white text-[#2C7A7B] px-2.5 py-1 rounded-lg font-black shadow-xs">Hoy 18:30</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- ----------------------------------------------------- -->
-            <!-- TAB 3: EMPRENDE (TIENDA PYME + MATCH + AGENTE IA)     -->
-            <!-- ----------------------------------------------------- -->
-            <div id="screen-emprende" class="tab-content p-4 space-y-4">
-                
-                <!-- Emprende Header Banner -->
-                <div class="bg-gradient-to-r from-[#2C7A7B] to-[#123838] text-white p-4 rounded-2xl shadow-md relative overflow-hidden">
-                    <div class="relative z-10 space-y-1">
-                        <span class="text-[10px] bg-[#2C7A7B] text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider">MercadoLibre Local + IA</span>
-                        <h3 class="text-base font-black tracking-tight">Emprende Bienestar PyME</h3>
-                        <p class="text-xs text-[#E0F7F4]">Descubre productos artesanales, conecta con clientes mediante Match y crea videos con IA.</p>
-                    </div>
-                    <i data-lucide="shopping-bag" class="w-24 h-24 absolute -bottom-4 -right-4 text-white/10"></i>
-                </div>
-
-                <!-- Emprende Subtabs -->
-                <div class="flex items-center justify-between bg-white p-1.5 rounded-2xl shadow-sm border border-[#33BCA9]/20 text-xs font-bold text-[#123838]">
-                    <button onclick="switchEmprendeSubtab('vitrina', this)" class="emprende-sub-btn flex-1 py-1.5 text-center rounded-xl bg-[#2C7A7B] text-white">Vitrina</button>
-                    <button onclick="switchEmprendeSubtab('match', this)" class="emprende-sub-btn flex-1 py-1.5 text-center rounded-xl text-slate-500 hover:text-[#2C7A7B]">🎯 Match PyME</button>
-                    <button onclick="switchEmprendeSubtab('ia', this)" class="emprende-sub-btn flex-1 py-1.5 text-center rounded-xl text-slate-500 hover:text-[#2C7A7B]">🤖 Agente IA</button>
-                </div>
-
-                <!-- Vitrina Subtab -->
-                <div id="emprende-sub-vitrina" class="grid grid-cols-2 gap-3">
-                    
-                    <!-- Product Card 1 -->
-                    <div class="glass-card p-3 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
-                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=200&h=150" class="w-full h-24 rounded-xl object-cover mb-2" alt="Ungüento">
-                        <span class="text-[10px] text-[#2C7A7B] font-bold uppercase">Herbolaria Monterilla</span>
-                        <h4 class="text-xs font-bold text-[#123838] leading-tight my-0.5">Ungüento de Melisa & Caléndula</h4>
-                        <div class="flex justify-between items-center mt-2">
-                            <span class="text-xs font-black text-[#2C7A7B]">$8.900 CLP</span>
-                            <button onclick="alert('Añadido al carrito de compra')" class="p-1.5 bg-[#2C7A7B] text-white rounded-lg hover:bg-[#123838]">
-                                <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 2 -->
-                    <div class="glass-card p-3 rounded-2xl shadow-sm border border-[#33BCA9]/20 flex flex-col justify-between">
-                        <img src="https://images.unsplash.com/photo-1512290900673-7002fe5dc6a8?auto=format&fit=crop&q=80&w=200&h=150" class="w-full h-24 rounded-xl object-cover mb-2" alt="Aceite">
-                        <span class="text-[10px] text-[#2C7A7B] font-bold uppercase">Aromas del Sur</span>
-                        <h4 class="text-xs font-bold text-[#123838] leading-tight my-0.5">Aceite Esencial Lavanda 30ml</h4>
-                        <div class="flex justify-between items-center mt-2">
-                            <span class="text-xs font-black text-[#2C7A7B]">$12.500 CLP</span>
-                            <button onclick="alert('Añadido al carrito de compra')" class="p-1.5 bg-[#2C7A7B] text-white rounded-lg hover:bg-[#123838]">
-                                <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Match PyME Subtab -->
-                <div id="emprende-sub-match" class="hidden space-y-3">
-                    <div class="glass-card p-4 rounded-2xl text-center space-y-3 border border-[#33BCA9]/30 bg-gradient-to-b from-white to-[#E0F7F4]/30">
-                        <div class="w-12 h-12 bg-[#2C7A7B] text-white rounded-full flex items-center justify-center mx-auto shadow-md">
-                            <i data-lucide="heart-handshake" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-black text-[#123838]">Match PyME & Cliente Local</h3>
-                            <p class="text-xs text-slate-500 mt-1">Conecta automáticamente con emprendedores de Bienestar cercanos a tu ubicación.</p>
-                        </div>
-                        <button onclick="triggerPymeMatch()" class="w-full bg-[#2C7A7B] text-white font-bold text-xs py-3 rounded-xl shadow-md hover:bg-[#123838] transition">
-                            🎯 Buscar Match Cercano Ahora
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Agente IA Subtab -->
-                <div id="emprende-sub-ia" class="hidden space-y-3">
-                    <div class="glass-card p-4 rounded-2xl space-y-3 border border-[#33BCA9]/30">
-                        <h3 class="text-xs font-black text-[#123838] uppercase tracking-wider flex items-center gap-1.5">
-                            <i data-lucide="sparkles" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            Creación de Catálogo & Video con IA
-                        </h3>
-                        <p class="text-xs text-slate-600">Genera afiches, guiones y videos promocionales automáticamente para tu emprendimiento.</p>
-                        <button onclick="alert('Generando video promocional de tu catálogo con Agente IA...')" class="w-full bg-[#2C7A7B] text-white font-bold text-xs py-2.5 rounded-xl shadow-xs">
-                            🎬 Generar Video Promocional con IA
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- ----------------------------------------------------- -->
-            <!-- TAB 4: BIENESTAR (DIOS DEL SUEÑO, DESCANSO & SPOTIFY)     -->
-            <!-- ----------------------------------------------------- -->
-            <div id="screen-morfeo" class="tab-content p-4 space-y-4">
-                
-                <!-- Morfeo Branding Header -->
-                <div class="bg-gradient-to-b from-[#123838] via-[#1A4D4E] to-[#123838] text-white p-5 rounded-3xl shadow-xl relative overflow-hidden border border-[#33BCA9]/30">
-                    <div class="flex justify-between items-start relative z-10">
-                        <div>
-                            <span class="text-[10px] bg-[#2C7A7B] text-white px-2.5 py-0.5 rounded-full font-black uppercase tracking-widest">Dios del Sueño & Descanso</span>
-                            <h2 class="text-xl font-black tracking-tight mt-1 text-[#FAF8EE]">MORFEO</h2>
-                            <p class="text-xs text-[#E0F7F4] font-medium">Música Binaural, Meditación & Relajación Profunda para un Buen Descanso</p>
-                        </div>
-                        <div class="w-10 h-10 rounded-full bg-[#FAF8EE]/10 flex items-center justify-center border border-white/20">
-                            <i data-lucide="moon" class="w-5 h-5 text-[#2C7A7B]"></i>
-                        </div>
-                    </div>
-
-                    <!-- Audio Player Box -->
-                    <div class="mt-5 pt-4 border-t border-white/10 space-y-3 relative z-10">
-                        <div class="flex justify-between items-center text-xs">
-                            <div>
-                                <span id="player-track-title" class="font-bold text-[#FAF8EE] block">Lluvia en el Jardín de Morfeo</span>
-                                <span id="player-track-sub" class="text-[10px] text-[#33BCA9]">Ondas Delta 432Hz — Sueño Reparador</span>
-                            </div>
-                            <span class="text-[10px] bg-[#33BCA9]/20 text-[#33BCA9] px-2 py-0.5 rounded-full font-bold">HD Audio</span>
-                        </div>
-
-                        <!-- Progress Line -->
-                        <div class="space-y-1">
-                            <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden">
-                                <div id="player-progress-bar" class="bg-[#33BCA9] h-full w-[40%]"></div>
-                            </div>
-                            <div class="flex justify-between text-[9px] text-slate-300 font-mono">
-                                <span>04:12</span>
-                                <span>10:00</span>
-                            </div>
-                        </div>
-
-                        <!-- Player Controls -->
-                        <div class="flex justify-between items-center pt-1 px-4">
-                            <button onclick="prevTrack()" class="text-slate-300 hover:text-white transition p-1">
-                                <i data-lucide="skip-back" class="w-5 h-5"></i>
-                            </button>
-                            <button id="play-pause-btn" onclick="togglePlay()" class="w-12 h-12 rounded-full bg-[#33BCA9] text-[#123838] flex items-center justify-center shadow-lg hover:scale-105 transition">
-                                <i data-lucide="pause" class="w-6 h-6 fill-current"></i>
-                            </button>
-                            <button onclick="nextTrack()" class="text-slate-300 hover:text-white transition p-1">
-                                <i data-lucide="skip-forward" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SPOTIFY VINCULACIÓN & INTEGRACIÓN -->
-                <div class="glass-card p-4 rounded-2xl border border-[#33BCA9]/30 bg-gradient-to-r from-[#E0F7F4]/50 to-white flex items-center justify-between shadow-sm">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-[#2C7A7B] text-white flex items-center justify-center font-bold text-lg shadow-sm">
-                            <i data-lucide="music-2" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xs font-bold text-[#123838]">Vincular con Spotify</h4>
-                            <p class="text-[10px] text-slate-500">Sincroniza tus Playlists de Meditación y Relajación</p>
-                        </div>
-                    </div>
-                    <button onclick="alert('Conectando con tu cuenta oficial de Spotify...')" class="bg-[#2C7A7B] text-white text-xs font-bold px-3 py-1.5 rounded-full hover:bg-black transition shadow-xs">
-                        Conectar
-                    </button>
-                </div>
-
-                <!-- BIENESTAR TRACK LIST -->
-                <div class="glass-card p-4 rounded-2xl border border-[#33BCA9]/20 space-y-2.5">
-                    <h3 class="text-xs font-black text-[#123838] uppercase tracking-wider flex items-center justify-between">
-                        <span>Pistas de Relajación & Sueño</span>
-                        <i data-lucide="headphones" class="w-4 h-4 text-[#2C7A7B]"></i>
-                    </h3>
-
-                    <!-- Track Item 1 -->
-                    <div onclick="selectTrack('Lluvia en el Jardín de Morfeo', 'Ondas Delta 432Hz')" class="p-2.5 rounded-xl bg-[#E0F7F4]/60 hover:bg-[#E0F7F4] cursor-pointer flex items-center justify-between transition">
-                        <div class="flex items-center gap-2.5">
-                            <i data-lucide="cloud-rain" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            <div>
-                                <span class="text-xs font-bold text-[#123838] block">Lluvia en el Jardín</span>
-                                <span class="text-[10px] text-slate-500">Ondas Delta 432Hz — 10 min</span>
-                            </div>
-                        </div>
-                        <button onclick="event.stopPropagation(); alert('Descargando pista offline...')" class="p-1 text-[#2C7A7B] hover:text-[#123838]">
-                            <i data-lucide="download" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-
-                    <!-- Track Item 2 -->
-                    <div onclick="selectTrack('Estero de Morfeo & Pájaros', 'Sonido Natural 528Hz')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
-                        <div class="flex items-center gap-2.5">
-                            <i data-lucide="waves" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            <div>
-                                <span class="text-xs font-bold text-[#123838] block">Estero de Morfeo</span>
-                                <span class="text-[10px] text-slate-500">Fluidez & Paz Interior — 15 min</span>
-                            </div>
-                        </div>
-                        <button onclick="event.stopPropagation(); alert('Descargando pista offline...')" class="p-1 text-[#2C7A7B] hover:text-[#123838]">
-                            <i data-lucide="download" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-
-                    <!-- Track Item 3 -->
-                    <div onclick="selectTrack('Meditación Morfeo Guiada', 'Voz Suave & Respiración')" class="p-2.5 rounded-xl hover:bg-[#E0F7F4]/40 cursor-pointer flex items-center justify-between transition">
-                        <div class="flex items-center gap-2.5">
-                            <i data-lucide="sparkles" class="w-4 h-4 text-[#2C7A7B]"></i>
-                            <div>
-                                <span class="text-xs font-bold text-[#123838] block">Meditación Morfeo</span>
-                                <span class="text-[10px] text-slate-500">Inducción al Sueño Profundo — 20 min</span>
-                            </div>
-                        </div>
-                        <button onclick="event.stopPropagation(); alert('Descargando pista offline...')" class="p-1 text-[#2C7A7B] hover:text-[#123838]">
-                            <i data-lucide="download" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-
-        <!-- ========================================================= -->
-        <!-- BOTTOM NAVIGATION BAR (BARRA DE NAVEGACIÓN INFERIOR)       -->
-        <!-- ========================================================= -->
-        <nav class="glass-header absolute bottom-0 inset-x-0 z-40 border-t border-[#33BCA9]/20 px-3 py-2 flex items-center justify-around shadow-lg">
-            
-            <!-- Tab 1: Chats / Comunidad -->
-            <button id="nav-chats" onclick="switchMainTab('chats', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-[#2C7A7B] transition">
-                <i data-lucide="message-square" class="w-5 h-5"></i>
-                <span class="text-[10px] font-black tracking-tight">Chats</span>
-            </button>
-
-            <!-- Tab 2: Wellness -->
-            <button id="nav-wellness" onclick="switchMainTab('wellness', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
-                <i data-lucide="heart-pulse" class="w-5 h-5"></i>
-                <span class="text-[10px] font-bold tracking-tight">Wellness</span>
-            </button>
-
-            <!-- Tab 3: Emprende -->
-            <button id="nav-emprende" onclick="switchMainTab('emprende', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
-                <i data-lucide="store" class="w-5 h-5"></i>
-                <span class="text-[10px] font-bold tracking-tight">Tienda</span>
-            </button>
-
-            <!-- Tab 4: Bienestar -->
-            <button id="nav-morfeo" onclick="switchMainTab('morfeo', this)" class="main-nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] transition">
-                <i data-lucide="moon" class="w-5 h-5"></i>
-                <span class="text-[10px] font-bold tracking-tight">Morfeo</span>
-            </button>
-        </nav>
-
-    </div>
-
-    <!-- ========================================================= -->
-    <!-- JAVASCRIPT LOGIC & INTERACTIVITY                          -->
-    <!-- ========================================================= -->
+  <div class="app-frame">
     
-
-
-<!-- ========================================================= -->
-<!-- MODALES INTERACTIVOS DE CÁMARA, VIDEOLLAMADA, VOZ Y EMOJIS  -->
-<!-- ========================================================= -->
-
-<!-- 1. MODAL CÁMARA DE FOTOS EN VIVO -->
-
-
-<!-- 1. MODAL CÁMARA REAL DE FOTOS -->
-<div id="cameraModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
-        <div class="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
-            <h3 class="font-bold flex items-center gap-2 text-[#33BCA9]">📷 Cámara de Fotos Bienestar</h3>
-            <button onclick="closeCameraModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
-        </div>
-        <div class="p-6 text-center space-y-4">
-            <div class="w-full h-64 bg-slate-950 rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-emerald-500/40 relative overflow-hidden">
-                <video id="cameraFeed" autoplay playsinline class="w-full h-full object-cover hidden"></video>
-                <canvas id="cameraCanvas" class="hidden"></canvas>
-                <div id="cameraFeedPlaceholder" class="flex flex-col items-center justify-center p-4 text-center">
-                    <span class="text-5xl mb-2 animate-pulse">📸</span>
-                    <p class="text-xs text-[#33BCA9] font-medium">Visor de Cámara Activado</p>
-                    <p class="text-[10px] text-slate-500 mt-1">Captura fichas médicas, recetas o tratamientos</p>
-                </div>
-            </div>
-            <div class="flex justify-center gap-3">
-                <button onclick="switchCameraFacing()" class="p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600" title="Girar Cámara">
-                    🔄
-                </button>
-                <button onclick="capturePhotoToChat()" class="bg-[#2C7A7B] hover:bg-[#123838] text-white font-bold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg transition">
-                    <span>🔘</span> Capturar y Adjuntar
-                </button>
-                <button onclick="closeCameraModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 px-4 rounded-full border border-slate-600">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 2. MODAL VIDEOLLAMADA HD WEBRTC -->
-<div id="videoCallModal" class="fixed inset-0 z-[9990] bg-slate-950 hidden flex flex-col justify-between p-6 text-white relative">
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-[#123838] to-slate-950 -z-10 flex flex-col items-center justify-center">
-        <div class="text-center space-y-3">
-            <div class="w-24 h-24 rounded-full bg-[#2C7A7B] text-white flex items-center justify-center mx-auto border-4 border-[#33BCA9] shadow-2xl overflow-hidden">
-                <img id="videoCallAvatarImg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=160&h=160" class="w-full h-full object-cover">
-            </div>
-            <h2 id="videoTargetName" class="text-lg font-black text-white">Consulta Online HD</h2>
-            <p id="videoCallTimerText" class="text-xs text-[#33BCA9] font-mono flex items-center justify-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Videollamada en curso · 00:00
-            </p>
-        </div>
-    </div>
-    
-    <!-- PIP propia cámara en miniatura flotante -->
-    <div class="absolute top-6 right-6 w-28 h-40 bg-slate-800 border-2 border-[#33BCA9] rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden z-20">
-        <video id="localVideoCallFeed" autoplay playsinline muted class="w-full h-full object-cover"></video>
-        <span class="absolute bottom-1 right-2 text-[9px] bg-black/60 px-1.5 py-0.5 rounded text-[#33BCA9] font-mono">Tú</span>
+    <!-- Status Bar Top -->
+    <div class="status-bar">
+      <span>18:57</span>
+      <div style="display: flex; gap: 6px; align-items: center;">
+        <i data-lucide="signal" size="14"></i>
+        <i data-lucide="wifi" size="14"></i>
+        <i data-lucide="battery" size="16"></i>
+      </div>
     </div>
 
-    <div class="mt-auto flex justify-center items-center gap-6 mb-8 z-20">
-        <button id="btnVideoCallMuteMic" onclick="toggleVideoCallMic()" class="w-14 h-14 rounded-full bg-slate-800/90 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700 transition shadow-lg">
-            🎤
-        </button>
-        <button id="btnVideoCallCamOff" onclick="toggleVideoCallCam()" class="w-14 h-14 rounded-full bg-slate-800/90 border border-slate-600 flex items-center justify-center text-xl hover:bg-slate-700 transition shadow-lg">
-            📹
-        </button>
-        <button onclick="endVideoCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-xl shadow-red-900/60 flex items-center justify-center text-2xl text-white transition transform active:scale-95">
-            📞
-        </button>
-    </div>
-</div>
-
-<!-- 3. MODAL LLAMADA DE VOZ  BIENESTAR -->
-<div id="voiceCallModal" class="fixed inset-0 z-[9900] bg-slate-900/95 backdrop-blur-md hidden flex flex-col justify-between p-6 text-white text-center">
-    <div class="pt-10">
-        <div class="w-24 h-24 rounded-full bg-[#2C7A7B] text-white flex items-center justify-center mx-auto shadow-2xl border-4 border-[#33BCA9] mb-4 overflow-hidden relative">
-            <img id="voiceCallAvatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=160&h=160" class="w-full h-full object-cover">
-        </div>
-        <h3 id="callTargetName" class="text-lg font-black">Especialista Bienestar</h3>
-        <p id="voiceCallTimerText" class="text-xs text-[#33BCA9] font-mono mt-1">Llamada en curso · 00:00</p>
-    </div>
-    <div class="flex justify-center gap-2 items-center my-auto">
-        <span class="w-2 h-8 bg-[#33BCA9] rounded-full animate-bounce"></span>
-        <span class="w-2 h-12 bg-[#2C7A7B] rounded-full animate-bounce [animation-delay:0.2s]"></span>
-        <span class="w-2 h-6 bg-[#33BCA9] rounded-full animate-bounce [animation-delay:0.4s]"></span>
-    </div>
-    <div class="flex justify-center items-center gap-6 mb-8">
-        <button id="btnVoiceCallMuteMic" onclick="toggleVoiceCallMic()" class="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 text-xl flex items-center justify-center">
-            🎤
-        </button>
-        <button onclick="endVoiceCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 shadow-xl flex items-center justify-center text-2xl">
-            📞
-        </button>
-    </div>
-</div>
-
-<!-- 4. MODAL GRABADORA DE NOTA DE VOZ -->
-<div id="voiceRecorderModal" class="fixed inset-0 z-[9920] bg-slate-900/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-[#FAF8EE] border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl relative">
-        <button onclick="closeVoiceRecorderModal()" class="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-[#123838] rounded-full hover:bg-slate-100 transition">✕</button>
-        <div class="w-16 h-16 rounded-full bg-[#E0F7F4] text-[#2C7A7B] flex items-center justify-center mx-auto shadow-inner border border-[#33BCA9]/30">
-            <i data-lucide="mic" class="w-8 h-8 animate-pulse"></i>
-        </div>
+    <!-- Header Principal -->
+    <div class="app-header">
+      <div class="brand-logo">
+        <img src="logo_bienestar_png.jpeg" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=100&auto=format&fit=crop&q=80'">
         <div>
-            <h3 class="text-base font-extrabold text-[#123838]">Grabadora de Nota de Voz</h3>
-            <p id="recording-status" class="text-xs text-[#2C7A7B] font-semibold mt-1">Presiona iniciar para grabar audio</p>
-            <div id="recording-timer" class="text-xl font-mono font-black text-[#123838] mt-2">00:00</div>
+          <div class="brand-title">BIENESTAR</div>
+          <div class="brand-subtitle">Ecosistema Integral</div>
         </div>
-        <div class="flex justify-center items-center gap-3">
-            <button onclick="toggleVoiceRecording()" class="bg-[#2C7A7B] hover:bg-[#123838] text-white font-bold py-2.5 px-5 rounded-full text-xs flex items-center gap-1.5 shadow-md transition">
-                <span id="rec-btn-text">🔴 Iniciar Grabación</span>
-            </button>
-            <button onclick="sendVoiceNoteToChat()" class="bg-[#33BCA9] hover:bg-[#2C7A7B] text-white font-bold py-2.5 px-4 rounded-full text-xs shadow-md transition">
-                🚀 Enviar
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- 5. MODAL SELECTOR COMPLETO DE EMOJIS (300+ Categorizados) -->
-<div id="fullEmojiPickerModal" class="fixed inset-0 z-[9970] bg-black/40 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-2">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-md w-full h-[65vh] flex flex-col overflow-hidden shadow-2xl text-[#123838]">
-        <div class="p-3 bg-[#E0F7F4] border-b border-[#33BCA9]/20 flex justify-between items-center">
-            <div class="flex gap-1.5 overflow-x-auto text-sm no-scrollbar" id="emojiCatTabs">
-                <button onclick="filterEmojiCat('caras', this)" class="emoji-cat-btn bg-[#2C7A7B] text-white px-2.5 py-1 rounded-xl text-xs font-bold shrink-0">😃 Caras</button>
-                <button onclick="filterEmojiCat('gestos', this)" class="emoji-cat-btn bg-white text-slate-600 px-2.5 py-1 rounded-xl text-xs font-bold shrink-0">👍 Gestos</button>
-                <button onclick="filterEmojiCat('salud', this)" class="emoji-cat-btn bg-white text-slate-600 px-2.5 py-1 rounded-xl text-xs font-bold shrink-0">🌿 Salud</button>
-                <button onclick="filterEmojiCat('comida', this)" class="emoji-cat-btn bg-white text-slate-600 px-2.5 py-1 rounded-xl text-xs font-bold shrink-0">🍎 Comida</button>
-                <button onclick="filterEmojiCat('deportes', this)" class="emoji-cat-btn bg-white text-slate-600 px-2.5 py-1 rounded-xl text-xs font-bold shrink-0">⚽ Actividades</button>
-                <button onclick="filterEmojiCat('simbolos', this)" class="emoji-cat-btn bg-white text-slate-600 px-2.5 py-1 rounded-xl text-xs font-bold shrink-0">💖 Símbolos</button>
-            </div>
-            <button onclick="closeFullEmojiPicker()" class="text-slate-400 hover:text-[#123838] font-bold text-lg px-2">✕</button>
-        </div>
-        <div class="p-2 border-b border-slate-100 bg-slate-50">
-            <input type="text" id="emojiSearchInput" oninput="searchEmojis(this.value)" placeholder="Buscar emoji en vivo..." class="w-full bg-white border border-[#33BCA9]/30 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-[#2C7A7B]">
-        </div>
-        <div class="flex-1 p-3 overflow-y-auto grid grid-cols-7 gap-2 text-2xl text-center" id="emojiGridContainer">
-            <!-- Emojis inyectados dinámicamente -->
-        </div>
-    </div>
-</div>
-
-<!-- 6. MODAL NUEVO GRUPO -->
-<div id="createGroupModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-2xl">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838] flex items-center gap-2">👥 Crear Nuevo Grupo</h3>
-            <button onclick="document.getElementById('createGroupModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <input type="text" id="newGroupNameInput" placeholder="Nombre del grupo..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#2C7A7B]">
-        <button onclick="alert('¡Grupo creado con éxito!'); document.getElementById('createGroupModal').classList.add('hidden');" class="w-full bg-[#2C7A7B] text-white font-bold py-2 rounded-xl text-xs shadow transition">Crear Grupo</button>
-    </div>
-</div>
-
-<!-- 7. MODAL NUEVA COMUNIDAD -->
-<div id="createCommunityModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-2xl">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838] flex items-center gap-2">🌐 Nueva Comunidad Bienestar</h3>
-            <button onclick="document.getElementById('createCommunityModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <input type="text" placeholder="Nombre de la comunidad..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#2C7A7B]">
-        <textarea placeholder="Descripción del propósito comunal..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs h-20 focus:outline-none focus:border-[#2C7A7B]"></textarea>
-        <button onclick="alert('¡Comunidad iniciada exitosamente!'); document.getElementById('createCommunityModal').classList.add('hidden');" class="w-full bg-[#2C7A7B] text-white font-bold py-2 rounded-xl text-xs shadow transition">Lanzar Comunidad</button>
-    </div>
-</div>
-
-<!-- 8. MODAL MENSAJES DESTACADOS -->
-<div id="starredMessagesModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838] flex items-center gap-2">⭐ Mensajes Destacados</h3>
-            <button onclick="document.getElementById('starredMessagesModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <div class="p-3 bg-[#E0F7F4]/50 rounded-xl text-xs text-[#123838] border border-[#33BCA9]/20">
-            <p class="font-bold text-[#2C7A7B]">📌 Recordatorio de Melisa</p>
-            <p class="text-[11px] text-slate-600">"Tomar infusión caliente a las 22:00 hrs para dormir profundamente."</p>
-        </div>
-    </div>
-</div>
-
-<!-- 9. MODAL DISPOSITIVOS VINCULADOS -->
-<div id="linkedDevicesModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838] flex items-center gap-2">💻 Dispositivos Vinculados</h3>
-            <button onclick="document.getElementById('linkedDevicesModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <div class="space-y-2 text-xs">
-            <div class="p-2.5 bg-slate-50 rounded-xl flex items-center justify-between border border-slate-200">
-                <div>
-                    <p class="font-bold text-[#123838]">Navegador Chrome (Windows)</p>
-                    <p class="text-[10px] text-emerald-600 font-semibold">Activo ahora · Santiago</p>
-                </div>
-                <span class="text-xs">🟢</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 10. MODAL AJUSTES DE BIENESTAR -->
-<div id="whatsappSettingsModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838] flex items-center gap-2">⚙️ Ajustes de Bienestar</h3>
-            <button onclick="document.getElementById('whatsappSettingsModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <div class="space-y-2 text-xs text-[#123838]">
-            <label class="flex justify-between items-center p-2 rounded-xl bg-slate-50">
-                <span>Notificaciones de Salud</span>
-                <input type="checkbox" checked class="accent-[#2C7A7B]">
-            </label>
-            <label class="flex justify-between items-center p-2 rounded-xl bg-slate-50">
-                <span>Modo Oscuro / Relajación</span>
-                <input type="checkbox" class="accent-[#2C7A7B]">
-            </label>
-        </div>
-    </div>
-</div>
-
-<!-- 11. MODAL VER CONTACTO / INFO -->
-<div id="contactInfoModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-4 text-center shadow-2xl relative">
-        <button onclick="document.getElementById('contactInfoModal').classList.add('hidden')" class="absolute top-4 right-4 text-slate-400 font-bold">✕</button>
-        <div class="w-20 h-20 rounded-full mx-auto overflow-hidden border-2 border-[#33BCA9] shadow">
-            <img id="infoModalAvatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120" class="w-full h-full object-cover">
-        </div>
-        <div>
-            <h3 id="infoModalName" class="font-extrabold text-sm text-[#123838]">Dr. Aldo Licandeo</h3>
-            <p id="infoModalCategory" class="text-xs text-[#2C7A7B] font-semibold">Especialista en Medicina Integrativa</p>
-        </div>
-        <div class="text-xs text-slate-500 bg-[#E0F7F4]/40 p-3 rounded-2xl border border-[#33BCA9]/20 text-left space-y-1">
-            <p><strong>Estado:</strong> Atendiendo consultas online</p>
-            <p><strong>Ciberseguridad:</strong> Encriptación Activa Ley 21.663</p>
-        </div>
-    </div>
-</div>
-
-<!-- 12. MODAL ARCHIVOS, ENLACES Y DOCS -->
-<div id="chatMediaModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838] flex items-center gap-2">📂 Archivos & Documentos</h3>
-            <button onclick="document.getElementById('chatMediaModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <div class="p-3 bg-slate-50 rounded-xl text-xs space-y-2 border border-slate-200">
-            <div class="flex items-center gap-2 text-[#2C7A7B]">
-                <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span class="font-bold">Ficha_Medica_Integrativa.pdf</span>
-            </div>
-            <div class="flex items-center gap-2 text-[#2C7A7B]">
-                <i data-lucide="image" class="w-4 h-4"></i>
-                <span class="font-bold">Examen_Sangre_Sept2026.png</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 13. MODAL FONDO DE PANTALLA -->
-<div id="wallpaperModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl text-center">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838]">🖼️ Fondo de Pantalla Chat</h3>
-            <button onclick="document.getElementById('wallpaperModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <div class="grid grid-cols-4 gap-2">
-            <button onclick="setChatWallpaper('#FAF8EE')" class="h-12 rounded-xl border border-slate-300 bg-[#FAF8EE]"></button>
-            <button onclick="setChatWallpaper('#E0F7F4')" class="h-12 rounded-xl border border-slate-300 bg-[#E0F7F4]"></button>
-            <button onclick="setChatWallpaper('#FEF3C7')" class="h-12 rounded-xl border border-slate-300 bg-[#FEF3C7]"></button>
-            <button onclick="setChatWallpaper('#F3E8FF')" class="h-12 rounded-xl border border-slate-300 bg-[#F3E8FF]"></button>
-        </div>
-    </div>
-</div>
-
-<!-- 14. MODAL COMPARTIR CONTACTO -->
-<div id="contactShareModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838]">📇 Seleccionar Contacto</h3>
-            <button onclick="closeContactShareModal()" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <div class="space-y-2 text-xs">
-            <div onclick="sendContactCard('Camila Silva', 'Comunidad Bienestar Yoga', '+56 9 8765 4321', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120')" class="p-2.5 bg-[#E0F7F4]/60 rounded-xl cursor-pointer hover:bg-[#E0F7F4] flex items-center gap-2 transition border border-[#33BCA9]/20">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120" class="w-8 h-8 rounded-full object-cover">
-                <div>
-                    <span class="font-bold text-[#123838] block">Camila Silva</span>
-                    <span class="text-[10px] text-[#2C7A7B]">Comunidad Yoga</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 15. MODAL BUSCAR EN EL CHAT -->
-<div id="chatSearchModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838]">🔍 Buscar en la conversación</h3>
-            <button onclick="document.getElementById('chatSearchModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <input type="text" placeholder="Escribe término a buscar..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#2C7A7B]">
-    </div>
-</div>
-
-<!-- 16. MODAL MENSAJES TEMPORALES -->
-<div id="disappearingMessagesModal" class="fixed inset-0 z-[9900] bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-[#33BCA9]/30 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl text-center">
-        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
-            <h3 class="font-extrabold text-sm text-[#123838]">⏳ Mensajes Temporales</h3>
-            <button onclick="document.getElementById('disappearingMessagesModal').classList.add('hidden')" class="text-slate-400 font-bold">✕</button>
-        </div>
-        <div class="space-y-2 text-xs text-[#123838]">
-            <button onclick="alert('Mensajes desvanecerán en 24 horas'); document.getElementById('disappearingMessagesModal').classList.add('hidden');" class="w-full p-2 bg-slate-50 hover:bg-[#E0F7F4] rounded-xl text-left border border-slate-200">24 Horas</button>
-            <button onclick="alert('Mensajes desvanecerán en 7 días'); document.getElementById('disappearingMessagesModal').classList.add('hidden');" class="w-full p-2 bg-slate-50 hover:bg-[#E0F7F4] rounded-xl text-left border border-slate-200">7 Días</button>
-            <button onclick="alert('Mensajes temporales desactivados'); document.getElementById('disappearingMessagesModal').classList.add('hidden');" class="w-full p-2 bg-slate-50 hover:bg-[#E0F7F4] rounded-xl text-left border border-slate-200">Desactivado</button>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<script>
-// =========================================================
-// BIENESTAR v185 - MASTER UNIFIED SCRIPT
-// =========================================================
-
-let currentToleranceLevel = 4;
-let activeChatUser = {
-    name: 'Dr. Aldo Licandeo',
-    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=120&h=120',
-    status: 'En línea',
-    category: 'medicos'
-};
-
-let currentEmojiCat = 'caras';
-let cameraPhotoStream = null;
-let currentCameraFacing = 'user';
-let videoCallStream = null;
-let videoCallTimerInterval = null;
-let videoCallSeconds = 0;
-let isVideoCallMicMuted = false;
-let isVideoCallCamOff = false;
-let voiceCallTimerInterval = null;
-let voiceCallSeconds = 0;
-let mediaRecorder = null;
-let audioChunks = [];
-let voiceRecordTimer = null;
-let voiceRecordSecs = 0;
-
-const emojiDatabase = {
-    caras: ['😃','😄','😁','😆','😅','😂','🤣','🥲','☺️','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🥸','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤗','🤔','🤭','🤫','🤥','😶','😐','😑','😬','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪','😵','🤐','🥴','🤢','🤮','🤧','😷','🤒','🤕'],
-    gestos: ['👍','👎','👊','✊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦾','🦿','🦵','🦶','👂','🦻','👃','🧠','🫀','🫁','🦷','🦴','👀','👁','👅','👄','👶','🧒','👦','👧','🧑','👨','👩','👱‍♀️','👱‍♂️','👩‍⚕️','👨‍⚕️','🧘‍♀️','🧘‍♂️','🏃‍♀️','🏃‍♂️','🤸‍♀️','🚵‍♀️'],
-    salud: ['🌿','🌱','🍃','🪴','🍀','🍵','🫖','☕️','🧘‍♂️','🩺','💊','🩹','💉','🩸','🧪','🧫','🫀','🫁','🧠','🧘‍♀️','🧖‍♀️','🧖‍♂️','💆‍♀️','💆‍♂️','🛀','🛁','🛌','💤','☀️','🌙','⭐️','✨','⚡️','💧','🌊','🏖','⛰','🪵','🌸','🌺','🌻','🌹','🌷','🍁'],
-    comida: ['🍎','🍐','🍊','🍋',' бана','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🥑','🥦','🥬','🥒','🌶','🫑','🌽','🥕','🫒','🧄','🧅','🥔','🍠','🫓','🥐','🥖','🍞','🧀','🥗','🥣','🫕','🍲','🥘','🍛','🍱','🍣','🥟','🍢','🍙','🍚','🍘','🍧','🍨','🍦','🥧','🧁','🍰','🎂','🍮','🍭','🍬','🍫','🍿','🍩','🍪','🍯','🥛','🥤','🧃','🫖','🍵'],
-    deportes: ['⚽️','🏀','🏈','⚾️','🥎','🎾','🏐','🏉','🥏','🎱','🪀','🏓','🏸','🏒','🏑','🥍','🏏','🥅','⛳️','🪁','🏹','Fishing','🛿','🥊','🥋','🎽','🛹','🛼','🛷','⛸','🥌','🎿','⛷','🏂','🪂','🏋️‍♀️','🏋️‍♂️','🤸‍♀️','🤼‍♀️','🤽‍♀️','🤾‍♀️','🧗‍♀️','🧗‍♂️','🧘‍♀️','🧘‍♂️'],
-    simbolos: ['💖','💗','💓','💞','💕','💟','❣️','💔','❤️','🧡','💛','💚','💙','💜','🤎','🖤','🤍','💯','💢','💥','💫','💦','💨','🕳','💣','💬','👁‍🗨','🗨','🗯','💭','💤','🏧','🚮','🚰','♿️','🚹','厢','🚻','🚼','🚾','⚠️','🚸','⛔️','🚫','🚳','🚭','🚯','🚱','🚷','📵','🔞','☢️','☣️','⬆️','↗️','➡️','↘️','⬇️','↙️','⬅️','↖️','↕️','↔️','↩️','↪️','⤴️','⤵️','🔄','🔄','✝️','☪️','🕉','☸️','✡️','🔯','🕎','☯️','☦️','🛐','⛎','♈️','♉️','♊️','♋️','♌️','♍️','♎️','♏️','♐️','♑️','♒️','♓️']
-};
-
-const toleranceData = {
-    1: { name: "🔴 Zona 1: Crisis / Sobrecarga", color: "#E53E3E", text: "Límite sensorial alcanzado. Pausa inmediata.", desc: "Sugerencia: Pasa a la pestaña Morfeo para sonidos de agua y descanso en penumbra." },
-    2: { name: "🟠 Zona 2: Frustración / Estrés", color: "#DD6B20", text: "Tensión acumulada.", desc: "Sugerencia: Realiza 3 minutos de respiración guiada en Wellness." },
-    3: { name: "🟡 Zona 3: Inquietud / Alerta", color: "#D69E2E", text: "Sensibilidad leve a estímulos.", desc: "Sugerencia: Reduce luces brillantes y toma una pausa hidratante." },
-    4: { name: "🟢 Zona 4: Calma / Zona Óptima", color: "#38A169", text: "Autorregulación y estado óptimo.", desc: "Momento idóneo para interacción social, trabajo o aprendizaje." },
-    5: { name: "🔵 Zona 5: Agotamiento / Baja Energía", color: "#3182CE", text: "Desconexión o cansancio alto.", desc: "Sugerencia: Revisa tus notas de descanso y escucha música suave." }
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        const progressBar = document.getElementById('splash-progress-bar');
-        const percentage = document.getElementById('splash-percentage');
-        const splashScreen = document.getElementById('splash-screen');
-        if (progressBar) progressBar.style.width = '100%';
-        if (percentage) percentage.textContent = '100%';
-        setTimeout(() => {
-            if (splashScreen) {
-                splashScreen.style.opacity = '0';
-                splashScreen.style.pointerEvents = 'none';
-                setTimeout(() => splashScreen.style.display = 'none', 500);
-            }
-        }, 500);
-    }, 600);
-
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-    renderEmojiGrid();
-});
-
-// --- 1. PESTAÑAS NAVEGACIÓN INFERIOR ---
-function switchMainTab(tabId, btn) {
-    document.querySelectorAll('.main-nav-btn').forEach(b => {
-        b.classList.remove('text-[#2C7A7B]', 'font-black');
-        b.classList.add('text-slate-400', 'font-bold');
-    });
-    if (btn) {
-        btn.classList.remove('text-slate-400');
-        btn.classList.add('text-[#2C7A7B]', 'font-black');
-    }
-
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-    const target = document.getElementById('screen-' + tabId);
-    if (target) target.classList.remove('hidden');
-}
-
-// --- 2. ESCALA DE REGULACIÓN EMOCIONAL ---
-function setToleranceZone(level) {
-    currentToleranceLevel = level;
-    const data = toleranceData[level];
-    
-    const badge = document.getElementById('tolerance-zone-badge');
-    const range = document.getElementById('toleranceRange');
-    const statusBox = document.getElementById('toleranceStatusText');
-
-    if (badge) {
-        badge.textContent = data.name;
-        badge.style.backgroundColor = data.color;
-    }
-    if (range) range.value = level;
-    if (statusBox) {
-        statusBox.innerHTML = `
-            <div class="p-3 rounded-2xl text-white shadow-sm border border-white/20 transition-all duration-300" style="background-color: ${data.color}">
-                <p class="font-extrabold text-xs">${data.name}</p>
-                <p class="text-[11px] font-medium opacity-95">${data.text}</p>
-                <p class="text-[10px] mt-1 opacity-90 italic bg-black/15 p-1.5 rounded-xl">${data.desc}</p>
-            </div>
-        `;
-    }
-}
-
-function setToleranceFromSlider(val) {
-    setToleranceZone(parseInt(val));
-}
-
-function sendToleranceToChat() {
-    const data = toleranceData[currentToleranceLevel];
-    const container = document.getElementById('chat-messages-container');
-    if (!container) return;
-
-    const outDiv = document.createElement('div');
-    outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-    outDiv.innerHTML = `
-        <div class="p-3 rounded-2xl rounded-tr-none text-white shadow-md text-xs space-y-1.5 border border-white/20" style="background-color: ${data.color}">
-            <div class="flex items-center gap-1.5 font-black text-xs">
-                <span>🧠 Registro de Estado Sensorial</span>
-            </div>
-            <p class="font-bold">${data.name}</p>
-            <p class="text-[11px] opacity-95">${data.text}</p>
-            <span class="text-[9px] opacity-80 block text-right font-mono">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-        </div>
-    `;
-    container.appendChild(outDiv);
-    container.scrollTop = container.scrollHeight;
-    alert('¡Estado sensorial registrado en el chat!');
-}
-
-function toggleEscalaCard() {
-    const content = document.getElementById('escalaContentArea');
-    const icon = document.getElementById('escalaToggleIcon');
-    if (content) {
-        content.classList.toggle('hidden');
-        if (icon) icon.textContent = content.classList.contains('hidden') ? '➕' : '➖';
-    }
-}
-
-// --- 3. MENÚS DE 3 PUNTOS ---
-function toggleMainHeaderMenu() {
-    const menu = document.getElementById('main-header-menu');
-    if (menu) menu.classList.toggle('hidden');
-}
-
-function toggleActiveChatMenu() {
-    const menu = document.getElementById('active-chat-menu');
-    if (menu) menu.classList.toggle('hidden');
-}
-
-function openNewGroupModal() {
-    toggleMainHeaderMenu();
-    document.getElementById('createGroupModal')?.classList.remove('hidden');
-}
-
-function openNewCommunityModal() {
-    toggleMainHeaderMenu();
-    document.getElementById('createCommunityModal')?.classList.remove('hidden');
-}
-
-function openStarredMessagesModal() {
-    toggleMainHeaderMenu();
-    document.getElementById('starredMessagesModal')?.classList.remove('hidden');
-}
-
-function openLinkedDevicesModal() {
-    toggleMainHeaderMenu();
-    document.getElementById('linkedDevicesModal')?.classList.remove('hidden');
-}
-
-function openWhatsAppSettings() {
-    toggleMainHeaderMenu();
-    document.getElementById('whatsappSettingsModal')?.classList.remove('hidden');
-}
-
-function showChatContactInfo() {
-    toggleActiveChatMenu();
-    document.getElementById('contactInfoModal')?.classList.remove('hidden');
-}
-
-function showChatMediaDocs() {
-    toggleActiveChatMenu();
-    document.getElementById('chatMediaModal')?.classList.remove('hidden');
-}
-
-function showChatSearchModal() {
-    toggleActiveChatMenu();
-    document.getElementById('chatSearchModal')?.classList.remove('hidden');
-}
-
-function toggleMuteChatNotifications() {
-    toggleActiveChatMenu();
-    alert('🔔 Notificaciones del chat silenciadas por 8 horas.');
-}
-
-function showDisappearingMessagesModal() {
-    toggleActiveChatMenu();
-    document.getElementById('disappearingMessagesModal')?.classList.remove('hidden');
-}
-
-function showChatWallpaperModal() {
-    toggleActiveChatMenu();
-    document.getElementById('wallpaperModal')?.classList.remove('hidden');
-}
-
-function clearCurrentChatMessages() {
-    toggleActiveChatMenu();
-    if (confirm('¿Vaciar todos los mensajes del chat activo?')) {
-        const container = document.getElementById('chat-messages-container');
-        if (container) container.innerHTML = '<p class="text-center text-slate-400 text-xs py-4">Historial del chat vaciado.</p>';
-    }
-}
-
-function exportCurrentChatHistory() {
-    toggleActiveChatMenu();
-    const text = `HISTORIAL DE CHAT BIENESTAR\nFecha: ${new Date().toLocaleDateString()}\nEspecialista: ${activeChatUser.name}\n---\n[09:30] Dr. Aldo Licandeo: Recordatorio de infusión\n[10:14] Camila Silva: ¿Vamos al parque a hacer yoga?`;
-    const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `Chat_Bienestar_${activeChatUser.name.replace(/\s+/g, '_')}.txt`;
-    a.click();
-}
-
-// --- 4. SELECTOR DE EMOJIS COMPLETO ---
-function openFullEmojiPicker() {
-    document.getElementById('fullEmojiPickerModal')?.classList.remove('hidden');
-    renderEmojiGrid();
-}
-
-function closeFullEmojiPicker() {
-    document.getElementById('fullEmojiPickerModal')?.classList.add('hidden');
-}
-
-function toggleChatEmojiPicker() {
-    openFullEmojiPicker();
-}
-
-function filterEmojiCat(cat, btn) {
-    currentEmojiCat = cat;
-    document.querySelectorAll('.emoji-cat-btn').forEach(b => {
-        b.classList.remove('bg-[#2C7A7B]', 'text-white');
-        b.classList.add('bg-white', 'text-slate-600');
-    });
-    if (btn) {
-        btn.classList.remove('bg-white', 'text-slate-600');
-        btn.classList.add('bg-[#2C7A7B]', 'text-white');
-    }
-    renderEmojiGrid();
-}
-
-function renderEmojiGrid(filterText = '') {
-    const container = document.getElementById('emojiGridContainer');
-    if (!container) return;
-    
-    let emojisToDisplay = [];
-    if (filterText.trim()) {
-        const q = filterText.toLowerCase();
-        Object.values(emojiDatabase).forEach(arr => {
-            arr.forEach(e => emojisToDisplay.push(e));
-        });
-    } else {
-        emojisToDisplay = emojiDatabase[currentEmojiCat] || emojiDatabase.caras;
-    }
-    
-    container.innerHTML = emojisToDisplay.map(e => `
-        <button onclick="insertEmoji('${e}')" class="p-1.5 hover:bg-[#E0F7F4] rounded-xl transition hover:scale-125 transform">
-            ${e}
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" onclick="openVideoCall()" title="Iniciar Videollamada">
+          <i data-lucide="video" size="18"></i>
         </button>
-    `).join('');
-}
+        <button class="icon-btn" onclick="openVideoCall()" title="Llamada de Voz">
+          <i data-lucide="phone" size="18"></i>
+        </button>
+        <button class="icon-btn" title="Opciones">
+          <i data-lucide="more-vertical" size="18"></i>
+        </button>
+      </div>
+    </div>
 
-function searchEmojis(val) {
-    renderEmojiGrid(val);
-}
+    <!-- Áreas de Contenido -->
+    <div class="app-content">
 
-function insertEmoji(emojiStr) {
-    const input = document.getElementById('chat-text-input');
-    if (input) {
-        input.value += emojiStr;
-        input.focus();
-    }
-}
-
-// --- 5. CHAT & MENSAJES ---
-function openChat(name, avatar, lastMsg, status = 'En línea', category = 'medicos') {
-    activeChatUser = { name, avatar, status, category };
-    const chatTitle = document.getElementById('active-chat-user-name');
-    const chatAvatar = document.getElementById('active-chat-user-avatar');
-    const chatStatus = document.getElementById('active-chat-user-status');
-
-    if (chatTitle) chatTitle.textContent = name;
-    if (chatAvatar) chatAvatar.src = avatar;
-    if (chatStatus) chatStatus.textContent = status;
-
-    document.getElementById('active-chat-view')?.classList.remove('hidden');
-
-    const infoName = document.getElementById('infoModalName');
-    const infoAvatar = document.getElementById('infoModalAvatar');
-    if (infoName) infoName.textContent = name;
-    if (infoAvatar) infoAvatar.src = avatar;
-}
-
-function closeChatView() {
-    document.getElementById('active-chat-view')?.classList.add('hidden');
-}
-
-function filterChats(category, btn) {
-    document.querySelectorAll('.chat-filter-btn').forEach(b => {
-        b.classList.remove('bg-[#2C7A7B]', 'text-white');
-        b.classList.add('bg-[#E0F7F4]', 'text-[#2C7A7B]');
-    });
-    if (btn) {
-        btn.classList.remove('bg-[#E0F7F4]', 'text-[#2C7A7B]');
-        btn.classList.add('bg-[#2C7A7B]', 'text-white');
-    }
-    
-    document.querySelectorAll('.chat-list-item').forEach(item => {
-        if (category === 'todos' || item.dataset.category === category) {
-            item.classList.remove('hidden');
-        } else {
-            item.classList.add('hidden');
-        }
-    });
-}
-
-
-function sendMoodToChat(moodName, moodEmoji) {
-    const container = document.getElementById('chat-messages-container');
-    if (!container) return;
-    const outDiv = document.createElement('div');
-    outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-    outDiv.innerHTML = `
-        <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-md text-xs space-y-1.5 border border-[#33BCA9]/30">
-            <div class="flex items-center gap-2 font-bold text-[#E0F7F4]">
-                <span class="text-xl">${moodEmoji}</span>
-                <span>Registro de Estado de Ánimo</span>
+      <!-- ==================== TAB 1: CHATS ==================== -->
+      <div id="tab-chats" class="tab-page active">
+        <div class="chat-container">
+          
+          <!-- Escala Arcoíris de Regulación Emocional -->
+          <div class="rainbow-scale-card">
+            <div class="rainbow-scale-title">
+              <span>🌈 Regulación Emocional (Ventana Tolerancia)</span>
+              <span style="font-size: 10px; opacity: 0.8;">Toca para registrar</span>
             </div>
-            <p class="text-xs font-semibold text-white">Me siento <span class="underline font-black">${moodName}</span> hoy.</p>
-            <span class="text-[9px] text-[#E0F7F4]/80 block text-right font-mono">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+            <div class="rainbow-bars">
+              <button class="rainbow-btn r-red" onclick="logEmotion('🔴 En crisis / Sobrecarga')">😡</button>
+              <button class="rainbow-btn r-orange" onclick="logEmotion('🟠 Ansioso / Inquieto')">😰</button>
+              <button class="rainbow-btn r-yellow" onclick="logEmotion('🟡 Alerta / Sensible')">😐</button>
+              <button class="rainbow-btn r-green" onclick="logEmotion('🟢 Regulado / En Calma')">😊</button>
+              <button class="rainbow-btn r-blue" onclick="logEmotion('🔵 Tranquilo / Enfocado')">😌</button>
+              <button class="rainbow-btn r-purple" onclick="logEmotion('🟣 Conectado / Seguro')">💜</button>
+            </div>
+          </div>
+
+          <!-- Mensajes -->
+          <div class="messages-area" id="messagesArea">
+            <div class="message-bubble msg-received">
+              ¡Hola! 👋 Bienvenido a tu espacio de salud y comunidad BIENESTAR. ¿Cómo te sientes hoy?
+              <div class="msg-time">18:50</div>
+            </div>
+            <div class="message-bubble msg-sent">
+              Hola, listo para registrar mis hábitos y conectar con la comunidad.
+              <div class="msg-time">18:52</div>
+            </div>
+          </div>
+
+          <!-- Barra de Píldoras Rápidas -->
+          <div class="quick-pills-bar">
+            <button class="pill-btn" onclick="openVideoCall()">📷 Foto</button>
+            <button class="pill-btn" onclick="openVideoCall()">📹 Video</button>
+            <button class="pill-btn" onclick="addPillMsg('💊 Dosis tomada: Multivitamínico')">💊 Dosis</button>
+            <button class="pill-btn" onclick="addPillMsg('😊 Ánimo: Positivo y en calma')">😊 Ánimo</button>
+            <button class="pill-btn" onclick="addPillMsg('💧 Agua: +250ml')">💧 Hidratación</button>
+          </div>
+
+          <!-- Menú de Clip -->
+          <div class="clip-menu" id="clipMenu">
+            <div class="clip-item" onclick="toggleClipMenu(); openVideoCall();"><div class="clip-icon"><i data-lucide="camera"></i></div>Cámara</div>
+            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📄 Documento Adjunto');"><div class="clip-icon"><i data-lucide="file-text"></i></div>Doc</div>
+            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('💊 Recordatorio de Medicación');"><div class="clip-icon"><i data-lucide="pill"></i></div>Receta</div>
+            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📍 Ubicación Compartida');"><div class="clip-icon"><i data-lucide="map-pin"></i></div>Ubicación</div>
+            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('👤 Contacto Profesional');"><div class="clip-icon"><i data-lucide="user"></i></div>Especialista</div>
+            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🎧 Audio de Calma');"><div class="clip-icon"><i data-lucide="headphones"></i></div>Audio</div>
+          </div>
+
+          <!-- Input para Escribir -->
+          <div class="chat-input-bar">
+            <button class="icon-btn" style="background:none;" onclick="toggleClipMenu()">
+              <i data-lucide="paperclip" size="20"></i>
+            </button>
+            <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
+            <button class="send-btn" onclick="sendMessage()">
+              <i data-lucide="send" size="18"></i>
+            </button>
+          </div>
+
         </div>
-    `;
-    container.appendChild(outDiv);
-    container.scrollTop = container.scrollHeight;
-}
+      </div>
 
-function sendMessage() {
-    const input = document.getElementById('chat-text-input');
-    if (!input || !input.value.trim()) return;
-    const text = input.value.trim();
-    input.value = '';
+      <!-- ==================== TAB 2: WELLNESS ==================== -->
+      <div id="tab-wellness" class="tab-page">
+        <div class="wellness-page">
+          <div class="card-widget">
+            <div class="widget-header">
+              <div class="widget-title"><i data-lucide="droplet" color="#33BCA9"></i> Hidratación Diaria</div>
+              <span class="water-sub">Meta: 2.5 L</span>
+            </div>
+            <div class="water-progress">
+              <div>
+                <div class="water-metric" id="waterCounter">1.8 L</div>
+                <div class="water-sub">72% de tu objetivo</div>
+              </div>
+              <div class="water-btn-group">
+                <button class="icon-btn" onclick="updateWater(-0.25)">-</button>
+                <button class="icon-btn" style="background:var(--turquoise); color:white;" onclick="updateWater(0.25)">+</button>
+              </div>
+            </div>
+          </div>
 
-    const container = document.getElementById('chat-messages-container');
-    if (!container) return;
+          <div class="card-widget">
+            <div class="widget-header">
+              <div class="widget-title"><i data-lucide="footprints" color="#2C7A7B"></i> Pasos Diarios</div>
+              <span class="water-sub">Meta: 10,000</span>
+            </div>
+            <div class="water-metric">6,420</div>
+            <div class="water-sub" style="margin-top:4px;">🔥 280 kcal quemadas hoy</div>
+          </div>
 
-    const outDiv = document.createElement('div');
-    outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-1.5';
-    outDiv.innerHTML = `
-        <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs border border-[#33BCA9]/20">
-            <p>${text}</p>
-            <span class="text-[9px] opacity-75 block text-right mt-1 font-mono">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+          <div class="card-widget">
+            <div class="widget-header">
+              <div class="widget-title"><i data-lucide="check-square" color="#33BCA9"></i> Checklist de Hábitos</div>
+            </div>
+            <div class="habit-item">
+              <div class="habit-left">
+                <div class="habit-checkbox checked" onclick="toggleCheck(this)"><i data-lucide="check" size="14"></i></div>
+                <span>Meditación matutina (10 min)</span>
+              </div>
+            </div>
+            <div class="habit-item">
+              <div class="habit-left">
+                <div class="habit-checkbox checked" onclick="toggleCheck(this)"><i data-lucide="check" size="14"></i></div>
+                <span>Caminata al aire libre</span>
+              </div>
+            </div>
+            <div class="habit-item">
+              <div class="habit-left">
+                <div class="habit-checkbox" onclick="toggleCheck(this)"><i data-lucide="check" size="14"></i></div>
+                <span>Lectura de bienestar</span>
+              </div>
+            </div>
+          </div>
         </div>
-    `;
-    container.appendChild(outDiv);
-    container.scrollTop = container.scrollHeight;
-}
+      </div>
 
-// --- 6. CÁMARA REAL DE FOTOS ---
-async function openCameraModal() {
-    const modal = document.getElementById('cameraModal');
-    const video = document.getElementById('cameraFeed');
-    const placeholder = document.getElementById('cameraFeedPlaceholder');
-    if (!modal) return;
-    modal.classList.remove('hidden');
+      <!-- ==================== TAB 3: TIENDA PyME ==================== -->
+      <div id="tab-tienda" class="tab-page">
+        <div class="tienda-page">
+          <div class="promo-banner">
+            <h3>Vitrina PyME & Herbolaria</h3>
+            <p>Conecta con productores locales de productos naturales y artesanales.</p>
+            <button class="pill-btn" style="border:none; background:white; color:var(--dark-teal);">Ver Destacados</button>
+          </div>
 
-    try {
-        if (cameraPhotoStream) cameraPhotoStream.getTracks().forEach(t => t.stop());
-        cameraPhotoStream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: currentCameraFacing },
-            audio: false
-        });
-        if (video) {
-            video.srcObject = cameraPhotoStream;
-            video.classList.remove('hidden');
-        }
-        if (placeholder) placeholder.classList.add('hidden');
-    } catch (err) {
-        console.warn('Cámara en vivo no disponible:', err);
-        if (placeholder) placeholder.classList.remove('hidden');
-    }
-}
-
-function closeCameraModal() {
-    document.getElementById('cameraModal')?.classList.add('hidden');
-    if (cameraPhotoStream) {
-        cameraPhotoStream.getTracks().forEach(t => t.stop());
-        cameraPhotoStream = null;
-    }
-}
-
-async function switchCameraFacing() {
-    currentCameraFacing = (currentCameraFacing === 'user') ? 'environment' : 'user';
-    await openCameraModal();
-}
-
-function capturePhotoToChat() {
-    const video = document.getElementById('cameraFeed');
-    const canvas = document.getElementById('cameraCanvas');
-    const container = document.getElementById('chat-messages-container');
-    
-    let photoUrl = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=400&h=300';
-    
-    if (video && canvas && video.srcObject && video.videoWidth) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        photoUrl = canvas.toDataURL('image/png');
-    }
-
-    if (container) {
-        const outDiv = document.createElement('div');
-        outDiv.className = 'flex items-end justify-end gap-2 max-w-[80%] ml-auto my-2';
-        outDiv.innerHTML = `
-            <div class="bg-[#2C7A7B] text-white p-2.5 rounded-2xl rounded-tr-none shadow-md border border-[#33BCA9]/30">
-                <img src="${photoUrl}" class="w-full h-44 object-cover rounded-xl mb-1.5 border border-white/20">
-                <div class="flex justify-between items-center text-[10px] opacity-90">
-                    <span>📷 Captura Fotográfica</span>
-                    <span class="font-mono">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
-                </div>
+          <div class="pyme-grid">
+            <div class="pyme-card">
+              <div class="pyme-img">🌿</div>
+              <div class="pyme-name">Té de Lavanda & Toronjil</div>
+              <div class="pyme-desc">Infusión relajante 100% orgánica</div>
+              <div class="pyme-price">$8.500</div>
             </div>
-        `;
-        container.appendChild(outDiv);
-        container.scrollTop = container.scrollHeight;
-    }
-    closeCameraModal();
-}
-
-// --- 7. VIDEOLLAMADA HD WEBRTC ---
-async function startVideoCall(doctorName = 'Especialista Bienestar') {
-    const modal = document.getElementById('videoCallModal');
-    if (!modal) return;
-
-    const nameElem = document.getElementById('videoTargetName');
-    if (nameElem) nameElem.textContent = doctorName;
-    modal.classList.remove('hidden');
-
-    videoCallSeconds = 0;
-    const timerText = document.getElementById('videoCallTimerText');
-    if (videoCallTimerInterval) clearInterval(videoCallTimerInterval);
-
-    videoCallTimerInterval = setInterval(() => {
-        videoCallSeconds++;
-        const mins = String(Math.floor(videoCallSeconds / 60)).padStart(2, '0');
-        const secs = String(videoCallSeconds % 60).padStart(2, '0');
-        if (timerText) timerText.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> En vivo · ${mins}:${secs}`;
-    }, 1000);
-
-    const localVideo = document.getElementById('localVideoCallFeed');
-    try {
-        if (videoCallStream) videoCallStream.getTracks().forEach(t => t.stop());
-        videoCallStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        if (localVideo) localVideo.srcObject = videoCallStream;
-    } catch (err) {
-        console.warn('Modo consulta simulada activa.');
-    }
-}
-
-function toggleVideoCallMic() {
-    isVideoCallMicMuted = !isVideoCallMicMuted;
-    const btn = document.getElementById('btnVideoCallMuteMic');
-    if (btn) btn.innerHTML = isVideoCallMicMuted ? '🔇' : '🎤';
-}
-
-function toggleVideoCallCam() {
-    isVideoCallCamOff = !isVideoCallCamOff;
-    const btn = document.getElementById('btnVideoCallCamOff');
-    if (btn) btn.innerHTML = isVideoCallCamOff ? '🚫' : '📹';
-    if (videoCallStream) {
-        const vt = videoCallStream.getVideoTracks()[0];
-        if (vt) vt.enabled = !isVideoCallCamOff;
-    }
-}
-
-function endVideoCall() {
-    if (videoCallTimerInterval) clearInterval(videoCallTimerInterval);
-    if (videoCallStream) {
-        videoCallStream.getTracks().forEach(t => t.stop());
-        videoCallStream = null;
-    }
-    document.getElementById('videoCallModal')?.classList.add('hidden');
-
-    const mins = String(Math.floor(videoCallSeconds / 60)).padStart(2, '0');
-    const secs = String(videoCallSeconds % 60).padStart(2, '0');
-
-    const container = document.getElementById('chat-messages-container');
-    if (container) {
-        const outDiv = document.createElement('div');
-        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-        outDiv.innerHTML = `
-            <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs space-y-1 border border-[#33BCA9]/30">
-                <p class="font-bold flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4"></i> Videollamada HD Finalizada</p>
-                <p class="text-[11px] opacity-90 font-mono">Duración total: ${mins}:${secs}</p>
+            <div class="pyme-card">
+              <div class="pyme-img">🕯️</div>
+              <div class="pyme-name">Vela Aromática Soya</div>
+              <div class="pyme-desc">Aceites esenciales naturales</div>
+              <div class="pyme-price">\$12.000</div>
             </div>
-        `;
-        container.appendChild(outDiv);
-        container.scrollTop = container.scrollHeight;
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-    }
-}
-
-// --- 8. LLAMADA DE VOZ ---
-function startVoiceCall(name = 'Especialista Bienestar') {
-    const modal = document.getElementById('voiceCallModal');
-    if (!modal) return;
-
-    const targetElem = document.getElementById('callTargetName');
-    if (targetElem) targetElem.textContent = name;
-    modal.classList.remove('hidden');
-
-    voiceCallSeconds = 0;
-    const timerText = document.getElementById('voiceCallTimerText');
-    if (voiceCallTimerInterval) clearInterval(voiceCallTimerInterval);
-
-    voiceCallTimerInterval = setInterval(() => {
-        voiceCallSeconds++;
-        const mins = String(Math.floor(voiceCallSeconds / 60)).padStart(2, '0');
-        const secs = String(voiceCallSeconds % 60).padStart(2, '0');
-        if (timerText) timerText.textContent = `Llamada de voz en curso · ${mins}:${secs}`;
-    }, 1000);
-}
-
-function toggleVoiceCallMic() {
-    const btn = document.getElementById('btnVoiceCallMuteMic');
-    if (btn) btn.innerHTML = (btn.innerHTML.includes('🔇')) ? '🎤' : '🔇';
-}
-
-function endVoiceCall() {
-    if (voiceCallTimerInterval) clearInterval(voiceCallTimerInterval);
-    document.getElementById('voiceCallModal')?.classList.add('hidden');
-
-    const mins = String(Math.floor(voiceCallSeconds / 60)).padStart(2, '0');
-    const secs = String(voiceCallSeconds % 60).padStart(2, '0');
-
-    const container = document.getElementById('chat-messages-container');
-    if (container) {
-        const outDiv = document.createElement('div');
-        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-        outDiv.innerHTML = `
-            <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-xs space-y-1 border border-[#33BCA9]/30">
-                <p class="font-bold flex items-center gap-1.5"><i data-lucide="phone-off" class="w-4 h-4"></i> Llamada de Voz Finalizada</p>
-                <p class="text-[11px] opacity-90 font-mono">Duración: ${mins}:${secs}</p>
-            </div>
-        `;
-        container.appendChild(outDiv);
-        container.scrollTop = container.scrollHeight;
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-    }
-}
-
-// --- 9. NOTAS DE AUDIO & ADJUNTOS ---
-function openVoiceRecorderModal() {
-    document.getElementById('voiceRecorderModal')?.classList.remove('hidden');
-}
-
-function closeVoiceRecorderModal() {
-    document.getElementById('voiceRecorderModal')?.classList.add('hidden');
-    if (voiceRecordTimer) clearInterval(voiceRecordTimer);
-}
-
-async function toggleVoiceRecording() {
-    const btnText = document.getElementById('rec-btn-text');
-    const statusText = document.getElementById('recording-status');
-    const timerDisplay = document.getElementById('recording-timer');
-
-    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
-            audioChunks = [];
-
-            mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-            mediaRecorder.start();
-
-            voiceRecordSecs = 0;
-            voiceRecordTimer = setInterval(() => {
-                voiceRecordSecs++;
-                const mins = String(Math.floor(voiceRecordSecs / 60)).padStart(2, '0');
-                const secs = String(voiceRecordSecs % 60).padStart(2, '0');
-                if (timerDisplay) timerDisplay.textContent = `${mins}:${secs}`;
-            }, 1000);
-
-            if (btnText) btnText.textContent = '⏹ Detener Grabación';
-            if (statusText) statusText.textContent = 'Grabando nota de voz en vivo...';
-        } catch (err) {
-            alert('Grabación en modo simulado.');
-        }
-    } else {
-        mediaRecorder.stop();
-        if (voiceRecordTimer) clearInterval(voiceRecordTimer);
-        if (btnText) btnText.textContent = '🔴 Grabar de Nuevo';
-        if (statusText) statusText.textContent = 'Audio listo para enviar';
-    }
-}
-
-function sendVoiceNoteToChat() {
-    const container = document.getElementById('chat-messages-container');
-    const duration = document.getElementById('recording-timer')?.textContent || '00:08';
-    
-    if (container) {
-        const outDiv = document.createElement('div');
-        outDiv.className = 'flex items-end justify-end gap-2 max-w-[80%] ml-auto my-2';
-        outDiv.innerHTML = `
-            <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-md text-xs space-y-1.5 border border-[#33BCA9]/30 w-56">
-                <div class="flex items-center gap-2">
-                    <button onclick="this.textContent = this.textContent === '▶️' ? '⏸' : '▶️'" class="w-8 h-8 rounded-full bg-white text-[#2C7A7B] flex items-center justify-center font-bold text-sm shadow">▶️</button>
-                    <div class="flex-1">
-                        <div class="h-2 bg-white/30 rounded-full overflow-hidden mb-1">
-                            <div class="w-2/3 h-full bg-white"></div>
-                        </div>
-                        <span class="text-[10px] text-[#E0F7F4] font-mono font-bold block">🎙️ Nota de Voz · ${duration}</span>
-                    </div>
-                </div>
-            </div>
-        `;
-        container.appendChild(outDiv);
-        container.scrollTop = container.scrollHeight;
-    }
-    closeVoiceRecorderModal();
-}
-
-function toggleAttachmentMenu() {
-    document.getElementById('chat-attachment-menu')?.classList.toggle('hidden');
-}
-
-function triggerFileInput(type) {
-    toggleAttachmentMenu();
-    alert(`📂 Selección de ${type} activada.`);
-}
-
-function sendRealLocation() {
-    toggleAttachmentMenu();
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (pos) => {
-                const lat = pos.coords.latitude.toFixed(5);
-                const lng = pos.coords.longitude.toFixed(5);
-                const mapUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-                
-                const container = document.getElementById('chat-messages-container');
-                if (container) {
-                    const outDiv = document.createElement('div');
-                    outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-                    outDiv.innerHTML = `
-                        <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-md text-xs space-y-2 border border-[#33BCA9]/30">
-                            <div class="flex items-center gap-2 text-[#E0F7F4] font-bold">
-                                <span>📍 Ubicación GPS Actual</span>
-                            </div>
-                            <p class="text-[11px] text-slate-100 font-mono">Lat: ${lat} · Lng: ${lng}</p>
-                            <a href="${mapUrl}" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-[#2C7A7B] text-[11px] font-bold px-3 py-1.5 rounded-xl hover:bg-[#E0F7F4] transition shadow-xs">
-                                🗺️ Abrir en Google Maps
-                            </a>
-                        </div>
-                    `;
-                    container.appendChild(outDiv);
-                    container.scrollTop = container.scrollHeight;
-                }
-            },
-            () => sendFallbackLocation()
-        );
-    } else {
-        sendFallbackLocation();
-    }
-}
-
-function sendFallbackLocation() {
-    const lat = (-33.4372).toFixed(5);
-    const lng = (-70.6506).toFixed(5);
-    const mapUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-
-    const container = document.getElementById('chat-messages-container');
-    if (container) {
-        const outDiv = document.createElement('div');
-        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-        outDiv.innerHTML = `
-            <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-md text-xs space-y-2 border border-[#33BCA9]/30">
-                <div class="flex items-center gap-2 text-[#E0F7F4] font-bold">
-                    <span>📍 Ubicación Centro de Salud</span>
-                </div>
-                <p class="text-[11px] font-mono">Lat: ${lat} · Lng: ${lng}</p>
-                <a href="${mapUrl}" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-[#2C7A7B] text-[11px] font-bold px-3 py-1.5 rounded-xl hover:bg-[#E0F7F4] transition">
-                    🗺️ Abrir Mapa
-                </a>
-            </div>
-        `;
-        container.appendChild(outDiv);
-        container.scrollTop = container.scrollHeight;
-    }
-}
-
-function openContactShareModal() {
-    toggleAttachmentMenu();
-    document.getElementById('contactShareModal')?.classList.remove('hidden');
-}
-
-function closeContactShareModal() {
-    document.getElementById('contactShareModal')?.classList.add('hidden');
-}
-
-function sendContactCard(name, desc, phone, avatar) {
-    closeContactShareModal();
-    const container = document.getElementById('chat-messages-container');
-    if (container) {
-        const outDiv = document.createElement('div');
-        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-        outDiv.innerHTML = `
-            <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-md text-xs space-y-2 border border-[#33BCA9]/30">
-                <div class="flex items-center gap-2.5">
-                    <img src="${avatar}" class="w-10 h-10 rounded-full object-cover border border-white">
-                    <div>
-                        <p class="font-extrabold">${name}</p>
-                        <p class="text-[10px] text-[#E0F7F4]">${desc}</p>
-                    </div>
-                </div>
-                <p class="text-[10px] font-mono bg-black/20 p-1.5 rounded-lg text-center">${phone}</p>
-            </div>
-        `;
-        container.appendChild(outDiv);
-        container.scrollTop = container.scrollHeight;
-    }
-}
-
-function setChatWallpaper(color) {
-    const container = document.getElementById('chat-messages-container');
-    if (container) container.style.backgroundColor = color;
-    document.getElementById('wallpaperModal')?.classList.add('hidden');
-}
-
-// --- HELPER WRAPPERS FOR WELLNESS / EMPRENDE / MORFEO ---
-function switchWellnessSubtab(id, btn) { alert('Wellness: ' + id); }
-function switchEmprendeSubtab(id, btn) { alert('Tienda / Emprende: ' + id); }
-function triggerPymeMatch() { alert('PyME Match activado.'); }
-function openMedicalNotification() { alert('Notificaciones médicas.'); }
-function closeMedicalToast() { alert('Notificación cerrada.'); }
-function selectTrack(title, src) { alert('Reproduciendo: ' + title); }
-function togglePlay() { alert('Audio reproducido / pausado.'); }
-function prevTrack() { alert('Pista anterior.'); }
-function nextTrack() { alert('Pista siguiente.'); }
-function triggerMenuAction(act) { alert('Acción: ' + act); }
-
-function shareToleranceToChat() { sendToleranceToChat(); }
-function startLiveLocationTracking() { sendRealLocation(); }
-
-function setMoodPill(moodName, emoji) {
-    const badge = document.getElementById('current-mood-badge-pill');
-    if (badge) {
-        badge.innerHTML = `${emoji} ${moodName}`;
-    }
-    const container = document.getElementById('chat-messages-container');
-    if (container) {
-        const outDiv = document.createElement('div');
-        outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-        outDiv.innerHTML = `
-            <div class="bg-[#F5DBC4] text-[#4A3525] p-3 rounded-2xl rounded-tr-none shadow-md text-xs border border-[#E0B896]/50">
-                <p class="font-black text-xs flex items-center gap-1.5">
-                    <span>${emoji}</span> Estado de Ánimo Registrado: ${moodName}
-                </p>
-                <p class="text-[10px] opacity-80 mt-1">Sincronizado con tu diario de Salud Integral</p>
-            </div>
-        `;
-        container.appendChild(outDiv);
-        container.scrollTop = container.scrollHeight;
-    }
-}
-
-
-function sendDosisReminder() {
-    const container = document.getElementById('chat-messages-container');
-    if (!container) return;
-
-    const outDiv = document.createElement('div');
-    outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-    outDiv.innerHTML = `
-        <div class="bg-[#F5E6D3] text-[#5C4033] p-3 rounded-2xl rounded-tr-none shadow-md text-xs space-y-1.5 border border-[#E0D0C0]">
-            <div class="flex items-center gap-1.5 font-bold">
-                <i data-lucide="pill" class="w-4 h-4 text-[#5C4033]"></i>
-                <span>Recordatorio de Dosis Diaria</span>
-            </div>
-            <p class="text-[11px]">💊 Infusión de Romero & Melisa (22:00 hrs)</p>
-            <span class="text-[9px] opacity-80 block text-right font-mono">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+          </div>
         </div>
-    `;
-    container.appendChild(outDiv);
-    container.scrollTop = container.scrollHeight;
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-    alert('💊 Recordatorio de Dosis registrado en el chat!');
-}
+      </div>
 
-function setQuickMood(moodName, emoji, level) {
-    if (typeof setToleranceZone === 'function') setToleranceZone(level);
-    const badge = document.getElementById('current-mood-badge');
-    if (badge) {
-        badge.innerHTML = `${emoji} ${moodName}`;
+      <!-- ==================== TAB 4: MORFEO ==================== -->
+      <div id="tab-morfeo" class="tab-page">
+        <div class="morfeo-page">
+          <div class="morfeo-card">
+            <i data-lucide="moon" size="32" color="#33BCA9"></i>
+            <h3>Morfeo - Sueño & Descanso</h3>
+            <p style="font-size:12px; opacity:0.8;">Ondas binaurales a 432Hz para inducir el descanso profundo y reducir el estrés.</p>
+            
+            <div class="pulse-circle">
+              <i data-lucide="headphones" size="36" color="#33BCA9"></i>
+            </div>
+
+            <button id="audioToggleBtn" class="pill-btn" style="background:var(--turquoise); color:white; border:none; padding:10px 24px; font-size:14px;" onclick="toggleMorfeoSound()">
+              ▶ Reproducir 432Hz
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Navbar Inferior (4 Pestañas) -->
+    <div class="bottom-nav">
+      <button class="nav-item active" onclick="switchTab('chats', this)">
+        <i data-lucide="message-circle" size="20"></i>
+        <span>Chats</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('wellness', this)">
+        <i data-lucide="heart-pulse" size="20"></i>
+        <span>Wellness</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('tienda', this)">
+        <i data-lucide="shopping-bag" size="20"></i>
+        <span>Tienda</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('morfeo', this)">
+        <i data-lucide="moon" size="20"></i>
+        <span>Morfeo</span>
+      </button>
+    </div>
+
+    <!-- Modal de Videollamada HD Nativa -->
+    <div class="video-call-modal" id="videoCallModal">
+      <div class="call-top-bar">
+        <div class="call-lock">
+          <i data-lucide="lock" size="14"></i>
+          <span>Cifrado de extremo a extremo</span>
+        </div>
+        <div class="call-add-user">
+          <i data-lucide="user-plus" size="18"></i>
+        </div>
+      </div>
+
+      <div class="call-user-section">
+        <div class="call-avatar-wrap">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80" alt="Avatar">
+        </div>
+        <div class="call-user-name">@licandeo30 (Tú)</div>
+        <div class="call-status" id="callStatusText">VIDEOLLAMADA SALIENTE...</div>
+      </div>
+
+      <div class="call-video-card">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Video Stream">
+      </div>
+
+      <div class="call-controls-grid">
+        <div class="call-control-item" onclick="toggleCallControl(this)">
+          <button class="call-btn"><i data-lucide="volume-2" size="22"></i></button>
+          <span class="call-btn-label">Altavoz</span>
+        </div>
+        <div class="call-control-item" onclick="toggleCallControl(this)">
+          <button class="call-btn"><i data-lucide="video" size="22"></i></button>
+          <span class="call-btn-label">Video</span>
+        </div>
+        <div class="call-control-item" onclick="toggleCallControl(this)">
+          <button class="call-btn"><i data-lucide="mic" size="22"></i></button>
+          <span class="call-btn-label">Silenciar</span>
+        </div>
+
+        <div class="call-control-item">
+          <button class="call-btn"><i data-lucide="more-horizontal" size="22"></i></button>
+          <span class="call-btn-label">Más</span>
+        </div>
+        <div class="call-control-item">
+          <button class="call-btn"><i data-lucide="share-2" size="22"></i></button>
+          <span class="call-btn-label">Compartir</span>
+        </div>
+        <div class="call-control-item" onclick="closeVideoCall()">
+          <button class="call-btn hangup"><i data-lucide="phone-off" size="22"></i></button>
+          <span class="call-btn-label red">Finalizar</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      btn.classList.add('active');
     }
 
-    const container = document.getElementById('chat-messages-container');
-    if (!container) return;
+    let callTimerInt = null;
+    let callSeconds = 0;
 
-    const outDiv = document.createElement('div');
-    outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
-    outDiv.innerHTML = `
-        <div class="bg-[#F5E6D3] text-[#5C4033] p-3 rounded-2xl rounded-tr-none shadow-md text-xs space-y-1 border border-[#E0D0C0]">
-            <div class="flex items-center gap-1.5 font-bold text-xs">
-                <span>${emoji} Estado de Ánimo Registrado</span>
-            </div>
-            <p class="font-extrabold text-xs">Sintiéndome ${moodName}</p>
-            <p class="text-[10px] text-slate-600">Compartido con tu comunidad Bienestar</p>
-            <span class="text-[9px] opacity-80 block text-right font-mono">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-        </div>
-    `;
-    container.appendChild(outDiv);
-    container.scrollTop = container.scrollHeight;
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-}
+    function openVideoCall() {
+      const modal = document.getElementById('videoCallModal');
+      modal.classList.add('active');
+      callSeconds = 0;
+      const statusText = document.getElementById('callStatusText');
+      statusText.innerText = 'CONECTANDO...';
+      
+      setTimeout(() => {
+        statusText.innerText = '00:00';
+        callTimerInt = setInterval(() => {
+          callSeconds++;
+          const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+          const secs = String(callSeconds % 60).padStart(2, '0');
+          statusText.innerText = `${mins}:${secs}`;
+        }, 1000);
+      }, 1500);
+    }
 
-</script>
+    function closeVideoCall() {
+      const modal = document.getElementById('videoCallModal');
+      modal.classList.remove('active');
+      if (callTimerInt) clearInterval(callTimerInt);
+    }
 
+    function toggleCallControl(element) {
+      const btn = element.querySelector('.call-btn');
+      if (btn) btn.classList.toggle('off');
+    }
+
+    function logEmotion(emotionText) {
+      addMessage(`Regulación Emocional registrada: ${emotionText}`, 'sent');
+    }
+
+    function addPillMsg(text) {
+      addMessage(text, 'sent');
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      if (input.value.trim() !== '') {
+        addMessage(input.value.trim(), 'sent');
+        input.value = '';
+      }
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') sendMessage();
+    }
+
+    function addMessage(text, type) {
+      const area = document.getElementById('messagesArea');
+      const bubble = document.createElement('div');
+      bubble.className = `message-bubble msg-${type}`;
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      bubble.innerHTML = `${text}<div class="msg-time">${timeStr}</div>`;
+      area.appendChild(bubble);
+      area.scrollTop = area.scrollHeight;
+    }
+
+    function toggleClipMenu() {
+      document.getElementById('clipMenu').classList.toggle('active');
+    }
+
+    let currentWater = 1.8;
+    function updateWater(delta) {
+      currentWater = Math.max(0, Math.round((currentWater + delta) * 100) / 100);
+      document.getElementById('waterCounter').innerText = `${currentWater} L`;
+    }
+
+    function toggleCheck(el) {
+      el.classList.toggle('checked');
+    }
+
+    let isPlayingMorfeo = false;
+    function toggleMorfeoSound() {
+      const btn = document.getElementById('audioToggleBtn');
+      isPlayingMorfeo = !isPlayingMorfeo;
+      btn.innerText = isPlayingMorfeo ? '⏸ Pausar 432Hz' : '▶ Reproducir 432Hz';
+      btn.style.backgroundColor = isPlayingMorfeo ? '#2C7A7B' : '#33BCA9';
+    }
+  </script>
 </body>
 </html>
