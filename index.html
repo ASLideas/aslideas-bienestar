@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BIENESTAR App - Regulador Emocional Deslizante</title>
+  <title>BIENESTAR App - Menú WhatsApp & Llamadas Funcionales</title>
   <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,18 +12,19 @@
 
   <style>
     :root {
-      /* Paleta Pantone Teal Air */
+      /* Paleta Pantone Teal Air & BIENESTAR */
       --bg-cream: #FAF8EE;
       --green-organic: #2C7A7B;
       --turquoise: #33BCA9;
       --mint: #E0F7F4;
       --dark-teal: #123838;
-      --call-bg: #0F2E2E;
+      --call-bg: #0B2222;
       --red-alert: #E53E3E;
       --gray-muted: #718096;
       --white: #FFFFFF;
       --shadow-sm: 0 2px 8px rgba(18, 56, 56, 0.06);
       --shadow-md: 0 4px 16px rgba(18, 56, 56, 0.12);
+      --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.2);
       --radius-lg: 20px;
       --radius-md: 14px;
       --radius-full: 9999px;
@@ -171,7 +172,7 @@
       z-index: 10;
     }
 
-    /* Header Principal */
+    /* Header Principal (Sin Lupa, con Teléfono, Videollamada y Menú) */
     .app-header {
       padding: 10px 18px;
       background: var(--bg-cream);
@@ -220,6 +221,7 @@
     .header-actions {
       display: flex;
       gap: 8px;
+      position: relative;
     }
 
     .icon-btn {
@@ -240,6 +242,54 @@
       transform: scale(0.92);
       background-color: var(--turquoise);
       color: var(--white);
+    }
+
+    /* Menú Desplegable Estilo WhatsApp (3 Puntos) */
+    .whatsapp-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 44px;
+      right: 0;
+      width: 220px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(51, 188, 169, 0.18);
+      padding: 6px 0;
+      z-index: 150;
+      animation: fadeInDown 0.2s ease-out;
+    }
+
+    .whatsapp-dropdown-menu.active {
+      display: block;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-item {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark-teal);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .dropdown-item:active {
+      background-color: var(--mint);
+      color: var(--green-organic);
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background-color: rgba(51, 188, 169, 0.12);
+      margin: 4px 0;
     }
 
     /* Áreas de Vistas */
@@ -267,7 +317,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ==================== REGULADOR EMOCIONAL DESLIZANTE (NEURODIVERGENTE) ==================== */
+    /* REGULADOR EMOCIONAL DESLIZANTE */
     .emotional-slider-section {
       padding: 14px 18px 12px 18px;
       background: var(--white);
@@ -312,7 +362,6 @@
       padding: 8px 0;
     }
 
-    /* Barra del Regulador con Gradiente Continuo */
     .neuro-slider-bar {
       -webkit-appearance: none;
       appearance: none;
@@ -332,7 +381,6 @@
       cursor: pointer;
     }
 
-    /* Tirador / Cursor del Slider */
     .neuro-slider-bar::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -343,24 +391,13 @@
       border: 3px solid var(--dark-teal);
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       cursor: grab;
-      transition: transform 0.1s ease, border-color 0.2s ease;
+      transition: transform 0.1s ease;
     }
 
     .neuro-slider-bar::-webkit-slider-thumb:active {
       cursor: grabbing;
       transform: scale(1.2);
       border-color: var(--turquoise);
-    }
-
-    .neuro-slider-bar::-moz-range-thumb {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--white);
-      border: 3px solid var(--dark-teal);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      cursor: grab;
-      transition: transform 0.1s ease;
     }
 
     .slider-ticks-labels {
@@ -1079,7 +1116,7 @@
     .nav-item.active { color: var(--green-organic); }
     .nav-item.active i { stroke: var(--turquoise); }
 
-    /* Modal Videollamada HD Estilo WhatsApp Nativo */
+    /* Modal Videollamada / Llamada de Voz HD Estilo WhatsApp Nativo */
     .video-call-modal {
       display: none;
       position: absolute;
@@ -1214,6 +1251,11 @@
       background-color: rgba(255, 255, 255, 0.25);
     }
 
+    .call-btn.off {
+      background-color: var(--white);
+      color: var(--dark-teal);
+    }
+
     .call-btn.hangup {
       background-color: var(--red-alert);
       color: var(--white);
@@ -1259,7 +1301,7 @@
       </div>
     </div>
 
-    <!-- Header Principal -->
+    <!-- Header Principal (Sin Lupa, con Teléfono, Videollamada y Menú) -->
     <div class="app-header">
       <div class="brand-logo">
         <img src="logo_bienestar_png.jpeg" alt="BIENESTAR Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
@@ -1269,19 +1311,58 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="icon-btn" title="Buscar"><i data-lucide="search" size="18"></i></button>
-        <button class="icon-btn" title="Cámara" onclick="openVideoCall()"><i data-lucide="camera" size="18"></i></button>
-        <button class="icon-btn" title="Menú"><i data-lucide="more-vertical" size="18"></i></button>
+        <button class="icon-btn" title="Llamada de Voz" onclick="openVoiceCall()">
+          <i data-lucide="phone" size="18"></i>
+        </button>
+        <button class="icon-btn" title="Videollamada HD" onclick="openVideoCall()">
+          <i data-lucide="video" size="18"></i>
+        </button>
+        <button class="icon-btn" title="Menú WhatsApp" onclick="toggleWhatsAppMenu(event)">
+          <i data-lucide="more-vertical" size="18"></i>
+        </button>
+
+        <!-- Menú Desplegable Flotante de WhatsApp -->
+        <div class="whatsapp-dropdown-menu" id="whatsappMenu">
+          <div class="dropdown-item" onclick="triggerMenuAction('Nuevo grupo')">
+            <i data-lucide="users" size="16"></i> Nuevo grupo
+          </div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Nueva comunidad')">
+            <i data-lucide="globe" size="16"></i> Nueva comunidad
+          </div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Listas de difusión')">
+            <i data-lucide="radio" size="16"></i> Listas de difusión
+          </div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Dispositivos vinculados')">
+            <i data-lucide="laptop" size="16"></i> Dispositivos vinculados
+          </div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Destacado')">
+            <i data-lucide="star" size="16"></i> Destacado
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item" onclick="markAllAsRead()">
+            <i data-lucide="check-check" size="16"></i> Marcar todos como leídos
+          </div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Privacidad de estados')">
+            <i data-lucide="shield-check" size="16"></i> Privacidad de estados
+          </div>
+          <div class="dropdown-item" onclick="switchTab('tienda', document.querySelectorAll('.nav-item')[1]); toggleWhatsAppMenu();">
+            <i data-lucide="store" size="16"></i> Herramientas de empresa
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Ajustes')">
+            <i data-lucide="settings" size="16"></i> Ajustes
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Áreas de Contenido -->
-    <div class="app-content">
+    <div class="app-content" onclick="closeWhatsAppMenuOutside(event)">
 
       <!-- ==================== TAB 1: HOME HÍBRIDO ==================== -->
       <div id="tab-chats" class="tab-page active">
         
-        <!-- 1. REGULADOR EMOCIONAL DESLIZANTE (DESPLAZABLE / SENSORIAL NEURODIVERGENTE) -->
+        <!-- REGULADOR EMOCIONAL DESLIZANTE -->
         <div class="emotional-slider-section">
           <div class="slider-header">
             <div class="slider-title-wrap">
@@ -1315,7 +1396,7 @@
           </div>
         </div>
 
-        <!-- 2. Carrusel de Estados / Historias -->
+        <!-- Carrusel de Estados / Historias -->
         <div class="stories-container">
           <div class="story-item">
             <div class="story-ring my-story">
@@ -1332,14 +1413,14 @@
             <span class="story-name">Dra. Elena</span>
           </div>
 
-          <div class="story-item" onclick="switchTab('tienda', document.querySelectorAll('.nav-item'))">
+          <div class="story-item" onclick="switchTab('tienda', document.querySelectorAll('.nav-item')[1])">
             <div class="story-ring">
               <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Herbolaria">
             </div>
             <span class="story-name">Herbolaria</span>
           </div>
 
-          <div class="story-item" onclick="switchTab('morfeo', document.querySelectorAll('.nav-item'))">
+          <div class="story-item" onclick="switchTab('morfeo', document.querySelectorAll('.nav-item')[2])">
             <div class="story-ring">
               <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Morfeo 432Hz">
             </div>
@@ -1354,7 +1435,7 @@
           </div>
         </div>
 
-        <!-- 3. Buscador y Filtros Business -->
+        <!-- Buscador y Filtros Business -->
         <div class="search-filter-section">
           <div class="search-box">
             <i data-lucide="search" size="16" color="#2C7A7B"></i>
@@ -1370,7 +1451,7 @@
           </div>
         </div>
 
-        <!-- 4. Lista de Contactos (WhatsApp + Business) -->
+        <!-- Lista de Contactos (WhatsApp + Business) -->
         <div class="contacts-list" id="contactsList">
           
           <div class="contact-item" onclick="openSingleChat('Asistente BIENESTAR 🌿', 'logo_bienestar_png.jpeg', 'Especialista en Salud Integral')">
@@ -1578,8 +1659,8 @@
         </div>
         <div style="display: flex; gap: 6px;">
           <button class="icon-btn" onclick="openVideoCall()" title="Videollamada HD"><i data-lucide="video" size="18"></i></button>
-          <button class="icon-btn" onclick="openVideoCall()" title="Llamada de Voz"><i data-lucide="phone" size="18"></i></button>
-          <button class="icon-btn" title="Catálogo Business"><i data-lucide="store" size="18"></i></button>
+          <button class="icon-btn" onclick="openVoiceCall()" title="Llamada de Voz"><i data-lucide="phone" size="18"></i></button>
+          <button class="icon-btn" title="Catálogo Business" onclick="switchTab('tienda', document.querySelectorAll('.nav-item')[1]); closeSingleChat();"><i data-lucide="store" size="18"></i></button>
         </div>
       </div>
 
@@ -1644,7 +1725,7 @@
       </button>
     </div>
 
-    <!-- Modal de Videollamada HD Nativa -->
+    <!-- Modal de Videollamada / Llamada de Voz HD Estilo WhatsApp Nativo -->
     <div class="video-call-modal" id="videoCallModal">
       <div class="call-top-bar">
         <div class="call-lock">
@@ -1661,7 +1742,7 @@
         <div class="call-status" id="callStatusText">VIDEOLLAMADA SALIENTE...</div>
       </div>
 
-      <div class="call-video-card">
+      <div class="call-video-card" id="callVideoCard">
         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Video Stream">
       </div>
 
@@ -1671,7 +1752,7 @@
           <span class="call-btn-label">Altavoz</span>
         </div>
         <div class="call-control-item" onclick="toggleCallControl(this)">
-          <button class="call-btn"><i data-lucide="video" size="22"></i></button>
+          <button class="call-btn" id="callVideoToggleBtn"><i data-lucide="video" size="22"></i></button>
           <span class="call-btn-label">Video</span>
         </div>
         <div class="call-control-item" onclick="toggleCallControl(this)">
@@ -1706,6 +1787,31 @@
       }, 1800);
     });
 
+    // Toggle Menú Desplegable de WhatsApp (3 puntos)
+    function toggleWhatsAppMenu(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('whatsappMenu');
+      menu.classList.toggle('active');
+    }
+
+    function closeWhatsAppMenuOutside(e) {
+      const menu = document.getElementById('whatsappMenu');
+      if (menu && menu.classList.contains('active')) {
+        menu.classList.remove('active');
+      }
+    }
+
+    function triggerMenuAction(actionName) {
+      toggleWhatsAppMenu();
+      addMessage(`Acción seleccionada del menú: ${actionName}`, 'sent');
+    }
+
+    function markAllAsRead() {
+      toggleWhatsAppMenu();
+      document.querySelectorAll('.unread-count').forEach(badge => badge.remove());
+      addMessage(`✔ Todos los mensajes marcados como leídos.`, 'received');
+    }
+
     const sensoryMap = {
       1: { label: 'Crisis', color: '#FF5A5F' },
       2: { label: 'Ansiedad', color: '#FF9F1C' },
@@ -1733,7 +1839,7 @@
       document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
-      btn.classList.add('active');
+      if (btn) btn.classList.add('active');
     }
 
     function openSingleChat(name, avatarUrl, subtitle) {
@@ -1781,11 +1887,30 @@
 
     function openVideoCall() {
       const modal = document.getElementById('videoCallModal');
+      const videoCard = document.getElementById('callVideoCard');
+      if (videoCard) videoCard.style.display = 'block';
       modal.classList.add('active');
       callSeconds = 0;
       const statusText = document.getElementById('callStatusText');
-      statusText.innerText = 'CONECTANDO...';
+      statusText.innerText = 'VIDEOLLAMADA SALIENTE...';
       
+      startCallTimer(statusText);
+    }
+
+    function openVoiceCall() {
+      const modal = document.getElementById('videoCallModal');
+      const videoCard = document.getElementById('callVideoCard');
+      if (videoCard) videoCard.style.display = 'none';
+      modal.classList.add('active');
+      callSeconds = 0;
+      const statusText = document.getElementById('callStatusText');
+      statusText.innerText = 'LLAMADA DE VOZ SALIENTE...';
+
+      startCallTimer(statusText);
+    }
+
+    function startCallTimer(statusText) {
+      if (callTimerInt) clearInterval(callTimerInt);
       setTimeout(() => {
         statusText.innerText = '00:00';
         callTimerInt = setInterval(() => {
@@ -1832,7 +1957,7 @@
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
       
-      const activeAvatar = document.getElementById('activeChatAvatar').src;
+      const activeAvatar = document.getElementById('activeChatAvatar') ? document.getElementById('activeChatAvatar').src : 'logo_bienestar_png.jpeg';
 
       if (type === 'received') {
         row.innerHTML = `
