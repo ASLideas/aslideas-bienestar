@@ -492,7 +492,7 @@
       width: 100%;
     }
 
-    /* Buscador y Filtros Business */
+    /* Buscador Limpio (Sin Píldoras Abajo) */
     .search-filter-section {
       padding: 10px 16px 8px 16px;
       display: flex;
@@ -503,7 +503,7 @@
     .search-box {
       background: var(--white);
       border-radius: var(--radius-full);
-      padding: 8px 16px;
+      padding: 10px 18px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -516,37 +516,8 @@
       outline: none;
       background: transparent;
       width: 100%;
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--dark-teal);
-    }
-
-    .filter-pills-bar {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 4px;
-    }
-
-    .filter-pills-bar::-webkit-scrollbar { display: none; }
-
-    .filter-chip {
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      background: var(--white);
-      border: 1px solid rgba(51, 188, 169, 0.25);
-      color: var(--dark-teal);
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-chip.active {
-      background: var(--green-organic);
-      color: var(--white);
-      border-color: var(--green-organic);
     }
 
     /* Lista de Contactos & Chats */
@@ -1116,7 +1087,7 @@
     .nav-item.active { color: var(--green-organic); }
     .nav-item.active i { stroke: var(--turquoise); }
 
-    /* Modal Videollamada / Llamada de Voz HD Estilo WhatsApp Nativo */
+    /* Modal Videollamada HD con Cámara WebRTC Real */
     .video-call-modal {
       display: none;
       position: absolute;
@@ -1165,12 +1136,12 @@
     }
 
     .call-avatar-wrap {
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       border: 3.5px solid var(--turquoise);
       overflow: hidden;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       box-shadow: 0 0 20px rgba(51, 188, 169, 0.4);
       background: var(--white);
     }
@@ -1197,6 +1168,7 @@
       letter-spacing: 0.8px;
     }
 
+    /* Contenedor de Video WebRTC en Vivo */
     .call-video-card {
       width: 100%;
       max-width: 320px;
@@ -1208,9 +1180,19 @@
       position: relative;
       box-shadow: 0 12px 32px rgba(0,0,0,0.4);
       border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .call-video-card img {
+    .webcam-video-element {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1);
+    }
+
+    .fallback-avatar-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1222,6 +1204,7 @@
       justify-content: center;
       gap: 6px;
       height: 100%;
+      width: 100%;
       background: linear-gradient(135deg, #123838, #0B2222);
     }
 
@@ -1300,7 +1283,7 @@
       font-weight: 700;
     }
 
-    /* VISTA COMPLETA DE AJUSTES (SEGUN FOTOS CLIENTE) */
+    /* VISTA COMPLETA DE AJUSTES */
     .settings-full-view {
       display: none;
       position: absolute;
@@ -1346,7 +1329,6 @@
       gap: 8px;
     }
 
-    /* Perfil del Usuario en Ajustes */
     .settings-profile-card {
       padding: 20px 18px;
       display: flex;
@@ -1417,7 +1399,6 @@
       margin-top: 2px;
     }
 
-    /* Lista de Opciones de Ajustes */
     .settings-menu-list {
       padding: 8px 0;
       display: flex;
@@ -1467,7 +1448,6 @@
       font-weight: 500;
     }
 
-    /* Sección Meta Centro de Cuentas */
     .meta-center-section {
       padding: 20px;
       background: var(--white);
@@ -1682,19 +1662,11 @@
           </div>
         </div>
 
-        <!-- Buscador y Filtros Business -->
+        <!-- Buscador Limpio (Sin Píldoras Abajo) -->
         <div class="search-filter-section">
           <div class="search-box">
-            <i data-lucide="search" size="16" color="#2C7A7B"></i>
+            <i data-lucide="search" size="18" color="#2C7A7B"></i>
             <input type="text" class="search-input" placeholder="Buscar contactos, especialistas, PyMEs..." onkeyup="filterContacts(this.value)">
-          </div>
-
-          <div class="filter-pills-bar">
-            <button class="filter-chip active" onclick="setFilter('todos', this)">Todos</button>
-            <button class="filter-chip" onclick="setFilter('salud', this)">🩺 Salud & Médicos</button>
-            <button class="filter-chip" onclick="setFilter('pyme', this)">🏪 PyMEs & Tienda</button>
-            <button class="filter-chip" onclick="setFilter('comunidad', this)">👥 Comunidad</button>
-            <button class="filter-chip" onclick="setFilter('no-leidos', this)">📩 No leídos</button>
           </div>
         </div>
 
@@ -1889,7 +1861,7 @@
 
     </div>
 
-    <!-- VISTA MODAL AJUSTES COMPLETO (BASADO FIELMENTE EN FOTOS DEL CLIENTE) -->
+    <!-- VISTA MODAL AJUSTES COMPLETO -->
     <div class="settings-full-view" id="settingsFullView">
       <div class="settings-top-bar">
         <div class="settings-title-group">
@@ -1911,7 +1883,7 @@
         </div>
       </div>
 
-      <!-- Perfil Superior con Burbuja de Pensamiento de Canción -->
+      <!-- Perfil Superior con Burbuja de Pensamiento -->
       <div class="settings-profile-card">
         <div class="song-thought-bubble">
           ¿Qué canción escuchas una y otra vez?
@@ -2166,7 +2138,7 @@
       </button>
     </div>
 
-    <!-- Modal de Videollamada / Llamada de Voz HD Estilo WhatsApp Nativo -->
+    <!-- Modal Videollamada HD con Cámara WebRTC Real -->
     <div class="video-call-modal" id="videoCallModal">
       <div class="call-top-bar">
         <div class="call-lock">
@@ -2183,12 +2155,13 @@
           <img src="logo_bienestar_png.jpeg" id="callUserAvatar" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
         </div>
         <div class="call-user-name" id="callUserName">@licandeo30 (Tú)</div>
-        <div class="call-status" id="callStatusText">LLAMADA EN CURSO...</div>
+        <div class="call-status" id="callStatusText">VIDEOLLAMADA EN CURSO...</div>
       </div>
 
-      <!-- Tarjeta de Video / Onda de Voz -->
+      <!-- Contenedor de Video WebRTC en Vivo con Fallback -->
       <div class="call-video-card" id="callVideoCard">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" id="callVideoStream" alt="Video Stream">
+        <video id="webcamVideo" class="webcam-video-element" autoplay playsinline muted style="display: none;"></video>
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" id="fallbackVideoImg" class="fallback-avatar-img" alt="Video Stream">
         <div class="voice-wave-animation" id="callVoiceWave" style="display: none;">
           <div class="wave-bar"></div>
           <div class="wave-bar"></div>
@@ -2203,11 +2176,11 @@
           <button class="call-btn"><i data-lucide="volume-2" size="22"></i></button>
           <span class="call-btn-label">Altavoz</span>
         </div>
-        <div class="call-control-item" onclick="toggleVideoCamera(this)">
+        <div class="call-control-item" onclick="toggleCameraStream(this)">
           <button class="call-btn" id="callVideoToggleBtn"><i data-lucide="video" size="22"></i></button>
           <span class="call-btn-label">Video</span>
         </div>
-        <div class="call-control-item" onclick="toggleCallControl(this)">
+        <div class="call-control-item" onclick="toggleMuteMic(this)">
           <button class="call-btn"><i data-lucide="mic" size="22"></i></button>
           <span class="call-btn-label">Silenciar</span>
         </div>
@@ -2239,7 +2212,7 @@
       }, 1800);
     });
 
-    // Menú de Ajustes Completo (Sección Según Fotos)
+    // Menú de Ajustes Completo
     function openFullSettings() {
       document.getElementById('settingsFullView').classList.add('active');
     }
@@ -2328,55 +2301,60 @@
       });
     }
 
-    function setFilter(filterType, chipBtn) {
-      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      chipBtn.classList.add('active');
-      
-      document.querySelectorAll('.contact-item').forEach(item => {
-        if (filterType === 'todos') {
-          item.style.display = 'flex';
-        } else if (filterType === 'no-leidos') {
-          item.style.display = item.querySelector('.unread-count') ? 'flex' : 'none';
-        } else {
-          item.style.display = item.innerText.toLowerCase().includes(filterType) ? 'flex' : 'none';
-        }
-      });
-    }
-
-    // Funcionalidad Completa de Llamadas y Videollamadas
+    // Funcionalidad de Videollamada WebRTC Real con Cámara
+    let localStream = null;
     let callTimerInt = null;
     let callSeconds = 0;
 
-    function openVideoCall() {
+    async function openVideoCall() {
       const modal = document.getElementById('videoCallModal');
       const videoCard = document.getElementById('callVideoCard');
-      const imgStream = document.getElementById('callVideoStream');
+      const videoEl = document.getElementById('webcamVideo');
+      const imgFallback = document.getElementById('fallbackVideoImg');
       const waveAnim = document.getElementById('callVoiceWave');
 
-      if (videoCard) videoCard.style.display = 'block';
-      if (imgStream) imgStream.style.display = 'block';
+      modal.classList.add('active');
+      if (videoCard) videoCard.style.display = 'flex';
       if (waveAnim) waveAnim.style.display = 'none';
 
-      modal.classList.add('active');
-      callSeconds = 0;
       const statusText = document.getElementById('callStatusText');
-      statusText.innerText = 'VIDEOLLAMADA SALIENTE...';
-      
+      statusText.innerText = 'INICIANDO CÁMARA EN VIVO...';
+
+      try {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          localStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true });
+          if (videoEl) {
+            videoEl.srcObject = localStream;
+            videoEl.style.display = 'block';
+          }
+          if (imgFallback) imgFallback.style.display = 'none';
+          statusText.innerText = 'VIDEOLLAMADA EN VIVO';
+        } else {
+          throw new Error('No mediaDevices');
+        }
+      } catch (err) {
+        console.warn('Cámara no accesible o denegada, usando simulación en vivo:', err);
+        if (videoEl) videoEl.style.display = 'none';
+        if (imgFallback) imgFallback.style.display = 'block';
+        statusText.innerText = 'VIDEOLLAMADA SALIENTE...';
+      }
+
       startCallTimer(statusText);
     }
 
     function openVoiceCall() {
       const modal = document.getElementById('videoCallModal');
       const videoCard = document.getElementById('callVideoCard');
-      const imgStream = document.getElementById('callVideoStream');
+      const videoEl = document.getElementById('webcamVideo');
+      const imgFallback = document.getElementById('fallbackVideoImg');
       const waveAnim = document.getElementById('callVoiceWave');
 
-      if (videoCard) videoCard.style.display = 'block';
-      if (imgStream) imgStream.style.display = 'none';
+      modal.classList.add('active');
+      if (videoCard) videoCard.style.display = 'flex';
+      if (videoEl) videoEl.style.display = 'none';
+      if (imgFallback) imgFallback.style.display = 'none';
       if (waveAnim) waveAnim.style.display = 'flex';
 
-      modal.classList.add('active');
-      callSeconds = 0;
       const statusText = document.getElementById('callStatusText');
       statusText.innerText = 'LLAMADA DE VOZ EN CURSO...';
 
@@ -2385,6 +2363,7 @@
 
     function startCallTimer(statusText) {
       if (callTimerInt) clearInterval(callTimerInt);
+      callSeconds = 0;
       setTimeout(() => {
         statusText.innerText = '00:00';
         callTimerInt = setInterval(() => {
@@ -2393,37 +2372,52 @@
           const secs = String(Math.floor(callSeconds % 60)).padStart(2, '0');
           statusText.innerText = `${mins}:${secs}`;
         }, 1000);
-      }, 1200);
+      }, 1000);
     }
 
     function closeVideoCall() {
       const modal = document.getElementById('videoCallModal');
       modal.classList.remove('active');
       if (callTimerInt) clearInterval(callTimerInt);
+
+      if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
+      }
+
+      const videoEl = document.getElementById('webcamVideo');
+      if (videoEl) videoEl.srcObject = null;
+
       addMessage('📞 Llamada finalizada.', 'received');
+    }
+
+    function toggleCameraStream(element) {
+      const btn = element.querySelector('.call-btn');
+      if (btn) btn.classList.toggle('off');
+
+      if (localStream) {
+        const videoTrack = localStream.getVideoTracks();
+        if (videoTrack && videoTrack) {
+          videoTrack.enabled = !videoTrack.enabled;
+        }
+      }
+    }
+
+    function toggleMuteMic(element) {
+      const btn = element.querySelector('.call-btn');
+      if (btn) btn.classList.toggle('off');
+
+      if (localStream) {
+        const audioTrack = localStream.getAudioTracks();
+        if (audioTrack && audioTrack) {
+          audioTrack.enabled = !audioTrack.enabled;
+        }
+      }
     }
 
     function toggleCallControl(element) {
       const btn = element.querySelector('.call-btn');
       if (btn) btn.classList.toggle('off');
-    }
-
-    function toggleVideoCamera(element) {
-      const btn = element.querySelector('.call-btn');
-      const imgStream = document.getElementById('callVideoStream');
-      const waveAnim = document.getElementById('callVoiceWave');
-
-      if (btn) btn.classList.toggle('off');
-
-      if (imgStream && waveAnim) {
-        if (imgStream.style.display === 'none') {
-          imgStream.style.display = 'block';
-          waveAnim.style.display = 'none';
-        } else {
-          imgStream.style.display = 'none';
-          waveAnim.style.display = 'flex';
-        }
-      }
     }
 
     function addPillMsg(text) {
