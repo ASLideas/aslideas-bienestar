@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -990,24 +990,6 @@ tailwind.config = {
 <!-- 1. MODAL CÁMARA DE FOTOS EN VIVO -->
 
 
-import os
-import re
-
-print("Starting build script for v185...")
-
-# Load v181 and v184
-with open('/workspace/artifacts/bienestar_app_v181.txt', 'r', encoding='utf-8') as f:
-    v181 = f.read()
-
-with open('/workspace/artifacts/bienestar_app_v184.txt', 'r', encoding='utf-8') as f:
-    v184 = f.read()
-
-# Define all required Modals HTML
-modals_html = '''
-<!-- ========================================================= -->
-<!-- MODALES COMPLETOS DE BIENESTAR v185 -->
-<!-- ========================================================= -->
-
 <!-- 1. MODAL CÁMARA REAL DE FOTOS -->
 <div id="cameraModal" class="fixed inset-0 z-[9900] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl text-white">
@@ -1648,6 +1630,26 @@ function filterChats(category, btn) {
             item.classList.add('hidden');
         }
     });
+}
+
+
+function sendMoodToChat(moodName, moodEmoji) {
+    const container = document.getElementById('chat-messages-container');
+    if (!container) return;
+    const outDiv = document.createElement('div');
+    outDiv.className = 'flex items-end justify-end gap-2 max-w-[85%] ml-auto my-2';
+    outDiv.innerHTML = `
+        <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none shadow-md text-xs space-y-1.5 border border-[#33BCA9]/30">
+            <div class="flex items-center gap-2 font-bold text-[#E0F7F4]">
+                <span class="text-xl">${moodEmoji}</span>
+                <span>Registro de Estado de Ánimo</span>
+            </div>
+            <p class="text-xs font-semibold text-white">Me siento <span class="underline font-black">${moodName}</span> hoy.</p>
+            <span class="text-[9px] text-[#E0F7F4]/80 block text-right font-mono">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+        </div>
+    `;
+    container.appendChild(outDiv);
+    container.scrollTop = container.scrollHeight;
 }
 
 function sendMessage() {
