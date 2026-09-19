@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BIENESTAR App - Regulación Emocional sin Emojis</title>
+  <title>BIENESTAR App - Regulador Emocional Deslizante</title>
   <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,14 +27,6 @@
       --radius-lg: 20px;
       --radius-md: 14px;
       --radius-full: 9999px;
-
-      /* Escala Arcoíris de Regulación Emocional */
-      --c-red: #FF5A5F;
-      --c-orange: #FF9F1C;
-      --c-yellow: #FFBF00;
-      --c-green: #2EC4B6;
-      --c-blue: #3A86FF;
-      --c-purple: #8338EC;
     }
 
     * {
@@ -275,93 +267,114 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ==================== REGULACIÓN EMOCIONAL SIN EMOJIS ==================== */
-    .emotional-regulation-section {
-      padding: 12px 16px 8px 16px;
+    /* ==================== REGULADOR EMOCIONAL DESLIZANTE (NEURODIVERGENTE) ==================== */
+    .emotional-slider-section {
+      padding: 14px 18px 12px 18px;
       background: var(--white);
       border-bottom: 1px solid rgba(51, 188, 169, 0.15);
       box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .emotion-section-header {
+    .slider-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
     }
 
-    .emotion-section-title {
+    .slider-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 12px;
       font-weight: 800;
       color: var(--green-organic);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      letter-spacing: 0.4px;
     }
 
-    .emotion-status-active {
+    .slider-badge {
       font-size: 11px;
-      font-weight: 700;
-      color: var(--turquoise);
-      background: var(--mint);
-      padding: 2px 8px;
-      border-radius: var(--radius-full);
-    }
-
-    .emotion-color-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 6px;
-    }
-
-    .emotion-color-pill {
-      height: 42px;
-      border-radius: 10px;
-      border: 2px solid transparent;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      color: var(--white);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .emotion-color-pill:active {
-      transform: scale(0.93);
-    }
-
-    .emotion-color-pill.selected {
-      border-color: var(--dark-teal);
-      box-shadow: 0 0 0 2px var(--white), 0 4px 12px rgba(0,0,0,0.25);
-      transform: translateY(-2px);
-    }
-
-    .pill-red { background-color: var(--c-red); }
-    .pill-orange { background-color: var(--c-orange); }
-    .pill-yellow { background-color: var(--c-yellow); color: #4A3B00; }
-    .pill-green { background-color: var(--c-green); }
-    .pill-blue { background-color: var(--c-blue); }
-    .pill-purple { background-color: var(--c-purple); }
-
-    .pill-label {
-      font-size: 9.5px;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.2px;
-      line-height: 1;
+      color: var(--white);
+      background: var(--turquoise);
+      padding: 3px 12px;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+      transition: background 0.3s ease;
     }
 
-    .pill-dot {
-      width: 5px;
-      height: 5px;
+    .slider-track-container {
+      position: relative;
+      width: 100%;
+      padding: 8px 0;
+    }
+
+    /* Barra del Regulador con Gradiente Continuo */
+    .neuro-slider-bar {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 14px;
+      border-radius: 12px;
+      outline: none;
+      background: linear-gradient(90deg, 
+        #FF5A5F 0%, 
+        #FF9F1C 20%, 
+        #FFBF00 40%, 
+        #2EC4B6 60%, 
+        #3A86FF 80%, 
+        #8338EC 100%
+      );
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    /* Tirador / Cursor del Slider */
+    .neuro-slider-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.8);
-      margin-top: 3px;
+      background: var(--white);
+      border: 3px solid var(--dark-teal);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      cursor: grab;
+      transition: transform 0.1s ease, border-color 0.2s ease;
+    }
+
+    .neuro-slider-bar::-webkit-slider-thumb:active {
+      cursor: grabbing;
+      transform: scale(1.2);
+      border-color: var(--turquoise);
+    }
+
+    .neuro-slider-bar::-moz-range-thumb {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--dark-teal);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      cursor: grab;
+      transition: transform 0.1s ease;
+    }
+
+    .slider-ticks-labels {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 2px;
+      margin-top: -2px;
+    }
+
+    .tick-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--gray-muted);
+      text-transform: uppercase;
     }
 
     /* Carrusel de Estados / Historias */
@@ -1268,46 +1281,37 @@
       <!-- ==================== TAB 1: HOME HÍBRIDO ==================== -->
       <div id="tab-chats" class="tab-page active">
         
-        <!-- 1. MÓDULO DE REGULACIÓN EMOCIONAL AFUERA (SIN EMOJIS, SOLO COLORES) -->
-        <div class="emotional-regulation-section">
-          <div class="emotion-section-header">
-            <div class="emotion-section-title">
-              <i data-lucide="activity" size="14"></i>
-              Regulación Emocional
+        <!-- 1. REGULADOR EMOCIONAL DESLIZANTE (DESPLAZABLE / SENSORIAL NEURODIVERGENTE) -->
+        <div class="emotional-slider-section">
+          <div class="slider-header">
+            <div class="slider-title-wrap">
+              <i data-lucide="sliders" size="15"></i>
+              Regulador Emocional (Sensorial)
             </div>
-            <span class="emotion-status-active" id="activeEmotionLabel">Calma</span>
+            <span class="slider-badge" id="sliderBadge">En Calma</span>
           </div>
 
-          <div class="emotion-color-grid">
-            <div class="emotion-color-pill pill-red" onclick="selectEmotionColor('Crisis / Sobrecarga', '🔴', this)" title="Sobrecarga / Crisis">
-              <span class="pill-label">Crisis</span>
-              <div class="pill-dot"></div>
-            </div>
+          <div class="slider-track-container">
+            <input 
+              type="range" 
+              min="1" 
+              max="6" 
+              value="4" 
+              step="1" 
+              class="neuro-slider-bar" 
+              id="neuroSlider" 
+              oninput="updateSensorySlider(this.value)"
+              onchange="logSensoryChange(this.value)"
+            >
+          </div>
 
-            <div class="emotion-color-pill pill-orange" onclick="selectEmotionColor('Ansioso / Inquieto', '🟠', this)" title="Ansioso">
-              <span class="pill-label">Ansiedad</span>
-              <div class="pill-dot"></div>
-            </div>
-
-            <div class="emotion-color-pill pill-yellow" onclick="selectEmotionColor('Alerta / Sensible', '🟡', this)" title="Alerta">
-              <span class="pill-label">Alerta</span>
-              <div class="pill-dot"></div>
-            </div>
-
-            <div class="emotion-color-pill pill-green selected" onclick="selectEmotionColor('Regulado / En Calma', '🟢', this)" title="Regulado">
-              <span class="pill-label">Calma</span>
-              <div class="pill-dot"></div>
-            </div>
-
-            <div class="emotion-color-pill pill-blue" onclick="selectEmotionColor('Tranquilo / Enfocado', '🔵', this)" title="Enfocado">
-              <span class="pill-label">Enfoque</span>
-              <div class="pill-dot"></div>
-            </div>
-
-            <div class="emotion-color-pill pill-purple" onclick="selectEmotionColor('Conectado / Seguro', '🟣', this)" title="Conectado">
-              <span class="pill-label">Vínculo</span>
-              <div class="pill-dot"></div>
-            </div>
+          <div class="slider-ticks-labels">
+            <span class="tick-label" style="color: #FF5A5F;">Crisis</span>
+            <span class="tick-label" style="color: #FF9F1C;">Ansiedad</span>
+            <span class="tick-label" style="color: #D6A000;">Alerta</span>
+            <span class="tick-label" style="color: #2EC4B6;">Calma</span>
+            <span class="tick-label" style="color: #3A86FF;">Enfoque</span>
+            <span class="tick-label" style="color: #8338EC;">Vínculo</span>
           </div>
         </div>
 
@@ -1380,7 +1384,7 @@
                   <span class="contact-name">Asistente BIENESTAR</span>
                   <span class="business-tag">Oficial</span>
                 </div>
-                <div class="last-msg">¡Hola! Estado emocional actualizado a Calma.</div>
+                <div class="last-msg">¡Hola! Estado de regulación registrado.</div>
               </div>
             </div>
             <div class="contact-right">
@@ -1702,21 +1706,34 @@
       }, 1800);
     });
 
+    const sensoryMap = {
+      1: { label: 'Crisis', color: '#FF5A5F' },
+      2: { label: 'Ansiedad', color: '#FF9F1C' },
+      3: { label: 'Alerta', color: '#FFBF00' },
+      4: { label: 'En Calma', color: '#2EC4B6' },
+      5: { label: 'Enfoque', color: '#3A86FF' },
+      6: { label: 'Vínculo', color: '#8338EC' }
+    };
+
+    function updateSensorySlider(val) {
+      const info = sensoryMap[val] || sensoryMap;
+      const badge = document.getElementById('sliderBadge');
+      if (badge) {
+        badge.innerText = info.label;
+        badge.style.backgroundColor = info.color;
+      }
+    }
+
+    function logSensoryChange(val) {
+      const info = sensoryMap[val] || sensoryMap;
+      addMessage(`Nivel Sensorial ajustado a: ${info.label}`, 'sent');
+    }
+
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
       btn.classList.add('active');
-    }
-
-    function selectEmotionColor(emotionLabel, colorCode, element) {
-      document.querySelectorAll('.emotion-color-pill').forEach(pill => pill.classList.remove('selected'));
-      element.classList.add('selected');
-      
-      const labelEl = document.getElementById('activeEmotionLabel');
-      if (labelEl) labelEl.innerText = emotionLabel.split('/').trim();
-
-      addMessage(`Regulación Emocional registrada: ${emotionLabel}`, 'sent');
     }
 
     function openSingleChat(name, avatarUrl, subtitle) {
