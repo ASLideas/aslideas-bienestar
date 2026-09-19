@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BIENESTAR App - v1</title>
+  <title>BIENESTAR App - Híbrido WhatsApp + Business + Instagram</title>
   <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
       --shadow-sm: 0 2px 8px rgba(18, 56, 56, 0.06);
       --shadow-md: 0 4px 16px rgba(18, 56, 56, 0.12);
       --radius-lg: 20px;
-      --radius-md: 12px;
+      --radius-md: 14px;
       --radius-full: 9999px;
     }
 
@@ -68,7 +68,7 @@
       }
     }
 
-    /* Pantalla de Carga / Splash Screen de Inicio */
+    /* Splash Screen Inicial */
     .splash-screen {
       position: absolute;
       top: 0;
@@ -90,7 +90,6 @@
       pointer-events: none;
     }
 
-    /* Ajuste Perfecto del Logo Centrado en el Círculo */
     .splash-logo-wrap {
       width: 120px;
       height: 120px;
@@ -104,8 +103,6 @@
       border: 3.5px solid var(--turquoise);
       animation: pulseLogo 2s infinite ease-in-out;
       overflow: hidden;
-      padding: 0;
-      position: relative;
     }
 
     .splash-logo-wrap img {
@@ -114,7 +111,6 @@
       object-fit: cover;
       object-position: center;
       border-radius: 50%;
-      display: block;
     }
 
     @keyframes pulseLogo {
@@ -146,7 +142,6 @@
       background: var(--mint);
       border-radius: 10px;
       overflow: hidden;
-      position: relative;
     }
 
     .loading-bar-fill {
@@ -162,9 +157,9 @@
       100% { transform: translateX(100%); }
     }
 
-    /* Barra de Estado Superior */
+    /* Status Bar Top */
     .status-bar {
-      height: 44px;
+      height: 40px;
       padding: 0 20px;
       display: flex;
       justify-content: space-between;
@@ -176,42 +171,17 @@
       z-index: 10;
     }
 
-    /* Áreas de Vistas */
-    .app-content {
-      flex: 1;
-      overflow-y: auto;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .tab-page {
-      display: none;
-      flex-direction: column;
-      height: 100%;
-      animation: fadeIn 0.25s ease-in-out;
-    }
-
-    .tab-page.active {
-      display: flex;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     /* Header Principal */
     .app-header {
-      padding: 12px 18px;
+      padding: 10px 18px;
       background: var(--bg-cream);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(51, 188, 169, 0.15);
+      border-bottom: 1px solid rgba(51, 188, 169, 0.12);
       position: sticky;
       top: 0;
-      z-index: 5;
+      z-index: 10;
     }
 
     .brand-logo {
@@ -249,12 +219,12 @@
 
     .header-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     .icon-btn {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background-color: var(--mint);
       border: none;
@@ -272,17 +242,362 @@
       color: var(--white);
     }
 
-    /* Pestaña 1: Chats */
-    .chat-container {
+    /* Áreas de Vistas */
+    .app-content {
       flex: 1;
+      overflow-y: auto;
+      position: relative;
       display: flex;
       flex-direction: column;
-      background-color: var(--bg-cream);
+    }
+
+    .tab-page {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .tab-page.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==================== HÍBRIDO HOME (INSTAGRAM + WHATSAPP + BUSINESS) ==================== */
+    
+    /* 1. Historias / Estados Estilo Instagram */
+    .stories-container {
+      padding: 12px 16px 8px 16px;
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-bottom: 1px solid rgba(51, 188, 169, 0.1);
+      background: var(--bg-cream);
+    }
+
+    .stories-container::-webkit-scrollbar { display: none; }
+
+    .story-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      flex-shrink: 0;
+      width: 68px;
+    }
+
+    .story-ring {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: linear-gradient(135deg, var(--turquoise), var(--green-organic));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .story-ring.my-story {
+      background: var(--mint);
+      border: 2px dashed var(--turquoise);
+      padding: 0;
+    }
+
+    .story-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--bg-cream);
+      background: var(--white);
+    }
+
+    .add-story-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
+      background: var(--turquoise);
+      color: var(--white);
+      border-radius: 50%;
+      border: 2px solid var(--bg-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .story-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--dark-teal);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    /* 2. Buscador y Filtros Business */
+    .search-filter-section {
+      padding: 12px 16px 8px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-box {
+      background: var(--white);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(51, 188, 169, 0.2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 13px;
+      color: var(--dark-teal);
+    }
+
+    .filter-pills-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+
+    .filter-pills-bar::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: var(--white);
+      border: 1px solid rgba(51, 188, 169, 0.25);
+      color: var(--dark-teal);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-chip.active {
+      background: var(--green-organic);
+      color: var(--white);
+      border-color: var(--green-organic);
+    }
+
+    /* 3. Lista de Contactos & Chats (WhatsApp + Business) */
+    .contacts-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      margin-bottom: 6px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(51, 188, 169, 0.08);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .contact-item:active {
+      transform: scale(0.98);
+      background: var(--mint);
+    }
+
+    .contact-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-avatar-wrap {
+      position: relative;
+      width: 48px;
+      height: 48px;
+    }
+
+    .contact-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--turquoise);
+    }
+
+    .badge-business {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      background: var(--green-organic);
+      color: var(--white);
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--white);
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .contact-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark-teal);
+    }
+
+    .business-tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--mint);
+      color: var(--green-organic);
+      font-weight: 700;
+    }
+
+    .last-msg {
+      font-size: 12px;
+      color: var(--gray-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 190px;
+    }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .msg-time-badge {
+      font-size: 11px;
+      color: var(--gray-muted);
+      font-weight: 500;
+    }
+
+    .unread-count {
+      background: var(--turquoise);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Botón Flotante Nuevo Chat/Contacto */
+    .fab-new-chat {
+      position: absolute;
+      bottom: 80px;
+      right: 20px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-organic), var(--turquoise));
+      color: var(--white);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      z-index: 15;
+      transition: transform 0.2s;
+    }
+
+    .fab-new-chat:active { transform: scale(0.9); }
+
+    /* ==================== VISTA DE CHAT INDIVIDUAL (MODAL CONVERSACIÓN) ==================== */
+    .single-chat-view {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-cream);
+      z-index: 50;
+      flex-direction: column;
+      animation: slideInRight 0.25s ease-out;
+    }
+
+    .single-chat-view.active { display: flex; }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    .chat-header-bar {
+      padding: 10px 14px;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(51, 188, 169, 0.15);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chat-user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .chat-user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--turquoise);
     }
 
     .rainbow-scale-card {
-      margin: 12px 16px;
-      padding: 12px 14px;
+      margin: 10px 14px;
+      padding: 10px 12px;
       background: var(--white);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
@@ -290,10 +605,10 @@
     }
 
     .rainbow-scale-title {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--green-organic);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -301,16 +616,16 @@
 
     .rainbow-bars {
       display: flex;
-      gap: 6px;
+      gap: 5px;
     }
 
     .rainbow-btn {
       flex: 1;
-      height: 36px;
-      border-radius: 10px;
+      height: 34px;
+      border-radius: 8px;
       border: none;
       color: var(--white);
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -347,22 +662,20 @@
     }
 
     .avatar-msg {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       object-fit: cover;
-      object-position: center;
       border: 1px solid var(--turquoise);
       background: var(--white);
-      overflow: hidden;
     }
 
     .message-bubble {
       max-width: 80%;
-      padding: 12px 16px;
-      border-radius: 18px;
-      font-size: 14px;
-      line-height: 1.45;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13.5px;
+      line-height: 1.4;
       position: relative;
     }
 
@@ -382,7 +695,7 @@
     }
 
     .msg-time {
-      font-size: 10px;
+      font-size: 9.5px;
       opacity: 0.75;
       margin-top: 4px;
       text-align: right;
@@ -391,7 +704,7 @@
     .quick-pills-bar {
       display: flex;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 6px 14px;
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -399,12 +712,12 @@
     .quick-pills-bar::-webkit-scrollbar { display: none; }
 
     .pill-btn {
-      padding: 6px 12px;
+      padding: 5px 12px;
       background-color: var(--white);
       border: 1px solid var(--turquoise);
       color: var(--dark-teal);
       border-radius: var(--radius-full);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
@@ -431,7 +744,7 @@
       border: 1px solid transparent;
       padding: 10px 16px;
       border-radius: 24px;
-      font-size: 14px;
+      font-size: 13.5px;
       outline: none;
       color: var(--dark-teal);
     }
@@ -442,8 +755,8 @@
     }
 
     .send-btn {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background-color: var(--turquoise);
       color: var(--white);
@@ -483,8 +796,8 @@
     }
 
     .clip-icon {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: var(--mint);
       color: var(--green-organic);
@@ -677,25 +990,9 @@
       border-radius: 50%;
     }
 
-    .pulse-circle::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 2px solid var(--turquoise);
-      animation: ripple 2s infinite ease-out;
-      pointer-events: none;
-    }
-
-    @keyframes ripple {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(1.4); opacity: 0; }
-    }
-
     /* Navbar Inferior */
     .bottom-nav {
-      height: 68px;
+      height: 66px;
       background-color: var(--white);
       display: flex;
       justify-content: space-around;
@@ -762,8 +1059,6 @@
       gap: 6px;
     }
 
-    .call-add-user { cursor: pointer; padding: 6px; }
-
     .call-user-section {
       display: flex;
       flex-direction: column;
@@ -781,9 +1076,6 @@
       margin-bottom: 14px;
       box-shadow: 0 0 20px rgba(51, 188, 169, 0.4);
       background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .call-avatar-wrap img {
@@ -825,7 +1117,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: grayscale(15%);
     }
 
     .call-controls-grid {
@@ -863,11 +1154,6 @@
       background-color: rgba(255, 255, 255, 0.25);
     }
 
-    .call-btn.off {
-      background-color: var(--white);
-      color: var(--dark-teal);
-    }
-
     .call-btn.hangup {
       background-color: var(--red-alert);
       color: var(--white);
@@ -890,7 +1176,7 @@
 
   <div class="app-frame">
     
-    <!-- Splash Screen con Animación de Carga y Logo de BIENESTAR perfectamente ajustado -->
+    <!-- Splash Screen Inicial con Logo Centrado -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
         <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
@@ -900,7 +1186,7 @@
       <div class="loading-bar-wrap">
         <div class="loading-bar-fill"></div>
       </div>
-      <span style="font-size: 11px; color: var(--gray-muted); margin-top: 12px; font-weight: 500;">Cargando experiencia...</span>
+      <span style="font-size: 11px; color: var(--gray-muted); margin-top: 12px; font-weight: 500;">Cargando experiencia híbrida...</span>
     </div>
 
     <!-- Status Bar Top -->
@@ -919,94 +1205,169 @@
         <img src="logo_bienestar_png.jpeg" alt="BIENESTAR Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
         <div>
           <div class="brand-title">BIENESTAR</div>
-          <div class="brand-subtitle">Ecosistema Integral</div>
+          <div class="brand-subtitle">WhatsApp • Business • Instagram</div>
         </div>
       </div>
       <div class="header-actions">
-        <button class="icon-btn" onclick="openVideoCall()" title="Iniciar Videollamada">
-          <i data-lucide="video" size="18"></i>
-        </button>
-        <button class="icon-btn" onclick="openVideoCall()" title="Llamada de Voz">
-          <i data-lucide="phone" size="18"></i>
-        </button>
-        <button class="icon-btn" title="Opciones">
-          <i data-lucide="more-vertical" size="18"></i>
-        </button>
+        <button class="icon-btn" title="Buscar"><i data-lucide="search" size="18"></i></button>
+        <button class="icon-btn" title="Cámara / Historias" onclick="openVideoCall()"><i data-lucide="camera" size="18"></i></button>
+        <button class="icon-btn" title="Menú / Opciones"><i data-lucide="more-vertical" size="18"></i></button>
       </div>
     </div>
 
     <!-- Áreas de Contenido -->
     <div class="app-content">
 
-      <!-- ==================== TAB 1: CHATS ==================== -->
+      <!-- ==================== TAB 1: HOME HÍBRIDO (CHATS, HISTORIAS & CONTACTOS) ==================== -->
       <div id="tab-chats" class="tab-page active">
-        <div class="chat-container">
+        
+        <!-- 1. Carrusel de Historias / Estados Estilo Instagram -->
+        <div class="stories-container">
+          <div class="story-item">
+            <div class="story-ring my-story">
+              <img src="logo_bienestar_png.jpeg" class="story-avatar" alt="Mi Estado" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+              <div class="add-story-badge">+</div>
+            </div>
+            <span class="story-name">Tu estado</span>
+          </div>
+
+          <div class="story-item" onclick="openVideoCall()">
+            <div class="story-ring">
+              <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Dra. Elena">
+            </div>
+            <span class="story-name">Dra. Elena</span>
+          </div>
+
+          <div class="story-item" onclick="switchTab('tienda', document.querySelectorAll('.nav-item')[1])">
+            <div class="story-ring">
+              <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Herbolaria">
+            </div>
+            <span class="story-name">Herbolaria</span>
+          </div>
+
+          <div class="story-item" onclick="switchTab('morfeo', document.querySelectorAll('.nav-item'))">
+            <div class="story-ring">
+              <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Morfeo 432Hz">
+            </div>
+            <span class="story-name">Morfeo</span>
+          </div>
+
+          <div class="story-item">
+            <div class="story-ring">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Comunidad">
+            </div>
+            <span class="story-name">Comunidad</span>
+          </div>
+        </div>
+
+        <!-- 2. Buscador y Filtros Business -->
+        <div class="search-filter-section">
+          <div class="search-box">
+            <i data-lucide="search" size="16" color="#2C7A7B"></i>
+            <input type="text" class="search-input" placeholder="Buscar contactos, especialistas, PyMEs..." onkeyup="filterContacts(this.value)">
+          </div>
+
+          <div class="filter-pills-bar">
+            <button class="filter-chip active" onclick="setFilter('todos', this)">Todos</button>
+            <button class="filter-chip" onclick="setFilter('salud', this)">🩺 Salud & Médicos</button>
+            <button class="filter-chip" onclick="setFilter('pyme', this)">🏪 PyMEs & Tienda</button>
+            <button class="filter-chip" onclick="setFilter('comunidad', this)">👥 Comunidad</button>
+            <button class="filter-chip" onclick="setFilter('no-leidos', this)">📩 No leídos</button>
+          </div>
+        </div>
+
+        <!-- 3. Lista de Contactos (WhatsApp + WhatsApp Business) -->
+        <div class="contacts-list" id="contactsList">
           
-          <!-- Escala Arcoíris de Regulación Emocional -->
-          <div class="rainbow-scale-card">
-            <div class="rainbow-scale-title">
-              <span>🌈 Regulación Emocional (Ventana Tolerancia)</span>
-              <span style="font-size: 10px; opacity: 0.8;">Toca para registrar</span>
-            </div>
-            <div class="rainbow-bars">
-              <button class="rainbow-btn r-red" onclick="logEmotion('🔴 En crisis / Sobrecarga')">😡</button>
-              <button class="rainbow-btn r-orange" onclick="logEmotion('🟠 Ansioso / Inquieto')">😰</button>
-              <button class="rainbow-btn r-yellow" onclick="logEmotion('🟡 Alerta / Sensible')">😐</button>
-              <button class="rainbow-btn r-green" onclick="logEmotion('🟢 Regulado / En Calma')">😊</button>
-              <button class="rainbow-btn r-blue" onclick="logEmotion('🔵 Tranquilo / Enfocado')">😌</button>
-              <button class="rainbow-btn r-purple" onclick="logEmotion('🟣 Conectado / Seguro')">💜</button>
-            </div>
-          </div>
-
-          <!-- Mensajes -->
-          <div class="messages-area" id="messagesArea">
-            <div class="message-row">
-              <img src="logo_bienestar_png.jpeg" class="avatar-msg" alt="Asistente BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
-              <div class="message-bubble msg-received">
-                ¡Hola! 👋 Bienvenido a tu espacio de salud y comunidad BIENESTAR. ¿Cómo te sientes hoy?
-                <div class="msg-time">18:50</div>
+          <!-- Contacto 1: Asistente BIENESTAR -->
+          <div class="contact-item" onclick="openSingleChat('Asistente BIENESTAR 🌿', 'logo_bienestar_png.jpeg', 'Especialista en Salud Integral')">
+            <div class="contact-left">
+              <div class="contact-avatar-wrap">
+                <img src="logo_bienestar_png.jpeg" class="contact-avatar" alt="Logo" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+                <div class="badge-business">✓</div>
+              </div>
+              <div class="contact-info">
+                <div class="contact-name-row">
+                  <span class="contact-name">Asistente BIENESTAR</span>
+                  <span class="business-tag">Oficial</span>
+                </div>
+                <div class="last-msg">¡Hola! Recuerda registrar tu agua y ánimos hoy.</div>
               </div>
             </div>
-
-            <div class="message-row sent">
-              <div class="message-bubble msg-sent">
-                Hola, listo para registrar mis hábitos y conectar con la comunidad.
-                <div class="msg-time">18:52</div>
-              </div>
+            <div class="contact-right">
+              <span class="msg-time-badge">18:50</span>
+              <span class="unread-count">1</span>
             </div>
           </div>
 
-          <!-- Barra de Píldoras Rápidas -->
-          <div class="quick-pills-bar">
-            <button class="pill-btn" onclick="openVideoCall()">📷 Foto</button>
-            <button class="pill-btn" onclick="openVideoCall()">📹 Video</button>
-            <button class="pill-btn" onclick="addPillMsg('💊 Dosis tomada: Multivitamínico')">💊 Dosis</button>
-            <button class="pill-btn" onclick="addPillMsg('😊 Ánimo: Positivo y en calma')">😊 Ánimo</button>
-            <button class="pill-btn" onclick="addPillMsg('💧 Agua: +250ml')">💧 Hidratación</button>
+          <!-- Contacto 2: Nutricionista -->
+          <div class="contact-item" onclick="openSingleChat('Dra. Elena Ramos', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80', 'Nutricionista Clínica & Holística')">
+            <div class="contact-left">
+              <div class="contact-avatar-wrap">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Dra. Elena">
+                <div class="badge-business">🩺</div>
+              </div>
+              <div class="contact-info">
+                <div class="contact-name-row">
+                  <span class="contact-name">Dra. Elena Ramos</span>
+                  <span class="business-tag">Nutrición</span>
+                </div>
+                <div class="last-msg">Tu plan nutricional de la semana está listo 🥗</div>
+              </div>
+            </div>
+            <div class="contact-right">
+              <span class="msg-time-badge">17:15</span>
+              <span class="unread-count">2</span>
+            </div>
           </div>
 
-          <!-- Menú de Clip -->
-          <div class="clip-menu" id="clipMenu">
-            <div class="clip-item" onclick="toggleClipMenu(); openVideoCall();"><div class="clip-icon"><i data-lucide="camera"></i></div>Cámara</div>
-            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📄 Documento Adjunto');"><div class="clip-icon"><i data-lucide="file-text"></i></div>Doc</div>
-            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('💊 Recordatorio de Medicación');"><div class="clip-icon"><i data-lucide="pill"></i></div>Receta</div>
-            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📍 Ubicación Compartida');"><div class="clip-icon"><i data-lucide="map-pin"></i></div>Ubicación</div>
-            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('👤 Contacto Profesional');"><div class="clip-icon"><i data-lucide="user"></i></div>Especialista</div>
-            <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🎧 Audio de Calma');"><div class="clip-icon"><i data-lucide="headphones"></i></div>Audio</div>
+          <!-- Contacto 3: PyME Herbolaria -->
+          <div class="contact-item" onclick="openSingleChat('Herbolaria Orgánica PyME', 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80', 'Productos Naturales & Infusiones')">
+            <div class="contact-left">
+              <div class="contact-avatar-wrap">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="PyME">
+                <div class="badge-business">🏪</div>
+              </div>
+              <div class="contact-info">
+                <div class="contact-name-row">
+                  <span class="contact-name">Herbolaria Orgánica</span>
+                  <span class="business-tag">Catálogo PyME</span>
+                </div>
+                <div class="last-msg">Llegó nuevo lote de té de lavanda relajante.</div>
+              </div>
+            </div>
+            <div class="contact-right">
+              <span class="msg-time-badge">Ayer</span>
+            </div>
           </div>
 
-          <!-- Input para Escribir -->
-          <div class="chat-input-bar">
-            <button class="icon-btn" style="background:none;" onclick="toggleClipMenu()">
-              <i data-lucide="paperclip" size="20"></i>
-            </button>
-            <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
-            <button class="send-btn" onclick="sendMessage()">
-              <i data-lucide="send" size="18"></i>
-            </button>
+          <!-- Contacto 4: Grupo Comunidad -->
+          <div class="contact-item" onclick="openSingleChat('Comunidad Neurodivergente & Salubridad', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Grupo de Apoyo & Regulación Emocional')">
+            <div class="contact-left">
+              <div class="contact-avatar-wrap">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Comunidad">
+                <div class="badge-business">👥</div>
+              </div>
+              <div class="contact-info">
+                <div class="contact-name-row">
+                  <span class="contact-name">Comunidad Apoyo</span>
+                  <span class="business-tag">Grupo</span>
+                </div>
+                <div class="last-msg">María: "Las ondas de 432Hz me ayudaron mucho"</div>
+              </div>
+            </div>
+            <div class="contact-right">
+              <span class="msg-time-badge">Ayer</span>
+            </div>
           </div>
 
         </div>
+
+        <!-- Botón Flotante (FAB) Estilo WhatsApp -->
+        <button class="fab-new-chat" onclick="openSingleChat('Nuevo Contacto / Especialista', 'logo_bienestar_png.jpeg', 'Ecosistema BIENESTAR')" title="Nuevo Chat / Añadir Contacto">
+          <i data-lucide="message-square-plus" size="24"></i>
+        </button>
+
       </div>
 
       <!-- ==================== TAB 2: WELLNESS ==================== -->
@@ -1111,6 +1472,86 @@
 
     </div>
 
+    <!-- VISTA MODAL CHAT INDIVIDUAL ACTIVO CON UN CONTACTO -->
+    <div class="single-chat-view" id="singleChatView">
+      <div class="chat-header-bar">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button class="icon-btn" style="background:none;" onclick="closeSingleChat()">
+            <i data-lucide="arrow-left" size="20"></i>
+          </button>
+          <div class="chat-user-info">
+            <img src="logo_bienestar_png.jpeg" id="activeChatAvatar" class="chat-user-avatar" alt="Avatar">
+            <div>
+              <div class="contact-name" id="activeChatName">Asistente BIENESTAR</div>
+              <div style="font-size:10px; color:var(--green-organic);" id="activeChatSubtitle">En línea • Respuesta rápida</div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <button class="icon-btn" onclick="openVideoCall()" title="Videollamada HD"><i data-lucide="video" size="18"></i></button>
+          <button class="icon-btn" onclick="openVideoCall()" title="Llamada de Voz"><i data-lucide="phone" size="18"></i></button>
+          <button class="icon-btn" title="Catálogo Business"><i data-lucide="store" size="18"></i></button>
+        </div>
+      </div>
+
+      <!-- Escala Arcoíris de Regulación Emocional -->
+      <div class="rainbow-scale-card">
+        <div class="rainbow-scale-title">
+          <span>🌈 Regulación Emocional (Ventana Tolerancia)</span>
+          <span style="font-size: 10px; opacity: 0.8;">Toca para registrar</span>
+        </div>
+        <div class="rainbow-bars">
+          <button class="rainbow-btn r-red" onclick="logEmotion('🔴 En crisis / Sobrecarga')">😡</button>
+          <button class="rainbow-btn r-orange" onclick="logEmotion('🟠 Ansioso / Inquieto')">😰</button>
+          <button class="rainbow-btn r-yellow" onclick="logEmotion('🟡 Alerta / Sensible')">😐</button>
+          <button class="rainbow-btn r-green" onclick="logEmotion('🟢 Regulado / En Calma')">😊</button>
+          <button class="rainbow-btn r-blue" onclick="logEmotion('🔵 Tranquilo / Enfocado')">😌</button>
+          <button class="rainbow-btn r-purple" onclick="logEmotion('🟣 Conectado / Seguro')">💜</button>
+        </div>
+      </div>
+
+      <!-- Mensajes -->
+      <div class="messages-area" id="messagesArea">
+        <div class="message-row">
+          <img src="logo_bienestar_png.jpeg" class="avatar-msg" alt="Asistente" id="msgAvatarInChat" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+          <div class="message-bubble msg-received">
+            ¡Hola! 👋 Te estás comunicando a través de la plataforma BIENESTAR. ¿En qué podemos ayudarte hoy?
+            <div class="msg-time">18:50</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Píldoras Rápidas -->
+      <div class="quick-pills-bar">
+        <button class="pill-btn" onclick="openVideoCall()">📷 Foto</button>
+        <button class="pill-btn" onclick="openVideoCall()">📹 Video</button>
+        <button class="pill-btn" onclick="addPillMsg('💊 Dosis tomada: Multivitamínico')">💊 Dosis</button>
+        <button class="pill-btn" onclick="addPillMsg('😊 Ánimo: Positivo y en calma')">😊 Ánimo</button>
+        <button class="pill-btn" onclick="addPillMsg('💧 Agua: +250ml')">💧 Hidratación</button>
+      </div>
+
+      <!-- Menú de Clip -->
+      <div class="clip-menu" id="clipMenu">
+        <div class="clip-item" onclick="toggleClipMenu(); openVideoCall();"><div class="clip-icon"><i data-lucide="camera"></i></div>Cámara</div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📄 Documento Adjunto');"><div class="clip-icon"><i data-lucide="file-text"></i></div>Doc</div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('💊 Recordatorio de Medicación');"><div class="clip-icon"><i data-lucide="pill"></i></div>Receta</div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📍 Ubicación Compartida');"><div class="clip-icon"><i data-lucide="map-pin"></i></div>Ubicación</div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('👤 Contacto Profesional');"><div class="clip-icon"><i data-lucide="user"></i></div>Especialista</div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🎧 Audio de Calma');"><div class="clip-icon"><i data-lucide="headphones"></i></div>Audio</div>
+      </div>
+
+      <!-- Input para Escribir -->
+      <div class="chat-input-bar">
+        <button class="icon-btn" style="background:none;" onclick="toggleClipMenu()">
+          <i data-lucide="paperclip" size="20"></i>
+        </button>
+        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
+        <button class="send-btn" onclick="sendMessage()">
+          <i data-lucide="send" size="18"></i>
+        </button>
+      </div>
+    </div>
+
     <!-- Navbar Inferior (4 Pestañas) -->
     <div class="bottom-nav">
       <button class="nav-item active" onclick="switchTab('chats', this)">
@@ -1145,9 +1586,9 @@
 
       <div class="call-user-section">
         <div class="call-avatar-wrap">
-          <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+          <img src="logo_bienestar_png.jpeg" id="callUserAvatar" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
         </div>
-        <div class="call-user-name">@licandeo30 (Tú)</div>
+        <div class="call-user-name" id="callUserName">@licandeo30 (Tú)</div>
         <div class="call-status" id="callStatusText">VIDEOLLAMADA SALIENTE...</div>
       </div>
 
@@ -1189,7 +1630,7 @@
   <script>
     lucide.createIcons();
 
-    // Ocultar pantalla de splash tras 1.8 segundos de carga inicial
+    // Ocultar pantalla de splash tras 1.8 segundos
     window.addEventListener('load', () => {
       setTimeout(() => {
         const splash = document.getElementById('splashScreen');
@@ -1202,6 +1643,48 @@
       document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
       btn.classList.add('active');
+    }
+
+    // Abrir Chat Individual
+    function openSingleChat(name, avatarUrl, subtitle) {
+      document.getElementById('activeChatName').innerText = name;
+      document.getElementById('activeChatSubtitle').innerText = subtitle;
+      const avatarEl = document.getElementById('activeChatAvatar');
+      avatarEl.src = avatarUrl;
+      avatarEl.onerror = () => { avatarEl.src = 'logo_bienestar_png.jpeg'; };
+
+      const msgAvatar = document.getElementById('msgAvatarInChat');
+      if (msgAvatar) msgAvatar.src = avatarUrl;
+
+      document.getElementById('singleChatView').classList.add('active');
+    }
+
+    function closeSingleChat() {
+      document.getElementById('singleChatView').classList.remove('active');
+    }
+
+    // Filtrar contactos
+    function filterContacts(query) {
+      const q = query.toLowerCase();
+      document.querySelectorAll('.contact-item').forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+    }
+
+    function setFilter(filterType, chipBtn) {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chipBtn.classList.add('active');
+      
+      document.querySelectorAll('.contact-item').forEach(item => {
+        if (filterType === 'todos') {
+          item.style.display = 'flex';
+        } else if (filterType === 'no-leidos') {
+          item.style.display = item.querySelector('.unread-count') ? 'flex' : 'none';
+        } else {
+          item.style.display = item.innerText.toLowerCase().includes(filterType) ? 'flex' : 'none';
+        }
+      });
     }
 
     let callTimerInt = null;
@@ -1264,9 +1747,11 @@
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
       
+      const activeAvatar = document.getElementById('activeChatAvatar').src;
+
       if (type === 'received') {
         row.innerHTML = `
-          <img src="logo_bienestar_png.jpeg" class="avatar-msg" alt="Asistente" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+          <img src="${activeAvatar}" class="avatar-msg" alt="Contacto">
           <div class="message-bubble msg-received">${text}<div class="msg-time">${timeStr}</div></div>
         `;
       } else {
