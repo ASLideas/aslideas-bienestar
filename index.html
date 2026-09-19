@@ -68,6 +68,94 @@
       }
     }
 
+    /* Pantalla de Carga / Splash Screen de Inicio */
+    .splash-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .splash-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-logo-wrap {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 3px solid var(--turquoise);
+      animation: pulseLogo 2s infinite ease-in-out;
+    }
+
+    .splash-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes pulseLogo {
+      0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0.4); }
+      50% { transform: scale(1.04); box-shadow: 0 0 0 16px rgba(51, 188, 169, 0); }
+      100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0); }
+    }
+
+    .splash-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--dark-teal);
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .splash-sub {
+      font-size: 12px;
+      color: var(--green-organic);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .loading-bar-wrap {
+      width: 140px;
+      height: 4px;
+      background: var(--mint);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loading-bar-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-organic), var(--turquoise));
+      border-radius: 10px;
+      animation: loadingFill 1.8s ease-in-out infinite;
+    }
+
+    @keyframes loadingFill {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
     /* Barra de Estado Superior */
     .status-bar {
       height: 44px;
@@ -126,12 +214,15 @@
       gap: 10px;
     }
 
-    .brand-logo img {
-      width: 36px;
-      height: 36px;
+    .brand-logo-img {
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--turquoise);
+      background-color: var(--white);
+      padding: 2px;
+      box-shadow: var(--shadow-sm);
     }
 
     .brand-title {
@@ -238,6 +329,25 @@
       gap: 12px;
     }
 
+    .message-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .message-row.sent {
+      justify-content: flex-end;
+    }
+
+    .avatar-msg {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--turquoise);
+      background: var(--white);
+    }
+
     .message-bubble {
       max-width: 80%;
       padding: 12px 16px;
@@ -250,7 +360,6 @@
     .msg-received {
       background-color: var(--white);
       color: var(--dark-teal);
-      align-self: flex-start;
       border-bottom-left-radius: 4px;
       box-shadow: var(--shadow-sm);
       border: 1px solid rgba(51, 188, 169, 0.12);
@@ -259,7 +368,6 @@
     .msg-sent {
       background-color: var(--green-organic);
       color: var(--white);
-      align-self: flex-end;
       border-bottom-right-radius: 4px;
       box-shadow: var(--shadow-sm);
     }
@@ -539,8 +647,8 @@
     }
 
     .pulse-circle {
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       background: rgba(51, 188, 169, 0.2);
       display: flex;
@@ -548,6 +656,14 @@
       justify-content: center;
       position: relative;
       margin: 10px 0;
+      padding: 14px;
+    }
+
+    .pulse-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(51, 188, 169, 0.8));
     }
 
     .pulse-circle::before {
@@ -652,12 +768,15 @@
       overflow: hidden;
       margin-bottom: 14px;
       box-shadow: 0 0 20px rgba(51, 188, 169, 0.4);
+      background: var(--white);
+      padding: 4px;
     }
 
     .call-avatar-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 50%;
     }
 
     .call-user-name {
@@ -756,6 +875,19 @@
 
   <div class="app-frame">
     
+    <!-- Splash Screen con Animación de Carga y Logo de BIENESTAR -->
+    <div class="splash-screen" id="splashScreen">
+      <div class="splash-logo-wrap">
+        <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+      </div>
+      <div class="splash-title">BIENESTAR</div>
+      <div class="splash-sub">Ecosistema Integral</div>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar-fill"></div>
+      </div>
+      <span style="font-size: 11px; color: var(--gray-muted); margin-top: 12px; font-weight: 500;">Cargando experiencia...</span>
+    </div>
+
     <!-- Status Bar Top -->
     <div class="status-bar">
       <span>18:57</span>
@@ -769,7 +901,7 @@
     <!-- Header Principal -->
     <div class="app-header">
       <div class="brand-logo">
-        <img src="logo_bienestar_png.jpeg" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=100&auto=format&fit=crop&q=80'">
+        <img src="logo_bienestar_png.jpeg" alt="BIENESTAR Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
         <div>
           <div class="brand-title">BIENESTAR</div>
           <div class="brand-subtitle">Ecosistema Integral</div>
@@ -813,13 +945,19 @@
 
           <!-- Mensajes -->
           <div class="messages-area" id="messagesArea">
-            <div class="message-bubble msg-received">
-              ¡Hola! 👋 Bienvenido a tu espacio de salud y comunidad BIENESTAR. ¿Cómo te sientes hoy?
-              <div class="msg-time">18:50</div>
+            <div class="message-row">
+              <img src="logo_bienestar_png.jpeg" class="avatar-msg" alt="Asistente BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+              <div class="message-bubble msg-received">
+                ¡Hola! 👋 Bienvenido a tu espacio de salud y comunidad BIENESTAR. ¿Cómo te sientes hoy?
+                <div class="msg-time">18:50</div>
+              </div>
             </div>
-            <div class="message-bubble msg-sent">
-              Hola, listo para registrar mis hábitos y conectar con la comunidad.
-              <div class="msg-time">18:52</div>
+
+            <div class="message-row sent">
+              <div class="message-bubble msg-sent">
+                Hola, listo para registrar mis hábitos y conectar con la comunidad.
+                <div class="msg-time">18:52</div>
+              </div>
             </div>
           </div>
 
@@ -931,7 +1069,7 @@
               <div class="pyme-img">🕯️</div>
               <div class="pyme-name">Vela Aromática Soya</div>
               <div class="pyme-desc">Aceites esenciales naturales</div>
-              <div class="pyme-price">\$12.000</div>
+              <div class="pyme-price">$12.000</div>
             </div>
           </div>
         </div>
@@ -946,7 +1084,7 @@
             <p style="font-size:12px; opacity:0.8;">Ondas binaurales a 432Hz para inducir el descanso profundo y reducir el estrés.</p>
             
             <div class="pulse-circle">
-              <i data-lucide="headphones" size="36" color="#33BCA9"></i>
+              <img src="logo_bienestar_png.jpeg" alt="Morfeo Logo" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
             </div>
 
             <button id="audioToggleBtn" class="pill-btn" style="background:var(--turquoise); color:white; border:none; padding:10px 24px; font-size:14px;" onclick="toggleMorfeoSound()">
@@ -992,7 +1130,7 @@
 
       <div class="call-user-section">
         <div class="call-avatar-wrap">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80" alt="Avatar">
+          <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
         </div>
         <div class="call-user-name">@licandeo30 (Tú)</div>
         <div class="call-status" id="callStatusText">VIDEOLLAMADA SALIENTE...</div>
@@ -1036,6 +1174,14 @@
   <script>
     lucide.createIcons();
 
+    // Ocultar pantalla de splash tras 1.8 segundos de carga inicial
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splashScreen');
+        if (splash) splash.classList.add('hidden');
+      }, 1800);
+    });
+
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
@@ -1058,7 +1204,7 @@
         callTimerInt = setInterval(() => {
           callSeconds++;
           const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
-          const secs = String(callSeconds % 60).padStart(2, '0');
+          const secs = String(Math.floor(callSeconds % 60)).padStart(2, '0');
           statusText.innerText = `${mins}:${secs}`;
         }, 1000);
       }, 1500);
@@ -1097,12 +1243,24 @@
 
     function addMessage(text, type) {
       const area = document.getElementById('messagesArea');
-      const bubble = document.createElement('div');
-      bubble.className = `message-bubble msg-${type}`;
+      const row = document.createElement('div');
+      row.className = `message-row ${type === 'sent' ? 'sent' : ''}`;
+      
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-      bubble.innerHTML = `${text}<div class="msg-time">${timeStr}</div>`;
-      area.appendChild(bubble);
+      
+      if (type === 'received') {
+        row.innerHTML = `
+          <img src="logo_bienestar_png.jpeg" class="avatar-msg" alt="Asistente" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+          <div class="message-bubble msg-received">${text}<div class="msg-time">${timeStr}</div></div>
+        `;
+      } else {
+        row.innerHTML = `
+          <div class="message-bubble msg-sent">${text}<div class="msg-time">${timeStr}</div></div>
+        `;
+      }
+      
+      area.appendChild(row);
       area.scrollTop = area.scrollHeight;
     }
 
