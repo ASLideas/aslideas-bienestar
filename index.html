@@ -70,7 +70,7 @@
       }
     }
 
-    /* Splash Screen Inicial */
+    /* Splash Screen con Auto-Hide CSS Garantizado */
     .splash-screen {
       position: absolute;
       top: 0;
@@ -83,15 +83,21 @@
       align-items: center;
       justify-content: center;
       z-index: 200;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
+      /* Animación automática por CSS para ocultar splash aunque falle JS */
+      animation: autoHideSplash 1.5s forwards ease-in-out;
+    }
+
+    @keyframes autoHideSplash {
+      0% { opacity: 1; visibility: visible; pointer-events: auto; }
+      80% { opacity: 1; visibility: visible; pointer-events: auto; }
+      100% { opacity: 0; visibility: hidden; pointer-events: none; display: none; }
     }
 
     .splash-screen.hidden {
       opacity: 0 !important;
       visibility: hidden !important;
       pointer-events: none !important;
+      display: none !important;
     }
 
     .splash-logo-wrap {
@@ -153,7 +159,7 @@
       height: 100%;
       background: linear-gradient(90deg, var(--green-organic), var(--turquoise));
       border-radius: 10px;
-      animation: loadingFill 1.5s ease-in-out infinite;
+      animation: loadingFill 1.2s ease-in-out infinite;
     }
 
     @keyframes loadingFill {
@@ -495,7 +501,7 @@
       width: 100%;
     }
 
-    /* Buscador Limpio (Sin Píldoras Abajo) */
+    /* Buscador Limpio */
     .search-filter-section {
       padding: 10px 16px 8px 16px;
       display: flex;
@@ -1508,7 +1514,7 @@
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial -->
+    <!-- Splash Screen Inicial (Se oculta por CSS o JS) -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
         <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
@@ -1520,6 +1526,14 @@
       </div>
       <span style="font-size: 11px; color: var(--gray-muted); margin-top: 12px; font-weight: 500;">Cargando experiencia...</span>
     </div>
+
+    <!-- Script inline para ocultar el splash si la red es lenta -->
+    <script>
+      setTimeout(function() {
+        var splash = document.getElementById('splashScreen');
+        if (splash) { splash.classList.add('hidden'); splash.style.display = 'none'; }
+      }, 800);
+    </script>
 
     <!-- Status Bar Top -->
     <div class="status-bar">
@@ -2206,36 +2220,41 @@
   </div>
 
   <script>
-    // Inicialización Robusta de Iconos
-    try {
-      if (window.lucide) { lucide.createIcons(); }
-    } catch (e) { console.warn('Lucide icons error:', e); }
-
-    // Ocultar pantalla de carga de manera ultra-segura
+    // Inicialización Robusta e Inmediata
     function hideSplash() {
-      const splash = document.getElementById('splashScreen');
+      var splash = document.getElementById('splashScreen');
       if (splash) {
         splash.classList.add('hidden');
+        splash.style.display = 'none';
       }
     }
 
-    // Ocultar splash automáticamente a los 1.2 segundos sin importar ningún error previo
-    setTimeout(hideSplash, 1200);
-    window.addEventListener('load', () => {
-      setTimeout(hideSplash, 800);
-    });
+    // Ejecutar ocultar splash inmediatamente si el DOM está listo
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      setTimeout(hideSplash, 600);
+    } else {
+      document.addEventListener('DOMContentLoaded', function() { setTimeout(hideSplash, 600); });
+    }
+    window.addEventListener('load', function() { setTimeout(hideSplash, 400); });
 
-    // Supabase Safe Client Init
-    const SUPABASE_URL = 'https://rggdizeajuiglorxyaye.supabase.co';
-    const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY_AQUI'; // Sustituir por la anon key real de Supabase si se desea sincronización remota
-
-    let supabase = null;
+    // Lucide Icons
     try {
-      if (window.supabase && SUPABASE_ANON_KEY && SUPABASE_ANON_KEY !== 'TU_SUPABASE_ANON_KEY_AQUI') {
+      if (window.lucide && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+      }
+    } catch (e) { console.warn('Lucide init warning:', e); }
+
+    // Supabase Safe Client Init (Opcional)
+    var SUPABASE_URL = 'https://rggdizeajuiglorxyaye.supabase.co';
+    var SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY_AQUI';
+
+    var supabase = null;
+    try {
+      if (window.supabase && typeof window.supabase.createClient === 'function' && SUPABASE_ANON_KEY !== 'TU_SUPABASE_ANON_KEY_AQUI') {
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       }
     } catch (err) {
-      console.warn('Supabase init skipped/offline mode active:', err);
+      console.warn('Supabase local fallback:', err);
     }
 
     // Menú de Ajustes Completo
@@ -2249,13 +2268,13 @@
 
     // Toggle Menú Desplegable de WhatsApp (3 puntos)
     function toggleWhatsAppMenu(e) {
-      if (e) e.stopPropagation();
-      const menu = document.getElementById('whatsappMenu');
+      if (e && e.stopPropagation) e.stopPropagation();
+      var menu = document.getElementById('whatsappMenu');
       if (menu) menu.classList.toggle('active');
     }
 
     function closeWhatsAppMenuOutside(e) {
-      const menu = document.getElementById('whatsappMenu');
+      var menu = document.getElementById('whatsappMenu');
       if (menu && menu.classList.contains('active')) {
         menu.classList.remove('active');
       }
@@ -2263,16 +2282,16 @@
 
     function triggerMenuAction(actionName) {
       toggleWhatsAppMenu();
-      addMessage(`Acción seleccionada del menú: ${actionName}`, 'sent');
+      addMessage('Acción seleccionada del menú: ' + actionName, 'sent');
     }
 
     function markAllAsRead() {
       toggleWhatsAppMenu();
-      document.querySelectorAll('.unread-count').forEach(badge => badge.remove());
-      addMessage(`✔ Todos los mensajes marcados como leídos.`, 'received');
+      document.querySelectorAll('.unread-count').forEach(function(badge) { badge.remove(); });
+      addMessage('✔ Todos los mensajes marcados como leídos.', 'received');
     }
 
-    const sensoryMap = {
+    var sensoryMap = {
       1: { label: 'Crisis', color: '#FF5A5F' },
       2: { label: 'Ansiedad', color: '#FF9F1C' },
       3: { label: 'Alerta', color: '#FFBF00' },
@@ -2282,46 +2301,46 @@
     };
 
     function updateSensorySlider(val) {
-      const info = sensoryMap[val] || sensoryMap[1];
-      const badge = document.getElementById('sliderBadge');
+      var info = sensoryMap[val] || sensoryMap[1];
+      var badge = document.getElementById('sliderBadge');
       if (badge) {
         badge.innerText = info.label;
         badge.style.backgroundColor = info.color;
       }
     }
 
-    async function logSensoryChange(val) {
-      const info = sensoryMap[val] || sensoryMap[1];
-      addMessage(`Nivel Sensorial ajustado a: ${info.label}`, 'sent');
+    function logSensoryChange(val) {
+      var info = sensoryMap[val] || sensoryMap[1];
+      addMessage('Nivel Sensorial ajustado a: ' + info.label, 'sent');
 
       if (supabase) {
         try {
-          await supabase.from('registros_emocionales').insert([{ sensory_level: parseInt(val), status_label: info.label }]);
+          supabase.from('registros_emocionales').insert([{ sensory_level: parseInt(val), status_label: info.label }]);
         } catch (e) { console.warn('Supabase save error:', e); }
       }
     }
 
     function switchTab(tabId, btn) {
-      document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-      const activeTab = document.getElementById('tab-' + tabId);
+      document.querySelectorAll('.tab-page').forEach(function(page) { page.classList.remove('active'); });
+      document.querySelectorAll('.nav-item').forEach(function(nav) { nav.classList.remove('active'); });
+      var activeTab = document.getElementById('tab-' + tabId);
       if (activeTab) activeTab.classList.add('active');
       if (btn) btn.classList.add('active');
     }
 
     function openSingleChat(name, avatarUrl, subtitle) {
-      const titleEl = document.getElementById('activeChatName');
-      const subEl = document.getElementById('activeChatSubtitle');
+      var titleEl = document.getElementById('activeChatName');
+      var subEl = document.getElementById('activeChatSubtitle');
       if (titleEl) titleEl.innerText = name;
       if (subEl) subEl.innerText = subtitle;
       
-      const avatarEl = document.getElementById('activeChatAvatar');
+      var avatarEl = document.getElementById('activeChatAvatar');
       if (avatarEl) {
         avatarEl.src = avatarUrl;
-        avatarEl.onerror = () => { avatarEl.src = 'logo_bienestar_png.jpeg'; };
+        avatarEl.onerror = function() { avatarEl.src = 'logo_bienestar_png.jpeg'; };
       }
 
-      const msgAvatar = document.getElementById('msgAvatarInChat');
+      var msgAvatar = document.getElementById('msgAvatarInChat');
       if (msgAvatar) msgAvatar.src = avatarUrl;
 
       document.getElementById('singleChatView').classList.add('active');
@@ -2332,45 +2351,49 @@
     }
 
     function filterContacts(query) {
-      const q = query.toLowerCase();
-      document.querySelectorAll('.contact-item').forEach(item => {
-        const text = item.innerText.toLowerCase();
+      var q = query.toLowerCase();
+      document.querySelectorAll('.contact-item').forEach(function(item) {
+        var text = item.innerText.toLowerCase();
         item.style.display = text.includes(q) ? 'flex' : 'none';
       });
     }
 
     // Videollamada WebRTC Real
-    let localStream = null;
-    let callTimerInt = null;
-    let callSeconds = 0;
+    var localStream = null;
+    var callTimerInt = null;
+    var callSeconds = 0;
 
-    async function openVideoCall() {
-      const modal = document.getElementById('videoCallModal');
-      const videoCard = document.getElementById('callVideoCard');
-      const videoEl = document.getElementById('webcamVideo');
-      const imgFallback = document.getElementById('fallbackVideoImg');
-      const waveAnim = document.getElementById('callVoiceWave');
+    function openVideoCall() {
+      var modal = document.getElementById('videoCallModal');
+      var videoCard = document.getElementById('callVideoCard');
+      var videoEl = document.getElementById('webcamVideo');
+      var imgFallback = document.getElementById('fallbackVideoImg');
+      var waveAnim = document.getElementById('callVoiceWave');
 
       modal.classList.add('active');
       if (videoCard) videoCard.style.display = 'flex';
       if (waveAnim) waveAnim.style.display = 'none';
 
-      const statusText = document.getElementById('callStatusText');
+      var statusText = document.getElementById('callStatusText');
       if (statusText) statusText.innerText = 'INICIANDO CÁMARA EN VIVO...';
 
-      try {
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-          localStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true });
-          if (videoEl) {
-            videoEl.srcObject = localStream;
-            videoEl.style.display = 'block';
-          }
-          if (imgFallback) imgFallback.style.display = 'none';
-          if (statusText) statusText.innerText = 'VIDEOLLAMADA EN VIVO';
-        } else {
-          throw new Error('No mediaDevices');
-        }
-      } catch (err) {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true })
+          .then(function(stream) {
+            localStream = stream;
+            if (videoEl) {
+              videoEl.srcObject = localStream;
+              videoEl.style.display = 'block';
+            }
+            if (imgFallback) imgFallback.style.display = 'none';
+            if (statusText) statusText.innerText = 'VIDEOLLAMADA EN VIVO';
+          })
+          .catch(function(err) {
+            if (videoEl) videoEl.style.display = 'none';
+            if (imgFallback) imgFallback.style.display = 'block';
+            if (statusText) statusText.innerText = 'VIDEOLLAMADA SALIENTE...';
+          });
+      } else {
         if (videoEl) videoEl.style.display = 'none';
         if (imgFallback) imgFallback.style.display = 'block';
         if (statusText) statusText.innerText = 'VIDEOLLAMADA SALIENTE...';
@@ -2380,11 +2403,11 @@
     }
 
     function openVoiceCall() {
-      const modal = document.getElementById('videoCallModal');
-      const videoCard = document.getElementById('callVideoCard');
-      const videoEl = document.getElementById('webcamVideo');
-      const imgFallback = document.getElementById('fallbackVideoImg');
-      const waveAnim = document.getElementById('callVoiceWave');
+      var modal = document.getElementById('videoCallModal');
+      var videoCard = document.getElementById('callVideoCard');
+      var videoEl = document.getElementById('webcamVideo');
+      var imgFallback = document.getElementById('fallbackVideoImg');
+      var waveAnim = document.getElementById('callVoiceWave');
 
       modal.classList.add('active');
       if (videoCard) videoCard.style.display = 'flex';
@@ -2392,7 +2415,7 @@
       if (imgFallback) imgFallback.style.display = 'none';
       if (waveAnim) waveAnim.style.display = 'flex';
 
-      const statusText = document.getElementById('callStatusText');
+      var statusText = document.getElementById('callStatusText');
       if (statusText) statusText.innerText = 'LLAMADA DE VOZ EN CURSO...';
 
       startCallTimer(statusText);
@@ -2401,39 +2424,39 @@
     function startCallTimer(statusText) {
       if (callTimerInt) clearInterval(callTimerInt);
       callSeconds = 0;
-      setTimeout(() => {
+      setTimeout(function() {
         if (statusText) statusText.innerText = '00:00';
-        callTimerInt = setInterval(() => {
+        callTimerInt = setInterval(function() {
           callSeconds++;
-          const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
-          const secs = String(Math.floor(callSeconds % 60)).padStart(2, '0');
-          if (statusText) statusText.innerText = `${mins}:${secs}`;
+          var mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+          var secs = String(Math.floor(callSeconds % 60)).padStart(2, '0');
+          if (statusText) statusText.innerText = mins + ':' + secs;
         }, 1000);
       }, 1000);
     }
 
     function closeVideoCall() {
-      const modal = document.getElementById('videoCallModal');
+      var modal = document.getElementById('videoCallModal');
       modal.classList.remove('active');
       if (callTimerInt) clearInterval(callTimerInt);
 
       if (localStream) {
-        localStream.getTracks().forEach(track => track.stop());
+        localStream.getTracks().forEach(function(track) { track.stop(); });
         localStream = null;
       }
 
-      const videoEl = document.getElementById('webcamVideo');
+      var videoEl = document.getElementById('webcamVideo');
       if (videoEl) videoEl.srcObject = null;
 
       addMessage('📞 Llamada finalizada.', 'received');
     }
 
     function toggleCameraStream(element) {
-      const btn = element.querySelector('.call-btn');
+      var btn = element.querySelector('.call-btn');
       if (btn) btn.classList.toggle('off');
 
       if (localStream) {
-        const videoTrack = localStream.getVideoTracks();
+        var videoTrack = localStream.getVideoTracks();
         if (videoTrack && videoTrack) {
           videoTrack.enabled = !videoTrack.enabled;
         }
@@ -2441,11 +2464,11 @@
     }
 
     function toggleMuteMic(element) {
-      const btn = element.querySelector('.call-btn');
+      var btn = element.querySelector('.call-btn');
       if (btn) btn.classList.toggle('off');
 
       if (localStream) {
-        const audioTrack = localStream.getAudioTracks();
+        var audioTrack = localStream.getAudioTracks();
         if (audioTrack && audioTrack) {
           audioTrack.enabled = !audioTrack.enabled;
         }
@@ -2453,7 +2476,7 @@
     }
 
     function toggleCallControl(element) {
-      const btn = element.querySelector('.call-btn');
+      var btn = element.querySelector('.call-btn');
       if (btn) btn.classList.toggle('off');
     }
 
@@ -2461,16 +2484,16 @@
       addMessage(text, 'sent');
     }
 
-    async function sendMessage() {
-      const input = document.getElementById('chatInput');
+    function sendMessage() {
+      var input = document.getElementById('chatInput');
       if (input && input.value.trim() !== '') {
-        const text = input.value.trim();
+        var text = input.value.trim();
         addMessage(text, 'sent');
         input.value = '';
 
         if (supabase) {
           try {
-            await supabase.from('messages').insert([{ content: text }]);
+            supabase.from('messages').insert([{ content: text }]);
           } catch (e) { console.warn('Supabase message error:', e); }
         }
       }
@@ -2481,25 +2504,21 @@
     }
 
     function addMessage(text, type) {
-      const area = document.getElementById('messagesArea');
+      var area = document.getElementById('messagesArea');
       if (!area) return;
-      const row = document.createElement('div');
-      row.className = `message-row ${type === 'sent' ? 'sent' : ''}`;
+      var row = document.createElement('div');
+      row.className = 'message-row ' + (type === 'sent' ? 'sent' : '');
       
-      const now = new Date();
-      const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      var now = new Date();
+      var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
       
-      const activeAvatar = document.getElementById('activeChatAvatar') ? document.getElementById('activeChatAvatar').src : 'logo_bienestar_png.jpeg';
+      var activeAvatar = document.getElementById('activeChatAvatar') ? document.getElementById('activeChatAvatar').src : 'logo_bienestar_png.jpeg';
 
       if (type === 'received') {
-        row.innerHTML = `
-          <img src="${activeAvatar}" class="avatar-msg" alt="Contacto">
-          <div class="message-bubble msg-received">${text}<div class="msg-time">${timeStr}</div></div>
-        `;
+        row.innerHTML = '<img src="' + activeAvatar + '" class="avatar-msg" alt="Contacto">' +
+          '<div class="message-bubble msg-received">' + text + '<div class="msg-time">' + timeStr + '</div></div>';
       } else {
-        row.innerHTML = `
-          <div class="message-bubble msg-sent">${text}<div class="msg-time">${timeStr}</div></div>
-        `;
+        row.innerHTML = '<div class="message-bubble msg-sent">' + text + '<div class="msg-time">' + timeStr + '</div></div>';
       }
       
       area.appendChild(row);
@@ -2507,24 +2526,24 @@
     }
 
     function toggleClipMenu() {
-      const clip = document.getElementById('clipMenu');
+      var clip = document.getElementById('clipMenu');
       if (clip) clip.classList.toggle('active');
     }
 
-    let currentWater = 1.8;
+    var currentWater = 1.8;
     function updateWater(delta) {
       currentWater = Math.max(0, Math.round((currentWater + delta) * 100) / 100);
-      const el = document.getElementById('waterCounter');
-      if (el) el.innerText = `${currentWater} L`;
+      var el = document.getElementById('waterCounter');
+      if (el) el.innerText = currentWater + ' L';
     }
 
     function toggleCheck(el) {
       el.classList.toggle('checked');
     }
 
-    let isPlayingMorfeo = false;
+    var isPlayingMorfeo = false;
     function toggleMorfeoSound() {
-      const btn = document.getElementById('audioToggleBtn');
+      var btn = document.getElementById('audioToggleBtn');
       if (!btn) return;
       isPlayingMorfeo = !isPlayingMorfeo;
       btn.innerText = isPlayingMorfeo ? '⏸ Pausar 432Hz' : '▶ Reproducir 432Hz';
