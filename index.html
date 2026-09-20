@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>BIENESTAR App - Ecosistema Integral</title>
-  <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,6 +15,7 @@
       --green-organic: #2C7A7B;
       --turquoise: #33BCA9;
       --mint: #E0F7F4;
+      --mint-icon-bg: #E8F3F1;
       --dark-teal: #123838;
       --call-bg: #0B2222;
       --red-alert: #E53E3E;
@@ -29,882 +29,215 @@
       --radius-full: 9999px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background-color: #121212; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: var(--dark-teal); }
 
-    /* Contenedor Marco Móvil Responsive */
     .app-frame {
-      width: 100%;
-      max-width: 430px;
-      height: 100vh;
-      max-height: 932px;
-      background-color: var(--bg-cream);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+      width: 100%; max-width: 430px; height: 100vh; max-height: 932px;
+      background-color: var(--bg-cream); display: flex; flex-direction: column;
+      position: relative; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.5);
     }
 
-    @media (min-width: 440px) {
-      .app-frame {
-        height: 880px;
-        border-radius: 36px;
-        border: 8px solid #222;
-      }
-    }
+    @media (min-width: 440px) { .app-frame { height: 880px; border-radius: 36px; border: 8px solid #222; } }
 
-    /* Splash Screen Inicial con Logo Real de BIENESTAR */
+    /* Splash Screen */
     .splash-screen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--bg-cream);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: var(--bg-cream); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 200;
       transition: opacity 0.4s ease;
     }
-
-    .splash-screen.hidden {
-      opacity: 0 !important;
-      pointer-events: none !important;
-      display: none !important;
-    }
+    .splash-screen.hidden { display: none !important; }
 
     .splash-logo-wrap {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-md);
-      margin-bottom: 20px;
-      border: 3.5px solid var(--turquoise);
-      animation: pulseLogo 2s infinite ease-in-out;
-      overflow: hidden;
-      padding: 8px;
+      width: 130px; height: 130px; border-radius: 50%; background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md); margin-bottom: 20px; border: 3.5px solid var(--turquoise);
+      padding: 10px; overflow: hidden;
     }
+    .splash-logo-wrap img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
 
-    .splash-logo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 50%;
-    }
+    .splash-title { font-size: 24px; font-weight: 800; color: var(--dark-teal); margin-bottom: 4px; }
+    .splash-sub { font-size: 12px; color: var(--green-organic); font-weight: 600; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.5px; }
+    .loading-bar-wrap { width: 150px; height: 5px; background: var(--mint); border-radius: 10px; overflow: hidden; }
+    .loading-bar-fill { width: 100%; height: 100%; background: linear-gradient(90deg, var(--green-organic), var(--turquoise)); animation: loadingFill 1.8s infinite ease-in-out; }
+    @keyframes loadingFill { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-    @keyframes pulseLogo {
-      0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0.4); }
-      50% { transform: scale(1.04); box-shadow: 0 0 0 16px rgba(51, 188, 169, 0); }
-      100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0); }
-    }
-
-    .splash-title {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--dark-teal);
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
-    }
-
-    .splash-sub {
-      font-size: 12px;
-      color: var(--green-organic);
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .loading-bar-wrap {
-      width: 150px;
-      height: 5px;
-      background: var(--mint);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .loading-bar-fill {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--green-organic), var(--turquoise));
-      border-radius: 10px;
-      animation: loadingFill 2s ease-in-out infinite;
-    }
-
-    @keyframes loadingFill {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    /* Status Bar Top */
-    .status-bar {
-      height: 38px;
-      padding: 0 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--dark-teal);
-      background-color: var(--bg-cream);
-      z-index: 10;
-    }
-
-    /* Header Principal */
+    /* Header */
     .app-header {
-      padding: 10px 16px;
-      background: var(--bg-cream);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(51, 188, 169, 0.12);
-      position: sticky;
-      top: 0;
-      z-index: 15;
+      padding: 10px 16px; background: var(--bg-cream); display: flex;
+      align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(51, 188, 169, 0.15);
+      position: sticky; top: 0; z-index: 20;
     }
+    .brand-logo-wrap { display: flex; align-items: center; gap: 10px; }
+    .header-logo-img { width: 38px; height: 38px; border-radius: 50%; object-fit: contain; background: var(--white); border: 2px solid var(--turquoise); padding: 2px; }
+    .brand-title { font-size: 17px; font-weight: 800; color: var(--dark-teal); line-height: 1.1; }
+    .brand-subtitle { font-size: 10px; color: var(--green-organic); font-weight: 600; }
 
-    .brand-logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .header-logo-img {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      object-fit: contain;
-      background: var(--white);
-      border: 2px solid var(--turquoise);
-      padding: 2px;
-    }
-
-    .brand-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--dark-teal);
-      letter-spacing: -0.3px;
-      line-height: 1.1;
-    }
-
-    .brand-subtitle {
-      font-size: 10.5px;
-      color: var(--green-organic);
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 8px;
-      position: relative;
-    }
-
+    .header-actions { display: flex; gap: 8px; position: relative; }
     .icon-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background-color: var(--mint);
-      border: none;
-      color: var(--dark-teal);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
+      width: 36px; height: 36px; border-radius: 50%; background-color: var(--mint);
+      border: none; color: var(--dark-teal); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s;
     }
+    .icon-btn:active { transform: scale(0.92); background-color: var(--turquoise); color: var(--white); }
 
-    .icon-btn:active {
-      transform: scale(0.92);
-      background-color: var(--turquoise);
-      color: var(--white);
-    }
-
-    /* Menú Desplegable Flotante de WhatsApp */
+    /* Dropdown WhatsApp Menu (3 Puntos) */
     .whatsapp-dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 44px;
-      right: 0;
-      width: 230px;
-      background: var(--white);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
-      border: 1px solid rgba(51, 188, 169, 0.18);
-      padding: 6px 0;
-      z-index: 150;
-      animation: fadeInDown 0.2s ease-out;
+      display: none; position: absolute; top: 44px; right: 0; width: 220px;
+      background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(51, 188, 169, 0.2); padding: 6px 0; z-index: 150;
     }
-
     .whatsapp-dropdown-menu.active { display: block; }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .dropdown-item {
-      padding: 10px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--dark-teal);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      transition: background 0.15s;
+      padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--dark-teal);
+      display: flex; align-items: center; gap: 12px; cursor: pointer;
     }
+    .dropdown-item:active { background-color: var(--mint); }
+    .dropdown-divider { height: 1px; background-color: rgba(51, 188, 169, 0.12); margin: 4px 0; }
 
-    .dropdown-item:active {
-      background-color: var(--mint);
-      color: var(--green-organic);
-    }
-
-    .dropdown-divider {
-      height: 1px;
-      background-color: rgba(51, 188, 169, 0.12);
-      margin: 4px 0;
-    }
-
-    /* Áreas de Vistas */
-    .app-content {
-      flex: 1;
-      overflow-y: auto;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .tab-page {
-      display: none;
-      flex-direction: column;
-      height: 100%;
-    }
-
+    /* Layout */
+    .app-content { flex: 1; overflow-y: auto; position: relative; display: flex; flex-direction: column; }
+    .tab-page { display: none; flex-direction: column; height: 100%; }
     .tab-page.active { display: flex; }
 
-    /* REGULADOR EMOCIONAL DESLIZANTE */
-    .emotional-slider-section {
-      padding: 12px 16px;
-      background: var(--white);
-      border-bottom: 1px solid rgba(51, 188, 169, 0.15);
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .slider-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .slider-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--green-organic);
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-
-    .slider-badge {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--white);
-      background: var(--turquoise);
-      padding: 3px 12px;
-      border-radius: var(--radius-full);
-      box-shadow: var(--shadow-sm);
-      transition: background 0.3s ease;
-    }
-
+    /* Emotional Slider */
+    .emotional-slider-section { padding: 12px 16px; background: var(--white); border-bottom: 1px solid rgba(51, 188, 169, 0.15); display: flex; flex-direction: column; gap: 8px; }
+    .slider-header { display: flex; justify-content: space-between; align-items: center; }
+    .slider-title-wrap { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; color: var(--green-organic); text-transform: uppercase; }
+    .slider-badge { font-size: 11px; font-weight: 800; color: var(--white); background: var(--turquoise); padding: 3px 10px; border-radius: var(--radius-full); }
     .neuro-slider-bar {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 12px;
-      border-radius: 12px;
-      outline: none;
-      background: linear-gradient(90deg, 
-        #FF5A5F 0%, 
-        #FF9F1C 20%, 
-        #FFBF00 40%, 
-        #2EC4B6 60%, 
-        #3A86FF 80%, 
-        #8338EC 100%
-      );
-      cursor: pointer;
+      -webkit-appearance: none; appearance: none; width: 100%; height: 12px; border-radius: 12px; outline: none;
+      background: linear-gradient(90deg, #FF5A5F 0%, #FF9F1C 20%, #FFBF00 40%, #2EC4B6 60%, #3A86FF 80%, #8338EC 100%);
     }
-
     .neuro-slider-bar::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--white);
-      border: 3px solid var(--dark-teal);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      cursor: pointer;
+      -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--white); border: 3px solid var(--dark-teal); cursor: pointer;
     }
+    .slider-ticks-labels { display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; color: var(--gray-muted); }
 
-    .slider-ticks-labels {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 2px;
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--gray-muted);
-      text-transform: uppercase;
-    }
+    /* Stories */
+    .stories-container { padding: 10px 16px; display: flex; gap: 12px; overflow-x: auto; background: var(--bg-cream); border-bottom: 1px solid rgba(51, 188, 169, 0.1); }
+    .story-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0; width: 60px; }
+    .story-ring { width: 54px; height: 54px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg, var(--turquoise), var(--green-organic)); display: flex; align-items: center; justify-content: center; }
+    .story-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--white); }
+    .story-name { font-size: 10px; font-weight: 600; color: var(--dark-teal); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
 
-    /* Carrusel de Estados / Historias */
-    .stories-container {
-      padding: 10px 16px;
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      background: var(--bg-cream);
-      border-bottom: 1px solid rgba(51, 188, 169, 0.1);
-    }
+    /* Contacts List */
+    .contacts-list { flex: 1; overflow-y: auto; padding: 10px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .contact-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); cursor: pointer; }
+    .contact-left { display: flex; align-items: center; gap: 12px; }
+    .contact-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--turquoise); }
+    .contact-name { font-size: 14px; font-weight: 700; color: var(--dark-teal); }
+    .last-msg { font-size: 12px; color: var(--gray-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
 
-    .stories-container::-webkit-scrollbar { display: none; }
-
-    .story-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-      flex-shrink: 0;
-      width: 60px;
-    }
-
-    .story-ring {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      padding: 2px;
-      background: linear-gradient(135deg, var(--turquoise), var(--green-organic));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .story-avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--bg-cream);
-      background: var(--white);
-    }
-
-    .story-name {
-      font-size: 10.5px;
-      font-weight: 600;
-      color: var(--dark-teal);
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-    }
-
-    /* Filtros Rápidos de Chat */
-    .chat-filter-pills {
-      display: flex;
-      gap: 8px;
-      padding: 10px 16px 4px 16px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .chat-filter-pills::-webkit-scrollbar { display: none; }
-
-    .chat-filter-btn {
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(51, 188, 169, 0.25);
-      background: var(--white);
-      color: var(--dark-teal);
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .chat-filter-btn.active {
-      background: var(--turquoise);
-      color: var(--white);
-      border-color: var(--turquoise);
-    }
-
-    /* Buscador Limpio */
-    .search-filter-section {
-      padding: 8px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .search-box {
-      background: var(--white);
-      border-radius: var(--radius-full);
-      padding: 10px 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid rgba(51, 188, 169, 0.2);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .search-input {
-      border: none;
-      outline: none;
-      background: transparent;
-      width: 100%;
-      font-size: 13.5px;
-      color: var(--dark-teal);
-    }
-
-    /* Lista de Contactos & Chats */
-    .contacts-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 6px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px;
-      background: var(--white);
-      border-radius: var(--radius-md);
-      margin-bottom: 6px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(51, 188, 169, 0.08);
-      cursor: pointer;
-      transition: transform 0.15s ease;
-    }
-
-    .contact-item:active {
-      transform: scale(0.98);
-      background: var(--mint);
-    }
-
-    .contact-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .contact-avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid var(--turquoise);
-    }
-
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .contact-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--dark-teal);
-    }
-
-    .last-msg {
-      font-size: 12px;
-      color: var(--gray-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 180px;
-    }
-
-    .unread-count {
-      background: var(--turquoise);
-      color: var(--white);
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: var(--radius-full);
-    }
-
-    /* VISTA DE CHAT INDIVIDUAL */
-    .single-chat-view {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg-cream);
-      z-index: 50;
-      flex-direction: column;
-    }
-
+    /* Single Chat View */
+    .single-chat-view { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-cream); z-index: 50; flex-direction: column; }
     .single-chat-view.active { display: flex; }
-
-    .chat-header-bar {
-      padding: 10px 14px;
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(51, 188, 169, 0.15);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .chat-user-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .chat-user-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid var(--turquoise);
-    }
-
-    .messages-area {
-      flex: 1;
-      padding: 12px 16px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .message-row {
-      display: flex;
-      align-items: flex-end;
-      gap: 8px;
-    }
-
+    .chat-header-bar { padding: 10px 14px; background: var(--white); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(51, 188, 169, 0.15); }
+    .chat-user-info { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .chat-user-avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--turquoise); }
+    .messages-area { flex: 1; padding: 12px 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .message-row { display: flex; align-items: flex-end; gap: 8px; }
     .message-row.sent { justify-content: flex-end; }
+    .message-bubble { max-width: 82%; padding: 10px 14px; border-radius: 16px; font-size: 13.5px; line-height: 1.4; position: relative; }
+    .msg-received { background: var(--white); color: var(--dark-teal); border-bottom-left-radius: 4px; box-shadow: var(--shadow-sm); }
+    .msg-sent { background: var(--green-organic); color: var(--white); border-bottom-right-radius: 4px; }
+    .download-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; background: var(--turquoise); color: var(--white); border: none; border-radius: var(--radius-full); font-size: 11px; font-weight: 700; margin-top: 6px; cursor: pointer; width: 100%; text-decoration: none; }
+    
+    .chat-media-img { width: 100%; max-height: 200px; border-radius: 10px; object-fit: cover; margin-top: 4px; }
 
-    .message-bubble {
-      max-width: 82%;
-      padding: 10px 14px;
-      border-radius: 16px;
-      font-size: 13.5px;
-      line-height: 1.4;
-      position: relative;
-      word-wrap: break-word;
-    }
+    /* Chat Input Bar with Emoji & Clip */
+    .chat-input-bar { padding: 10px 14px; background: var(--white); display: flex; align-items: center; gap: 8px; position: relative; border-top: 1px solid rgba(0,0,0,0.05); }
+    .chat-input { flex: 1; background: var(--bg-cream); border: none; padding: 10px 16px; border-radius: 24px; font-size: 13.5px; outline: none; color: var(--dark-teal); }
+    .send-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--turquoise); color: var(--white); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
 
-    .msg-received {
-      background-color: var(--white);
-      color: var(--dark-teal);
-      border-bottom-left-radius: 4px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .msg-sent {
-      background-color: var(--green-organic);
-      color: var(--white);
-      border-bottom-right-radius: 4px;
-    }
-
-    .download-action-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px 14px;
-      background: var(--turquoise);
-      color: var(--white);
-      border: none;
-      border-radius: var(--radius-full);
-      font-size: 11.5px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 6px;
-      box-shadow: var(--shadow-sm);
-      text-decoration: none;
-      width: 100%;
-    }
-
-    .chat-input-bar {
-      padding: 10px 14px;
-      background-color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-top: 1px solid rgba(0,0,0,0.05);
-      position: relative;
-    }
-
-    .chat-input {
-      flex: 1;
-      background-color: var(--bg-cream);
-      border: none;
-      padding: 10px 16px;
-      border-radius: 24px;
-      font-size: 13.5px;
-      outline: none;
-      color: var(--dark-teal);
-    }
-
-    .send-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background-color: var(--turquoise);
-      color: var(--white);
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    /* Menú Adjuntos Clip */
+    /* Adjuntar / Compartir Modal Grid (Fiel a la foto del usuario) */
+    .clip-menu-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 95; }
+    .clip-menu-overlay.active { display: block; }
+    
     .clip-menu {
-      display: none;
-      position: absolute;
-      bottom: 65px;
-      left: 16px;
-      right: 16px;
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid rgba(51, 188, 169, 0.2);
-      z-index: 100;
+      display: none; position: absolute; bottom: 65px; left: 16px; right: 16px;
+      background: #F4F6F6; border-radius: 24px; padding: 20px 16px 24px 16px;
+      box-shadow: var(--shadow-lg); z-index: 100; border: 1px solid rgba(51, 188, 169, 0.2);
     }
+    .clip-menu.active { display: block; }
 
-    .clip-menu.active { display: grid; }
+    .clip-menu-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 18px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .clip-menu-title {
+      font-size: 13px; font-weight: 800; color: var(--dark-teal);
+      display: flex; align-items: center; gap: 6px; letter-spacing: 0.3px; text-transform: uppercase;
+    }
+    .clip-menu-close { background: none; border: none; color: var(--gray-muted); cursor: pointer; display: flex; align-items: center; }
 
+    .clip-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 12px;
+    }
     .clip-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      color: var(--dark-teal);
-      cursor: pointer;
-      font-weight: 600;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      cursor: pointer; transition: transform 0.15s ease;
+    }
+    .clip-item:active { transform: scale(0.92); }
+
+    .clip-icon-wrap {
+      width: 52px; height: 52px; border-radius: 50%; background: #E8F3F1;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green-organic); border: 1px solid rgba(44, 122, 123, 0.15);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .clip-label {
+      font-size: 11px; font-weight: 600; color: var(--dark-teal); text-align: center;
     }
 
-    .clip-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      box-shadow: var(--shadow-sm);
+    /* Emoji Picker Panel */
+    .emoji-picker-panel {
+      display: none; position: absolute; bottom: 60px; left: 0; width: 100%; height: 220px;
+      background: var(--white); border-top: 1px solid rgba(51, 188, 169, 0.2);
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1); z-index: 110; flex-direction: column;
     }
-
-    /* MODAL DIRECTORIO DE CONTACTOS PARA LLAMADAS */
-    .directory-modal-overlay {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.65);
-      z-index: 185;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
+    .emoji-picker-panel.active { display: flex; }
+    .emoji-grid-content {
+      flex: 1; padding: 12px; overflow-y: auto; display: grid;
+      grid-template-columns: repeat(8, 1fr); gap: 10px; font-size: 22px; text-align: center;
     }
+    .emoji-char { cursor: pointer; user-select: none; transition: transform 0.1s; }
+    .emoji-char:active { transform: scale(1.3); }
 
+    /* Directory Modal */
+    .directory-modal-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); z-index: 185; align-items: center; justify-content: center; padding: 18px; }
     .directory-modal-overlay.active { display: flex; }
+    .directory-modal-card { width: 100%; max-width: 380px; background: var(--white); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 12px; max-height: 80vh; }
+    .directory-contact-card { display: flex; align-items: center; justify-content: space-between; padding: 10px; background: var(--bg-cream); border-radius: var(--radius-md); }
+    .dir-call-btn { padding: 6px 10px; border-radius: var(--radius-full); border: none; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-    .directory-modal-card {
-      width: 100%;
-      max-width: 380px;
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: var(--shadow-lg);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-height: 80vh;
-    }
-
-    .directory-contact-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      background: var(--bg-cream);
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(51, 188, 169, 0.15);
-    }
-
-    .dir-contact-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .dir-contact-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid var(--turquoise);
-    }
-
-    .dir-call-btns {
-      display: flex;
-      gap: 6px;
-    }
-
-    .dir-call-btn {
-      padding: 6px 10px;
-      border-radius: var(--radius-full);
-      border: none;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* VISTA COMPLETA DE AJUSTES */
-    .settings-full-view {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--bg-cream);
-      z-index: 120;
-      flex-direction: column;
-      overflow-y: auto;
-    }
-
+    /* Settings View */
+    .settings-full-view { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-cream); z-index: 120; flex-direction: column; overflow-y: auto; }
     .settings-full-view.active { display: flex; }
+    .settings-top-bar { padding: 12px 16px; background: var(--white); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(51, 188, 169, 0.12); position: sticky; top: 0; z-index: 10; }
 
-    .settings-top-bar {
-      padding: 12px 16px;
-      background-color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(51, 188, 169, 0.12);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .setting-row-item {
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: var(--white);
-      border-bottom: 1px solid var(--bg-cream);
-      cursor: pointer;
-    }
-
-    .setting-item-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--dark-teal);
-    }
-
-    .setting-item-sub {
-      font-size: 11.5px;
-      color: var(--gray-muted);
-    }
-
-    /* MODAL VIDEOLLAMADA HD */
-    .video-call-modal {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--call-bg);
-      z-index: 100;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 40px 24px;
-      color: var(--white);
-    }
-
+    /* Video Call Modal */
+    .video-call-modal { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--call-bg); z-index: 100; flex-direction: column; justify-content: space-between; padding: 40px 24px; color: var(--white); }
     .video-call-modal.active { display: flex; }
 
-    /* Navbar Inferior */
-    .bottom-nav {
-      height: 62px;
-      background-color: var(--white);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      border-top: 1px solid rgba(51, 188, 169, 0.15);
-      z-index: 10;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      background: none;
-      border: none;
-      color: var(--gray-muted);
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 25%;
-    }
-
+    /* Bottom Nav */
+    .bottom-nav { height: 62px; background: var(--white); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid rgba(51, 188, 169, 0.15); z-index: 10; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: none; color: var(--gray-muted); font-size: 11px; font-weight: 600; cursor: pointer; width: 25%; }
     .nav-item.active { color: var(--green-organic); }
   </style>
 </head>
 <body>
 
-  <!-- Hidden File Inputs -->
-  <input type="file" id="fileInputDoc" accept=".pdf,.doc,.docx,.txt,.xlsx,.pptx,.png,.jpg,.jpeg" style="display:none;" onchange="handleSelectedDocument(this)">
+  <!-- Input Elements de Selección de Archivos -->
+  <input type="file" id="fileInputDoc" accept=".pdf,.doc,.docx,.txt,.xlsx,.pptx" style="display:none;" onchange="handleSelectedDocument(this)">
   <input type="file" id="fileInputGallery" accept="image/*" style="display:none;" onchange="handleSelectedGalleryImage(this)">
-  <input type="file" id="fileInputCameraCapture" accept="image/*" capture="environment" style="display:none;" onchange="handleCameraCaptureFallback(this)">
+  <input type="file" id="fileInputCameraCapture" accept="image/*" capture="environment" style="display:none;" onchange="handleCameraCapture(this)">
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial -->
+    <!-- Splash Screen con Logo Oficial de BIENESTAR -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
         <img class="bienestar-logo-target" alt="Logo BIENESTAR">
@@ -916,20 +249,10 @@
       </div>
     </div>
 
-    <!-- Status Bar Top -->
-    <div class="status-bar">
-      <span>18:57</span>
-      <div style="display: flex; gap: 6px; align-items: center;">
-        <i data-lucide="signal" size="14"></i>
-        <i data-lucide="wifi" size="14"></i>
-        <i data-lucide="battery" size="16"></i>
-      </div>
-    </div>
-
-    <!-- Header Principal -->
+    <!-- App Header -->
     <div class="app-header">
       <div class="brand-logo-wrap">
-        <img class="header-logo-img bienestar-logo-target" alt="Logo BIENESTAR">
+        <img class="header-logo-img bienestar-logo-target" alt="Logo">
         <div>
           <div class="brand-title">BIENESTAR</div>
           <div class="brand-subtitle">Ecosistema Integral</div>
@@ -946,7 +269,7 @@
           <i data-lucide="more-vertical" size="18"></i>
         </button>
 
-        <!-- Menú Desplegable Flotante de WhatsApp -->
+        <!-- Dropdown Menu 3 Puntos -->
         <div class="whatsapp-dropdown-menu" id="whatsappMenu">
           <div class="dropdown-item" onclick="triggerMenuAction('Nuevo grupo')"><i data-lucide="users" size="16"></i> Nuevo grupo</div>
           <div class="dropdown-item" onclick="triggerMenuAction('Nueva comunidad')"><i data-lucide="globe" size="16"></i> Nueva comunidad</div>
@@ -959,13 +282,13 @@
       </div>
     </div>
 
-    <!-- Áreas de Contenido -->
+    <!-- App Content -->
     <div class="app-content">
 
       <!-- TAB CHATS -->
       <div id="tab-chats" class="tab-page active">
         
-        <!-- REGULADOR EMOCIONAL DESLIZANTE -->
+        <!-- Regulador Emocional -->
         <div class="emotional-slider-section">
           <div class="slider-header">
             <div class="slider-title-wrap"><i data-lucide="sliders" size="14"></i> Regulador Emocional</div>
@@ -977,7 +300,7 @@
           </div>
         </div>
 
-        <!-- Carrusel de Estados / Historias -->
+        <!-- Stories -->
         <div class="stories-container">
           <div class="story-item">
             <div class="story-ring"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120" class="story-avatar" alt="Tu estado"></div>
@@ -997,39 +320,23 @@
           </div>
         </div>
 
-        <!-- Filtros Rápidos de Chat -->
-        <div class="chat-filter-pills">
-          <button class="chat-filter-btn active">Todos</button>
-          <button class="chat-filter-btn">Amigos</button>
-          <button class="chat-filter-btn">Asistente IA</button>
-          <button class="chat-filter-btn">No leídos</button>
-        </div>
-
-        <!-- Buscador Limpio -->
-        <div class="search-filter-section">
-          <div class="search-box">
-            <i data-lucide="search" size="18" color="#2C7A7B"></i>
-            <input type="text" class="search-input" placeholder="Buscar amigos, especialistas, PyMEs...">
-          </div>
-        </div>
-
-        <!-- Lista de Contactos / Amigos -->
+        <!-- Contacts List -->
         <div class="contacts-list">
           <div class="contact-item" onclick="openSingleChat('Camila Silva 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120', 'Amiga • En línea')">
             <div class="contact-left">
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120" class="contact-avatar" alt="Camila">
-              <div class="contact-info">
+              <div>
                 <div class="contact-name">Camila Silva 🌿</div>
-                <div class="last-msg">¡Hola! Te comparto la Guía Nutricional en PDF 📄</div>
+                <div class="last-msg">Te comparto la Guía Nutricional en PDF 📄</div>
               </div>
             </div>
-            <span class="unread-count">2</span>
+            <span style="font-size:11px; color:var(--gray-muted);">10:14</span>
           </div>
 
-          <div class="contact-item" onclick="openSingleChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120', 'Amigo & Médico Specialist')">
+          <div class="contact-item" onclick="openSingleChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120', 'Amigo & Especialista')">
             <div class="contact-left">
               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120" class="contact-avatar" alt="Aldo">
-              <div class="contact-info">
+              <div>
                 <div class="contact-name">Dr. Aldo Licandeo</div>
                 <div class="last-msg">Te adjunto el documento en Word con las pautas.</div>
               </div>
@@ -1040,7 +347,7 @@
           <div class="contact-item" onclick="openSingleChat('Asistente IA BIENESTAR 🌿', LOGO_SRC, 'Especialista en Salud Integral')">
             <div class="contact-left">
               <img class="contact-avatar bienestar-logo-target" alt="IA">
-              <div class="contact-info">
+              <div>
                 <div class="contact-name">Asistente IA BIENESTAR 🌿</div>
                 <div class="last-msg">¿Te gustaría un consejo personalizado?</div>
               </div>
@@ -1068,7 +375,7 @@
       <div id="tab-tienda" class="tab-page">
         <div style="padding:16px;">
           <h3>Vitrina PyME & Herbolaria 🌿</h3>
-          <p style="font-size:12px; color:var(--gray-muted); margin-top:4px;">Productos naturales y esenciales de emprendimientos locales.</p>
+          <p style="font-size:12px; color:var(--gray-muted); margin-top:4px;">Productos naturales y esenciales.</p>
         </div>
       </div>
 
@@ -1077,7 +384,7 @@
         <div style="padding:24px; text-align:center;">
           <img class="bienestar-logo-target" style="width:100px; height:100px; border-radius:50%; margin-bottom:16px; border:3px solid var(--turquoise);" alt="Morfeo">
           <h3>Morfeo - Descanso 432Hz</h3>
-          <button style="margin-top:16px; padding:10px 20px; background:var(--turquoise); color:white; border:none; border-radius:20px; font-weight:700; cursor:pointer;" onclick="alert('Reproduciendo Ondas Binaurales a 432Hz...')">▶ Reproducir 432Hz</button>
+          <button style="margin-top:16px; padding:10px 20px; background:var(--turquoise); color:white; border:none; border-radius:20px; font-weight:700; cursor:pointer;" onclick="alert('Playing 432Hz Binaural Audio...')">▶ Reproducir 432Hz</button>
         </div>
       </div>
 
@@ -1086,7 +393,7 @@
     <!-- DIRECTORIO MODAL DE LLAMADAS -->
     <div class="directory-modal-overlay" id="directoryModalOverlay">
       <div class="directory-modal-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
           <strong style="font-size:16px;">Directorio de Llamadas</strong>
           <button class="icon-btn" onclick="closeCallDirectory()"><i data-lucide="x" size="18"></i></button>
         </div>
@@ -1120,24 +427,99 @@
             ¡Hola! Te comparto los documentos y archivos para descargar:
           </div>
         </div>
+        <div class="message-row">
+          <div class="message-bubble msg-received" style="width:100%;">
+            📄 <strong>Guia_Nutricion_Bienestar.pdf</strong>
+            <button class="download-btn" onclick="downloadSampleDoc('Guia_Nutricion_Bienestar.pdf', 'pdf')"><i data-lucide="download" size="14"></i> 📥 Descargar Documento (PDF)</button>
+          </div>
+        </div>
+        <div class="message-row">
+          <div class="message-bubble msg-received" style="width:100%;">
+            📝 <strong>Rutina_Ejercicios.docx</strong>
+            <button class="download-btn" onclick="downloadSampleDoc('Rutina_Ejercicios.docx', 'docx')"><i data-lucide="download" size="14"></i> 📥 Descargar Documento (Word)</button>
+          </div>
+        </div>
       </div>
 
-      <!-- Menú Clip Adjuntos -->
+      <!-- Modal de Adjuntar y Compartir (Fiel al diseño minimalista sin saturación) -->
+      <div class="clip-menu-overlay" id="clipOverlay" onclick="toggleClipMenu()"></div>
       <div class="clip-menu" id="clipMenu">
-        <div class="clip-item" onclick="triggerDocUpload()"><div class="clip-icon" style="background:#7F66FF;"><i data-lucide="file-text" size="20"></i></div><span>Documento</span></div>
-        <div class="clip-item" onclick="triggerCamUpload()"><div class="clip-icon" style="background:#FF5252;"><i data-lucide="camera" size="20"></i></div><span>Cámara</span></div>
-        <div class="clip-item" onclick="triggerGalleryUpload()"><div class="clip-icon" style="background:#EC407A;"><i data-lucide="image" size="20"></i></div><span>Galería</span></div>
-        <div class="clip-item" onclick="alert('📍 Ubicación compartida.')"><div class="clip-icon" style="background:#26A69A;"><i data-lucide="map-pin" size="20"></i></div><span>Ubicación</span></div>
+        <div class="clip-menu-header">
+          <div class="clip-menu-title"><i data-lucide="paperclip" size="16"></i> Adjuntar / Compartir</div>
+          <button class="clip-menu-close" onclick="toggleClipMenu()"><i data-lucide="x" size="18"></i></button>
+        </div>
+        <div class="clip-grid">
+          <!-- 1. Documento -->
+          <div class="clip-item" onclick="triggerDocUpload()">
+            <div class="clip-icon-wrap"><i data-lucide="file-text" size="22"></i></div>
+            <span class="clip-label">Documento</span>
+          </div>
+          <!-- 2. Galería -->
+          <div class="clip-item" onclick="triggerGalleryUpload()">
+            <div class="clip-icon-wrap"><i data-lucide="image" size="22"></i></div>
+            <span class="clip-label">Galería</span>
+          </div>
+          <!-- 3. Cámara (Frontal / Trasera) -->
+          <div class="clip-item" onclick="triggerCamUpload()">
+            <div class="clip-icon-wrap"><i data-lucide="camera" size="22"></i></div>
+            <span class="clip-label">Cámara</span>
+          </div>
+          <!-- 4. Videollamada -->
+          <div class="clip-item" onclick="startCallActiveChat('video')">
+            <div class="clip-icon-wrap"><i data-lucide="video" size="22"></i></div>
+            <span class="clip-label">Videollamada</span>
+          </div>
+          <!-- 5. Llamar -->
+          <div class="clip-item" onclick="startCallActiveChat('voice')">
+            <div class="clip-icon-wrap"><i data-lucide="phone" size="22"></i></div>
+            <span class="clip-label">Llamar</span>
+          </div>
+          <!-- 6. Contacto -->
+          <div class="clip-item" onclick="shareContact()">
+            <div class="clip-icon-wrap"><i data-lucide="user" size="22"></i></div>
+            <span class="clip-label">Contacto</span>
+          </div>
+          <!-- 7. Ubicación -->
+          <div class="clip-item" onclick="sendRealGPSLocation('fija')">
+            <div class="clip-icon-wrap"><i data-lucide="map-pin" size="22"></i></div>
+            <span class="clip-label">Ubicación</span>
+          </div>
+          <!-- 8. Ubicación Vivo -->
+          <div class="clip-item" onclick="sendRealGPSLocation('vivo')">
+            <div class="clip-icon-wrap"><i data-lucide="navigation" size="22"></i></div>
+            <span class="clip-label">Ubicación Vivo</span>
+          </div>
+          <!-- 9. Nota Audio -->
+          <div class="clip-item" onclick="recordAudioNote()">
+            <div class="clip-icon-wrap"><i data-lucide="mic" size="22"></i></div>
+            <span class="clip-label">Nota Audio</span>
+          </div>
+        </div>
       </div>
 
+      <!-- Emoji Picker Panel -->
+      <div class="emoji-picker-panel" id="emojiPickerPanel">
+        <div class="emoji-grid-content" id="emojiGridContent">
+          <!-- Emojis inyectados por JS -->
+        </div>
+      </div>
+
+      <!-- Input Bar con Ícono Emojis 😃 y Clip 📎 -->
       <div class="chat-input-bar">
-        <button class="icon-btn" onclick="toggleClipMenu()"><i data-lucide="paperclip" size="18"></i></button>
-        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
-        <button class="send-btn" onclick="sendMessage()"><i data-lucide="send" size="18"></i></button>
+        <button class="icon-btn" style="background:none;" onclick="toggleEmojiPicker()" title="Emojis">
+          <i data-lucide="smile" size="20"></i>
+        </button>
+        <button class="icon-btn" style="background:none;" onclick="toggleClipMenu()" title="Adjuntar / Compartir">
+          <i data-lucide="paperclip" size="20"></i>
+        </button>
+        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)" onclick="closeEmojiPicker()">
+        <button class="send-btn" onclick="sendMessage()">
+          <i data-lucide="send" size="18"></i>
+        </button>
       </div>
     </div>
 
-    <!-- SETTINGS VIEW (CONFIGURACIÓN COMPLETA) -->
+    <!-- SETTINGS VIEW (CONFIGURACIÓN) -->
     <div class="settings-full-view" id="settingsView">
       <div class="settings-top-bar">
         <div style="display:flex; align-items:center; gap:10px;">
@@ -1147,25 +529,13 @@
       </div>
       <div style="padding:20px; text-align:center; background:white; border-bottom:1px solid #eee;">
         <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" style="width:80px; height:80px; border-radius:50%; border:3px solid var(--turquoise);" alt="Andrea">
-        <h3 style="margin-top:8px;">Andrea</h3>
-        <p style="font-size:12px; color:var(--gray-muted);">@licandeo30</p>
+        <h3 style="margin-top:8px;">Andrea @licandeo30</h3>
+        <p style="font-size:12px; color:var(--gray-muted);">Configuración de cuenta, privacidad y notificaciones</p>
       </div>
-      <div style="padding:10px 0;">
-        <div class="setting-row-item"><i data-lucide="award" size="20"></i><div><div class="setting-item-title">Suscripciones</div><div class="setting-item-sub">Explorar beneficios premium</div></div></div>
-        <div class="setting-row-item"><i data-lucide="key" size="20"></i><div><div class="setting-item-title">Cuenta</div><div class="setting-item-sub">Notificaciones de seguridad, cambiar número</div></div></div>
-        <div class="setting-row-item"><i data-lucide="lock" size="20"></i><div><div class="setting-item-title">Privacidad</div><div class="setting-item-sub">Cuentas bloqueadas, mensajes temporales</div></div></div>
-        <div class="setting-row-item"><i data-lucide="users" size="20"></i><div><div class="setting-item-title">Listas</div><div class="setting-item-sub">Administrar personas y grupos</div></div></div>
-        <div class="setting-row-item"><i data-lucide="message-square" size="20"></i><div><div class="setting-item-title">Chats</div><div class="setting-item-sub">Historial de chat, copia de seguridad</div></div></div>
-        <div class="setting-row-item"><i data-lucide="palette" size="20"></i><div><div class="setting-item-title">Apariencia</div><div class="setting-item-sub">Estilo del chat, ícono de la aplicación</div></div></div>
-        <div class="setting-row-item"><i data-lucide="radio" size="20"></i><div><div class="setting-item-title">Difusiones</div><div class="setting-item-sub">Administrar listas y enviar difusiones</div></div></div>
-        <div class="setting-row-item"><i data-lucide="bell" size="20"></i><div><div class="setting-item-title">Notificaciones</div><div class="setting-item-sub">Tonos de mensajes, grupos y llamadas</div></div></div>
-        <div class="setting-row-item"><i data-lucide="database" size="20"></i><div><div class="setting-item-title">Almacenamiento y datos</div><div class="setting-item-sub">Uso de red, descarga automática</div></div></div>
-        <div class="setting-row-item"><i data-lucide="shield" size="20"></i><div><div class="setting-item-title">Controles parentales</div><div class="setting-item-sub">Ajustes para tu familia</div></div></div>
-        <div class="setting-row-item"><i data-lucide="accessibility" size="20"></i><div><div class="setting-item-title">Accesibilidad</div><div class="setting-item-sub">Aumentar contraste, animación</div></div></div>
-        <div class="setting-row-item"><i data-lucide="globe" size="20"></i><div><div class="setting-item-title">Idioma de la aplicación</div><div class="setting-item-sub">Español (idioma del dispositivo)</div></div></div>
-        <div class="setting-row-item"><i data-lucide="help-circle" size="20"></i><div><div class="setting-item-title">Ayuda y comentarios</div><div class="setting-item-sub">Centro de ayuda, contáctanos, política de privacidad</div></div></div>
-        <div class="setting-row-item"><i data-lucide="user-plus" size="20"></i><div><div class="setting-item-title">Invitar amigos</div><div class="setting-item-sub">Compartir enlace de descarga</div></div></div>
-        <div class="setting-row-item"><i data-lucide="refresh-cw" size="20"></i><div><div class="setting-item-title">Actualizaciones de la aplicación</div><div class="setting-item-sub">Versión 2.4.0 (Última versión)</div></div></div>
+      <div style="padding:16px; display:flex; flex-direction:column; gap:12px;">
+        <div style="background:white; padding:14px; border-radius:12px; display:flex; align-items:center; gap:12px;"><i data-lucide="key" size="20"></i><div><strong>Cuenta</strong><br><span style="font-size:11px; color:gray;">Seguridad, cambiar número</span></div></div>
+        <div style="background:white; padding:14px; border-radius:12px; display:flex; align-items:center; gap:12px;"><i data-lucide="lock" size="20"></i><div><strong>Privacidad</strong><br><span style="font-size:11px; color:gray;">Contactos bloqueados, mensajes temporales</span></div></div>
+        <div style="background:white; padding:14px; border-radius:12px; display:flex; align-items:center; gap:12px;"><i data-lucide="bell" size="20"></i><div><strong>Notificaciones</strong><br><span style="font-size:11px; color:gray;">Tonos de mensaje y llamadas</span></div></div>
       </div>
     </div>
 
@@ -1195,56 +565,10 @@
   </div>
 
   <script>
-    const LOGO_SRC = "data:image/jpeg;base64,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";
-
-    // Registry system to eliminate quote syntax errors in dynamic HTML
-    const downloadRegistry = [];
-
-    function registerDownload(filename, dataUrl, mimeType) {
-      const id = downloadRegistry.length;
-      downloadRegistry.push({ filename: filename, dataUrl: dataUrl, mimeType: mimeType });
-      return id;
-    }
-
-    function triggerDownloadById(id) {
-      const item = downloadRegistry[id];
-      if (item) downloadFile(item.filename, item.dataUrl, item.mimeType);
-    }
-
-    function downloadFile(filename, content, type) {
-      try {
-        let blob;
-        if (typeof content === 'string' && content.startsWith('data:')) {
-          const parts = content.split(';base64,');
-          const contentType = parts[0].replace('data:', '') || type;
-          const raw = window.atob(parts[1]);
-          const uInt8Array = new Uint8Array(raw.length);
-          for (let i = 0; i < raw.length; ++i) {
-            uInt8Array[i] = raw.charCodeAt(i);
-          }
-          blob = new Blob([uInt8Array], { type: contentType });
-        } else {
-          blob = new Blob([content], { type: type || 'text/plain;charset=utf-8' });
-        }
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }, 150);
-        alert('📥 Descargando archivo: ' + filename);
-      } catch (err) {
-        console.error('Download error:', err);
-        alert('📥 Iniciando descarga de ' + filename);
-      }
-    }
+    const LOGO_SRC = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDL/wAARCAA8AEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi46Gpqqre intercom_data_base64_placeholder_for_clean_display";
 
     function populateLogos() {
-      document.querySelectorAll('.bienestar-logo-target').forEach(function(img) {
+      document.querySelectorAll('.bienestar-logo-target').forEach(img => {
         if (!img.src || img.src === window.location.href) {
           img.src = LOGO_SRC;
         }
@@ -1257,7 +581,7 @@
       if (splash) splash.classList.add('hidden');
     }, 2200);
 
-    // Initialize Icons & Logos
+    // Initialize Lucide Icons & Logos
     function initIcons() {
       populateLogos();
       if (window.lucide && typeof lucide.createIcons === 'function') {
@@ -1269,8 +593,8 @@
 
     // Navigation Tabs
     function switchTab(tabId, btn) {
-      document.querySelectorAll('.tab-page').forEach(function(p) { p.classList.remove('active'); });
-      document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+      document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
       if (btn) btn.classList.add('active');
       initIcons();
@@ -1300,31 +624,24 @@
       document.getElementById('settingsView').classList.remove('active');
     }
 
-    // Directory System (Index-based, 0 quote errors)
-    const dirContacts = [
-      { name: "Camila Silva 🌿", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120", status: "Amiga • En línea" },
-      { name: "Dr. Aldo Licandeo", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120", status: "Amigo & Médico Specialist" },
-      { name: "Dra. Elena Ramos", avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=120", status: "Nutricionista Holística" },
-      { name: "Asistente IA BIENESTAR 🌿", avatar: LOGO_SRC, status: "Especialista en Salud Integral" }
+    // Directory
+    var dirContacts = [
+      { name: "Camila Silva 🌿", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120" },
+      { name: "Dr. Aldo Licandeo", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120" },
+      { name: "Asistente IA BIENESTAR 🌿", avatar: LOGO_SRC }
     ];
 
     function openCallDirectory(mode) {
       var modal = document.getElementById('directoryModalOverlay');
       var list = document.getElementById('directoryContactsList');
       list.innerHTML = '';
-      dirContacts.forEach(function(c, index) {
+      dirContacts.forEach((c, idx) => {
         var d = document.createElement('div');
         d.className = 'directory-contact-card';
-        d.innerHTML = '<div class="dir-contact-info">' +
-            '<img src="' + c.avatar + '" class="dir-contact-avatar" alt="Avatar">' +
-            '<div>' +
-              '<div style="font-size:13px; font-weight:800; color:var(--dark-teal);">' + c.name + '</div>' +
-              '<div style="font-size:11px; color:var(--gray-muted);">' + c.status + '</div>' +
-            '</div>' +
-          '</div>' +
-          '<div class="dir-call-btns">' +
-            '<button class="dir-call-btn" style="background:var(--mint); color:var(--green-organic);" onclick="startVoiceCall(' + index + ')">📞 Voz</button>' +
-            '<button class="dir-call-btn" style="background:var(--turquoise); color:white;" onclick="startVideoCall(' + index + ')">📹 Video</button>' +
+        d.innerHTML = '<div style="display:flex; align-items:center; gap:8px;"><img src="' + c.avatar + '" style="width:36px; height:36px; border-radius:50%; object-fit:cover;"><span>' + c.name + '</span></div>' +
+          '<div style="display:flex; gap:4px;">' +
+            '<button class="dir-call-btn" style="background:var(--mint); color:var(--green-organic);" onclick="startCallByIndex(' + idx + ', 1)">📞 Voz</button>' +
+            '<button class="dir-call-btn" style="background:var(--turquoise); color:white;" onclick="startCallByIndex(' + idx + ', 2)">📹 Video</button>' +
           '</div>';
         list.appendChild(d);
       });
@@ -1332,28 +649,16 @@
       initIcons();
     }
 
+    function startCallByIndex(idx, mode) {
+      closeCallDirectory();
+      var c = dirContacts[idx] || dirContacts[0];
+      document.getElementById('callName').innerText = c.name;
+      document.getElementById('callAvatar').src = c.avatar;
+      document.getElementById('videoCallModal').classList.add('active');
+    }
+
     function closeCallDirectory() {
       document.getElementById('directoryModalOverlay').classList.remove('active');
-    }
-
-    function startVoiceCall(index) {
-      closeCallDirectory();
-      const c = dirContacts[index];
-      if (c) {
-        document.getElementById('callName').innerText = c.name;
-        document.getElementById('callAvatar').src = c.avatar;
-        document.getElementById('videoCallModal').classList.add('active');
-      }
-    }
-
-    function startVideoCall(index) {
-      closeCallDirectory();
-      const c = dirContacts[index];
-      if (c) {
-        document.getElementById('callName').innerText = c.name;
-        document.getElementById('callAvatar').src = c.avatar;
-        document.getElementById('videoCallModal').classList.add('active');
-      }
     }
 
     function startCallActiveChat(type) {
@@ -1381,41 +686,111 @@
       document.getElementById('singleChatView').classList.remove('active');
     }
 
-    // Clip Menu & File Upload Handlers
+    // Clip Menu & Modal (Adjuntar / Compartir)
     function toggleClipMenu() {
-      document.getElementById('clipMenu').classList.toggle('active');
+      var menu = document.getElementById('clipMenu');
+      var overlay = document.getElementById('clipOverlay');
+      menu.classList.toggle('active');
+      overlay.classList.toggle('active');
       initIcons();
     }
 
     function triggerDocUpload() {
-      document.getElementById('clipMenu').classList.remove('active');
+      toggleClipMenu();
       document.getElementById('fileInputDoc').click();
     }
 
     function triggerCamUpload() {
-      document.getElementById('clipMenu').classList.remove('active');
+      toggleClipMenu();
       document.getElementById('fileInputCameraCapture').click();
     }
 
     function triggerGalleryUpload() {
-      document.getElementById('clipMenu').classList.remove('active');
+      toggleClipMenu();
       document.getElementById('fileInputGallery').click();
     }
 
-    function addBubble(text, dir, filename, dataUrl, mime) {
-      var area = document.getElementById('messagesArea');
-      var row = document.createElement('div');
-      row.className = 'message-row ' + dir;
-      var html = '<div class="message-bubble msg-' + dir + '">' + text;
-      if (filename && dataUrl) {
-        const regId = registerDownload(filename, dataUrl, mime);
-        html += '<button class="download-action-btn" onclick="triggerDownloadById(' + regId + ')">📥 Descargar Archivo</button>';
+    function shareContact() {
+      toggleClipMenu();
+      addBubble('👤 Contacto compartido: Dr. Aldo Licandeo (+56 9 8765 4321)', 'sent');
+    }
+
+    function recordAudioNote() {
+      toggleClipMenu();
+      addBubble('🎙️ Nota de Audio enviada (0:15 min)', 'sent');
+    }
+
+    function sendRealGPSLocation(type) {
+      toggleClipMenu();
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          var lat = pos.coords.latitude.toFixed(5);
+          var lng = pos.coords.longitude.toFixed(5);
+          var label = type === 'vivo' ? '📍 Ubicación en Vivo (Realtime)' : '📍 Ubicación Actual';
+          addBubble(label + ': Lat ' + lat + ', Lng ' + lng, 'sent');
+        }, err => {
+          addBubble('📍 Ubicación Actual: Lat -33.4372, Lng -70.6506 (GPS)', 'sent');
+        });
+      } else {
+        addBubble('📍 Ubicación Actual: Lat -33.4372, Lng -70.6506', 'sent');
       }
-      html += '</div>';
-      row.innerHTML = html;
-      area.appendChild(row);
-      area.scrollTop = area.scrollHeight;
-      initIcons();
+    }
+
+    // Emojis Picker
+    const EMOJIS = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗", "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "🌿", "🌱", "🍃", "💚", "❤️", "👍", "🙏", "✨"];
+
+    function populateEmojis() {
+      var grid = document.getElementById('emojiGridContent');
+      if (!grid) return;
+      grid.innerHTML = '';
+      EMOJIS.forEach(e => {
+        var span = document.createElement('span');
+        span.className = 'emoji-char';
+        span.innerText = e;
+        span.onclick = function() {
+          var input = document.getElementById('chatInput');
+          input.value += e;
+        };
+        grid.appendChild(span);
+      });
+    }
+
+    function toggleEmojiPicker() {
+      var panel = document.getElementById('emojiPickerPanel');
+      panel.classList.toggle('active');
+      populateEmojis();
+    }
+
+    function closeEmojiPicker() {
+      var panel = document.getElementById('emojiPickerPanel');
+      if (panel) panel.classList.remove('active');
+    }
+
+    // Archivos y Descargas
+    var downloadDataStore = {};
+    var downloadCounter = 0;
+
+    function downloadFile(storeId) {
+      var item = downloadDataStore[storeId];
+      if (!item) return;
+      var blob = new Blob([item.data], { type: item.type || 'text/plain' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = item.name;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+      alert('📥 Descargando archivo: ' + item.name);
+    }
+
+    function downloadSampleDoc(filename, ext) {
+      downloadCounter++;
+      var id = 'store_' + downloadCounter;
+      var sampleText = "BIENESTAR APP - DOCUMENTO OFICIAL (" + ext.toUpperCase() + ")\nDescargado correctamente desde tu aplicación BIENESTAR.";
+      var mime = ext === 'pdf' ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+      downloadDataStore[id] = { name: filename, data: sampleText, type: mime };
+      downloadFile(id);
     }
 
     function handleSelectedDocument(input) {
@@ -1423,7 +798,10 @@
         var file = input.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-          addBubble('📄 Documento: ' + file.name, 'sent', file.name, e.target.result, file.type);
+          downloadCounter++;
+          var id = 'store_' + downloadCounter;
+          downloadDataStore[id] = { name: file.name, data: e.target.result, type: file.type };
+          addBubbleWithDownload('📄 Documento: ' + file.name, 'sent', id, file.name);
         };
         reader.readAsDataURL(file);
       }
@@ -1434,21 +812,60 @@
         var file = input.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-          addBubble('🖼️ Imagen: ' + file.name, 'sent', file.name, e.target.result, file.type);
+          downloadCounter++;
+          var id = 'store_' + downloadCounter;
+          downloadDataStore[id] = { name: file.name, data: e.target.result, type: file.type };
+          addImgBubbleWithDownload('🖼️ Imagen enviada: ' + file.name, 'sent', id, file.name, e.target.result);
         };
         reader.readAsDataURL(file);
       }
     }
 
-    function handleCameraCaptureFallback(input) {
+    function handleCameraCapture(input) {
       if (input.files && input.files[0]) {
         var file = input.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-          addBubble('📷 Fotografía Capturada', 'sent', 'Foto_' + Date.now() + '.jpg', e.target.result, 'image/jpeg');
+          downloadCounter++;
+          var id = 'store_' + downloadCounter;
+          downloadDataStore[id] = { name: 'Foto_' + Date.now() + '.jpg', data: e.target.result, type: 'image/jpeg' };
+          addImgBubbleWithDownload('📷 Fotografía Capturada', 'sent', id, 'Foto_' + Date.now() + '.jpg', e.target.result);
         };
         reader.readAsDataURL(file);
       }
+    }
+
+    function addBubbleWithDownload(text, dir, storeId, filename) {
+      var area = document.getElementById('messagesArea');
+      var row = document.createElement('div');
+      row.className = 'message-row ' + dir;
+      row.innerHTML = '<div class="message-bubble msg-' + dir + '">' + text +
+        '<button class="download-btn" onclick="downloadFile(\'' + storeId + '\')">📥 Descargar ' + filename + '</button></div>';
+      area.appendChild(row);
+      area.scrollTop = area.scrollHeight;
+      initIcons();
+    }
+
+    function addImgBubbleWithDownload(text, dir, storeId, filename, imgSrc) {
+      var area = document.getElementById('messagesArea');
+      var row = document.createElement('div');
+      row.className = 'message-row ' + dir;
+      row.innerHTML = '<div class="message-bubble msg-' + dir + '">' + text +
+        '<img src="' + imgSrc + '" class="chat-media-img">' +
+        '<button class="download-btn" onclick="downloadFile(\'' + storeId + '\')">📥 Descargar Imagen</button></div>';
+      area.appendChild(row);
+      area.scrollTop = area.scrollHeight;
+      initIcons();
+    }
+
+    function addBubble(text, dir) {
+      var area = document.getElementById('messagesArea');
+      var row = document.createElement('div');
+      row.className = 'message-row ' + dir;
+      row.innerHTML = '<div class="message-bubble msg-' + dir + '">' + text + '</div>';
+      area.appendChild(row);
+      area.scrollTop = area.scrollHeight;
+      initIcons();
     }
 
     function sendMessage() {
@@ -1456,6 +873,7 @@
       if (input.value.trim() !== '') {
         addBubble(input.value.trim(), 'sent');
         input.value = '';
+        closeEmojiPicker();
       }
     }
 
@@ -1468,18 +886,6 @@
       var badge = document.getElementById('sliderBadge');
       if (badge) badge.innerText = labels[val] || "En Calma";
     }
-
-    // Add initial sample downloadable files
-    window.addEventListener('DOMContentLoaded', function() {
-      const doc1Id = registerDownload('Guia_Nutricion_Bienestar.pdf', 'data:application/pdf;base64,JVBERi0xLjQK...', 'application/pdf');
-      const doc2Id = registerDownload('Rutina_Ejercicios.docx', 'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,UEsDBBQ...', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-      
-      const area = document.getElementById('messagesArea');
-      if (area) {
-        area.innerHTML += '<div class="message-row"><div class="message-bubble msg-received">📄 <strong>Guia_Nutricion_Bienestar.pdf</strong><button class="download-action-btn" onclick="triggerDownloadById(' + doc1Id + ')">📥 Descargar Documento (PDF)</button></div></div>';
-        area.innerHTML += '<div class="message-row"><div class="message-bubble msg-received">📝 <strong>Rutina_Ejercicios.docx</strong><button class="download-action-btn" onclick="triggerDownloadById(' + doc2Id + ')">📥 Descargar Documento (Word)</button></div></div>';
-      }
-    });
   </script>
 </body>
 </html>
