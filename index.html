@@ -70,7 +70,7 @@
       }
     }
 
-    /* Splash Screen Inicial con Auto-Hide CSS */
+    /* Splash Screen Inicial con Logo de BIENESTAR (Descarga / Carga) */
     .splash-screen {
       position: absolute;
       top: 0;
@@ -180,7 +180,7 @@
       z-index: 10;
     }
 
-    /* Header Principal */
+    /* Header Principal (Limpio y Elegante) */
     .app-header {
       padding: 10px 18px;
       background: var(--bg-cream);
@@ -197,18 +197,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-    }
-
-    .brand-logo-img {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center;
-      border: 2px solid var(--turquoise);
-      background-color: var(--white);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
     }
 
     .brand-title {
@@ -500,9 +488,39 @@
       width: 100%;
     }
 
+    /* Filtros Rápidos de Chat (Todos / Amigos / Asistente IA / No leídos) */
+    .chat-filter-pills {
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px 4px 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .chat-filter-pills::-webkit-scrollbar { display: none; }
+
+    .chat-filter-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(51, 188, 169, 0.25);
+      background: var(--white);
+      color: var(--dark-teal);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .chat-filter-btn.active {
+      background: var(--turquoise);
+      color: var(--white);
+      border-color: var(--turquoise);
+    }
+
     /* Buscador Limpio */
     .search-filter-section {
-      padding: 10px 16px 8px 16px;
+      padding: 8px 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -672,7 +690,7 @@
 
     .fab-new-chat:active { transform: scale(0.9); }
 
-    /* VISTA DE CHAT INDIVIDUAL */
+    /* VISTA DE CHAT INDIVIDUAL (AMIGOS / CONTACTOS) */
     .single-chat-view {
       display: none;
       position: absolute;
@@ -712,8 +730,8 @@
     }
 
     .chat-user-avatar {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--turquoise);
@@ -914,7 +932,6 @@
 
     .clip-item:active .clip-icon-circle { transform: scale(0.9); }
 
-    /* Colores oficiales de adjuntos WhatsApp */
     .bg-doc { background: linear-gradient(135deg, #7F66FF, #512DA8); }
     .bg-cam { background: linear-gradient(135deg, #FF5252, #D32F2F); }
     .bg-gal { background: linear-gradient(135deg, #EC407A, #C2185B); }
@@ -1174,7 +1191,7 @@
       height: 66px;
       background-color: var(--white);
       display: flex;
-      justify-content: space-around;
+      justify-style: space-around;
       align-items: center;
       border-top: 1px solid rgba(51, 188, 169, 0.15);
       z-index: 10;
@@ -1618,7 +1635,7 @@
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial -->
+    <!-- Splash Screen Inicial (Mantiene el Logo de BIENESTAR al Cargar / Descargar) -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
         <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
@@ -1648,10 +1665,9 @@
       </div>
     </div>
 
-    <!-- Header Principal -->
+    <!-- Header Principal (Limpio y Elegante) -->
     <div class="app-header">
       <div class="brand-logo">
-        <img src="logo_bienestar_png.jpeg" alt="BIENESTAR Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
         <div>
           <div class="brand-title">BIENESTAR</div>
           <div class="brand-subtitle">WhatsApp • Business • Instagram</div>
@@ -1747,24 +1763,31 @@
         <div class="stories-container">
           <div class="story-item" onclick="editSongBubble()">
             <div class="story-ring my-story">
-              <img src="logo_bienestar_png.jpeg" class="story-avatar" alt="Mi Estado" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Mi Estado">
               <div class="add-story-badge">+</div>
             </div>
             <span class="story-name">Tu estado</span>
           </div>
 
-          <div class="story-item" onclick="openVideoCall()">
+          <div class="story-item" onclick="openSingleChat('Camila Silva 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Amiga • En línea')">
+            <div class="story-ring">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Camila">
+            </div>
+            <span class="story-name">Camila S.</span>
+          </div>
+
+          <div class="story-item" onclick="openSingleChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80', 'Amigo & Médico Specialist')">
+            <div class="story-ring">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Aldo">
+            </div>
+            <span class="story-name">Dr. Aldo</span>
+          </div>
+
+          <div class="story-item" onclick="openSingleChat('Dra. Elena Ramos', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80', 'Nutricionista Clínica & Holística')">
             <div class="story-ring">
               <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Dra. Elena">
             </div>
             <span class="story-name">Dra. Elena</span>
-          </div>
-
-          <div class="story-item" onclick="switchTab('tienda', document.querySelectorAll('.nav-item'))">
-            <div class="story-ring">
-              <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Herbolaria">
-            </div>
-            <span class="story-name">Herbolaria</span>
           </div>
 
           <div class="story-item" onclick="switchTab('morfeo', document.querySelectorAll('.nav-item'))">
@@ -1773,27 +1796,70 @@
             </div>
             <span class="story-name">Morfeo</span>
           </div>
+        </div>
 
-          <div class="story-item">
-            <div class="story-ring">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Comunidad">
-            </div>
-            <span class="story-name">Comunidad</span>
-          </div>
+        <!-- Filtros Rápidos de Chat (Todos / Amigos / Asistente IA / No leídos) -->
+        <div class="chat-filter-pills">
+          <button class="chat-filter-btn active" onclick="filterChatCategory('todos', this)">Todos</button>
+          <button class="chat-filter-btn" onclick="filterChatCategory('amigos', this)">👥 Amigos</button>
+          <button class="chat-filter-btn" onclick="filterChatCategory('asistente', this)">🌿 Asistente IA</button>
+          <button class="chat-filter-btn" onclick="filterChatCategory('unread', this)">📩 No leídos</button>
         </div>
 
         <!-- Buscador Limpio -->
         <div class="search-filter-section">
           <div class="search-box">
             <i data-lucide="search" size="18" color="#2C7A7B"></i>
-            <input type="text" class="search-input" placeholder="Buscar contactos, especialistas, PyMEs..." onkeyup="filterContacts(this.value)">
+            <input type="text" class="search-input" placeholder="Buscar amigos, especialistas, PyMEs..." onkeyup="filterContacts(this.value)">
           </div>
         </div>
 
-        <!-- Lista de Contactos -->
+        <!-- Lista de Contactos / Amigos -->
         <div class="contacts-list" id="contactsList">
           
-          <div class="contact-item" onclick="openSingleChat('Asistente BIENESTAR 🌿', 'logo_bienestar_png.jpeg', 'Especialista en Salud Integral')">
+          <!-- AMIGO 1: Camila Silva -->
+          <div class="contact-item chat-type-amigos" onclick="openSingleChat('Camila Silva 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Amiga • En línea')">
+            <div class="contact-left">
+              <div class="contact-avatar-wrap">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Camila Silva">
+                <div class="badge-business">💚</div>
+              </div>
+              <div class="contact-info">
+                <div class="contact-name-row">
+                  <span class="contact-name">Camila Silva</span>
+                  <span class="business-tag">Amiga</span>
+                </div>
+                <div class="last-msg">¡Hola! ¿Vamos al parque a hacer yoga más tarde? 🧘‍♀️</div>
+              </div>
+            </div>
+            <div class="contact-right">
+              <span class="msg-time-badge">10:14</span>
+              <span class="unread-count">2</span>
+            </div>
+          </div>
+
+          <!-- AMIGO 2: Dr. Aldo Licandeo -->
+          <div class="contact-item chat-type-amigos" onclick="openSingleChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80', 'Amigo & Especialista')">
+            <div class="contact-left">
+              <div class="contact-avatar-wrap">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Aldo">
+                <div class="badge-business">✓</div>
+              </div>
+              <div class="contact-info">
+                <div class="contact-name-row">
+                  <span class="contact-name">Dr. Aldo Licandeo</span>
+                  <span class="business-tag">Amigo</span>
+                </div>
+                <div class="last-msg">Recordatorio: Tu infusión de Melisa a las 22:00 hrs.</div>
+              </div>
+            </div>
+            <div class="contact-right">
+              <span class="msg-time-badge">09:30</span>
+            </div>
+          </div>
+
+          <!-- ASISTENTE IA -->
+          <div class="contact-item chat-type-asistente" onclick="openSingleChat('Asistente IA BIENESTAR 🌿', 'logo_bienestar_png.jpeg', 'Especialista en Salud Integral')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
                 <img src="logo_bienestar_png.jpeg" class="contact-avatar" alt="Logo" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
@@ -1801,19 +1867,19 @@
               </div>
               <div class="contact-info">
                 <div class="contact-name-row">
-                  <span class="contact-name">Asistente BIENESTAR</span>
+                  <span class="contact-name">Asistente IA BIENESTAR</span>
                   <span class="business-tag">Oficial</span>
                 </div>
-                <div class="last-msg">¡Hola! Estado de regulación registrado.</div>
+                <div class="last-msg">¿Te gustaría un consejo personalizado para conciliar el sueño?</div>
               </div>
             </div>
             <div class="contact-right">
-              <span class="msg-time-badge">18:50</span>
-              <span class="unread-count">1</span>
+              <span class="msg-time-badge">Ayer</span>
             </div>
           </div>
 
-          <div class="contact-item" onclick="openSingleChat('Dra. Elena Ramos', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80', 'Nutricionista Clínica & Holística')">
+          <!-- ESPECIALISTA: Dra. Elena Ramos -->
+          <div class="contact-item chat-type-amigos" onclick="openSingleChat('Dra. Elena Ramos', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80', 'Nutricionista Clínica & Holística')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
                 <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Dra. Elena">
@@ -1829,52 +1895,13 @@
             </div>
             <div class="contact-right">
               <span class="msg-time-badge">17:15</span>
-              <span class="unread-count">2</span>
-            </div>
-          </div>
-
-          <div class="contact-item" onclick="openSingleChat('Herbolaria Orgánica PyME', 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80', 'Productos Naturales & Infusiones')">
-            <div class="contact-left">
-              <div class="contact-avatar-wrap">
-                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="PyME">
-                <div class="badge-business">🏪</div>
-              </div>
-              <div class="contact-info">
-                <div class="contact-name-row">
-                  <span class="contact-name">Herbolaria Orgánica</span>
-                  <span class="business-tag">Catálogo PyME</span>
-                </div>
-                <div class="last-msg">Llegó nuevo lote de té de lavanda relajante.</div>
-              </div>
-            </div>
-            <div class="contact-right">
-              <span class="msg-time-badge">Ayer</span>
-            </div>
-          </div>
-
-          <div class="contact-item" onclick="openSingleChat('Comunidad Neurodivergente & Salubridad', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Grupo de Apoyo & Regulación Emocional')">
-            <div class="contact-left">
-              <div class="contact-avatar-wrap">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Comunidad">
-                <div class="badge-business">👥</div>
-              </div>
-              <div class="contact-info">
-                <div class="contact-name-row">
-                  <span class="contact-name">Comunidad Apoyo</span>
-                  <span class="business-tag">Grupo</span>
-                </div>
-                <div class="last-msg">María: "Las ondas de 432Hz me ayudaron mucho"</div>
-              </div>
-            </div>
-            <div class="contact-right">
-              <span class="msg-time-badge">Ayer</span>
             </div>
           </div>
 
         </div>
 
-        <button class="fab-new-chat" onclick="openSingleChat('Nuevo Contacto / Especialista', 'logo_bienestar_png.jpeg', 'Ecosistema BIENESTAR')" title="Nuevo Chat">
-          <i data-lucide="message-square-plus" size="24"></i>
+        <button class="fab-new-chat" onclick="promptNewFriend()" title="Agregar Amigo / Chat">
+          <i data-lucide="user-plus" size="24"></i>
         </button>
 
       </div>
@@ -1934,7 +1961,7 @@
         </div>
       </div>
 
-      <!-- TAB TIENDA PyME (CON ÍCONO DE TIENDA OFICIAL) -->
+      <!-- TAB TIENDA PyME -->
       <div id="tab-tienda" class="tab-page">
         <div class="tienda-page">
           <div class="promo-banner">
@@ -2187,38 +2214,38 @@
 
     </div>
 
-    <!-- VISTA MODAL CHAT INDIVIDUAL -->
+    <!-- VISTA MODAL CHAT INDIVIDUAL (AMIGOS / CONTACTOS) -->
     <div class="single-chat-view" id="singleChatView">
       <div class="chat-header-bar">
         <div style="display: flex; align-items: center; gap: 8px;">
           <button class="icon-btn" style="background:none;" onclick="closeSingleChat()">
             <i data-lucide="arrow-left" size="20"></i>
           </button>
-          <div class="chat-user-info" onclick="openContactSubmenu('info')">
-            <img src="logo_bienestar_png.jpeg" id="activeChatAvatar" class="chat-user-avatar" alt="Avatar">
+          <div class="chat-user-info" onclick="openContactSubmenu('Ver perfil del amigo')">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" id="activeChatAvatar" class="chat-user-avatar" alt="Avatar">
             <div>
-              <div class="contact-name" id="activeChatName">Asistente BIENESTAR</div>
-              <div style="font-size:10px; color:var(--green-organic);" id="activeChatSubtitle">En línea • Respuesta rápida</div>
+              <div class="contact-name" id="activeChatName">Camila Silva 🌿</div>
+              <div style="font-size:10px; color:var(--green-organic);" id="activeChatSubtitle">Amiga • En línea</div>
             </div>
           </div>
         </div>
         <div style="display: flex; gap: 6px;">
-          <button class="icon-btn" onclick="openVideoCall()" title="Videollamada HD"><i data-lucide="video" size="18"></i></button>
-          <button class="icon-btn" onclick="openVoiceCall()" title="Llamada de Voz"><i data-lucide="phone" size="18"></i></button>
-          <button class="icon-btn" title="Menú del Contacto" onclick="toggleChatContactMenu(event)"><i data-lucide="more-vertical" size="18"></i></button>
+          <button class="icon-btn" onclick="openVideoCall()" title="Videollamada HD con Amigo"><i data-lucide="video" size="18"></i></button>
+          <button class="icon-btn" onclick="openVoiceCall()" title="Llamada de Voz con Amigo"><i data-lucide="phone" size="18"></i></button>
+          <button class="icon-btn" title="Menú del Amigo" onclick="toggleChatContactMenu(event)"><i data-lucide="more-vertical" size="18"></i></button>
 
-          <!-- Submenú de 3 Puntos del Chat -->
+          <!-- Submenú de 3 Puntos del Chat de Amigo -->
           <div class="chat-contact-dropdown" id="chatContactMenu">
-            <div class="dropdown-item" onclick="openContactSubmenu('Ver contacto')">
-              <i data-lucide="user" size="16"></i> Ver contacto
+            <div class="dropdown-item" onclick="openContactSubmenu('Ver perfil')">
+              <i data-lucide="user" size="16"></i> Ver perfil
             </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Archivos, enlaces y docs')">
-              <i data-lucide="image" size="16"></i> Archivos y enlaces
+            <div class="dropdown-item" onclick="openContactSubmenu('Archivos y fotos')">
+              <i data-lucide="image" size="16"></i> Archivos y fotos
             </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Buscar en chat')">
+            <div class="dropdown-item" onclick="openContactSubmenu('Buscar mensaje')">
               <i data-lucide="search" size="16"></i> Buscar
             </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Silenciar notificaciones')">
+            <div class="dropdown-item" onclick="openContactSubmenu('Silenciar chat')">
               <i data-lucide="bell-off" size="16"></i> Silenciar
             </div>
             <div class="dropdown-item" onclick="openContactSubmenu('Mensajes temporales')">
@@ -2231,7 +2258,7 @@
             <div class="dropdown-item" onclick="openContactSubmenu('Vaciar chat')">
               <i data-lucide="trash-2" size="16"></i> Vaciar chat
             </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Bloquear contacto')">
+            <div class="dropdown-item" onclick="openContactSubmenu('Bloquear o reportar')">
               <i data-lucide="shield-ban" size="16"></i> Bloquear
             </div>
           </div>
@@ -2241,25 +2268,25 @@
       <!-- Mensajes -->
       <div class="messages-area" id="messagesArea">
         <div class="message-row">
-          <img src="logo_bienestar_png.jpeg" class="avatar-msg" alt="Asistente" id="msgAvatarInChat" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="avatar-msg" alt="Camila" id="msgAvatarInChat">
           <div class="message-bubble msg-received">
-            ¡Hola! 👋 Te estás comunicando a través de la plataforma BIENESTAR. ¿En qué podemos ayudarte hoy?
-            <div class="msg-time">18:50</div>
+            ¡Hola Andrea! 👋 ¿Cómo va tu tarde? ¿Vamos al parque a hacer yoga más tarde? 🧘‍♀️
+            <div class="msg-time">10:14</div>
           </div>
         </div>
       </div>
 
-      <!-- Barra de Píldoras Rápidas -->
+      <!-- Barra de Píldoras Rápidas para Chatear con Amigos -->
       <div class="quick-pills-bar">
-        <button class="pill-btn" onclick="openVideoCall()">📷 Foto</button>
-        <button class="pill-btn" onclick="openVideoCall()">📹 Video</button>
-        <button class="pill-btn" onclick="addPillMsg('💊 Dosis tomada: Multivitamínico')">💊 Dosis</button>
-        <button class="pill-btn" onclick="addPillMsg('💧 Agua: +250ml')">💧 Hidratación</button>
+        <button class="pill-btn" onclick="addPillMsg('🧘‍♀️ ¡Súper! Me sumo al yoga.')">🧘‍♀️ Yoga</button>
+        <button class="pill-btn" onclick="addPillMsg('🍵 Tomemos un té helado.')">🍵 Té</button>
+        <button class="pill-btn" onclick="addPillMsg('💧 Ya tomé mis 2 Litros de agua hoy!')">💧 Hidratación</button>
+        <button class="pill-btn" onclick="openVideoCall()">📹 Videollamada</button>
       </div>
 
       <!-- Menú de Clip Adjuntos Tipo WhatsApp -->
       <div class="clip-menu" id="clipMenu">
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📄 Documento adjunto listo para enviar.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📄 Documento adjunto enviado.');">
           <div class="clip-icon-circle bg-doc"><i data-lucide="file-text" size="20"></i></div>
           <span>Documento</span>
         </div>
@@ -2267,27 +2294,27 @@
           <div class="clip-icon-circle bg-cam"><i data-lucide="camera" size="20"></i></div>
           <span>Cámara</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🖼️ Foto enviada desde la galería.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🖼️ Foto enviada a tu amigo.');">
           <div class="clip-icon-circle bg-gal"><i data-lucide="image" size="20"></i></div>
           <span>Galería</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🎧 Mensaje de voz o audio adjuntado.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🎧 Mensaje de voz enviado.');">
           <div class="clip-icon-circle bg-aud"><i data-lucide="headphones" size="20"></i></div>
           <span>Audio</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📍 Ubicación compartida en tiempo real.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📍 Ubicación enviada.');">
           <div class="clip-icon-circle bg-ubi"><i data-lucide="map-pin" size="20"></i></div>
           <span>Ubicación</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('👤 Tarjeta de contacto enviada.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('👤 Contacto compartido.');">
           <div class="clip-icon-circle bg-con"><i data-lucide="user" size="20"></i></div>
           <span>Contacto</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('💊 Receta de medicación / recordatorio adjunto.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('💊 Recordatorio o receta compartida.');">
           <div class="clip-icon-circle bg-rec"><i data-lucide="pill" size="20"></i></div>
           <span>Receta</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📊 Encuesta de hábitos creada.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📊 Encuesta enviada al chat.');">
           <div class="clip-icon-circle bg-enc"><i data-lucide="bar-chart-2" size="20"></i></div>
           <span>Encuesta</span>
         </div>
@@ -2314,14 +2341,14 @@
         <button class="icon-btn" style="background:none;" onclick="toggleClipMenu()" title="Adjuntar">
           <i data-lucide="paperclip" size="20"></i>
         </button>
-        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)" onclick="closeEmojiPicker()">
+        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje a tu amigo..." onkeypress="handleKeyPress(event)" onclick="closeEmojiPicker()">
         <button class="send-btn" onclick="sendMessage()">
           <i data-lucide="send" size="18"></i>
         </button>
       </div>
     </div>
 
-    <!-- Navbar Inferior con Ícono de Tienda Corregido -->
+    <!-- Navbar Inferior -->
     <div class="bottom-nav">
       <button class="nav-item active" onclick="switchTab('chats', this)">
         <i data-lucide="message-circle" size="20"></i>
@@ -2355,16 +2382,16 @@
 
       <div class="call-user-section">
         <div class="call-avatar-wrap">
-          <img src="logo_bienestar_png.jpeg" id="callUserAvatar" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80" id="callUserAvatar" alt="Amigo en Llamada">
         </div>
-        <div class="call-user-name" id="callUserName">@licandeo30 (Tú)</div>
+        <div class="call-user-name" id="callUserName">Camila Silva</div>
         <div class="call-status" id="callStatusText">VIDEOLLAMADA EN CURSO...</div>
       </div>
 
       <!-- Contenedor de Video WebRTC en Vivo -->
       <div class="call-video-card" id="callVideoCard">
         <video id="webcamVideo" class="webcam-video-element" autoplay playsinline muted style="display: none;"></video>
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" id="fallbackVideoImg" class="fallback-avatar-img" alt="Video Stream">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80" id="fallbackVideoImg" class="fallback-avatar-img" alt="Video Stream">
         <div class="voice-wave-animation" id="callVoiceWave" style="display: none;">
           <div class="wave-bar"></div>
           <div class="wave-bar"></div>
@@ -2461,7 +2488,7 @@
       if (menu) menu.classList.toggle('active');
     }
 
-    // Toggle Menú Desplegable de 3 Puntos del Contacto en el Chat
+    // Toggle Menú Desplegable de 3 Puntos del Contacto/Amigo en el Chat
     function toggleChatContactMenu(e) {
       if (e && e.stopPropagation) e.stopPropagation();
       var mainNav = document.getElementById('whatsappMenu');
@@ -2474,7 +2501,7 @@
     function openContactSubmenu(action) {
       var menu = document.getElementById('chatContactMenu');
       if (menu) menu.classList.remove('active');
-      alert('⚙️ Opción de contacto: "' + action + '" seleccionada.');
+      alert('⚙️ Opción: "' + action + '" seleccionada.');
     }
 
     function closeAllDropdownsOutside(e) {
@@ -2517,6 +2544,33 @@
           } catch (e) { console.log('Saved locally'); }
         }
       }
+    }
+
+    // Agregar Amigo
+    function promptNewFriend() {
+      var friendName = prompt("Ingresa el nombre o @usuario de tu amigo/a:", "");
+      if (friendName && friendName.trim() !== "") {
+        openSingleChat(friendName.trim() + ' 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Amigo • Agregado recientemente');
+        alert("✨ ¡Añadido a tus contactos! Ya puedes chatear.");
+      }
+    }
+
+    // Filtrar Categorías de Chat (Todos / Amigos / Asistente IA / No leídos)
+    function filterChatCategory(cat, btn) {
+      document.querySelectorAll('.chat-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      if (btn) btn.classList.add('active');
+
+      document.querySelectorAll('.contact-item').forEach(function(item) {
+        if (cat === 'todos') {
+          item.style.display = 'flex';
+        } else if (cat === 'amigos') {
+          item.style.display = item.classList.contains('chat-type-amigos') ? 'flex' : 'none';
+        } else if (cat === 'asistente') {
+          item.style.display = item.classList.contains('chat-type-asistente') ? 'flex' : 'none';
+        } else if (cat === 'unread') {
+          item.style.display = item.querySelector('.unread-count') ? 'flex' : 'none';
+        }
+      });
     }
 
     // Gestor Dinámico de Submenús de Ajustes
@@ -2629,11 +2683,17 @@
       var avatarEl = document.getElementById('activeChatAvatar');
       if (avatarEl) {
         avatarEl.src = avatarUrl;
-        avatarEl.onerror = function() { avatarEl.src = 'logo_bienestar_png.jpeg'; };
+        avatarEl.onerror = function() { avatarEl.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'; };
       }
 
       var msgAvatar = document.getElementById('msgAvatarInChat');
       if (msgAvatar) msgAvatar.src = avatarUrl;
+
+      // Actualizar avatar en llamada
+      var callAvatar = document.getElementById('callUserAvatar');
+      if (callAvatar) callAvatar.src = avatarUrl;
+      var callName = document.getElementById('callUserName');
+      if (callName) callName.innerText = name;
 
       document.getElementById('singleChatView').classList.add('active');
     }
@@ -2843,6 +2903,18 @@
         input.value = '';
         closeEmojiPicker();
 
+        // Respuesta simulada inteligente de amigo
+        setTimeout(function() {
+          var responses = [
+            "¡Buenísimo! Me encanta esa idea 😊",
+            "¡Genial! Nos vemos más tarde 🌿",
+            "¡Súper! Te aviso apenas llegue 🏃‍♀️",
+            "¡Me alegra mucho leer eso! 👍"
+          ];
+          var randomResp = responses[Math.floor(Math.random() * responses.length)];
+          addMessage(randomResp, 'received');
+        }, 1200);
+
         if (supabase) {
           try {
             supabase.from('messages').insert([{ content: text }]);
@@ -2864,7 +2936,7 @@
       var now = new Date();
       var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
       
-      var activeAvatar = document.getElementById('activeChatAvatar') ? document.getElementById('activeChatAvatar').src : 'logo_bienestar_png.jpeg';
+      var activeAvatar = document.getElementById('activeChatAvatar') ? document.getElementById('activeChatAvatar').src : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80';
 
       if (type === 'received') {
         row.innerHTML = '<img src="' + activeAvatar + '" class="avatar-msg" alt="Contacto">' +
