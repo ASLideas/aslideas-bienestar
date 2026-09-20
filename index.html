@@ -70,7 +70,7 @@
       }
     }
 
-    /* Splash Screen con Auto-Hide CSS Garantizado */
+    /* Splash Screen Inicial con Auto-Hide CSS */
     .splash-screen {
       position: absolute;
       top: 0;
@@ -83,8 +83,7 @@
       align-items: center;
       justify-content: center;
       z-index: 200;
-      /* Animación automática por CSS para ocultar splash aunque falle JS */
-      animation: autoHideSplash 1.5s forwards ease-in-out;
+      animation: autoHideSplash 1.2s forwards ease-in-out;
     }
 
     @keyframes autoHideSplash {
@@ -1361,6 +1360,7 @@
       position: relative;
       text-align: center;
       max-width: 80%;
+      cursor: pointer;
     }
 
     .song-thought-bubble::after {
@@ -1495,6 +1495,7 @@
       font-size: 10px;
       font-weight: 700;
       color: var(--dark-teal);
+      cursor: pointer;
     }
 
     .meta-app-badge {
@@ -1514,7 +1515,7 @@
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial (Se oculta por CSS o JS) -->
+    <!-- Splash Screen Inicial -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
         <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
@@ -1527,7 +1528,6 @@
       <span style="font-size: 11px; color: var(--gray-muted); margin-top: 12px; font-weight: 500;">Cargando experiencia...</span>
     </div>
 
-    <!-- Script inline para ocultar el splash si la red es lenta -->
     <script>
       setTimeout(function() {
         var splash = document.getElementById('splashScreen');
@@ -1603,7 +1603,7 @@
     <!-- Áreas de Contenido -->
     <div class="app-content" onclick="closeWhatsAppMenuOutside(event)">
 
-      <!-- ==================== TAB 1: HOME HÍBRIDO ==================== -->
+      <!-- TAB CHATS -->
       <div id="tab-chats" class="tab-page active">
         
         <!-- REGULADOR EMOCIONAL DESLIZANTE -->
@@ -1642,7 +1642,7 @@
 
         <!-- Carrusel de Estados / Historias -->
         <div class="stories-container">
-          <div class="story-item">
+          <div class="story-item" onclick="editSongBubble()">
             <div class="story-ring my-story">
               <img src="logo_bienestar_png.jpeg" class="story-avatar" alt="Mi Estado" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
               <div class="add-story-badge">+</div>
@@ -1679,7 +1679,7 @@
           </div>
         </div>
 
-        <!-- Buscador Limpio (Sin Píldoras Abajo) -->
+        <!-- Buscador Limpio -->
         <div class="search-filter-section">
           <div class="search-box">
             <i data-lucide="search" size="18" color="#2C7A7B"></i>
@@ -1687,7 +1687,7 @@
           </div>
         </div>
 
-        <!-- Lista de Contactos (WhatsApp + Business) -->
+        <!-- Lista de Contactos -->
         <div class="contacts-list" id="contactsList">
           
           <div class="contact-item" onclick="openSingleChat('Asistente BIENESTAR 🌿', 'logo_bienestar_png.jpeg', 'Especialista en Salud Integral')">
@@ -1776,7 +1776,7 @@
 
       </div>
 
-      <!-- ==================== TAB 2: WELLNESS ==================== -->
+      <!-- TAB WELLNESS -->
       <div id="tab-wellness" class="tab-page">
         <div class="wellness-page">
           <div class="card-widget">
@@ -1831,7 +1831,7 @@
         </div>
       </div>
 
-      <!-- ==================== TAB 3: TIENDA PyME ==================== -->
+      <!-- TAB TIENDA -->
       <div id="tab-tienda" class="tab-page">
         <div class="tienda-page">
           <div class="promo-banner">
@@ -1857,7 +1857,7 @@
         </div>
       </div>
 
-      <!-- ==================== TAB 4: MORFEO ==================== -->
+      <!-- TAB MORFEO -->
       <div id="tab-morfeo" class="tab-page">
         <div class="morfeo-page">
           <div class="morfeo-card">
@@ -1888,13 +1888,13 @@
           <span class="settings-header-title">Andrea</span>
         </div>
         <div class="settings-actions-right">
-          <button class="icon-btn" style="background:none;" onclick="triggerMenuAction('Buscar en Ajustes')">
+          <button class="icon-btn" style="background:none;" onclick="openSubSetting('buscar')">
             <i data-lucide="search" size="18"></i>
           </button>
-          <button class="icon-btn" style="background:none;" onclick="triggerMenuAction('Código QR')">
+          <button class="icon-btn" style="background:none;" onclick="openSubSetting('qr')">
             <i data-lucide="qr-code" size="18"></i>
           </button>
-          <button class="icon-btn" style="background:none;" onclick="triggerMenuAction('Editar perfil')">
+          <button class="icon-btn" style="background:none;" onclick="editSongBubble()">
             <i data-lucide="pencil" size="18"></i>
           </button>
         </div>
@@ -1902,20 +1902,20 @@
 
       <!-- Perfil Superior con Burbuja de Pensamiento -->
       <div class="settings-profile-card">
-        <div class="song-thought-bubble">
-          ¿Qué canción escuchas una y otra vez?
+        <div class="song-thought-bubble" onclick="editSongBubble()" title="Toca para cambiar">
+          💬 <span id="thoughtBubbleText">¿Qué canción escuchas una y otra vez?</span> ✏️
         </div>
-        <div class="settings-avatar-wrap">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80" alt="Foto Andrea">
+        <div class="settings-avatar-wrap" onclick="openSubSetting('foto')">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80" alt="Andrea">
         </div>
-        <div class="settings-user-name">Andrea <i data-lucide="chevron-down" size="16"></i></div>
+        <div class="settings-user-name" onclick="openSubSetting('perfil')">Andrea <i data-lucide="chevron-down" size="16"></i></div>
         <div class="settings-user-handle">@licandeo30</div>
       </div>
 
       <!-- Lista de Ajustes Integrales -->
       <div class="settings-menu-list">
         
-        <div class="setting-row-item" onclick="triggerMenuAction('Suscripciones Premium')">
+        <div class="setting-row-item" onclick="openSubSetting('suscripciones')">
           <div class="setting-icon-box"><i data-lucide="gem" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Suscripciones</span>
@@ -1923,7 +1923,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Cuenta & Seguridad')">
+        <div class="setting-row-item" onclick="openSubSetting('cuenta')">
           <div class="setting-icon-box"><i data-lucide="key-round" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Cuenta</span>
@@ -1931,7 +1931,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Privacidad')">
+        <div class="setting-row-item" onclick="openSubSetting('privacidad')">
           <div class="setting-icon-box"><i data-lucide="lock" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Privacidad</span>
@@ -1939,15 +1939,15 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Listas de Personas')">
-          <div class="setting-icon-box"><div style="border: 2px solid var(--dark-teal); border-radius: 4px; padding: 2px;"><i data-lucide="user-check" size="14"></i></div></div>
+        <div class="setting-row-item" onclick="openSubSetting('listas')">
+          <div class="setting-icon-box"><i data-lucide="user-check" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Listas</span>
             <span class="setting-item-sub">Administrar personas y grupos</span>
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Chats & Copias de seguridad')">
+        <div class="setting-row-item" onclick="openSubSetting('chats')">
           <div class="setting-icon-box"><i data-lucide="message-square-text" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Chats</span>
@@ -1955,7 +1955,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Apariencia del Chat')">
+        <div class="setting-row-item" onclick="openSubSetting('apariencia')">
           <div class="setting-icon-box"><i data-lucide="palette" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Apariencia</span>
@@ -1963,7 +1963,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Difusiones')">
+        <div class="setting-row-item" onclick="openSubSetting('difusiones')">
           <div class="setting-icon-box"><i data-lucide="megaphone" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Difusiones</span>
@@ -1971,7 +1971,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Notificaciones')">
+        <div class="setting-row-item" onclick="openSubSetting('notificaciones')">
           <div class="setting-icon-box"><i data-lucide="bell" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Notificaciones</span>
@@ -1979,7 +1979,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Almacenamiento y datos')">
+        <div class="setting-row-item" onclick="openSubSetting('almacenamiento')">
           <div class="setting-icon-box"><i data-lucide="pie-chart" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Almacenamiento y datos</span>
@@ -1987,7 +1987,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Controles parentales')">
+        <div class="setting-row-item" onclick="openSubSetting('parental')">
           <div class="setting-icon-box"><i data-lucide="shield-alert" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Controles parentales</span>
@@ -1995,7 +1995,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Accesibilidad')">
+        <div class="setting-row-item" onclick="openSubSetting('accesibilidad')">
           <div class="setting-icon-box"><i data-lucide="accessibility" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Accesibilidad</span>
@@ -2003,7 +2003,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Idioma de la aplicación')">
+        <div class="setting-row-item" onclick="openSubSetting('idioma')">
           <div class="setting-icon-box"><i data-lucide="globe" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Idioma de la aplicación</span>
@@ -2011,7 +2011,7 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Ayuda y comentarios')">
+        <div class="setting-row-item" onclick="openSubSetting('ayuda')">
           <div class="setting-icon-box"><i data-lucide="help-circle" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Ayuda y comentarios</span>
@@ -2019,14 +2019,14 @@
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Invitar amigos')">
+        <div class="setting-row-item" onclick="openSubSetting('invitar')">
           <div class="setting-icon-box"><i data-lucide="user-plus" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Invitar amigos</span>
           </div>
         </div>
 
-        <div class="setting-row-item" onclick="triggerMenuAction('Actualizaciones de la aplicación')">
+        <div class="setting-row-item" onclick="openSubSetting('actualizaciones')">
           <div class="setting-icon-box"><i data-lucide="smartphone" size="20"></i></div>
           <div class="setting-text-box">
             <span class="setting-item-title">Actualizaciones de la aplicación</span>
@@ -2037,7 +2037,7 @@
 
       <!-- Sección Centro de Cuentas Meta -->
       <div class="meta-center-section">
-        <div class="meta-title-row">
+        <div class="meta-title-row" onclick="openSubSetting('meta')">
           <i data-lucide="infinity" size="20"></i> Centro de cuentas
         </div>
         <div class="meta-desc">
@@ -2047,23 +2047,23 @@
         <div style="font-size: 11px; font-weight: 700; color: var(--gray-muted); margin-bottom: 8px;">También de Meta</div>
         
         <div class="meta-apps-grid">
-          <div class="meta-app-icon" onclick="triggerMenuAction('Abrir Instagram')">
+          <div class="meta-app-icon" onclick="openSubSetting('instagram')">
             <div class="meta-app-badge"><i data-lucide="instagram" size="20"></i></div>
             <span>Instagram</span>
           </div>
-          <div class="meta-app-icon" onclick="triggerMenuAction('Abrir Facebook')">
+          <div class="meta-app-icon" onclick="openSubSetting('facebook')">
             <div class="meta-app-badge"><i data-lucide="facebook" size="20"></i></div>
             <span>Facebook</span>
           </div>
-          <div class="meta-app-icon" onclick="triggerMenuAction('Abrir Threads')">
+          <div class="meta-app-icon" onclick="openSubSetting('threads')">
             <div class="meta-app-badge"><i data-lucide="at-sign" size="20"></i></div>
             <span>Threads</span>
           </div>
-          <div class="meta-app-icon" onclick="triggerMenuAction('Abrir Meta AI')">
+          <div class="meta-app-icon" onclick="openSubSetting('meta-ai')">
             <div class="meta-app-badge"><i data-lucide="sparkles" size="20"></i></div>
             <span>Meta AI</span>
           </div>
-          <div class="meta-app-icon" onclick="triggerMenuAction('Abrir Vibes')">
+          <div class="meta-app-icon" onclick="openSubSetting('vibes')">
             <div class="meta-app-badge"><i data-lucide="radio" size="20"></i></div>
             <span>Vibes</span>
           </div>
@@ -2135,7 +2135,7 @@
       </div>
     </div>
 
-    <!-- Navbar Inferior (4 Pestañas) -->
+    <!-- Navbar Inferior -->
     <div class="bottom-nav">
       <button class="nav-item active" onclick="switchTab('chats', this)">
         <i data-lucide="message-circle" size="20"></i>
@@ -2175,7 +2175,7 @@
         <div class="call-status" id="callStatusText">VIDEOLLAMADA EN CURSO...</div>
       </div>
 
-      <!-- Contenedor de Video WebRTC en Vivo con Fallback -->
+      <!-- Contenedor de Video WebRTC en Vivo -->
       <div class="call-video-card" id="callVideoCard">
         <video id="webcamVideo" class="webcam-video-element" autoplay playsinline muted style="display: none;"></video>
         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" id="fallbackVideoImg" class="fallback-avatar-img" alt="Video Stream">
@@ -2220,7 +2220,7 @@
   </div>
 
   <script>
-    // Inicialización Robusta e Inmediata
+    // Inicialización
     function hideSplash() {
       var splash = document.getElementById('splashScreen');
       if (splash) {
@@ -2229,13 +2229,12 @@
       }
     }
 
-    // Ejecutar ocultar splash inmediatamente si el DOM está listo
     if (document.readyState === 'interactive' || document.readyState === 'complete') {
-      setTimeout(hideSplash, 600);
+      setTimeout(hideSplash, 500);
     } else {
-      document.addEventListener('DOMContentLoaded', function() { setTimeout(hideSplash, 600); });
+      document.addEventListener('DOMContentLoaded', function() { setTimeout(hideSplash, 500); });
     }
-    window.addEventListener('load', function() { setTimeout(hideSplash, 400); });
+    window.addEventListener('load', function() { setTimeout(hideSplash, 300); });
 
     // Lucide Icons
     try {
@@ -2282,13 +2281,101 @@
 
     function triggerMenuAction(actionName) {
       toggleWhatsAppMenu();
-      addMessage('Acción seleccionada del menú: ' + actionName, 'sent');
+      if (actionName === 'Ajustes') {
+        openFullSettings();
+      } else {
+        alert('⚙️ Función de "' + actionName + '" activada.');
+        addMessage('Acción seleccionada del menú: ' + actionName, 'sent');
+      }
     }
 
     function markAllAsRead() {
       toggleWhatsAppMenu();
       document.querySelectorAll('.unread-count').forEach(function(badge) { badge.remove(); });
-      addMessage('✔ Todos los mensajes marcados como leídos.', 'received');
+      alert('✔ Todos los mensajes marcados como leídos.');
+    }
+
+    // Editar la burbuja de pensamiento (Canción/Estado)
+    function editSongBubble() {
+      var currentEl = document.getElementById('thoughtBubbleText');
+      var currentText = currentEl ? currentEl.innerText : '¿Qué canción escuchas una y otra vez?';
+      var newText = prompt('Actualiza tu estado o canción favorita:', currentText);
+
+      if (newText && newText.trim() !== '') {
+        if (currentEl) currentEl.innerText = newText.trim();
+        alert('✨ Pensamiento actualizado: "' + newText.trim() + '"');
+
+        if (supabase) {
+          try {
+            supabase.from('perfiles').update({ estado_texto: newText.trim() }).eq('username', 'licandeo30');
+          } catch (e) { console.log('Saved locally'); }
+        }
+      }
+    }
+
+    // Gestor Dinámico de Submenús de Ajustes
+    function openSubSetting(type) {
+      switch (type) {
+        case 'suscripciones':
+          alert('⭐ Membresía BIENESTAR Premium: Activa hasta Octubre 2026. Beneficios: Videollamadas HD ilimitadas y acceso a Morfeo 432Hz.');
+          break;
+        case 'cuenta':
+          alert('🔑 Seguridad de la Cuenta:\n- Verificación en 2 pasos: Activada\n- Número: +56 9 **** 3012\n- Notificaciones de seguridad: Habilitadas');
+          break;
+        case 'privacidad':
+          var option = prompt('¿Quién puede ver tu última vez y foto?\n1. Todos\n2. Mis Contactos\n3. Nadie', '1');
+          if (option) alert('🔒 Preferencia de privacidad actualizada.');
+          break;
+        case 'listas':
+          alert('📁 Listas de Personas: Administrando 12 contactos en listas de difusión y grupos.');
+          break;
+        case 'chats':
+          alert('💬 Chats & Copia de seguridad:\n- Última copia: Hoy a las 04:00 AM\n- Tamaño: 142 MB\n- Guardado en Google Drive / Supabase.');
+          break;
+        case 'apariencia':
+          document.body.classList.toggle('dark-theme-mode');
+          alert('🎨 Tema visual alternado entre Claro (Teal Air) y Oscuro Orgánico.');
+          break;
+        case 'difusiones':
+          alert('📢 Difusiones: 3 listas activas (Comunidad BIENESTAR, Taller de Meditación, Clientes PyME).');
+          break;
+        case 'notificaciones':
+          var active = confirm('¿Deseas activar/desactivar los tonos de llamadas y mensajes?');
+          alert(active ? '🔔 Notificaciones activadas.' : '🔕 Notificaciones silenciadas.');
+          break;
+        case 'almacenamiento':
+          alert('📊 Almacenamiento:\n- Fotos y Videos: 2.4 GB\n- Audios: 180 MB\n- Documentos: 45 MB');
+          break;
+        case 'parental':
+          alert('🛡️ Controles parentales: Filtro de contenidos y tiempo de pantalla activo.');
+          break;
+        case 'accesibilidad':
+          alert('♿ Accesibilidad: Contraste mejorado e íconos de alta visibilidad activados.');
+          break;
+        case 'idioma':
+          var lang = prompt('Selecciona idioma:\n1. Español\n2. English\n3. Português', '1');
+          if (lang) alert('🌐 Idioma actualizado.');
+          break;
+        case 'ayuda':
+          alert('❓ Centro de ayuda BIENESTAR:\nSoporte técnico 24/7 disponible.');
+          break;
+        case 'invitar':
+          alert('✉️ Enlace de invitación copiado al portapapeles.');
+          break;
+        case 'actualizaciones':
+          alert('📱 BIENESTAR App v3.4.0 - Estás utilizando la versión más reciente.');
+          break;
+        case 'meta':
+        case 'instagram':
+        case 'facebook':
+        case 'threads':
+        case 'meta-ai':
+        case 'vibes':
+          alert('♾️ Centro de Cuentas Meta: Vinculado correctamente con @licandeo30.');
+          break;
+        default:
+          alert('⚙️ Configuración de ' + type + ' actualizada.');
+      }
     }
 
     var sensoryMap = {
@@ -2457,7 +2544,7 @@
 
       if (localStream) {
         var videoTrack = localStream.getVideoTracks();
-        if (videoTrack && videoTrack) {
+        if (videoTrack) {
           videoTrack.enabled = !videoTrack.enabled;
         }
       }
@@ -2469,7 +2556,7 @@
 
       if (localStream) {
         var audioTrack = localStream.getAudioTracks();
-        if (audioTrack && audioTrack) {
+        if (audioTrack) {
           audioTrack.enabled = !audioTrack.enabled;
         }
       }
