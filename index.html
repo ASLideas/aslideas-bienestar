@@ -252,7 +252,7 @@
       color: var(--white);
     }
 
-    /* Menú Desplegable Estilo WhatsApp (3 Puntos) */
+    /* Menú Desplegable Estilo WhatsApp (3 Puntos Principal) */
     .whatsapp-dropdown-menu {
       display: none;
       position: absolute;
@@ -701,6 +701,7 @@
       justify-content: space-between;
       border-bottom: 1px solid rgba(51, 188, 169, 0.15);
       box-shadow: var(--shadow-sm);
+      position: relative;
     }
 
     .chat-user-info {
@@ -716,6 +717,26 @@
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--turquoise);
+    }
+
+    /* Submenú de 3 Puntos del Contacto en el Chat */
+    .chat-contact-dropdown {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 10px;
+      width: 210px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(51, 188, 169, 0.2);
+      padding: 6px 0;
+      z-index: 160;
+      animation: fadeInDown 0.18s ease-out;
+    }
+
+    .chat-contact-dropdown.active {
+      display: block;
     }
 
     .messages-area {
@@ -843,19 +864,27 @@
       cursor: pointer;
     }
 
+    /* Menú Adjuntos (Clip) Tipo WhatsApp */
     .clip-menu {
       display: none;
       position: absolute;
-      bottom: 60px;
+      bottom: 65px;
       left: 16px;
+      right: 16px;
       background: var(--white);
       border-radius: var(--radius-lg);
-      padding: 14px;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      box-shadow: var(--shadow-md);
-      border: 1px solid var(--mint);
-      z-index: 20;
+      padding: 18px 14px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px 10px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(51, 188, 169, 0.2);
+      z-index: 100;
+      animation: fadeInUp 0.2s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .clip-menu.active { display: grid; }
@@ -864,23 +893,97 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       font-size: 11px;
       color: var(--dark-teal);
       cursor: pointer;
       font-weight: 600;
     }
 
-    .clip-icon {
-      width: 42px;
-      height: 42px;
+    .clip-icon-circle {
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: var(--mint);
-      color: var(--green-organic);
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--white);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s;
     }
+
+    .clip-item:active .clip-icon-circle { transform: scale(0.9); }
+
+    /* Colores oficiales de adjuntos WhatsApp */
+    .bg-doc { background: linear-gradient(135deg, #7F66FF, #512DA8); }
+    .bg-cam { background: linear-gradient(135deg, #FF5252, #D32F2F); }
+    .bg-gal { background: linear-gradient(135deg, #EC407A, #C2185B); }
+    .bg-aud { background: linear-gradient(135deg, #FF9800, #F57C00); }
+    .bg-ubi { background: linear-gradient(135deg, #26A69A, #00796B); }
+    .bg-con { background: linear-gradient(135deg, #0288D1, #0277BD); }
+    .bg-rec { background: linear-gradient(135deg, #00BFA5, #2C7A7B); }
+    .bg-enc { background: linear-gradient(135deg, #FFB300, #FF8F00); }
+
+    /* Panel de Emojis Interactivo de WhatsApp */
+    .emoji-picker-panel {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      width: 100%;
+      height: 220px;
+      background: var(--white);
+      border-top: 1px solid rgba(51, 188, 169, 0.2);
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+      z-index: 110;
+      flex-direction: column;
+      animation: fadeInUp 0.2s ease-out;
+    }
+
+    .emoji-picker-panel.active { display: flex; }
+
+    .emoji-header-tabs {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--bg-cream);
+      background: var(--mint);
+    }
+
+    .emoji-tab-btn {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      opacity: 0.6;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .emoji-tab-btn.active {
+      opacity: 1;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .emoji-grid-content {
+      flex: 1;
+      padding: 10px 14px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 10px;
+      font-size: 22px;
+    }
+
+    .emoji-char {
+      cursor: pointer;
+      text-align: center;
+      user-select: none;
+      transition: transform 0.1s;
+    }
+
+    .emoji-char:active { transform: scale(1.3); }
 
     /* Pestaña 2: Wellness */
     .wellness-page {
@@ -1518,7 +1621,7 @@
     <!-- Splash Screen Inicial -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
-        <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+        <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
       </div>
       <div class="splash-title">BIENESTAR</div>
       <div class="splash-sub">Ecosistema Integral</div>
@@ -1548,7 +1651,7 @@
     <!-- Header Principal -->
     <div class="app-header">
       <div class="brand-logo">
-        <img src="logo_bienestar_png.jpeg" alt="BIENESTAR Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+        <img src="logo_bienestar_png.jpeg" alt="BIENESTAR Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
         <div>
           <div class="brand-title">BIENESTAR</div>
           <div class="brand-subtitle">WhatsApp • Business • Instagram</div>
@@ -1565,7 +1668,7 @@
           <i data-lucide="more-vertical" size="18"></i>
         </button>
 
-        <!-- Menú Desplegable Flotante de WhatsApp (3 Puntos) -->
+        <!-- Menú Desplegable Flotante de WhatsApp (3 Puntos Principal) -->
         <div class="whatsapp-dropdown-menu" id="whatsappMenu">
           <div class="dropdown-item" onclick="triggerMenuAction('Nuevo grupo')">
             <i data-lucide="users" size="16"></i> Nuevo grupo
@@ -1601,7 +1704,7 @@
     </div>
 
     <!-- Áreas de Contenido -->
-    <div class="app-content" onclick="closeWhatsAppMenuOutside(event)">
+    <div class="app-content" onclick="closeAllDropdownsOutside(event)">
 
       <!-- TAB CHATS -->
       <div id="tab-chats" class="tab-page active">
@@ -1644,7 +1747,7 @@
         <div class="stories-container">
           <div class="story-item" onclick="editSongBubble()">
             <div class="story-ring my-story">
-              <img src="logo_bienestar_png.jpeg" class="story-avatar" alt="Mi Estado" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+              <img src="logo_bienestar_png.jpeg" class="story-avatar" alt="Mi Estado" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
               <div class="add-story-badge">+</div>
             </div>
             <span class="story-name">Tu estado</span>
@@ -1693,7 +1796,7 @@
           <div class="contact-item" onclick="openSingleChat('Asistente BIENESTAR 🌿', 'logo_bienestar_png.jpeg', 'Especialista en Salud Integral')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
-                <img src="logo_bienestar_png.jpeg" class="contact-avatar" alt="Logo" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+                <img src="logo_bienestar_png.jpeg" class="contact-avatar" alt="Logo" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
                 <div class="badge-business">✓</div>
               </div>
               <div class="contact-info">
@@ -1831,27 +1934,39 @@
         </div>
       </div>
 
-      <!-- TAB TIENDA -->
+      <!-- TAB TIENDA PyME (CON ÍCONO DE TIENDA OFICIAL) -->
       <div id="tab-tienda" class="tab-page">
         <div class="tienda-page">
           <div class="promo-banner">
-            <h3>Vitrina PyME & Herbolaria</h3>
-            <p>Conecta con productores locales de productos naturales y artesanales.</p>
-            <button class="pill-btn" style="border:none; background:white; color:var(--dark-teal);">Ver Destacados</button>
+            <h3>Vitrina PyME & Herbolaria 🌿</h3>
+            <p>Conecta con productores locales de productos naturales, esenciales y artesanales.</p>
+            <button class="pill-btn" style="border:none; background:white; color:var(--dark-teal);" onclick="alert('🛍️ Catálogo completo de PyMEs locales actualizado.')">Ver Destacados</button>
           </div>
 
           <div class="pyme-grid">
-            <div class="pyme-card">
+            <div class="pyme-card" onclick="addPillMsg('🛍️ Interés en: Té de Lavanda & Toronjil')">
               <div class="pyme-img">🌿</div>
               <div class="pyme-name">Té de Lavanda & Toronjil</div>
               <div class="pyme-desc">Infusión relajante 100% orgánica</div>
               <div class="pyme-price">$8.500</div>
             </div>
-            <div class="pyme-card">
+            <div class="pyme-card" onclick="addPillMsg('🛍️ Interés en: Vela Aromática Soya')">
               <div class="pyme-img">🕯️</div>
               <div class="pyme-name">Vela Aromática Soya</div>
               <div class="pyme-desc">Aceites esenciales naturales</div>
               <div class="pyme-price">$12.000</div>
+            </div>
+            <div class="pyme-card" onclick="addPillMsg('🛍️ Interés en: Aceite Esencial Menta')">
+              <div class="pyme-img">💧</div>
+              <div class="pyme-name">Aceite Menta Piperita</div>
+              <div class="pyme-desc">Especial para concentración</div>
+              <div class="pyme-price">$9.900</div>
+            </div>
+            <div class="pyme-card" onclick="addPillMsg('🛍️ Interés en: Sal de Baño Romero')">
+              <div class="pyme-img">🧂</div>
+              <div class="pyme-name">Sales Minerales Romero</div>
+              <div class="pyme-desc">Desintoxicante & relajante</div>
+              <div class="pyme-price">$7.400</div>
             </div>
           </div>
         </div>
@@ -1866,7 +1981,7 @@
             <p style="font-size:12px; opacity:0.8;">Ondas binaurales a 432Hz para inducir el descanso profundo y reducir el estrés.</p>
             
             <div class="pulse-circle">
-              <img src="logo_bienestar_png.jpeg" alt="Morfeo Logo" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+              <img src="logo_bienestar_png.jpeg" alt="Morfeo Logo" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
             </div>
 
             <button id="audioToggleBtn" class="pill-btn" style="background:var(--turquoise); color:white; border:none; padding:10px 24px; font-size:14px;" onclick="toggleMorfeoSound()">
@@ -2079,7 +2194,7 @@
           <button class="icon-btn" style="background:none;" onclick="closeSingleChat()">
             <i data-lucide="arrow-left" size="20"></i>
           </button>
-          <div class="chat-user-info">
+          <div class="chat-user-info" onclick="openContactSubmenu('info')">
             <img src="logo_bienestar_png.jpeg" id="activeChatAvatar" class="chat-user-avatar" alt="Avatar">
             <div>
               <div class="contact-name" id="activeChatName">Asistente BIENESTAR</div>
@@ -2090,14 +2205,43 @@
         <div style="display: flex; gap: 6px;">
           <button class="icon-btn" onclick="openVideoCall()" title="Videollamada HD"><i data-lucide="video" size="18"></i></button>
           <button class="icon-btn" onclick="openVoiceCall()" title="Llamada de Voz"><i data-lucide="phone" size="18"></i></button>
-          <button class="icon-btn" title="Catálogo Business" onclick="switchTab('tienda', document.querySelectorAll('.nav-item')); closeSingleChat();"><i data-lucide="store" size="18"></i></button>
+          <button class="icon-btn" title="Menú del Contacto" onclick="toggleChatContactMenu(event)"><i data-lucide="more-vertical" size="18"></i></button>
+
+          <!-- Submenú de 3 Puntos del Chat -->
+          <div class="chat-contact-dropdown" id="chatContactMenu">
+            <div class="dropdown-item" onclick="openContactSubmenu('Ver contacto')">
+              <i data-lucide="user" size="16"></i> Ver contacto
+            </div>
+            <div class="dropdown-item" onclick="openContactSubmenu('Archivos, enlaces y docs')">
+              <i data-lucide="image" size="16"></i> Archivos y enlaces
+            </div>
+            <div class="dropdown-item" onclick="openContactSubmenu('Buscar en chat')">
+              <i data-lucide="search" size="16"></i> Buscar
+            </div>
+            <div class="dropdown-item" onclick="openContactSubmenu('Silenciar notificaciones')">
+              <i data-lucide="bell-off" size="16"></i> Silenciar
+            </div>
+            <div class="dropdown-item" onclick="openContactSubmenu('Mensajes temporales')">
+              <i data-lucide="clock" size="16"></i> Mensajes temporales
+            </div>
+            <div class="dropdown-item" onclick="openContactSubmenu('Fondo de pantalla')">
+              <i data-lucide="palette" size="16"></i> Fondo de pantalla
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" onclick="openContactSubmenu('Vaciar chat')">
+              <i data-lucide="trash-2" size="16"></i> Vaciar chat
+            </div>
+            <div class="dropdown-item" onclick="openContactSubmenu('Bloquear contacto')">
+              <i data-lucide="shield-ban" size="16"></i> Bloquear
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Mensajes -->
       <div class="messages-area" id="messagesArea">
         <div class="message-row">
-          <img src="logo_bienestar_png.jpeg" class="avatar-msg" alt="Asistente" id="msgAvatarInChat" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+          <img src="logo_bienestar_png.jpeg" class="avatar-msg" alt="Asistente" id="msgAvatarInChat" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
           <div class="message-bubble msg-received">
             ¡Hola! 👋 Te estás comunicando a través de la plataforma BIENESTAR. ¿En qué podemos ayudarte hoy?
             <div class="msg-time">18:50</div>
@@ -2113,29 +2257,71 @@
         <button class="pill-btn" onclick="addPillMsg('💧 Agua: +250ml')">💧 Hidratación</button>
       </div>
 
-      <!-- Menú de Clip -->
+      <!-- Menú de Clip Adjuntos Tipo WhatsApp -->
       <div class="clip-menu" id="clipMenu">
-        <div class="clip-item" onclick="toggleClipMenu(); openVideoCall();"><div class="clip-icon"><i data-lucide="camera"></i></div>Cámara</div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📄 Documento Adjunto');"><div class="clip-icon"><i data-lucide="file-text"></i></div>Doc</div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('💊 Recordatorio de Medicación');"><div class="clip-icon"><i data-lucide="pill"></i></div>Receta</div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📍 Ubicación Compartida');"><div class="clip-icon"><i data-lucide="map-pin"></i></div>Ubicación</div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('👤 Contacto Profesional');"><div class="clip-icon"><i data-lucide="user"></i></div>Especialista</div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🎧 Audio de Calma');"><div class="clip-icon"><i data-lucide="headphones"></i></div>Audio</div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📄 Documento adjunto listo para enviar.');">
+          <div class="clip-icon-circle bg-doc"><i data-lucide="file-text" size="20"></i></div>
+          <span>Documento</span>
+        </div>
+        <div class="clip-item" onclick="toggleClipMenu(); openVideoCall();">
+          <div class="clip-icon-circle bg-cam"><i data-lucide="camera" size="20"></i></div>
+          <span>Cámara</span>
+        </div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🖼️ Foto enviada desde la galería.');">
+          <div class="clip-icon-circle bg-gal"><i data-lucide="image" size="20"></i></div>
+          <span>Galería</span>
+        </div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🎧 Mensaje de voz o audio adjuntado.');">
+          <div class="clip-icon-circle bg-aud"><i data-lucide="headphones" size="20"></i></div>
+          <span>Audio</span>
+        </div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📍 Ubicación compartida en tiempo real.');">
+          <div class="clip-icon-circle bg-ubi"><i data-lucide="map-pin" size="20"></i></div>
+          <span>Ubicación</span>
+        </div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('👤 Tarjeta de contacto enviada.');">
+          <div class="clip-icon-circle bg-con"><i data-lucide="user" size="20"></i></div>
+          <span>Contacto</span>
+        </div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('💊 Receta de medicación / recordatorio adjunto.');">
+          <div class="clip-icon-circle bg-rec"><i data-lucide="pill" size="20"></i></div>
+          <span>Receta</span>
+        </div>
+        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📊 Encuesta de hábitos creada.');">
+          <div class="clip-icon-circle bg-enc"><i data-lucide="bar-chart-2" size="20"></i></div>
+          <span>Encuesta</span>
+        </div>
       </div>
 
-      <!-- Input para Escribir -->
+      <!-- Panel de Emojis WhatsApp -->
+      <div class="emoji-picker-panel" id="emojiPickerPanel">
+        <div class="emoji-header-tabs">
+          <button class="emoji-tab-btn active" onclick="switchEmojiCategory('faces', this)">😀</button>
+          <button class="emoji-tab-btn" onclick="switchEmojiCategory('wellness', this)">🌿</button>
+          <button class="emoji-tab-btn" onclick="switchEmojiCategory('hands', this)">👍</button>
+          <button class="emoji-tab-btn" onclick="switchEmojiCategory('hearts', this)">❤️</button>
+        </div>
+        <div class="emoji-grid-content" id="emojiGridContent">
+          <!-- Emojis renderizados por JS -->
+        </div>
+      </div>
+
+      <!-- Input para Escribir con Botón de Emoji -->
       <div class="chat-input-bar">
-        <button class="icon-btn" style="background:none;" onclick="toggleClipMenu()">
+        <button class="icon-btn" style="background:none;" onclick="toggleEmojiPicker()" title="Emojis">
+          <i data-lucide="smile" size="20"></i>
+        </button>
+        <button class="icon-btn" style="background:none;" onclick="toggleClipMenu()" title="Adjuntar">
           <i data-lucide="paperclip" size="20"></i>
         </button>
-        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
+        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)" onclick="closeEmojiPicker()">
         <button class="send-btn" onclick="sendMessage()">
           <i data-lucide="send" size="18"></i>
         </button>
       </div>
     </div>
 
-    <!-- Navbar Inferior -->
+    <!-- Navbar Inferior con Ícono de Tienda Corregido -->
     <div class="bottom-nav">
       <button class="nav-item active" onclick="switchTab('chats', this)">
         <i data-lucide="message-circle" size="20"></i>
@@ -2146,7 +2332,7 @@
         <span>Wellness</span>
       </button>
       <button class="nav-item" onclick="switchTab('tienda', this)">
-        <i data-lucide="shopping-bag" size="20"></i>
+        <i data-lucide="store" size="20"></i>
         <span>Tienda</span>
       </button>
       <button class="nav-item" onclick="switchTab('morfeo', this)">
@@ -2169,7 +2355,7 @@
 
       <div class="call-user-section">
         <div class="call-avatar-wrap">
-          <img src="logo_bienestar_png.jpeg" id="callUserAvatar" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo bienestar png.jpeg';">
+          <img src="logo_bienestar_png.jpeg" id="callUserAvatar" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
         </div>
         <div class="call-user-name" id="callUserName">@licandeo30 (Tú)</div>
         <div class="call-status" id="callStatusText">VIDEOLLAMADA EN CURSO...</div>
@@ -2220,7 +2406,7 @@
   </div>
 
   <script>
-    // Inicialización
+    // Inicialización del Splash Screen
     function hideSplash() {
       var splash = document.getElementById('splashScreen');
       if (splash) {
@@ -2236,7 +2422,7 @@
     }
     window.addEventListener('load', function() { setTimeout(hideSplash, 300); });
 
-    // Lucide Icons
+    // Lucide Icons Render
     try {
       if (window.lucide && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
@@ -2265,18 +2451,38 @@
       document.getElementById('settingsFullView').classList.remove('active');
     }
 
-    // Toggle Menú Desplegable de WhatsApp (3 puntos)
+    // Toggle Menú Desplegable de 3 Puntos Principal
     function toggleWhatsAppMenu(e) {
       if (e && e.stopPropagation) e.stopPropagation();
+      var chatMenu = document.getElementById('chatContactMenu');
+      if (chatMenu) chatMenu.classList.remove('active');
+
       var menu = document.getElementById('whatsappMenu');
       if (menu) menu.classList.toggle('active');
     }
 
-    function closeWhatsAppMenuOutside(e) {
-      var menu = document.getElementById('whatsappMenu');
-      if (menu && menu.classList.contains('active')) {
-        menu.classList.remove('active');
-      }
+    // Toggle Menú Desplegable de 3 Puntos del Contacto en el Chat
+    function toggleChatContactMenu(e) {
+      if (e && e.stopPropagation) e.stopPropagation();
+      var mainNav = document.getElementById('whatsappMenu');
+      if (mainNav) mainNav.classList.remove('active');
+
+      var menu = document.getElementById('chatContactMenu');
+      if (menu) menu.classList.toggle('active');
+    }
+
+    function openContactSubmenu(action) {
+      var menu = document.getElementById('chatContactMenu');
+      if (menu) menu.classList.remove('active');
+      alert('⚙️ Opción de contacto: "' + action + '" seleccionada.');
+    }
+
+    function closeAllDropdownsOutside(e) {
+      var mainNav = document.getElementById('whatsappMenu');
+      if (mainNav) mainNav.classList.remove('active');
+
+      var chatNav = document.getElementById('chatContactMenu');
+      if (chatNav) chatNav.classList.remove('active');
     }
 
     function triggerMenuAction(actionName) {
@@ -2333,8 +2539,7 @@
           alert('💬 Chats & Copia de seguridad:\n- Última copia: Hoy a las 04:00 AM\n- Tamaño: 142 MB\n- Guardado en Google Drive / Supabase.');
           break;
         case 'apariencia':
-          document.body.classList.toggle('dark-theme-mode');
-          alert('🎨 Tema visual alternado entre Claro (Teal Air) y Oscuro Orgánico.');
+          alert('🎨 Tema visual en estilo Teal Air & BIENESTAR activo.');
           break;
         case 'difusiones':
           alert('📢 Difusiones: 3 listas activas (Comunidad BIENESTAR, Taller de Meditación, Clientes PyME).');
@@ -2388,7 +2593,7 @@
     };
 
     function updateSensorySlider(val) {
-      var info = sensoryMap[val] || sensoryMap[1];
+      var info = sensoryMap[val] || sensoryMap;
       var badge = document.getElementById('sliderBadge');
       if (badge) {
         badge.innerText = info.label;
@@ -2397,7 +2602,7 @@
     }
 
     function logSensoryChange(val) {
-      var info = sensoryMap[val] || sensoryMap[1];
+      var info = sensoryMap[val] || sensoryMap;
       addMessage('Nivel Sensorial ajustado a: ' + info.label, 'sent');
 
       if (supabase) {
@@ -2435,6 +2640,9 @@
 
     function closeSingleChat() {
       document.getElementById('singleChatView').classList.remove('active');
+      closeEmojiPicker();
+      var clip = document.getElementById('clipMenu');
+      if (clip) clip.classList.remove('active');
     }
 
     function filterContacts(query) {
@@ -2443,6 +2651,62 @@
         var text = item.innerText.toLowerCase();
         item.style.display = text.includes(q) ? 'flex' : 'none';
       });
+    }
+
+    // PANEL DE EMOJIS WHATSAPP
+    var emojiCategories = {
+      faces: ['😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😋','😛','😜','🤪','🤨','🧐','🤓','😎','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓'],
+      wellness: ['🌿','🍃','🧘‍♀️','🧘‍♂️','🌸','🌺','🌻','🌼','💧','🍵','🥗','🍏','🍎','🍇','🥑','🧘','💊','🩺','💚','🫖','🌊','☀️','🌙','✨','⭐'],
+      hands: ['👍','👎','👌','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👏','🙌','👐','🤲','🤝','🙏','💪'],
+      hearts: ['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💖','💗','💓','💞','💕','❣️','💔','⚡','🌟','✨','⭐','💫','🔥']
+    };
+
+    function toggleEmojiPicker() {
+      var panel = document.getElementById('emojiPickerPanel');
+      var clip = document.getElementById('clipMenu');
+      if (clip) clip.classList.remove('active');
+
+      if (panel) {
+        var isActive = panel.classList.toggle('active');
+        if (isActive) {
+          renderEmojis('faces');
+        }
+      }
+    }
+
+    function closeEmojiPicker() {
+      var panel = document.getElementById('emojiPickerPanel');
+      if (panel) panel.classList.remove('active');
+    }
+
+    function switchEmojiCategory(cat, btn) {
+      document.querySelectorAll('.emoji-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      if (btn) btn.classList.add('active');
+      renderEmojis(cat);
+    }
+
+    function renderEmojis(cat) {
+      var container = document.getElementById('emojiGridContent');
+      if (!container) return;
+      container.innerHTML = '';
+      var list = emojiCategories[cat] || emojiCategories['faces'];
+      list.forEach(function(em) {
+        var span = document.createElement('span');
+        span.className = 'emoji-char';
+        span.innerText = em;
+        span.onclick = function() {
+          insertEmoji(em);
+        };
+        container.appendChild(span);
+      });
+    }
+
+    function insertEmoji(emoji) {
+      var input = document.getElementById('chatInput');
+      if (input) {
+        input.value += emoji;
+        input.focus();
+      }
     }
 
     // Videollamada WebRTC Real
@@ -2577,6 +2841,7 @@
         var text = input.value.trim();
         addMessage(text, 'sent');
         input.value = '';
+        closeEmojiPicker();
 
         if (supabase) {
           try {
@@ -2613,6 +2878,7 @@
     }
 
     function toggleClipMenu() {
+      closeEmojiPicker();
       var clip = document.getElementById('clipMenu');
       if (clip) clip.classList.toggle('active');
     }
