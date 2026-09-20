@@ -70,7 +70,7 @@
       }
     }
 
-    /* Splash Screen Inicial con Logo de BIENESTAR (Descarga / Carga) */
+    /* Splash Screen Inicial con Logo de BIENESTAR y Tiempo Ajustado */
     .splash-screen {
       position: absolute;
       top: 0;
@@ -83,12 +83,12 @@
       align-items: center;
       justify-content: center;
       z-index: 200;
-      animation: autoHideSplash 1.2s forwards ease-in-out;
+      animation: autoHideSplash 2.8s forwards ease-in-out;
     }
 
     @keyframes autoHideSplash {
       0% { opacity: 1; visibility: visible; pointer-events: auto; }
-      80% { opacity: 1; visibility: visible; pointer-events: auto; }
+      85% { opacity: 1; visibility: visible; pointer-events: auto; }
       100% { opacity: 0; visibility: hidden; pointer-events: none; display: none; }
     }
 
@@ -100,8 +100,8 @@
     }
 
     .splash-logo-wrap {
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
       background: var(--white);
       display: flex;
@@ -129,7 +129,7 @@
     }
 
     .splash-title {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--dark-teal);
       letter-spacing: -0.5px;
@@ -146,8 +146,8 @@
     }
 
     .loading-bar-wrap {
-      width: 140px;
-      height: 4px;
+      width: 150px;
+      height: 5px;
       background: var(--mint);
       border-radius: 10px;
       overflow: hidden;
@@ -158,7 +158,7 @@
       height: 100%;
       background: linear-gradient(90deg, var(--green-organic), var(--turquoise));
       border-radius: 10px;
-      animation: loadingFill 1.2s ease-in-out infinite;
+      animation: loadingFill 2.5s ease-in-out infinite;
     }
 
     @keyframes loadingFill {
@@ -180,9 +180,9 @@
       z-index: 10;
     }
 
-    /* Header Principal (Limpio y Elegante) */
+    /* Header Principal (Limpio, Sin Nombres de Terceros) */
     .app-header {
-      padding: 10px 18px;
+      padding: 12px 18px;
       background: var(--bg-cream);
       display: flex;
       align-items: center;
@@ -195,22 +195,20 @@
 
     .brand-logo {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
     }
 
     .brand-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
       color: var(--dark-teal);
       letter-spacing: -0.3px;
     }
 
     .brand-subtitle {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--green-organic);
       font-weight: 600;
-      text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
@@ -488,7 +486,7 @@
       width: 100%;
     }
 
-    /* Filtros Rápidos de Chat (Todos / Amigos / Asistente IA / No leídos) */
+    /* Filtros Rápidos de Chat */
     .chat-filter-pills {
       display: flex;
       gap: 8px;
@@ -690,7 +688,7 @@
 
     .fab-new-chat:active { transform: scale(0.9); }
 
-    /* VISTA DE CHAT INDIVIDUAL (AMIGOS / CONTACTOS) */
+    /* VISTA DE CHAT INDIVIDUAL */
     .single-chat-view {
       display: none;
       position: absolute;
@@ -816,33 +814,6 @@
       text-align: right;
     }
 
-    .quick-pills-bar {
-      display: flex;
-      gap: 8px;
-      padding: 6px 14px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .quick-pills-bar::-webkit-scrollbar { display: none; }
-
-    .pill-btn {
-      padding: 5px 12px;
-      background-color: var(--white);
-      border: 1px solid var(--turquoise);
-      color: var(--dark-teal);
-      border-radius: var(--radius-full);
-      font-size: 11.5px;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .pill-btn:active { background-color: var(--mint); }
-
     .chat-input-bar {
       padding: 10px 14px;
       background-color: var(--white);
@@ -882,7 +853,7 @@
       cursor: pointer;
     }
 
-    /* Menú Adjuntos (Clip) Tipo WhatsApp */
+    /* Menú Adjuntos (Clip) Tipo WhatsApp - Sin opción Receta */
     .clip-menu {
       display: none;
       position: absolute;
@@ -938,7 +909,6 @@
     .bg-aud { background: linear-gradient(135deg, #FF9800, #F57C00); }
     .bg-ubi { background: linear-gradient(135deg, #26A69A, #00796B); }
     .bg-con { background: linear-gradient(135deg, #0288D1, #0277BD); }
-    .bg-rec { background: linear-gradient(135deg, #00BFA5, #2C7A7B); }
     .bg-enc { background: linear-gradient(135deg, #FFB300, #FF8F00); }
 
     /* Panel de Emojis Interactivo de WhatsApp */
@@ -1191,7 +1161,7 @@
       height: 66px;
       background-color: var(--white);
       display: flex;
-      justify-style: space-around;
+      justify-content: space-around;
       align-items: center;
       border-top: 1px solid rgba(51, 188, 169, 0.15);
       z-index: 10;
@@ -1635,7 +1605,7 @@
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial (Mantiene el Logo de BIENESTAR al Cargar / Descargar) -->
+    <!-- Splash Screen Inicial (Mantiene el Logo de BIENESTAR al Cargar / Descargar con Tiempo Mayor) -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
         <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
@@ -1652,7 +1622,7 @@
       setTimeout(function() {
         var splash = document.getElementById('splashScreen');
         if (splash) { splash.classList.add('hidden'); splash.style.display = 'none'; }
-      }, 800);
+      }, 2500);
     </script>
 
     <!-- Status Bar Top -->
@@ -1665,13 +1635,11 @@
       </div>
     </div>
 
-    <!-- Header Principal (Limpio y Elegante) -->
+    <!-- Header Principal (Limpio y Sin Marcas de Terceros) -->
     <div class="app-header">
       <div class="brand-logo">
-        <div>
-          <div class="brand-title">BIENESTAR</div>
-          <div class="brand-subtitle">WhatsApp • Business • Instagram</div>
-        </div>
+        <div class="brand-title">BIENESTAR</div>
+        <div class="brand-subtitle">Ecosistema Integral</div>
       </div>
       <div class="header-actions">
         <button class="icon-btn" title="Llamada de Voz" onclick="openVoiceCall()">
@@ -1798,7 +1766,7 @@
           </div>
         </div>
 
-        <!-- Filtros Rápidos de Chat (Todos / Amigos / Asistente IA / No leídos) -->
+        <!-- Filtros Rápidos de Chat -->
         <div class="chat-filter-pills">
           <button class="chat-filter-btn active" onclick="filterChatCategory('todos', this)">Todos</button>
           <button class="chat-filter-btn" onclick="filterChatCategory('amigos', this)">👥 Amigos</button>
@@ -1829,7 +1797,7 @@
                   <span class="contact-name">Camila Silva</span>
                   <span class="business-tag">Amiga</span>
                 </div>
-                <div class="last-msg">¡Hola! ¿Vamos al parque a hacer yoga más tarde? 🧘‍♀️</div>
+                <div class="last-msg">¡Hola! ¿Cómo va tu tarde? 🧘‍♀️</div>
               </div>
             </div>
             <div class="contact-right">
@@ -1971,25 +1939,25 @@
           </div>
 
           <div class="pyme-grid">
-            <div class="pyme-card" onclick="addPillMsg('🛍️ Interés en: Té de Lavanda & Toronjil')">
+            <div class="pyme-card" onclick="addMessage('🛍️ Interés en: Té de Lavanda & Toronjil', 'sent')">
               <div class="pyme-img">🌿</div>
               <div class="pyme-name">Té de Lavanda & Toronjil</div>
               <div class="pyme-desc">Infusión relajante 100% orgánica</div>
               <div class="pyme-price">$8.500</div>
             </div>
-            <div class="pyme-card" onclick="addPillMsg('🛍️ Interés en: Vela Aromática Soya')">
+            <div class="pyme-card" onclick="addMessage('🛍️ Interés en: Vela Aromática Soya', 'sent')">
               <div class="pyme-img">🕯️</div>
               <div class="pyme-name">Vela Aromática Soya</div>
               <div class="pyme-desc">Aceites esenciales naturales</div>
               <div class="pyme-price">$12.000</div>
             </div>
-            <div class="pyme-card" onclick="addPillMsg('🛍️ Interés en: Aceite Esencial Menta')">
+            <div class="pyme-card" onclick="addMessage('🛍️ Interés en: Aceite Esencial Menta', 'sent')">
               <div class="pyme-img">💧</div>
               <div class="pyme-name">Aceite Menta Piperita</div>
               <div class="pyme-desc">Especial para concentración</div>
               <div class="pyme-price">$9.900</div>
             </div>
-            <div class="pyme-card" onclick="addPillMsg('🛍️ Interés en: Sal de Baño Romero')">
+            <div class="pyme-card" onclick="addMessage('🛍️ Interés en: Sal de Baño Romero', 'sent')">
               <div class="pyme-img">🧂</div>
               <div class="pyme-name">Sales Minerales Romero</div>
               <div class="pyme-desc">Desintoxicante & relajante</div>
@@ -2183,10 +2151,10 @@
           <i data-lucide="infinity" size="20"></i> Centro de cuentas
         </div>
         <div class="meta-desc">
-          Controla tu experiencia en WhatsApp, Facebook, Instagram y más.
+          Controla tu experiencia en cuentas vinculadas.
         </div>
 
-        <div style="font-size: 11px; font-weight: 700; color: var(--gray-muted); margin-bottom: 8px;">También de Meta</div>
+        <div style="font-size: 11px; font-weight: 700; color: var(--gray-muted); margin-bottom: 8px;">Cuentas conectadas</div>
         
         <div class="meta-apps-grid">
           <div class="meta-app-icon" onclick="openSubSetting('instagram')">
@@ -2203,7 +2171,7 @@
           </div>
           <div class="meta-app-icon" onclick="openSubSetting('meta-ai')">
             <div class="meta-app-badge"><i data-lucide="sparkles" size="20"></i></div>
-            <span>Meta AI</span>
+            <span>Asistente AI</span>
           </div>
           <div class="meta-app-icon" onclick="openSubSetting('vibes')">
             <div class="meta-app-badge"><i data-lucide="radio" size="20"></i></div>
@@ -2270,23 +2238,15 @@
         <div class="message-row">
           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="avatar-msg" alt="Camila" id="msgAvatarInChat">
           <div class="message-bubble msg-received">
-            ¡Hola Andrea! 👋 ¿Cómo va tu tarde? ¿Vamos al parque a hacer yoga más tarde? 🧘‍♀️
+            ¡Hola Andrea! 👋 ¿Cómo va tu tarde? 
             <div class="msg-time">10:14</div>
           </div>
         </div>
       </div>
 
-      <!-- Barra de Píldoras Rápidas para Chatear con Amigos -->
-      <div class="quick-pills-bar">
-        <button class="pill-btn" onclick="addPillMsg('🧘‍♀️ ¡Súper! Me sumo al yoga.')">🧘‍♀️ Yoga</button>
-        <button class="pill-btn" onclick="addPillMsg('🍵 Tomemos un té helado.')">🍵 Té</button>
-        <button class="pill-btn" onclick="addPillMsg('💧 Ya tomé mis 2 Litros de agua hoy!')">💧 Hidratación</button>
-        <button class="pill-btn" onclick="openVideoCall()">📹 Videollamada</button>
-      </div>
-
-      <!-- Menú de Clip Adjuntos Tipo WhatsApp -->
+      <!-- Menú de Clip Adjuntos Tipo WhatsApp - Sin Receta -->
       <div class="clip-menu" id="clipMenu">
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📄 Documento adjunto enviado.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addMessage('📄 Documento adjunto enviado.', 'sent');">
           <div class="clip-icon-circle bg-doc"><i data-lucide="file-text" size="20"></i></div>
           <span>Documento</span>
         </div>
@@ -2294,27 +2254,23 @@
           <div class="clip-icon-circle bg-cam"><i data-lucide="camera" size="20"></i></div>
           <span>Cámara</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🖼️ Foto enviada a tu amigo.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addMessage('🖼️ Foto enviada a tu amigo.', 'sent');">
           <div class="clip-icon-circle bg-gal"><i data-lucide="image" size="20"></i></div>
           <span>Galería</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('🎧 Mensaje de voz enviado.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addMessage('🎧 Mensaje de voz enviado.', 'sent');">
           <div class="clip-icon-circle bg-aud"><i data-lucide="headphones" size="20"></i></div>
           <span>Audio</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📍 Ubicación enviada.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addMessage('📍 Ubicación enviada.', 'sent');">
           <div class="clip-icon-circle bg-ubi"><i data-lucide="map-pin" size="20"></i></div>
           <span>Ubicación</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('👤 Contacto compartido.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addMessage('👤 Contacto compartido.', 'sent');">
           <div class="clip-icon-circle bg-con"><i data-lucide="user" size="20"></i></div>
           <span>Contacto</span>
         </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('💊 Recordatorio o receta compartida.');">
-          <div class="clip-icon-circle bg-rec"><i data-lucide="pill" size="20"></i></div>
-          <span>Receta</span>
-        </div>
-        <div class="clip-item" onclick="toggleClipMenu(); addPillMsg('📊 Encuesta enviada al chat.');">
+        <div class="clip-item" onclick="toggleClipMenu(); addMessage('📊 Encuesta enviada al chat.', 'sent');">
           <div class="clip-icon-circle bg-enc"><i data-lucide="bar-chart-2" size="20"></i></div>
           <span>Encuesta</span>
         </div>
@@ -2375,7 +2331,7 @@
           <i data-lucide="lock" size="14"></i>
           <span>Cifrado de extremo a extremo</span>
         </div>
-        <div class="call-add-user" onclick="addPillMsg('👥 Participante invitado a la llamada')">
+        <div class="call-add-user" onclick="addMessage('👥 Participante invitado a la llamada', 'sent')">
           <i data-lucide="user-plus" size="18"></i>
         </div>
       </div>
@@ -2415,11 +2371,11 @@
           <span class="call-btn-label">Silenciar</span>
         </div>
 
-        <div class="call-control-item" onclick="addPillMsg('⚙️ Opciones avanzadas de llamada habilitadas')">
+        <div class="call-control-item" onclick="addMessage('⚙️ Opciones avanzadas de llamada habilitadas', 'sent')">
           <button class="call-btn"><i data-lucide="more-horizontal" size="22"></i></button>
           <span class="call-btn-label">Más</span>
         </div>
-        <div class="call-control-item" onclick="addPillMsg('🔗 Enlace de llamada copiado al portapapeles')">
+        <div class="call-control-item" onclick="addMessage('🔗 Enlace de llamada copiado al portapapeles', 'sent')">
           <button class="call-btn"><i data-lucide="share-2" size="22"></i></button>
           <span class="call-btn-label">Compartir</span>
         </div>
@@ -2443,11 +2399,11 @@
     }
 
     if (document.readyState === 'interactive' || document.readyState === 'complete') {
-      setTimeout(hideSplash, 500);
+      setTimeout(hideSplash, 2500);
     } else {
-      document.addEventListener('DOMContentLoaded', function() { setTimeout(hideSplash, 500); });
+      document.addEventListener('DOMContentLoaded', function() { setTimeout(hideSplash, 2500); });
     }
-    window.addEventListener('load', function() { setTimeout(hideSplash, 300); });
+    window.addEventListener('load', function() { setTimeout(hideSplash, 2500); });
 
     // Lucide Icons Render
     try {
@@ -2630,7 +2586,7 @@
         case 'threads':
         case 'meta-ai':
         case 'vibes':
-          alert('♾️ Centro de Cuentas Meta: Vinculado correctamente con @licandeo30.');
+          alert('♾️ Centro de Cuentas: Vinculado correctamente.');
           break;
         default:
           alert('⚙️ Configuración de ' + type + ' actualizada.');
@@ -2889,10 +2845,6 @@
     function toggleCallControl(element) {
       var btn = element.querySelector('.call-btn');
       if (btn) btn.classList.toggle('off');
-    }
-
-    function addPillMsg(text) {
-      addMessage(text, 'sent');
     }
 
     function sendMessage() {
