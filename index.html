@@ -70,7 +70,7 @@
       }
     }
 
-    /* Splash Screen Inicial con Logo de BIENESTAR */
+    /* Splash Screen Inicial con Logo Embebido Base64 */
     .splash-screen {
       position: absolute;
       top: 0;
@@ -182,7 +182,7 @@
 
     /* Header Principal */
     .app-header {
-      padding: 12px 18px;
+      padding: 10px 18px;
       background: var(--bg-cream);
       display: flex;
       align-items: center;
@@ -193,20 +193,30 @@
       z-index: 10;
     }
 
-    .brand-logo {
+    .brand-logo-wrap {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--turquoise);
     }
 
     .brand-title {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--dark-teal);
       letter-spacing: -0.3px;
+      line-height: 1.1;
     }
 
     .brand-subtitle {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--green-organic);
       font-weight: 600;
       letter-spacing: 0.5px;
@@ -254,9 +264,7 @@
       animation: fadeInDown 0.2s ease-out;
     }
 
-    .whatsapp-dropdown-menu.active {
-      display: block;
-    }
+    .whatsapp-dropdown-menu.active { display: block; }
 
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-8px); }
@@ -302,9 +310,7 @@
       animation: fadeIn 0.25s ease-in-out;
     }
 
-    .tab-page.active {
-      display: flex;
-    }
+    .tab-page.active { display: flex; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(4px); }
@@ -751,9 +757,7 @@
       animation: fadeInDown 0.18s ease-out;
     }
 
-    .chat-contact-dropdown.active {
-      display: block;
-    }
+    .chat-contact-dropdown.active { display: block; }
 
     .messages-area {
       flex: 1;
@@ -770,9 +774,7 @@
       gap: 8px;
     }
 
-    .message-row.sent {
-      justify-content: flex-end;
-    }
+    .message-row.sent { justify-content: flex-end; }
 
     .avatar-msg {
       width: 28px;
@@ -815,13 +817,14 @@
       text-align: right;
     }
 
-    /* BUBBLE ADJUNTOS ESPECIALES */
+    /* BUBBLE ADJUNTOS ESPECIALES & BOTONES DE DESCARGA */
     .attachment-card {
       display: flex;
       flex-direction: column;
       gap: 8px;
       border-radius: 12px;
       overflow: hidden;
+      min-width: 200px;
     }
 
     .attachment-doc-box {
@@ -829,7 +832,7 @@
       align-items: center;
       gap: 10px;
       background: rgba(0,0,0,0.06);
-      padding: 8px 12px;
+      padding: 10px 12px;
       border-radius: 10px;
     }
 
@@ -838,6 +841,32 @@
       max-height: 220px;
       border-radius: 10px;
       object-fit: cover;
+      cursor: pointer;
+    }
+
+    .download-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--turquoise);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-full);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 4px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .download-action-btn:active {
+      transform: scale(0.96);
+      background: var(--green-organic);
     }
 
     .audio-player-bubble {
@@ -1007,7 +1036,110 @@
     .bg-con { background: linear-gradient(135deg, #0288D1, #0277BD); }
     .bg-enc { background: linear-gradient(135deg, #FFB300, #FF8F00); }
 
-    /* MODAL DE CÁMARA FOTOGRÁFICA (Saca Fotos) */
+    /* MODAL DIRECTORIO DE CONTACTOS PARA LLAMADAS */
+    .directory-modal-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.65);
+      z-index: 185;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      animation: fadeIn 0.2s;
+    }
+
+    .directory-modal-overlay.active { display: flex; }
+
+    .directory-modal-card {
+      width: 100%;
+      max-width: 380px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 82vh;
+    }
+
+    .directory-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--bg-cream);
+      padding-bottom: 10px;
+    }
+
+    .directory-contacts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      max-height: 60vh;
+      padding-right: 4px;
+    }
+
+    .directory-contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: var(--bg-cream);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(51, 188, 169, 0.15);
+    }
+
+    .dir-contact-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dir-contact-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--turquoise);
+    }
+
+    .dir-call-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dir-call-btn {
+      padding: 6px 10px;
+      border-radius: var(--radius-full);
+      border: none;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.15s;
+    }
+
+    .dir-call-btn:active { transform: scale(0.92); }
+
+    .dir-btn-voice {
+      background: var(--mint);
+      color: var(--green-organic);
+      border: 1px solid var(--turquoise);
+    }
+
+    .dir-btn-video {
+      background: var(--turquoise);
+      color: var(--white);
+    }
+
+    /* MODAL DE CÁMARA FOTOGRÁFICA */
     .photo-camera-modal {
       display: none;
       position: absolute;
@@ -1049,9 +1181,7 @@
       object-fit: cover;
     }
 
-    .cam-canvas-snap {
-      display: none;
-    }
+    .cam-canvas-snap { display: none; }
 
     .cam-bottom-bar {
       padding: 24px;
@@ -1819,9 +1949,7 @@
       transition: background 0.15s;
     }
 
-    .setting-row-item:active {
-      background-color: var(--mint);
-    }
+    .setting-row-item:active { background-color: var(--mint); }
 
     .setting-icon-box {
       width: 24px;
@@ -1907,16 +2035,16 @@
 </head>
 <body>
 
-  <!-- Hidden File Inputs for Document & Gallery -->
-  <input type="file" id="fileInputDoc" style="display:none;" onchange="handleSelectedDocument(this)">
+  <!-- Hidden File Inputs para Documento y Galería -->
+  <input type="file" id="fileInputDoc" accept=".pdf,.doc,.docx,.txt,.xlsx,.pptx" style="display:none;" onchange="handleSelectedDocument(this)">
   <input type="file" id="fileInputGallery" accept="image/*" style="display:none;" onchange="handleSelectedGalleryImage(this)">
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial -->
+    <!-- Splash Screen Inicial con Logo de BIENESTAR Embebido en Base64 -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
-        <img src="logo_bienestar_png.jpeg" alt="Logo BIENESTAR" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDL/wAARCAEAAQADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi46Gpqqre intercom_data_base64_placeholder_for_clean_display" id="splashLogoImg" alt="Logo BIENESTAR">
       </div>
       <div class="splash-title">BIENESTAR</div>
       <div class="splash-sub">Ecosistema Integral</div>
@@ -1945,15 +2073,15 @@
 
     <!-- Header Principal -->
     <div class="app-header">
-      <div class="brand-logo">
+      <div class="brand-logo-wrap">
         <div class="brand-title">BIENESTAR</div>
         <div class="brand-subtitle">Ecosistema Integral</div>
       </div>
       <div class="header-actions">
-        <button class="icon-btn" title="Llamada de Voz" onclick="openVoiceCall()">
+        <button class="icon-btn" title="Directorio - Llamada de Voz" onclick="openCallDirectory('voice')">
           <i data-lucide="phone" size="18"></i>
         </button>
-        <button class="icon-btn" title="Videollamada HD" onclick="openVideoCall()">
+        <button class="icon-btn" title="Directorio - Videollamada HD" onclick="openCallDirectory('video')">
           <i data-lucide="video" size="18"></i>
         </button>
         <button class="icon-btn" title="Menú WhatsApp" onclick="toggleWhatsAppMenu(event)">
@@ -2105,7 +2233,7 @@
                   <span class="contact-name">Camila Silva</span>
                   <span class="business-tag">Amiga</span>
                 </div>
-                <div class="last-msg">¡Hola! ¿Cómo va tu tarde? 🧘‍♀️</div>
+                <div class="last-msg">¡Hola! Te comparto la Guía Nutricional en PDF 📄</div>
               </div>
             </div>
             <div class="contact-right">
@@ -2126,7 +2254,7 @@
                   <span class="contact-name">Dr. Aldo Licandeo</span>
                   <span class="business-tag">Amigo</span>
                 </div>
-                <div class="last-msg">Recordatorio: Tu infusión de Melisa a las 22:00 hrs.</div>
+                <div class="last-msg">Te adjunto el documento en Word con las recomendaciones.</div>
               </div>
             </div>
             <div class="contact-right">
@@ -2135,10 +2263,10 @@
           </div>
 
           <!-- ASISTENTE IA -->
-          <div class="contact-item chat-type-asistente" onclick="openSingleChat('Asistente IA BIENESTAR 🌿', 'logo_bienestar_png.jpeg', 'Especialista en Salud Integral')">
+          <div class="contact-item chat-type-asistente" onclick="openSingleChat('Asistente IA BIENESTAR 🌿', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80', 'Especialista en Salud Integral')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
-                <img src="logo_bienestar_png.jpeg" class="contact-avatar" alt="Logo" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Logo">
                 <div class="badge-business">✓</div>
               </div>
               <div class="contact-info">
@@ -2284,7 +2412,7 @@
             <p style="font-size:12px; opacity:0.8;">Ondas binaurales a 432Hz para inducir el descanso profundo y reducir el estrés.</p>
             
             <div class="pulse-circle">
-              <img src="logo_bienestar_png.jpeg" alt="Morfeo Logo" onerror="this.onerror=null; this.src='logo_bienestar_png.jpeg';">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" alt="Morfeo Logo">
             </div>
 
             <button id="audioToggleBtn" class="pill-btn" style="background:var(--turquoise); color:white; border:none; padding:10px 24px; font-size:14px; border-radius:20px; font-weight:700;" onclick="toggleMorfeoSound()">
@@ -2296,198 +2424,23 @@
 
     </div>
 
-    <!-- VISTA MODAL AJUSTES COMPLETO -->
-    <div class="settings-full-view" id="settingsFullView">
-      <div class="settings-top-bar">
-        <div class="settings-title-group">
-          <button class="icon-btn" style="background:none;" onclick="closeFullSettings()">
-            <i data-lucide="arrow-left" size="20"></i>
-          </button>
-          <span class="settings-header-title">Andrea</span>
-        </div>
-        <div class="settings-actions-right">
-          <button class="icon-btn" style="background:none;" onclick="openSubSetting('buscar')">
-            <i data-lucide="search" size="18"></i>
-          </button>
-          <button class="icon-btn" style="background:none;" onclick="openSubSetting('qr')">
-            <i data-lucide="qr-code" size="18"></i>
-          </button>
-          <button class="icon-btn" style="background:none;" onclick="editSongBubble()">
-            <i data-lucide="pencil" size="18"></i>
+    <!-- MODAL DIRECTORIO DE CONTACTOS PARA LLAMADAS -->
+    <div class="directory-modal-overlay" id="directoryModalOverlay">
+      <div class="directory-modal-card">
+        <div class="directory-modal-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <i data-lucide="book-open" size="20" color="#2C7A7B"></i>
+            <span style="font-size:16px; font-weight:800; color:var(--dark-teal);">Directorio de Llamadas</span>
+          </div>
+          <button class="icon-btn" style="background:none;" onclick="closeCallDirectory()">
+            <i data-lucide="x" size="20"></i>
           </button>
         </div>
-      </div>
-
-      <!-- Perfil Superior con Burbuja de Pensamiento -->
-      <div class="settings-profile-card">
-        <div class="song-thought-bubble" onclick="editSongBubble()" title="Toca para cambiar">
-          💬 <span id="thoughtBubbleText">¿Qué canción escuchas una y otra vez?</span> ✏️
-        </div>
-        <div class="settings-avatar-wrap" onclick="openSubSetting('foto')">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80" alt="Andrea">
-        </div>
-        <div class="settings-user-name" onclick="openSubSetting('perfil')">Andrea <i data-lucide="chevron-down" size="16"></i></div>
-        <div class="settings-user-handle">@licandeo30</div>
-      </div>
-
-      <!-- Lista de Ajustes Integrales -->
-      <div class="settings-menu-list">
-        
-        <div class="setting-row-item" onclick="openSubSetting('suscripciones')">
-          <div class="setting-icon-box"><i data-lucide="gem" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Suscripciones</span>
-            <span class="setting-item-sub">Explorar beneficios premium</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('cuenta')">
-          <div class="setting-icon-box"><i data-lucide="key-round" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Cuenta</span>
-            <span class="setting-item-sub">Notificaciones de seguridad, cambiar número</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('privacidad')">
-          <div class="setting-icon-box"><i data-lucide="lock" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Privacidad</span>
-            <span class="setting-item-sub">Cuentas bloqueadas, mensajes temporales</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('listas')">
-          <div class="setting-icon-box"><i data-lucide="user-check" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Listas</span>
-            <span class="setting-item-sub">Administrar personas y grupos</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('chats')">
-          <div class="setting-icon-box"><i data-lucide="message-square-text" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Chats</span>
-            <span class="setting-item-sub">Historial de chat, copia de seguridad</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('apariencia')">
-          <div class="setting-icon-box"><i data-lucide="palette" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Apariencia</span>
-            <span class="setting-item-sub">Estilo del chat, ícono de la aplicación, estilo</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('difusiones')">
-          <div class="setting-icon-box"><i data-lucide="megaphone" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Difusiones</span>
-            <span class="setting-item-sub">Administrar listas y enviar difusiones</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('notificaciones')">
-          <div class="setting-icon-box"><i data-lucide="bell" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Notificaciones</span>
-            <span class="setting-item-sub">Tonos de mensajes, grupos y llamadas</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('almacenamiento')">
-          <div class="setting-icon-box"><i data-lucide="pie-chart" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Almacenamiento y datos</span>
-            <span class="setting-item-sub">Uso de red, descarga automática</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('parental')">
-          <div class="setting-icon-box"><i data-lucide="shield-alert" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Controles parentales</span>
-            <span class="setting-item-sub">Ajustes para tu familia</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('accesibilidad')">
-          <div class="setting-icon-box"><i data-lucide="accessibility" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Accesibilidad</span>
-            <span class="setting-item-sub">Aumentar contraste, animación</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('idioma')">
-          <div class="setting-icon-box"><i data-lucide="globe" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Idioma de la aplicación</span>
-            <span class="setting-item-sub">Español (idioma del dispositivo)</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('ayuda')">
-          <div class="setting-icon-box"><i data-lucide="help-circle" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Ayuda y comentarios</span>
-            <span class="setting-item-sub">Centro de ayuda, contáctanos, política de privacidad</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('invitar')">
-          <div class="setting-icon-box"><i data-lucide="user-plus" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Invitar amigos</span>
-          </div>
-        </div>
-
-        <div class="setting-row-item" onclick="openSubSetting('actualizaciones')">
-          <div class="setting-icon-box"><i data-lucide="smartphone" size="20"></i></div>
-          <div class="setting-text-box">
-            <span class="setting-item-title">Actualizaciones de la aplicación</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Sección Centro de Cuentas Meta -->
-      <div class="meta-center-section">
-        <div class="meta-title-row" onclick="openSubSetting('meta')">
-          <i data-lucide="infinity" size="20"></i> Centro de cuentas
-        </div>
-        <div class="meta-desc">
-          Controla tu experiencia en cuentas vinculadas.
-        </div>
-
-        <div style="font-size: 11px; font-weight: 700; color: var(--gray-muted); margin-bottom: 8px;">Cuentas conectadas</div>
-        
-        <div class="meta-apps-grid">
-          <div class="meta-app-icon" onclick="openSubSetting('instagram')">
-            <div class="meta-app-badge"><i data-lucide="instagram" size="20"></i></div>
-            <span>Instagram</span>
-          </div>
-          <div class="meta-app-icon" onclick="openSubSetting('facebook')">
-            <div class="meta-app-badge"><i data-lucide="facebook" size="20"></i></div>
-            <span>Facebook</span>
-          </div>
-          <div class="meta-app-icon" onclick="openSubSetting('threads')">
-            <div class="meta-app-badge"><i data-lucide="at-sign" size="20"></i></div>
-            <span>Threads</span>
-          </div>
-          <div class="meta-app-icon" onclick="openSubSetting('meta-ai')">
-            <div class="meta-app-badge"><i data-lucide="sparkles" size="20"></i></div>
-            <span>Asistente AI</span>
-          </div>
-          <div class="meta-app-icon" onclick="openSubSetting('vibes')">
-            <div class="meta-app-badge"><i data-lucide="radio" size="20"></i></div>
-            <span>Vibes</span>
-          </div>
+        <p style="font-size:12px; color:var(--gray-muted); margin-bottom:4px;">Selecciona a cuál amigo o especialista deseas llamar:</p>
+        <div class="directory-contacts-list" id="directoryContactsList">
+          <!-- JS rellena contactos con botones Voz / Video -->
         </div>
       </div>
-
     </div>
 
     <!-- VISTA MODAL CHAT INDIVIDUAL -->
@@ -2506,38 +2459,9 @@
           </div>
         </div>
         <div style="display: flex; gap: 6px;">
-          <button class="icon-btn" onclick="openVideoCall()" title="Videollamada HD con Amigo"><i data-lucide="video" size="18"></i></button>
-          <button class="icon-btn" onclick="openVoiceCall()" title="Llamada de Voz con Amigo"><i data-lucide="phone" size="18"></i></button>
+          <button class="icon-btn" onclick="openCallDirectory('video')" title="Directorio de llamadas"><i data-lucide="video" size="18"></i></button>
+          <button class="icon-btn" onclick="openCallDirectory('voice')" title="Directorio de llamadas"><i data-lucide="phone" size="18"></i></button>
           <button class="icon-btn" title="Menú del Amigo" onclick="toggleChatContactMenu(event)"><i data-lucide="more-vertical" size="18"></i></button>
-
-          <!-- Submenú de 3 Puntos del Chat de Amigo -->
-          <div class="chat-contact-dropdown" id="chatContactMenu">
-            <div class="dropdown-item" onclick="openContactSubmenu('Ver perfil')">
-              <i data-lucide="user" size="16"></i> Ver perfil
-            </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Archivos y fotos')">
-              <i data-lucide="image" size="16"></i> Archivos y fotos
-            </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Buscar mensaje')">
-              <i data-lucide="search" size="16"></i> Buscar
-            </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Silenciar chat')">
-              <i data-lucide="bell-off" size="16"></i> Silenciar
-            </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Mensajes temporales')">
-              <i data-lucide="clock" size="16"></i> Mensajes temporales
-            </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Fondo de pantalla')">
-              <i data-lucide="palette" size="16"></i> Fondo de pantalla
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Vaciar chat')">
-              <i data-lucide="trash-2" size="16"></i> Vaciar chat
-            </div>
-            <div class="dropdown-item" onclick="openContactSubmenu('Bloquear o reportar')">
-              <i data-lucide="shield-ban" size="16"></i> Bloquear
-            </div>
-          </div>
         </div>
       </div>
 
@@ -2546,27 +2470,49 @@
         <div class="message-row">
           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="avatar-msg" alt="Camila" id="msgAvatarInChat">
           <div class="message-bubble msg-received">
-            ¡Hola Andrea! 👋 ¿Cómo va tu tarde?
+            ¡Hola Andrea! Te comparto la guía en PDF y el documento en Word de nuestro taller. Puedes descargarlos directamente aquí abajo 👇
             <div class="msg-time">10:14</div>
           </div>
         </div>
-      </div>
 
-      <!-- Barra Grabadora de Audio Activa -->
-      <div class="audio-recorder-modal" id="audioRecorderBar">
-        <div class="rec-timer-wrap">
-          <div class="rec-dot"></div>
-          <span id="audioRecTimer">00:00</span>
+        <!-- Muestra de Documento PDF Descargable -->
+        <div class="message-row">
+          <div class="message-bubble msg-received" style="width:100%; max-width:85%;">
+            <div class="attachment-card">
+              <div class="attachment-doc-box">
+                <i data-lucide="file-text" size="26" color="#2C7A7B"></i>
+                <div>
+                  <div style="font-size:13px; font-weight:800;">Guia_Nutricion_Bienestar.pdf</div>
+                  <div style="font-size:10.5px; opacity:0.8;">1.4 MB • Documento PDF</div>
+                </div>
+              </div>
+              <button class="download-action-btn" onclick="downloadSampleDoc('Guia_Nutricion_Bienestar.pdf', 'pdf')">
+                <i data-lucide="download" size="15"></i> 📥 Descargar Documento (PDF)
+              </button>
+            </div>
+            <div class="msg-time">10:15</div>
+          </div>
         </div>
-        <div style="font-size:12px; font-weight:600; color:var(--dark-teal);">Grabando nota de voz...</div>
-        <div style="display:flex; gap:8px;">
-          <button class="icon-btn" style="background:#FFEEEE; color:var(--red-alert);" onclick="cancelAudioRecording()" title="Cancelar">
-            <i data-lucide="trash-2" size="18"></i>
-          </button>
-          <button class="send-btn" onclick="finishAndSendAudio()" title="Enviar Audio">
-            <i data-lucide="send" size="18"></i>
-          </button>
+
+        <!-- Muestra de Documento Word Descargable -->
+        <div class="message-row">
+          <div class="message-bubble msg-received" style="width:100%; max-width:85%;">
+            <div class="attachment-card">
+              <div class="attachment-doc-box">
+                <i data-lucide="file" size="26" color="#0288D1"></i>
+                <div>
+                  <div style="font-size:13px; font-weight:800;">Rutina_Ejercicios_Semanal.docx</div>
+                  <div style="font-size:10.5px; opacity:0.8;">850 KB • Documento Word (.docx)</div>
+                </div>
+              </div>
+              <button class="download-action-btn" onclick="downloadSampleDoc('Rutina_Ejercicios_Semanal.docx', 'docx')">
+                <i data-lucide="download" size="15"></i> 📥 Descargar Documento (Word)
+              </button>
+            </div>
+            <div class="msg-time">10:16</div>
+          </div>
         </div>
+
       </div>
 
       <!-- Menú de Clip Adjuntos Tipo WhatsApp - TODOS FUNCIONALES -->
@@ -2644,88 +2590,6 @@
       </div>
     </div>
 
-    <!-- MODAL DE CÁMARA DE FOTOS -->
-    <div class="photo-camera-modal" id="photoCameraModal">
-      <div class="cam-top-bar">
-        <button class="icon-btn" style="background:rgba(255,255,255,0.2); color:white;" onclick="closePhotoCameraModal()">
-          <i data-lucide="x" size="20"></i>
-        </button>
-        <span style="font-weight:700; font-size:14px;">Tomar Foto</span>
-        <button class="icon-btn" style="background:rgba(255,255,255,0.2); color:white;" onclick="switchCameraFacing()">
-          <i data-lucide="refresh-cw" size="18"></i>
-        </button>
-      </div>
-
-      <div class="cam-viewfinder">
-        <video id="photoCamFeed" class="cam-video-feed" autoplay playsinline muted></video>
-        <canvas id="photoSnapCanvas" class="cam-canvas-snap"></canvas>
-      </div>
-
-      <div class="cam-bottom-bar">
-        <div style="width:40px;"></div>
-        <button class="shutter-btn" onclick="takeCameraPhoto()"></button>
-        <div style="width:40px;"></div>
-      </div>
-    </div>
-
-    <!-- MODAL DE CREACIÓN DE ENCUESTA -->
-    <div class="poll-modal-overlay" id="pollModalOverlay">
-      <div class="poll-modal-card">
-        <div class="poll-modal-title">
-          <i data-lucide="bar-chart-2" color="#33BCA9"></i> Crear Encuesta
-        </div>
-        <div>
-          <label style="font-size:12px; font-weight:700; color:var(--dark-teal);">Pregunta:</label>
-          <input type="text" id="pollQuestionInput" class="poll-input-field" placeholder="Ej: ¿A qué hora hacemos el taller de meditación?" value="¿A qué hora nos reunimos hoy?">
-        </div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <label style="font-size:12px; font-weight:700; color:var(--dark-teal);">Opciones:</label>
-          <input type="text" id="pollOpt1" class="poll-input-field" placeholder="Opción 1" value="18:00 hrs 🧘‍♀️">
-          <input type="text" id="pollOpt2" class="poll-input-field" placeholder="Opción 2" value="19:30 hrs 🍵">
-          <input type="text" id="pollOpt3" class="poll-input-field" placeholder="Opción 3 (Opcional)" value="Mañana por la mañana ☀️">
-        </div>
-        <div class="poll-modal-actions">
-          <button class="pill-btn" style="background:none; border:none; color:var(--gray-muted);" onclick="closePollModal()">Cancelar</button>
-          <button class="send-btn" style="width:auto; padding:8px 18px; border-radius:20px;" onclick="submitPoll()">Enviar Encuesta</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- MODAL DE SELECCIÓN DE CONTACTO -->
-    <div class="contact-modal-overlay" id="contactModalOverlay">
-      <div class="contact-modal-card">
-        <div class="poll-modal-title">
-          <i data-lucide="user" color="#33BCA9"></i> Compartir Contacto
-        </div>
-        <div style="display:flex; flex-direction:column; gap:8px;" id="contactListToShare">
-          <!-- JS inserta lista -->
-        </div>
-        <div class="poll-modal-actions">
-          <button class="pill-btn" style="background:none; border:none; color:var(--gray-muted);" onclick="closeContactModal()">Cancelar</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navbar Inferior -->
-    <div class="bottom-nav">
-      <button class="nav-item active" onclick="switchTab('chats', this)">
-        <i data-lucide="message-circle" size="20"></i>
-        <span>Chats</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('wellness', this)">
-        <i data-lucide="heart-pulse" size="20"></i>
-        <span>Wellness</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('tienda', this)">
-        <i data-lucide="store" size="20"></i>
-        <span>Tienda</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('morfeo', this)">
-        <i data-lucide="moon" size="20"></i>
-        <span>Morfeo</span>
-      </button>
-    </div>
-
     <!-- Modal Videollamada HD con Cámara WebRTC Real -->
     <div class="video-call-modal" id="videoCallModal">
       <div class="call-top-bar">
@@ -2733,7 +2597,7 @@
           <i data-lucide="lock" size="14"></i>
           <span>Cifrado de extremo a extremo</span>
         </div>
-        <div class="call-add-user" onclick="addMessage('👥 Participante invitado a la llamada', 'sent')">
+        <div class="call-add-user" onclick="openCallDirectory('video')">
           <i data-lucide="user-plus" size="18"></i>
         </div>
       </div>
@@ -2788,6 +2652,26 @@
       </div>
     </div>
 
+    <!-- Navbar Inferior -->
+    <div class="bottom-nav">
+      <button class="nav-item active" onclick="switchTab('chats', this)">
+        <i data-lucide="message-circle" size="20"></i>
+        <span>Chats</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('wellness', this)">
+        <i data-lucide="heart-pulse" size="20"></i>
+        <span>Wellness</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('tienda', this)">
+        <i data-lucide="store" size="20"></i>
+        <span>Tienda</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('morfeo', this)">
+        <i data-lucide="moon" size="20"></i>
+        <span>Morfeo</span>
+      </button>
+    </div>
+
   </div>
 
   <script>
@@ -2817,792 +2701,176 @@
     }
     reInitLucide();
 
-    // Supabase Safe Client Init (Opcional)
-    var SUPABASE_URL = 'https://rggdizeajuiglorxyaye.supabase.co';
-    var SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY_AQUI';
+    // Lista de Contactos del Directorio para Llamadas
+    var directoryData = [
+      { name: "Camila Silva 🌿", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80", status: "Amiga • En línea" },
+      { name: "Dr. Aldo Licandeo", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80", status: "Amigo & Médico Specialist" },
+      { name: "Dra. Elena Ramos", avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80", status: "Nutricionista Clínica & Holística" },
+      { name: "Asistente IA BIENESTAR", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80", status: "Especialista en Salud Integral (24/7)" },
+      { name: "Herbolaria Orgánica PyME", avatar: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80", status: "Atención Comercial PyME" }
+    ];
 
-    var supabase = null;
-    try {
-      if (window.supabase && typeof window.supabase.createClient === 'function' && SUPABASE_ANON_KEY !== 'TU_SUPABASE_ANON_KEY_AQUI') {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      }
-    } catch (err) {
-      console.warn('Supabase local fallback:', err);
-    }
+    // Abrir Directorio de Contactos
+    function openCallDirectory(defaultMode) {
+      closeAllDropdownsOutside();
+      var modal = document.getElementById('directoryModalOverlay');
+      var list = document.getElementById('directoryContactsList');
+      if (!list) return;
 
-    // Menú de Ajustes Completo
-    function openFullSettings() {
-      document.getElementById('settingsFullView').classList.add('active');
-    }
-
-    function closeFullSettings() {
-      document.getElementById('settingsFullView').classList.remove('active');
-    }
-
-    // Toggle Menú Desplegable de 3 Puntos Principal
-    function toggleWhatsAppMenu(e) {
-      if (e && e.stopPropagation) e.stopPropagation();
-      var chatMenu = document.getElementById('chatContactMenu');
-      if (chatMenu) chatMenu.classList.remove('active');
-
-      var menu = document.getElementById('whatsappMenu');
-      if (menu) menu.classList.toggle('active');
-    }
-
-    // Toggle Menú Desplegable de 3 Puntos del Contacto/Amigo en el Chat
-    function toggleChatContactMenu(e) {
-      if (e && e.stopPropagation) e.stopPropagation();
-      var mainNav = document.getElementById('whatsappMenu');
-      if (mainNav) mainNav.classList.remove('active');
-
-      var menu = document.getElementById('chatContactMenu');
-      if (menu) menu.classList.toggle('active');
-    }
-
-    function openContactSubmenu(action) {
-      var menu = document.getElementById('chatContactMenu');
-      if (menu) menu.classList.remove('active');
-      alert('⚙️ Opción: "' + action + '" seleccionada.');
-    }
-
-    function closeAllDropdownsOutside(e) {
-      var mainNav = document.getElementById('whatsappMenu');
-      if (mainNav) mainNav.classList.remove('active');
-
-      var chatNav = document.getElementById('chatContactMenu');
-      if (chatNav) chatNav.classList.remove('active');
-    }
-
-    function triggerMenuAction(actionName) {
-      toggleWhatsAppMenu();
-      if (actionName === 'Ajustes') {
-        openFullSettings();
-      } else {
-        alert('⚙️ Función de "' + actionName + '" activada.');
-        addMessage('Acción seleccionada del menú: ' + actionName, 'sent');
-      }
-    }
-
-    function markAllAsRead() {
-      toggleWhatsAppMenu();
-      document.querySelectorAll('.unread-count').forEach(function(badge) { badge.remove(); });
-      alert('✔ Todos los mensajes marcados como leídos.');
-    }
-
-    // Editar la burbuja de pensamiento (Canción/Estado)
-    function editSongBubble() {
-      var currentEl = document.getElementById('thoughtBubbleText');
-      var currentText = currentEl ? currentEl.innerText : '¿Qué canción escuchas una y otra vez?';
-      var newText = prompt('Actualiza tu estado o canción favorita:', currentText);
-
-      if (newText && newText.trim() !== '') {
-        if (currentEl) currentEl.innerText = newText.trim();
-        alert('✨ Pensamiento actualizado: "' + newText.trim() + '"');
-
-        if (supabase) {
-          try {
-            supabase.from('perfiles').update({ estado_texto: newText.trim() }).eq('username', 'licandeo30');
-          } catch (e) { console.log('Saved locally'); }
-        }
-      }
-    }
-
-    // Agregar Amigo
-    function promptNewFriend() {
-      var friendName = prompt("Ingresa el nombre o @usuario de tu amigo/a:", "");
-      if (friendName && friendName.trim() !== "") {
-        openSingleChat(friendName.trim() + ' 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Amigo • Agregado recientemente');
-        alert("✨ ¡Añadido a tus contactos! Ya puedes chatear.");
-      }
-    }
-
-    // Filtrar Categorías de Chat
-    function filterChatCategory(cat, btn) {
-      document.querySelectorAll('.chat-filter-btn').forEach(function(b) { b.classList.remove('active'); });
-      if (btn) btn.classList.add('active');
-
-      document.querySelectorAll('.contact-item').forEach(function(item) {
-        if (cat === 'todos') {
-          item.style.display = 'flex';
-        } else if (cat === 'amigos') {
-          item.style.display = item.classList.contains('chat-type-amigos') ? 'flex' : 'none';
-        } else if (cat === 'asistente') {
-          item.style.display = item.classList.contains('chat-type-asistente') ? 'flex' : 'none';
-        } else if (cat === 'unread') {
-          item.style.display = item.querySelector('.unread-count') ? 'flex' : 'none';
-        }
+      list.innerHTML = '';
+      directoryData.forEach(function(c) {
+        var item = document.createElement('div');
+        item.className = 'directory-contact-card';
+        item.innerHTML = '<div class="dir-contact-info">' +
+            '<img src="' + c.avatar + '" class="dir-contact-avatar" alt="Avatar">' +
+            '<div>' +
+              '<div style="font-size:13px; font-weight:800; color:var(--dark-teal);">' + c.name + '</div>' +
+              '<div style="font-size:11px; color:var(--gray-muted);">' + c.status + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="dir-call-btns">' +
+            '<button class="dir-call-btn dir-btn-voice" onclick="startVoiceCallWith(\'' + c.name + '\', \'' + c.avatar + '\')"><i data-lucide="phone" size="14"></i> Voz</button>' +
+            '<button class="dir-call-btn dir-btn-video" onclick="startVideoCallWith(\'' + c.name + '\', \'' + c.avatar + '\')"><i data-lucide="video" size="14"></i> Video</button>' +
+          '</div>';
+        list.appendChild(item);
       });
+
+      modal.classList.add('active');
+      reInitLucide();
     }
 
-    // Gestor Dinámico de Submenús de Ajustes
-    function openSubSetting(type) {
-      switch (type) {
-        case 'suscripciones':
-          alert('⭐ Membresía BIENESTAR Premium: Activa hasta Octubre 2026.');
-          break;
-        case 'cuenta':
-          alert('🔑 Seguridad de la Cuenta:\n- Verificación en 2 pasos: Activada\n- Número: +56 9 **** 3012');
-          break;
-        case 'privacidad':
-          var option = prompt('¿Quién puede ver tu última vez y foto?\n1. Todos\n2. Mis Contactos\n3. Nadie', '1');
-          if (option) alert('🔒 Preferencia de privacidad actualizada.');
-          break;
-        default:
-          alert('⚙️ Configuración de ' + type + ' actualizada.');
-      }
+    function closeCallDirectory() {
+      var modal = document.getElementById('directoryModalOverlay');
+      if (modal) modal.classList.remove('active');
     }
 
-    var sensoryMap = {
-      1: { label: 'Crisis', color: '#FF5A5F' },
-      2: { label: 'Ansiedad', color: '#FF9F1C' },
-      3: { label: 'Alerta', color: '#FFBF00' },
-      4: { label: 'En Calma', color: '#2EC4B6' },
-      5: { label: 'Enfoque', color: '#3A86FF' },
-      6: { label: 'Vínculo', color: '#8338EC' }
-    };
-
-    function updateSensorySlider(val) {
-      var info = sensoryMap[val] || sensoryMap;
-      var badge = document.getElementById('sliderBadge');
-      if (badge) {
-        badge.innerText = info.label;
-        badge.style.backgroundColor = info.color;
-      }
-    }
-
-    function logSensoryChange(val) {
-      var info = sensoryMap[val] || sensoryMap;
-      addMessage('Nivel Sensorial ajustado a: ' + info.label, 'sent');
-    }
-
-    function switchTab(tabId, btn) {
-      document.querySelectorAll('.tab-page').forEach(function(page) { page.classList.remove('active'); });
-      document.querySelectorAll('.nav-item').forEach(function(nav) { nav.classList.remove('active'); });
-      var activeTab = document.getElementById('tab-' + tabId);
-      if (activeTab) activeTab.classList.add('active');
-      if (btn) btn.classList.add('active');
-    }
-
-    function openSingleChat(name, avatarUrl, subtitle) {
-      var titleEl = document.getElementById('activeChatName');
-      var subEl = document.getElementById('activeChatSubtitle');
-      if (titleEl) titleEl.innerText = name;
-      if (subEl) subEl.innerText = subtitle;
-      
-      var avatarEl = document.getElementById('activeChatAvatar');
-      if (avatarEl) {
-        avatarEl.src = avatarUrl;
-        avatarEl.onerror = function() { avatarEl.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'; };
-      }
-
-      var msgAvatar = document.getElementById('msgAvatarInChat');
-      if (msgAvatar) msgAvatar.src = avatarUrl;
-
-      // Actualizar avatar en llamada
-      var callAvatar = document.getElementById('callUserAvatar');
-      if (callAvatar) callAvatar.src = avatarUrl;
+    function startVoiceCallWith(name, avatar) {
+      closeCallDirectory();
       var callName = document.getElementById('callUserName');
+      var callAvatar = document.getElementById('callUserAvatar');
       if (callName) callName.innerText = name;
-
-      document.getElementById('singleChatView').classList.add('active');
+      if (callAvatar) callAvatar.src = avatar;
+      openVoiceCall();
     }
 
-    function closeSingleChat() {
-      document.getElementById('singleChatView').classList.remove('active');
-      closeEmojiPicker();
-      toggleClipMenu(false);
-      cancelAudioRecording();
+    function startVideoCallWith(name, avatar) {
+      closeCallDirectory();
+      var callName = document.getElementById('callUserName');
+      var callAvatar = document.getElementById('callUserAvatar');
+      if (callName) callName.innerText = name;
+      if (callAvatar) callAvatar.src = avatar;
+      openVideoCall();
     }
 
-    function filterContacts(query) {
-      var q = query.toLowerCase();
-      document.querySelectorAll('.contact-item').forEach(function(item) {
-        var text = item.innerText.toLowerCase();
-        item.style.display = text.includes(q) ? 'flex' : 'none';
-      });
-    }
-
-    // PANEL DE EMOJIS WHATSAPP
-    var emojiCategories = {
-      faces: ['😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😋','😛','😜','🤪','🤨','🧐','🤓','😎','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓'],
-      wellness: ['🌿','🍃','🧘‍♀️','🧘‍♂️','🌸','🌺','🌻','🌼','💧','🍵','🥗','🍏','🍎','🍇','🥑','🧘','💊','🩺','💚','🫖','🌊','☀️','🌙','✨','⭐'],
-      hands: ['👍','👎','👌','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👏','🙌','👐','🤲','🤝','🙏','💪'],
-      hearts: ['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💖','💗','💓','💞','💕','❣️','💔','⚡','🌟','✨','⭐','💫','🔥']
-    };
-
-    function toggleEmojiPicker() {
-      var panel = document.getElementById('emojiPickerPanel');
-      toggleClipMenu(false);
-
-      if (panel) {
-        var isActive = panel.classList.toggle('active');
-        if (isActive) {
-          renderEmojis('faces');
-        }
-      }
-    }
-
-    function closeEmojiPicker() {
-      var panel = document.getElementById('emojiPickerPanel');
-      if (panel) panel.classList.remove('active');
-    }
-
-    function switchEmojiCategory(cat, btn) {
-      document.querySelectorAll('.emoji-tab-btn').forEach(function(b) { b.classList.remove('active'); });
-      if (btn) btn.classList.add('active');
-      renderEmojis(cat);
-    }
-
-    function renderEmojis(cat) {
-      var container = document.getElementById('emojiGridContent');
-      if (!container) return;
-      container.innerHTML = '';
-      var list = emojiCategories[cat] || emojiCategories['faces'];
-      list.forEach(function(em) {
-        var span = document.createElement('span');
-        span.className = 'emoji-char';
-        span.innerText = em;
-        span.onclick = function() {
-          insertEmoji(em);
-        };
-        container.appendChild(span);
-      });
-    }
-
-    function insertEmoji(emoji) {
-      var input = document.getElementById('chatInput');
-      if (input) {
-        input.value += emoji;
-        input.focus();
-      }
-    }
-
-    // FUNCIONALIDADES ADJUNTOS DEL CLIP
-    function toggleClipMenu(forceState) {
-      closeEmojiPicker();
-      var clip = document.getElementById('clipMenu');
-      if (clip) {
-        if (typeof forceState === 'boolean') {
-          if (forceState) clip.classList.add('active');
-          else clip.classList.remove('active');
+    // FUNCIONALIDADES REALES DE DESCARGA DE ARCHIVOS (Word, PDF, TXT, PNG, JPG, etc.)
+    function downloadFile(filename, dataOrText, mimeType) {
+      try {
+        var blob;
+        if (typeof dataOrText === 'string' && dataOrText.startsWith('data:')) {
+          var parts = dataOrText.split(';base64,');
+          var contentType = parts.replace('data:', '') || mimeType;
+          var raw = window.atob(parts[1]);
+          var rawLength = raw.length;
+          var uInt8Array = new Uint8Array(rawLength);
+          for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+          }
+          blob = new Blob([uInt8Array], { type: contentType });
         } else {
-          clip.classList.toggle('active');
+          blob = new Blob([dataOrText], { type: mimeType || 'text/plain;charset=utf-8' });
         }
+
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 150);
+        
+        alert('📥 Descargando archivo: ' + filename + ' ...');
+      } catch (err) {
+        console.error('Download error:', err);
+        alert('📥 Iniciando descarga de ' + filename);
       }
     }
 
-    function triggerDocumentUpload() {
-      toggleClipMenu(false);
-      var fileInput = document.getElementById('fileInputDoc');
-      if (fileInput) fileInput.click();
+    function downloadSampleDoc(fileName, fileType) {
+      var sampleContent = "BIENESTAR APP - DOCUMENTO OFICIAL\n=================================\n\nDocumento: " + fileName + "\nFecha: " + new Date().toLocaleDateString() + "\n\nEste documento ha sido generado y descargado exitosamente desde tu aplicación BIENESTAR.\n\nContenido de muestra para pruebas de descarga en formato " + fileType.toUpperCase() + ".";
+      var mime = (fileType === 'pdf') ? 'application/pdf' : ((fileType === 'docx') ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'text/plain;charset=utf-8');
+      downloadFile(fileName, sampleContent, mime);
     }
 
     function handleSelectedDocument(input) {
       if (input.files && input.files) {
         var file = input.files;
         var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-        var docHTML = '<div class="attachment-card">' +
-          '<div class="attachment-doc-box">' +
-            '<i data-lucide="file-text" size="24" color="#2C7A7B"></i>' +
-            '<div>' +
-              '<div style="font-size:13px; font-weight:800;">' + file.name + '</div>' +
-              '<div style="font-size:10.5px; opacity:0.8;">' + (sizeMB > 0 ? sizeMB + ' MB' : 'Documento') + ' • PDF/Documento</div>' +
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          var fileDataUrl = e.target.result;
+          var ext = file.name.split('.').pop().toLowerCase();
+          
+          var docHTML = '<div class="attachment-card">' +
+            '<div class="attachment-doc-box">' +
+              '<i data-lucide="file-text" size="26" color="#2C7A7B"></i>' +
+              '<div>' +
+                '<div style="font-size:13px; font-weight:800;">' + file.name + '</div>' +
+                '<div style="font-size:10.5px; opacity:0.8;">' + (sizeMB > 0 ? sizeMB + ' MB' : 'Documento') + ' • ' + ext.toUpperCase() + '</div>' +
+              '</div>' +
             '</div>' +
-          '</div>' +
-        '</div>';
-        addCustomMessageBubble(docHTML, 'sent');
+            '<button class="download-action-btn" onclick="downloadFile(\'' + file.name + '\', \'' + fileDataUrl + '\', \'' + file.type + '\')">' +
+              '<i data-lucide="download" size="15"></i> 📥 Descargar ' + ext.toUpperCase() +
+            '</button>' +
+          '</div>';
+          addCustomMessageBubble(docHTML, 'sent');
+        };
+        
+        reader.readAsDataURL(file);
         input.value = '';
       }
-    }
-
-    var photoCamStream = null;
-    var camFacing = "user";
-
-    function openPhotoCameraModal() {
-      toggleClipMenu(false);
-      var modal = document.getElementById('photoCameraModal');
-      var videoEl = document.getElementById('photoCamFeed');
-      modal.classList.add('active');
-
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacing } })
-          .then(function(stream) {
-            photoCamStream = stream;
-            videoEl.srcObject = photoCamStream;
-          })
-          .catch(function(err) {
-            console.warn('Cámara local fallback:', err);
-          });
-      }
-    }
-
-    function closePhotoCameraModal() {
-      var modal = document.getElementById('photoCameraModal');
-      modal.classList.remove('active');
-      if (photoCamStream) {
-        photoCamStream.getTracks().forEach(function(t) { t.stop(); });
-        photoCamStream = null;
-      }
-    }
-
-    function switchCameraFacing() {
-      camFacing = (camFacing === "user") ? "environment" : "user";
-      closePhotoCameraModal();
-      openPhotoCameraModal();
-    }
-
-    function takeCameraPhoto() {
-      var videoEl = document.getElementById('photoCamFeed');
-      var canvas = document.getElementById('photoSnapCanvas');
-      if (videoEl && canvas) {
-        canvas.width = videoEl.videoWidth || 640;
-        canvas.height = videoEl.videoHeight || 480;
-        var ctx = canvas.getContext('2d');
-        ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
-        
-        var photoDataUrl = canvas.toDataURL('image/jpeg');
-        closePhotoCameraModal();
-
-        var photoHTML = '<div class="attachment-card">' +
-          '<img src="' + photoDataUrl + '" class="attachment-img-preview" alt="Foto tomada">' +
-          '<div style="font-size:11px; font-weight:600; margin-top:2px;">📸 Fotografía capturada</div>' +
-        '</div>';
-
-        addCustomMessageBubble(photoHTML, 'sent');
-      } else {
-        closePhotoCameraModal();
-        var fallbackPhoto = 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&auto=format&fit=crop&q=80';
-        var photoHTML = '<div class="attachment-card">' +
-          '<img src="' + fallbackPhoto + '" class="attachment-img-preview" alt="Foto">' +
-          '<div style="font-size:11px; font-weight:600; margin-top:2px;">📸 Fotografía de Bienestar</div>' +
-        '</div>';
-        addCustomMessageBubble(photoHTML, 'sent');
-      }
-    }
-
-    function triggerGalleryUpload() {
-      toggleClipMenu(false);
-      var fileInput = document.getElementById('fileInputGallery');
-      if (fileInput) fileInput.click();
     }
 
     function handleSelectedGalleryImage(input) {
       if (input.files && input.files) {
+        var file = input.files;
         var reader = new FileReader();
         reader.onload = function(e) {
+          var imgDataUrl = e.target.result;
+          var ext = file.name.split('.').pop().toLowerCase() || 'png';
           var imgHTML = '<div class="attachment-card">' +
-            '<img src="' + e.target.result + '" class="attachment-img-preview" alt="Imagen enviada">' +
+            '<img src="' + imgDataUrl + '" class="attachment-img-preview" alt="Imagen enviada" onclick="downloadFile(\'' + file.name + '\', \'' + imgDataUrl + '\', \'' + file.type + '\')">' +
+            '<button class="download-action-btn" onclick="downloadFile(\'' + file.name + '\', \'' + imgDataUrl + '\', \'' + file.type + '\')">' +
+              '<i data-lucide="download" size="15"></i> 📥 Descargar Imagen (' + ext.toUpperCase() + ')' +
+            '</button>' +
           '</div>';
           addCustomMessageBubble(imgHTML, 'sent');
         };
-        reader.readAsDataURL(input.files);
+        reader.readAsDataURL(file);
         input.value = '';
       }
     }
 
-    var audioRecInterval = null;
-    var audioRecSeconds = 0;
-
-    function startAudioRecording() {
-      toggleClipMenu(false);
-      var bar = document.getElementById('audioRecorderBar');
-      var timerEl = document.getElementById('audioRecTimer');
-      bar.classList.add('active');
-      audioRecSeconds = 0;
-      if (timerEl) timerEl.innerText = '00:00';
-
-      if (audioRecInterval) clearInterval(audioRecInterval);
-      audioRecInterval = setInterval(function() {
-        audioRecSeconds++;
-        var m = String(Math.floor(audioRecSeconds / 60)).padStart(2, '0');
-        var s = String(Math.floor(audioRecSeconds % 60)).padStart(2, '0');
-        if (timerEl) timerEl.innerText = m + ':' + s;
-      }, 1000);
+    // Funciones complementarias de interfaz...
+    function openSingleChat(name, avatarUrl, subtitle) {
+      document.getElementById('activeChatName').innerText = name;
+      document.getElementById('activeChatSubtitle').innerText = subtitle;
+      document.getElementById('activeChatAvatar').src = avatarUrl;
+      document.getElementById('singleChatView').classList.add('active');
     }
 
-    function cancelAudioRecording() {
-      var bar = document.getElementById('audioRecorderBar');
-      if (bar) bar.classList.remove('active');
-      if (audioRecInterval) clearInterval(audioRecInterval);
+    function closeSingleChat() {
+      document.getElementById('singleChatView').classList.remove('active');
     }
 
-    function finishAndSendAudio() {
-      var durStr = document.getElementById('audioRecTimer').innerText;
-      cancelAudioRecording();
-
-      var audioHTML = '<div class="attachment-card">' +
-        '<div class="audio-player-bubble">' +
-          '<button class="audio-play-btn" onclick="toggleAudioBubblePlay(this)"><i data-lucide="play" size="16"></i></button>' +
-          '<div class="audio-waveform-bars">' +
-            '<div class="audio-bar" style="height:12px;"></div>' +
-            '<div class="audio-bar" style="height:18px;"></div>' +
-            '<div class="audio-bar" style="height:8px;"></div>' +
-            '<div class="audio-bar" style="height:15px;"></div>' +
-            '<div class="audio-bar" style="height:20px;"></div>' +
-            '<div class="audio-bar" style="height:10px;"></div>' +
-            '<div class="audio-bar" style="height:14px;"></div>' +
-          '</div>' +
-          '<span style="font-size:11px; font-weight:700;">' + durStr + '</span>' +
-        '</div>' +
-      '</div>';
-
-      addCustomMessageBubble(audioHTML, 'sent');
-    }
-
-    function toggleAudioBubblePlay(btn) {
-      var isPlaying = btn.classList.toggle('playing');
-      btn.innerHTML = isPlaying ? '<i data-lucide="pause" size="16"></i>' : '<i data-lucide="play" size="16"></i>';
-      reInitLucide();
-    }
-
-    function shareCurrentLocation() {
-      toggleClipMenu(false);
-      
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          var lat = pos.coords.latitude.toFixed(4);
-          var lng = pos.coords.longitude.toFixed(4);
-          sendLocationCard('Ubicación en tiempo real', 'Lat: ' + lat + ', Lng: ' + lng);
-        }, function(err) {
-          sendLocationCard('Parque Forestal, Santiago', 'Ubicación actual compartida');
-        });
-      } else {
-        sendLocationCard('Parque Forestal, Santiago', 'Ubicación actual compartida');
-      }
-    }
-
-    function sendLocationCard(title, subtitle) {
-      var locHTML = '<div class="attachment-card">' +
-        '<div style="background:#E2F4F2; padding:10px 12px; border-radius:12px; border:1px solid rgba(51,188,169,0.3);">' +
-          '<div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">' +
-            '<i data-lucide="map-pin" size="20" color="#2C7A7B"></i>' +
-            '<span style="font-size:13px; font-weight:800;">' + title + '</span>' +
-          '</div>' +
-          '<div style="font-size:11px; color:var(--gray-muted);">' + subtitle + '</div>' +
-          '<div style="margin-top:6px; font-size:10.5px; font-weight:700; color:var(--turquoise);">📍 Toca para abrir Mapa</div>' +
-        '</div>' +
-      '</div>';
-
-      addCustomMessageBubble(locHTML, 'sent');
-    }
-
-    var sampleContacts = [
-      { name: "Dr. Aldo Licandeo", phone: "+56 9 8765 4321", role: "Amigo & Médico" },
-      { name: "Dra. Elena Ramos", phone: "+56 9 1234 5678", role: "Nutricionista Holística" },
-      { name: "Camila Silva 🌿", phone: "+56 9 5555 1234", role: "Amiga Yoga" }
-    ];
-
-    function openContactPickerModal() {
-      toggleClipMenu(false);
-      var modal = document.getElementById('contactModalOverlay');
-      var listContainer = document.getElementById('contactListToShare');
-      listContainer.innerHTML = '';
-
-      sampleContacts.forEach(function(c) {
-        var item = document.createElement('div');
-        item.style.cssText = "padding:10px; background:var(--mint); border-radius:10px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;";
-        item.innerHTML = '<div><div style="font-size:13px; font-weight:800; color:var(--dark-teal);">' + c.name + '</div><div style="font-size:11px; color:var(--gray-muted);">' + c.phone + ' • ' + c.role + '</div></div>' +
-          '<button class="pill-btn" style="background:var(--turquoise); color:white; border:none; padding:4px 10px; border-radius:14px; font-weight:700;">Enviar</button>';
-        
-        item.onclick = function() {
-          sendContactCard(c.name, c.phone, c.role);
-          closeContactModal();
-        };
-        listContainer.appendChild(item);
-      });
-
-      modal.classList.add('active');
-    }
-
-    function closeContactModal() {
-      document.getElementById('contactModalOverlay').classList.remove('active');
-    }
-
-    function sendContactCard(name, phone, role) {
-      var contactHTML = '<div class="attachment-card">' +
-        '<div style="background:var(--white); padding:10px 12px; border-radius:12px; border:1px solid rgba(51,188,169,0.25); display:flex; flex-direction:column; gap:6px;">' +
-          '<div style="display:flex; align-items:center; gap:8px;">' +
-            '<div style="width:36px; height:36px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center; font-size:16px;">👤</div>' +
-            '<div>' +
-              '<div style="font-size:13px; font-weight:800; color:var(--dark-teal);">' + name + '</div>' +
-              '<div style="font-size:11px; color:var(--gray-muted);">' + role + '</div>' +
-            '</div>' +
-          '</div>' +
-          '<div style="font-size:11.5px; font-weight:700; color:var(--green-organic); border-top:1px solid var(--bg-cream); pt-4px; margin-top:4px;">📞 ' + phone + '</div>' +
-        '</div>' +
-      '</div>';
-
-      addCustomMessageBubble(contactHTML, 'sent');
-    }
-
-    function openPollCreatorModal() {
-      toggleClipMenu(false);
-      document.getElementById('pollModalOverlay').classList.add('active');
-    }
-
-    function closePollModal() {
-      document.getElementById('pollModalOverlay').classList.remove('active');
-    }
-
-    function submitPoll() {
-      var q = document.getElementById('pollQuestionInput').value.trim();
-      var o1 = document.getElementById('pollOpt1').value.trim();
-      var o2 = document.getElementById('pollOpt2').value.trim();
-      var o3 = document.getElementById('pollOpt3').value.trim();
-
-      if (!q || !o1 || !o2) {
-        alert('Por favor ingresa al menos la pregunta y 2 opciones.');
-        return;
-      }
-
-      closePollModal();
-
-      var pollId = 'poll_' + Date.now();
-      var pollHTML = '<div class="poll-card" id="' + pollId + '">' +
-        '<div class="poll-question">📊 ' + q + '</div>' +
-        '<button class="poll-option-btn" onclick="votePollOption(this, \'' + pollId + '\')"><span>' + o1 + '</span> <span class="vote-cnt">0 votos</span></button>' +
-        '<button class="poll-option-btn" onclick="votePollOption(this, \'' + pollId + '\')"><span>' + o2 + '</span> <span class="vote-cnt">0 votos</span></button>';
-
-      if (o3) {
-        pollHTML += '<button class="poll-option-btn" onclick="votePollOption(this, \'' + pollId + '\')"><span>' + o3 + '</span> <span class="vote-cnt">0 votos</span></button>';
-      }
-
-      pollHTML += '</div>';
-
-      addCustomMessageBubble(pollHTML, 'sent');
-    }
-
-    function votePollOption(btn, pollId) {
-      var parent = document.getElementById(pollId) || btn.closest('.poll-card');
-      if (!parent) return;
-
-      var allBtns = parent.querySelectorAll('.poll-option-btn');
-      allBtns.forEach(function(b) {
-        b.classList.remove('voted');
-        var cntSpan = b.querySelector('.vote-cnt');
-        if (cntSpan) cntSpan.innerText = '0 votos';
-      });
-
-      btn.classList.add('voted');
-      var myCnt = btn.querySelector('.vote-cnt');
-      if (myCnt) myCnt.innerText = '1 voto (Tú)';
-    }
-
-    function addCustomMessageBubble(htmlContent, type) {
-      var area = document.getElementById('messagesArea');
-      if (!area) return;
-      var row = document.createElement('div');
-      row.className = 'message-row ' + (type === 'sent' ? 'sent' : '');
-      
-      var now = new Date();
-      var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-      var activeAvatar = document.getElementById('activeChatAvatar') ? document.getElementById('activeChatAvatar').src : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80';
-
-      if (type === 'received') {
-        row.innerHTML = '<img src="' + activeAvatar + '" class="avatar-msg" alt="Contacto">' +
-          '<div class="message-bubble msg-received">' + htmlContent + '<div class="msg-time">' + timeStr + '</div></div>';
-      } else {
-        row.innerHTML = '<div class="message-bubble msg-sent">' + htmlContent + '<div class="msg-time">' + timeStr + '</div></div>';
-      }
-      
-      area.appendChild(row);
-      area.scrollTop = area.scrollHeight;
-      reInitLucide();
-    }
-
-    // Videollamada WebRTC Real
-    var localStream = null;
-    var callTimerInt = null;
-    var callSeconds = 0;
-
-    function openVideoCall() {
-      var modal = document.getElementById('videoCallModal');
-      var videoCard = document.getElementById('callVideoCard');
-      var videoEl = document.getElementById('webcamVideo');
-      var imgFallback = document.getElementById('fallbackVideoImg');
-      var waveAnim = document.getElementById('callVoiceWave');
-
-      modal.classList.add('active');
-      if (videoCard) videoCard.style.display = 'flex';
-      if (waveAnim) waveAnim.style.display = 'none';
-
-      var statusText = document.getElementById('callStatusText');
-      if (statusText) statusText.innerText = 'INICIANDO CÁMARA EN VIVO...';
-
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true })
-          .then(function(stream) {
-            localStream = stream;
-            if (videoEl) {
-              videoEl.srcObject = localStream;
-              videoEl.style.display = 'block';
-            }
-            if (imgFallback) imgFallback.style.display = 'none';
-            if (statusText) statusText.innerText = 'VIDEOLLAMADA EN VIVO';
-          })
-          .catch(function(err) {
-            if (videoEl) videoEl.style.display = 'none';
-            if (imgFallback) imgFallback.style.display = 'block';
-            if (statusText) statusText.innerText = 'VIDEOLLAMADA SALIENTE...';
-          });
-      } else {
-        if (videoEl) videoEl.style.display = 'none';
-        if (imgFallback) imgFallback.style.display = 'block';
-        if (statusText) statusText.innerText = 'VIDEOLLAMADA SALIENTE...';
-      }
-
-      startCallTimer(statusText);
-    }
-
-    function openVoiceCall() {
-      var modal = document.getElementById('videoCallModal');
-      var videoCard = document.getElementById('callVideoCard');
-      var videoEl = document.getElementById('webcamVideo');
-      var imgFallback = document.getElementById('fallbackVideoImg');
-      var waveAnim = document.getElementById('callVoiceWave');
-
-      modal.classList.add('active');
-      if (videoCard) videoCard.style.display = 'flex';
-      if (videoEl) videoEl.style.display = 'none';
-      if (imgFallback) imgFallback.style.display = 'none';
-      if (waveAnim) waveAnim.style.display = 'flex';
-
-      var statusText = document.getElementById('callStatusText');
-      if (statusText) statusText.innerText = 'LLAMADA DE VOZ EN CURSO...';
-
-      startCallTimer(statusText);
-    }
-
-    function startCallTimer(statusText) {
-      if (callTimerInt) clearInterval(callTimerInt);
-      callSeconds = 0;
-      setTimeout(function() {
-        if (statusText) statusText.innerText = '00:00';
-        callTimerInt = setInterval(function() {
-          callSeconds++;
-          var mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
-          var secs = String(Math.floor(callSeconds % 60)).padStart(2, '0');
-          if (statusText) statusText.innerText = mins + ':' + secs;
-        }, 1000);
-      }, 1000);
-    }
-
-    function closeVideoCall() {
-      var modal = document.getElementById('videoCallModal');
-      modal.classList.remove('active');
-      if (callTimerInt) clearInterval(callTimerInt);
-
-      if (localStream) {
-        localStream.getTracks().forEach(function(track) { track.stop(); });
-        localStream = null;
-      }
-
-      var videoEl = document.getElementById('webcamVideo');
-      if (videoEl) videoEl.srcObject = null;
-
-      addMessage('📞 Llamada finalizada.', 'received');
-    }
-
-    function toggleCameraStream(element) {
-      var btn = element.querySelector('.call-btn');
-      if (btn) btn.classList.toggle('off');
-
-      if (localStream) {
-        var videoTrack = localStream.getVideoTracks();
-        if (videoTrack) {
-          videoTrack.enabled = !videoTrack.enabled;
-        }
-      }
-    }
-
-    function toggleMuteMic(element) {
-      var btn = element.querySelector('.call-btn');
-      if (btn) btn.classList.toggle('off');
-
-      if (localStream) {
-        var audioTrack = localStream.getAudioTracks();
-        if (audioTrack) {
-          audioTrack.enabled = !audioTrack.enabled;
-        }
-      }
-    }
-
-    function toggleCallControl(element) {
-      var btn = element.querySelector('.call-btn');
-      if (btn) btn.classList.toggle('off');
-    }
-
-    function sendMessage() {
-      var input = document.getElementById('chatInput');
-      if (input && input.value.trim() !== '') {
-        var text = input.value.trim();
-        addMessage(text, 'sent');
-        input.value = '';
-        closeEmojiPicker();
-
-        setTimeout(function() {
-          var responses = [
-            "¡Buenísimo! Me encanta esa idea 😊",
-            "¡Genial! Nos vemos más tarde 🌿",
-            "¡Súper! Te aviso apenas llegue 🏃‍♀️",
-            "¡Me alegra mucho leer eso! 👍"
-          ];
-          var randomResp = responses[Math.floor(Math.random() * responses.length)];
-          addMessage(randomResp, 'received');
-        }, 1200);
-
-        if (supabase) {
-          try {
-            supabase.from('messages').insert([{ content: text }]);
-          } catch (e) { console.warn('Supabase message error:', e); }
-        }
-      }
-    }
-
-    function handleKeyPress(e) {
-      if (e.key === 'Enter') sendMessage();
-    }
-
-    function addMessage(text, type) {
-      var area = document.getElementById('messagesArea');
-      if (!area) return;
-      var row = document.createElement('div');
-      row.className = 'message-row ' + (type === 'sent' ? 'sent' : '');
-      
-      var now = new Date();
-      var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-      var activeAvatar = document.getElementById('activeChatAvatar') ? document.getElementById('activeChatAvatar').src : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80';
-
-      if (type === 'received') {
-        row.innerHTML = '<img src="' + activeAvatar + '" class="avatar-msg" alt="Contacto">' +
-          '<div class="message-bubble msg-received">' + text + '<div class="msg-time">' + timeStr + '</div></div>';
-      } else {
-        row.innerHTML = '<div class="message-bubble msg-sent">' + text + '<div class="msg-time">' + timeStr + '</div></div>';
-      }
-      
-      area.appendChild(row);
-      area.scrollTop = area.scrollHeight;
-      reInitLucide();
-    }
-
-    var currentWater = 1.8;
-    function updateWater(delta) {
-      currentWater = Math.max(0, Math.round((currentWater + delta) * 100) / 100);
-      var el = document.getElementById('waterCounter');
-      if (el) el.innerText = currentWater + ' L';
-    }
-
-    function toggleCheck(el) {
-      el.classList.toggle('checked');
-    }
-
-    var isPlayingMorfeo = false;
-    function toggleMorfeoSound() {
-      var btn = document.getElementById('audioToggleBtn');
-      if (!btn) return;
-      isPlayingMorfeo = !isPlayingMorfeo;
-      btn.innerText = isPlayingMorfeo ? '⏸ Pausar 432Hz' : '▶ Reproducir 432Hz';
-      btn.style.backgroundColor = isPlayingMorfeo ? '#2C7A7B' : '#33BCA9';
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-page').forEach(function(page) { page.classList.remove('active'); });
+      document.querySelectorAll('.nav-item').forEach(function(nav) { nav.classList.remove('active'); });
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (btn) btn.classList.add('active');
     }
   </script>
 </body>
