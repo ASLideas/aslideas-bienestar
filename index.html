@@ -70,7 +70,7 @@
       }
     }
 
-    /* Splash Screen Inicial con Logo Embebido Base64 */
+    /* Splash Screen Inicial con Logo Real de BIENESTAR Embebido */
     .splash-screen {
       position: absolute;
       top: 0;
@@ -112,13 +112,13 @@
       border: 3.5px solid var(--turquoise);
       animation: pulseLogo 2s infinite ease-in-out;
       overflow: hidden;
+      padding: 8px;
     }
 
     .splash-logo-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
+      object-fit: contain;
       border-radius: 50%;
     }
 
@@ -200,11 +200,13 @@
     }
 
     .header-logo-img {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      object-fit: cover;
+      object-fit: contain;
+      background: var(--white);
       border: 2px solid var(--turquoise);
+      padding: 2px;
     }
 
     .brand-title {
@@ -824,7 +826,7 @@
       gap: 8px;
       border-radius: 12px;
       overflow: hidden;
-      min-width: 200px;
+      min-width: 210px;
     }
 
     .attachment-doc-box {
@@ -1581,13 +1583,13 @@
       margin: 10px 0;
       overflow: hidden;
       border: 2px solid var(--turquoise);
+      padding: 6px;
     }
 
     .pulse-circle img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
+      object-fit: contain;
       border-radius: 50%;
     }
 
@@ -2035,16 +2037,17 @@
 </head>
 <body>
 
-  <!-- Hidden File Inputs para Documento y Galería -->
-  <input type="file" id="fileInputDoc" accept=".pdf,.doc,.docx,.txt,.xlsx,.pptx" style="display:none;" onchange="handleSelectedDocument(this)">
+  <!-- Hidden File Inputs para Documento, Galería y Fallback de Cámara -->
+  <input type="file" id="fileInputDoc" accept=".pdf,.doc,.docx,.txt,.xlsx,.pptx,.png,.jpg,.jpeg" style="display:none;" onchange="handleSelectedDocument(this)">
   <input type="file" id="fileInputGallery" accept="image/*" style="display:none;" onchange="handleSelectedGalleryImage(this)">
+  <input type="file" id="fileInputCameraCapture" accept="image/*" capture="environment" style="display:none;" onchange="handleCameraCaptureFallback(this)">
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial con Logo de BIENESTAR Embebido en Base64 -->
+    <!-- Splash Screen Inicial con Logo Real de BIENESTAR Embebido en Base64 -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDEyMDL/wAARCAEAAQADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi46Gpqqre intercom_data_base64_placeholder_for_clean_display" id="splashLogoImg" alt="Logo BIENESTAR">
+        <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." id="splashLogoImg" alt="Logo BIENESTAR">
       </div>
       <div class="splash-title">BIENESTAR</div>
       <div class="splash-sub">Ecosistema Integral</div>
@@ -2074,8 +2077,11 @@
     <!-- Header Principal -->
     <div class="app-header">
       <div class="brand-logo-wrap">
-        <div class="brand-title">BIENESTAR</div>
-        <div class="brand-subtitle">Ecosistema Integral</div>
+        <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." class="header-logo-img" alt="Logo BIENESTAR">
+        <div>
+          <div class="brand-title">BIENESTAR</div>
+          <div class="brand-subtitle">Ecosistema Integral</div>
+        </div>
       </div>
       <div class="header-actions">
         <button class="icon-btn" title="Directorio - Llamada de Voz" onclick="openCallDirectory('voice')">
@@ -2196,7 +2202,7 @@
 
           <div class="story-item" onclick="switchTab('morfeo', document.querySelectorAll('.nav-item'))">
             <div class="story-ring">
-              <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Morfeo 432Hz">
+              <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." class="story-avatar" alt="Morfeo 432Hz">
             </div>
             <span class="story-name">Morfeo</span>
           </div>
@@ -2263,10 +2269,10 @@
           </div>
 
           <!-- ASISTENTE IA -->
-          <div class="contact-item chat-type-asistente" onclick="openSingleChat('Asistente IA BIENESTAR 🌿', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80', 'Especialista en Salud Integral')">
+          <div class="contact-item chat-type-asistente" onclick="openSingleChat('Asistente IA BIENESTAR 🌿', 'data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]...', 'Especialista en Salud Integral')">
             <div class="contact-left">
               <div class="contact-avatar-wrap">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Logo">
+                <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." class="contact-avatar" alt="Logo">
                 <div class="badge-business">✓</div>
               </div>
               <div class="contact-info">
@@ -2412,7 +2418,7 @@
             <p style="font-size:12px; opacity:0.8;">Ondas binaurales a 432Hz para inducir el descanso profundo y reducir el estrés.</p>
             
             <div class="pulse-circle">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" alt="Morfeo Logo">
+              <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." alt="Morfeo Logo">
             </div>
 
             <button id="audioToggleBtn" class="pill-btn" style="background:var(--turquoise); color:white; border:none; padding:10px 24px; font-size:14px; border-radius:20px; font-weight:700;" onclick="toggleMorfeoSound()">
@@ -2459,419 +2465,5 @@
           </div>
         </div>
         <div style="display: flex; gap: 6px;">
-          <button class="icon-btn" onclick="openCallDirectory('video')" title="Directorio de llamadas"><i data-lucide="video" size="18"></i></button>
-          <button class="icon-btn" onclick="openCallDirectory('voice')" title="Directorio de llamadas"><i data-lucide="phone" size="18"></i></button>
-          <button class="icon-btn" title="Menú del Amigo" onclick="toggleChatContactMenu(event)"><i data-lucide="more-vertical" size="18"></i></button>
-        </div>
-      </div>
-
-      <!-- Mensajes Area -->
-      <div class="messages-area" id="messagesArea">
-        <div class="message-row">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="avatar-msg" alt="Camila" id="msgAvatarInChat">
-          <div class="message-bubble msg-received">
-            ¡Hola Andrea! Te comparto la guía en PDF y el documento en Word de nuestro taller. Puedes descargarlos directamente aquí abajo 👇
-            <div class="msg-time">10:14</div>
-          </div>
-        </div>
-
-        <!-- Muestra de Documento PDF Descargable -->
-        <div class="message-row">
-          <div class="message-bubble msg-received" style="width:100%; max-width:85%;">
-            <div class="attachment-card">
-              <div class="attachment-doc-box">
-                <i data-lucide="file-text" size="26" color="#2C7A7B"></i>
-                <div>
-                  <div style="font-size:13px; font-weight:800;">Guia_Nutricion_Bienestar.pdf</div>
-                  <div style="font-size:10.5px; opacity:0.8;">1.4 MB • Documento PDF</div>
-                </div>
-              </div>
-              <button class="download-action-btn" onclick="downloadSampleDoc('Guia_Nutricion_Bienestar.pdf', 'pdf')">
-                <i data-lucide="download" size="15"></i> 📥 Descargar Documento (PDF)
-              </button>
-            </div>
-            <div class="msg-time">10:15</div>
-          </div>
-        </div>
-
-        <!-- Muestra de Documento Word Descargable -->
-        <div class="message-row">
-          <div class="message-bubble msg-received" style="width:100%; max-width:85%;">
-            <div class="attachment-card">
-              <div class="attachment-doc-box">
-                <i data-lucide="file" size="26" color="#0288D1"></i>
-                <div>
-                  <div style="font-size:13px; font-weight:800;">Rutina_Ejercicios_Semanal.docx</div>
-                  <div style="font-size:10.5px; opacity:0.8;">850 KB • Documento Word (.docx)</div>
-                </div>
-              </div>
-              <button class="download-action-btn" onclick="downloadSampleDoc('Rutina_Ejercicios_Semanal.docx', 'docx')">
-                <i data-lucide="download" size="15"></i> 📥 Descargar Documento (Word)
-              </button>
-            </div>
-            <div class="msg-time">10:16</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Menú de Clip Adjuntos Tipo WhatsApp - TODOS FUNCIONALES -->
-      <div class="clip-menu" id="clipMenu">
-        
-        <!-- 1. Documento -->
-        <div class="clip-item" onclick="triggerDocumentUpload()">
-          <div class="clip-icon-circle bg-doc"><i data-lucide="file-text" size="20"></i></div>
-          <span>Documento</span>
-        </div>
-
-        <!-- 2. Cámara (Fotografía en Vivo) -->
-        <div class="clip-item" onclick="openPhotoCameraModal()">
-          <div class="clip-icon-circle bg-cam"><i data-lucide="camera" size="20"></i></div>
-          <span>Cámara</span>
-        </div>
-
-        <!-- 3. Galería -->
-        <div class="clip-item" onclick="triggerGalleryUpload()">
-          <div class="clip-icon-circle bg-gal"><i data-lucide="image" size="20"></i></div>
-          <span>Galería</span>
-        </div>
-
-        <!-- 4. Audio (Grabadora) -->
-        <div class="clip-item" onclick="startAudioRecording()">
-          <div class="clip-icon-circle bg-aud"><i data-lucide="headphones" size="20"></i></div>
-          <span>Audio</span>
-        </div>
-
-        <!-- 5. Ubicación (GPS) -->
-        <div class="clip-item" onclick="shareCurrentLocation()">
-          <div class="clip-icon-circle bg-ubi"><i data-lucide="map-pin" size="20"></i></div>
-          <span>Ubicación</span>
-        </div>
-
-        <!-- 6. Contacto -->
-        <div class="clip-item" onclick="openContactPickerModal()">
-          <div class="clip-icon-circle bg-con"><i data-lucide="user" size="20"></i></div>
-          <span>Contacto</span>
-        </div>
-
-        <!-- 7. Encuesta -->
-        <div class="clip-item" onclick="openPollCreatorModal()">
-          <div class="clip-icon-circle bg-enc"><i data-lucide="bar-chart-2" size="20"></i></div>
-          <span>Encuesta</span>
-        </div>
-
-      </div>
-
-      <!-- Panel de Emojis WhatsApp -->
-      <div class="emoji-picker-panel" id="emojiPickerPanel">
-        <div class="emoji-header-tabs">
-          <button class="emoji-tab-btn active" onclick="switchEmojiCategory('faces', this)">😀</button>
-          <button class="emoji-tab-btn" onclick="switchEmojiCategory('wellness', this)">🌿</button>
-          <button class="emoji-tab-btn" onclick="switchEmojiCategory('hands', this)">👍</button>
-          <button class="emoji-tab-btn" onclick="switchEmojiCategory('hearts', this)">❤️</button>
-        </div>
-        <div class="emoji-grid-content" id="emojiGridContent">
-          <!-- Emojis renderizados por JS -->
-        </div>
-      </div>
-
-      <!-- Input para Escribir con Botón de Emoji -->
-      <div class="chat-input-bar">
-        <button class="icon-btn" style="background:none;" onclick="toggleEmojiPicker()" title="Emojis">
-          <i data-lucide="smile" size="20"></i>
-        </button>
-        <button class="icon-btn" style="background:none;" onclick="toggleClipMenu()" title="Adjuntar">
-          <i data-lucide="paperclip" size="20"></i>
-        </button>
-        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje a tu amigo..." onkeypress="handleKeyPress(event)" onclick="closeEmojiPicker()">
-        <button class="send-btn" onclick="sendMessage()">
-          <i data-lucide="send" size="18"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Modal Videollamada HD con Cámara WebRTC Real -->
-    <div class="video-call-modal" id="videoCallModal">
-      <div class="call-top-bar">
-        <div class="call-lock">
-          <i data-lucide="lock" size="14"></i>
-          <span>Cifrado de extremo a extremo</span>
-        </div>
-        <div class="call-add-user" onclick="openCallDirectory('video')">
-          <i data-lucide="user-plus" size="18"></i>
-        </div>
-      </div>
-
-      <div class="call-user-section">
-        <div class="call-avatar-wrap">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80" id="callUserAvatar" alt="Amigo en Llamada">
-        </div>
-        <div class="call-user-name" id="callUserName">Camila Silva</div>
-        <div class="call-status" id="callStatusText">VIDEOLLAMADA EN CURSO...</div>
-      </div>
-
-      <!-- Contenedor de Video WebRTC en Vivo -->
-      <div class="call-video-card" id="callVideoCard">
-        <video id="webcamVideo" class="webcam-video-element" autoplay playsinline muted style="display: none;"></video>
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80" id="fallbackVideoImg" class="fallback-avatar-img" alt="Video Stream">
-        <div class="voice-wave-animation" id="callVoiceWave" style="display: none;">
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-        </div>
-      </div>
-
-      <div class="call-controls-grid">
-        <div class="call-control-item" onclick="toggleCallControl(this)">
-          <button class="call-btn"><i data-lucide="volume-2" size="22"></i></button>
-          <span class="call-btn-label">Altavoz</span>
-        </div>
-        <div class="call-control-item" onclick="toggleCameraStream(this)">
-          <button class="call-btn" id="callVideoToggleBtn"><i data-lucide="video" size="22"></i></button>
-          <span class="call-btn-label">Video</span>
-        </div>
-        <div class="call-control-item" onclick="toggleMuteMic(this)">
-          <button class="call-btn"><i data-lucide="mic" size="22"></i></button>
-          <span class="call-btn-label">Silenciar</span>
-        </div>
-
-        <div class="call-control-item" onclick="addMessage('⚙️ Opciones avanzadas de llamada habilitadas', 'sent')">
-          <button class="call-btn"><i data-lucide="more-horizontal" size="22"></i></button>
-          <span class="call-btn-label">Más</span>
-        </div>
-        <div class="call-control-item" onclick="addMessage('🔗 Enlace de llamada copiado al portapapeles', 'sent')">
-          <button class="call-btn"><i data-lucide="share-2" size="22"></i></button>
-          <span class="call-btn-label">Compartir</span>
-        </div>
-        <div class="call-control-item" onclick="closeVideoCall()">
-          <button class="call-btn hangup"><i data-lucide="phone-off" size="22"></i></button>
-          <span class="call-btn-label red">Finalizar</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navbar Inferior -->
-    <div class="bottom-nav">
-      <button class="nav-item active" onclick="switchTab('chats', this)">
-        <i data-lucide="message-circle" size="20"></i>
-        <span>Chats</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('wellness', this)">
-        <i data-lucide="heart-pulse" size="20"></i>
-        <span>Wellness</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('tienda', this)">
-        <i data-lucide="store" size="20"></i>
-        <span>Tienda</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('morfeo', this)">
-        <i data-lucide="moon" size="20"></i>
-        <span>Morfeo</span>
-      </button>
-    </div>
-
-  </div>
-
-  <script>
-    // Inicialización del Splash Screen
-    function hideSplash() {
-      var splash = document.getElementById('splashScreen');
-      if (splash) {
-        splash.classList.add('hidden');
-        splash.style.display = 'none';
-      }
-    }
-
-    if (document.readyState === 'interactive' || document.readyState === 'complete') {
-      setTimeout(hideSplash, 2500);
-    } else {
-      document.addEventListener('DOMContentLoaded', function() { setTimeout(hideSplash, 2500); });
-    }
-    window.addEventListener('load', function() { setTimeout(hideSplash, 2500); });
-
-    // Lucide Icons Render Safe
-    function reInitLucide() {
-      try {
-        if (window.lucide && typeof lucide.createIcons === 'function') {
-          lucide.createIcons();
-        }
-      } catch (e) { console.warn('Lucide warning:', e); }
-    }
-    reInitLucide();
-
-    // Lista de Contactos del Directorio para Llamadas
-    var directoryData = [
-      { name: "Camila Silva 🌿", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80", status: "Amiga • En línea" },
-      { name: "Dr. Aldo Licandeo", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80", status: "Amigo & Médico Specialist" },
-      { name: "Dra. Elena Ramos", avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80", status: "Nutricionista Clínica & Holística" },
-      { name: "Asistente IA BIENESTAR", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80", status: "Especialista en Salud Integral (24/7)" },
-      { name: "Herbolaria Orgánica PyME", avatar: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80", status: "Atención Comercial PyME" }
-    ];
-
-    // Abrir Directorio de Contactos
-    function openCallDirectory(defaultMode) {
-      closeAllDropdownsOutside();
-      var modal = document.getElementById('directoryModalOverlay');
-      var list = document.getElementById('directoryContactsList');
-      if (!list) return;
-
-      list.innerHTML = '';
-      directoryData.forEach(function(c) {
-        var item = document.createElement('div');
-        item.className = 'directory-contact-card';
-        item.innerHTML = '<div class="dir-contact-info">' +
-            '<img src="' + c.avatar + '" class="dir-contact-avatar" alt="Avatar">' +
-            '<div>' +
-              '<div style="font-size:13px; font-weight:800; color:var(--dark-teal);">' + c.name + '</div>' +
-              '<div style="font-size:11px; color:var(--gray-muted);">' + c.status + '</div>' +
-            '</div>' +
-          '</div>' +
-          '<div class="dir-call-btns">' +
-            '<button class="dir-call-btn dir-btn-voice" onclick="startVoiceCallWith(\'' + c.name + '\', \'' + c.avatar + '\')"><i data-lucide="phone" size="14"></i> Voz</button>' +
-            '<button class="dir-call-btn dir-btn-video" onclick="startVideoCallWith(\'' + c.name + '\', \'' + c.avatar + '\')"><i data-lucide="video" size="14"></i> Video</button>' +
-          '</div>';
-        list.appendChild(item);
-      });
-
-      modal.classList.add('active');
-      reInitLucide();
-    }
-
-    function closeCallDirectory() {
-      var modal = document.getElementById('directoryModalOverlay');
-      if (modal) modal.classList.remove('active');
-    }
-
-    function startVoiceCallWith(name, avatar) {
-      closeCallDirectory();
-      var callName = document.getElementById('callUserName');
-      var callAvatar = document.getElementById('callUserAvatar');
-      if (callName) callName.innerText = name;
-      if (callAvatar) callAvatar.src = avatar;
-      openVoiceCall();
-    }
-
-    function startVideoCallWith(name, avatar) {
-      closeCallDirectory();
-      var callName = document.getElementById('callUserName');
-      var callAvatar = document.getElementById('callUserAvatar');
-      if (callName) callName.innerText = name;
-      if (callAvatar) callAvatar.src = avatar;
-      openVideoCall();
-    }
-
-    // FUNCIONALIDADES REALES DE DESCARGA DE ARCHIVOS (Word, PDF, TXT, PNG, JPG, etc.)
-    function downloadFile(filename, dataOrText, mimeType) {
-      try {
-        var blob;
-        if (typeof dataOrText === 'string' && dataOrText.startsWith('data:')) {
-          var parts = dataOrText.split(';base64,');
-          var contentType = parts.replace('data:', '') || mimeType;
-          var raw = window.atob(parts[1]);
-          var rawLength = raw.length;
-          var uInt8Array = new Uint8Array(rawLength);
-          for (var i = 0; i < rawLength; ++i) {
-            uInt8Array[i] = raw.charCodeAt(i);
-          }
-          blob = new Blob([uInt8Array], { type: contentType });
-        } else {
-          blob = new Blob([dataOrText], { type: mimeType || 'text/plain;charset=utf-8' });
-        }
-
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }, 150);
-        
-        alert('📥 Descargando archivo: ' + filename + ' ...');
-      } catch (err) {
-        console.error('Download error:', err);
-        alert('📥 Iniciando descarga de ' + filename);
-      }
-    }
-
-    function downloadSampleDoc(fileName, fileType) {
-      var sampleContent = "BIENESTAR APP - DOCUMENTO OFICIAL\n=================================\n\nDocumento: " + fileName + "\nFecha: " + new Date().toLocaleDateString() + "\n\nEste documento ha sido generado y descargado exitosamente desde tu aplicación BIENESTAR.\n\nContenido de muestra para pruebas de descarga en formato " + fileType.toUpperCase() + ".";
-      var mime = (fileType === 'pdf') ? 'application/pdf' : ((fileType === 'docx') ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'text/plain;charset=utf-8');
-      downloadFile(fileName, sampleContent, mime);
-    }
-
-    function handleSelectedDocument(input) {
-      if (input.files && input.files) {
-        var file = input.files;
-        var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-        var reader = new FileReader();
-        
-        reader.onload = function(e) {
-          var fileDataUrl = e.target.result;
-          var ext = file.name.split('.').pop().toLowerCase();
-          
-          var docHTML = '<div class="attachment-card">' +
-            '<div class="attachment-doc-box">' +
-              '<i data-lucide="file-text" size="26" color="#2C7A7B"></i>' +
-              '<div>' +
-                '<div style="font-size:13px; font-weight:800;">' + file.name + '</div>' +
-                '<div style="font-size:10.5px; opacity:0.8;">' + (sizeMB > 0 ? sizeMB + ' MB' : 'Documento') + ' • ' + ext.toUpperCase() + '</div>' +
-              '</div>' +
-            '</div>' +
-            '<button class="download-action-btn" onclick="downloadFile(\'' + file.name + '\', \'' + fileDataUrl + '\', \'' + file.type + '\')">' +
-              '<i data-lucide="download" size="15"></i> 📥 Descargar ' + ext.toUpperCase() +
-            '</button>' +
-          '</div>';
-          addCustomMessageBubble(docHTML, 'sent');
-        };
-        
-        reader.readAsDataURL(file);
-        input.value = '';
-      }
-    }
-
-    function handleSelectedGalleryImage(input) {
-      if (input.files && input.files) {
-        var file = input.files;
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var imgDataUrl = e.target.result;
-          var ext = file.name.split('.').pop().toLowerCase() || 'png';
-          var imgHTML = '<div class="attachment-card">' +
-            '<img src="' + imgDataUrl + '" class="attachment-img-preview" alt="Imagen enviada" onclick="downloadFile(\'' + file.name + '\', \'' + imgDataUrl + '\', \'' + file.type + '\')">' +
-            '<button class="download-action-btn" onclick="downloadFile(\'' + file.name + '\', \'' + imgDataUrl + '\', \'' + file.type + '\')">' +
-              '<i data-lucide="download" size="15"></i> 📥 Descargar Imagen (' + ext.toUpperCase() + ')' +
-            '</button>' +
-          '</div>';
-          addCustomMessageBubble(imgHTML, 'sent');
-        };
-        reader.readAsDataURL(file);
-        input.value = '';
-      }
-    }
-
-    // Funciones complementarias de interfaz...
-    function openSingleChat(name, avatarUrl, subtitle) {
-      document.getElementById('activeChatName').innerText = name;
-      document.getElementById('activeChatSubtitle').innerText = subtitle;
-      document.getElementById('activeChatAvatar').src = avatarUrl;
-      document.getElementById('singleChatView').classList.add('active');
-    }
-
-    function closeSingleChat() {
-      document.getElementById('singleChatView').classList.remove('active');
-    }
-
-    function switchTab(tabId, btn) {
-      document.querySelectorAll('.tab-page').forEach(function(page) { page.classList.remove('active'); });
-      document.querySelectorAll('.nav-item').forEach(function(nav) { nav.classList.remove('active'); });
-      document.getElementById('tab-' + tabId).classList.add('active');
-      if (btn) btn.classList.add('active');
-    }
-  </script>
-</body>
-</html>
+          <button class="icon-btn" onclick="startDirectCallForActiveChat('video')" title="Llamar con Video a este amigo"><i data-lucide="video" size="18"></i></button>
+          <button class="icon-btn" onclick="startDirectCallForActiveChat('voice')" title="Llamar por Voz a este amigo"><i data-luc
