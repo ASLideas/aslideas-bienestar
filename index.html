@@ -4,16 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>BIENESTAR App - Ecosistema Integral</title>
-  <!-- Google Fonts, Lucide Icons & Supabase JS -->
+  <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
-      /* Paleta Pantone Teal Air & BIENESTAR */
       --bg-cream: #FAF8EE;
       --green-organic: #2C7A7B;
       --turquoise: #33BCA9;
@@ -31,22 +29,8 @@
       --radius-full: 9999px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: #121212;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: var(--dark-teal);
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: #121212; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: var(--dark-teal); }
 
     /* Contenedor Marco Móvil Responsive */
     .app-frame {
@@ -70,7 +54,7 @@
       }
     }
 
-    /* Splash Screen Inicial con Logo Real de BIENESTAR Embebido */
+    /* Splash Screen Inicial con Logo Real de BIENESTAR */
     .splash-screen {
       position: absolute;
       top: 0;
@@ -83,18 +67,11 @@
       align-items: center;
       justify-content: center;
       z-index: 200;
-      animation: autoHideSplash 2.8s forwards ease-in-out;
-    }
-
-    @keyframes autoHideSplash {
-      0% { opacity: 1; visibility: visible; pointer-events: auto; }
-      85% { opacity: 1; visibility: visible; pointer-events: auto; }
-      100% { opacity: 0; visibility: hidden; pointer-events: none; display: none; }
+      transition: opacity 0.4s ease;
     }
 
     .splash-screen.hidden {
       opacity: 0 !important;
-      visibility: hidden !important;
       pointer-events: none !important;
       display: none !important;
     }
@@ -158,7 +135,7 @@
       height: 100%;
       background: linear-gradient(90deg, var(--green-organic), var(--turquoise));
       border-radius: 10px;
-      animation: loadingFill 2.5s ease-in-out infinite;
+      animation: loadingFill 2s ease-in-out infinite;
     }
 
     @keyframes loadingFill {
@@ -168,8 +145,8 @@
 
     /* Status Bar Top */
     .status-bar {
-      height: 40px;
-      padding: 0 20px;
+      height: 38px;
+      padding: 0 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -182,7 +159,7 @@
 
     /* Header Principal */
     .app-header {
-      padding: 10px 18px;
+      padding: 10px 16px;
       background: var(--bg-cream);
       display: flex;
       align-items: center;
@@ -190,7 +167,7 @@
       border-bottom: 1px solid rgba(51, 188, 169, 0.12);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 15;
     }
 
     .brand-logo-wrap {
@@ -210,7 +187,7 @@
     }
 
     .brand-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--dark-teal);
       letter-spacing: -0.3px;
@@ -250,13 +227,13 @@
       color: var(--white);
     }
 
-    /* Menú Desplegable Estilo WhatsApp */
+    /* Menú Desplegable Flotante de WhatsApp */
     .whatsapp-dropdown-menu {
       display: none;
       position: absolute;
       top: 44px;
       right: 0;
-      width: 220px;
+      width: 230px;
       background: var(--white);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-lg);
@@ -309,25 +286,19 @@
       display: none;
       flex-direction: column;
       height: 100%;
-      animation: fadeIn 0.25s ease-in-out;
     }
 
     .tab-page.active { display: flex; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     /* REGULADOR EMOCIONAL DESLIZANTE */
     .emotional-slider-section {
-      padding: 14px 18px 12px 18px;
+      padding: 12px 16px;
       background: var(--white);
       border-bottom: 1px solid rgba(51, 188, 169, 0.15);
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .slider-header {
@@ -340,7 +311,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       color: var(--green-organic);
       text-transform: uppercase;
@@ -358,17 +329,11 @@
       transition: background 0.3s ease;
     }
 
-    .slider-track-container {
-      position: relative;
-      width: 100%;
-      padding: 8px 0;
-    }
-
     .neuro-slider-bar {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 14px;
+      height: 12px;
       border-radius: 12px;
       outline: none;
       background: linear-gradient(90deg, 
@@ -379,37 +344,25 @@
         #3A86FF 80%, 
         #8338EC 100%
       );
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
       cursor: pointer;
     }
 
     .neuro-slider-bar::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: var(--white);
       border: 3px solid var(--dark-teal);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      cursor: grab;
-      transition: transform 0.1s ease;
-    }
-
-    .neuro-slider-bar::-webkit-slider-thumb:active {
-      cursor: grabbing;
-      transform: scale(1.2);
-      border-color: var(--turquoise);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      cursor: pointer;
     }
 
     .slider-ticks-labels {
       display: flex;
       justify-content: space-between;
       padding: 0 2px;
-      margin-top: -2px;
-    }
-
-    .tick-label {
       font-size: 9px;
       font-weight: 700;
       color: var(--gray-muted);
@@ -418,9 +371,9 @@
 
     /* Carrusel de Estados / Historias */
     .stories-container {
-      padding: 10px 16px 8px 16px;
+      padding: 10px 16px;
       display: flex;
-      gap: 14px;
+      gap: 12px;
       overflow-x: auto;
       scrollbar-width: none;
       background: var(--bg-cream);
@@ -433,28 +386,22 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       cursor: pointer;
       flex-shrink: 0;
-      width: 64px;
+      width: 60px;
     }
 
     .story-ring {
-      width: 58px;
-      height: 58px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      padding: 2.5px;
+      padding: 2px;
       background: linear-gradient(135deg, var(--turquoise), var(--green-organic));
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-    }
-
-    .story-ring.my-story {
-      background: var(--mint);
-      border: 2px dashed var(--turquoise);
-      padding: 0;
     }
 
     .story-avatar {
@@ -464,23 +411,6 @@
       object-fit: cover;
       border: 2px solid var(--bg-cream);
       background: var(--white);
-    }
-
-    .add-story-badge {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      width: 18px;
-      height: 18px;
-      background: var(--turquoise);
-      color: var(--white);
-      border-radius: 50%;
-      border: 2px solid var(--bg-cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 800;
     }
 
     .story-name {
@@ -573,7 +503,7 @@
       box-shadow: var(--shadow-sm);
       border: 1px solid rgba(51, 188, 169, 0.08);
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      transition: transform 0.15s ease;
     }
 
     .contact-item:active {
@@ -587,34 +517,12 @@
       gap: 12px;
     }
 
-    .contact-avatar-wrap {
-      position: relative;
-      width: 48px;
-      height: 48px;
-    }
-
     .contact-avatar {
-      width: 100%;
-      height: 100%;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--turquoise);
-    }
-
-    .badge-business {
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-      background: var(--green-organic);
-      color: var(--white);
-      border-radius: 50%;
-      width: 16px;
-      height: 16px;
-      font-size: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1.5px solid var(--white);
     }
 
     .contact-info {
@@ -623,25 +531,10 @@
       gap: 3px;
     }
 
-    .contact-name-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
     .contact-name {
       font-size: 14px;
       font-weight: 700;
       color: var(--dark-teal);
-    }
-
-    .business-tag {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: var(--mint);
-      color: var(--green-organic);
-      font-weight: 700;
     }
 
     .last-msg {
@@ -650,20 +543,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 190px;
-    }
-
-    .contact-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-    }
-
-    .msg-time-badge {
-      font-size: 11px;
-      color: var(--gray-muted);
-      font-weight: 500;
+      max-width: 180px;
     }
 
     .unread-count {
@@ -674,27 +554,6 @@
       padding: 2px 7px;
       border-radius: var(--radius-full);
     }
-
-    .fab-new-chat {
-      position: absolute;
-      bottom: 80px;
-      right: 20px;
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--green-organic), var(--turquoise));
-      color: var(--white);
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-md);
-      cursor: pointer;
-      z-index: 15;
-      transition: transform 0.2s;
-    }
-
-    .fab-new-chat:active { transform: scale(0.9); }
 
     /* VISTA DE CHAT INDIVIDUAL */
     .single-chat-view {
@@ -707,15 +566,9 @@
       background: var(--bg-cream);
       z-index: 50;
       flex-direction: column;
-      animation: slideInRight 0.25s ease-out;
     }
 
     .single-chat-view.active { display: flex; }
-
-    @keyframes slideInRight {
-      from { transform: translateX(100%); }
-      to { transform: translateX(0); }
-    }
 
     .chat-header-bar {
       padding: 10px 14px;
@@ -725,7 +578,6 @@
       justify-content: space-between;
       border-bottom: 1px solid rgba(51, 188, 169, 0.15);
       box-shadow: var(--shadow-sm);
-      position: relative;
     }
 
     .chat-user-info {
@@ -742,24 +594,6 @@
       object-fit: cover;
       border: 1.5px solid var(--turquoise);
     }
-
-    /* Submenú de 3 Puntos del Contacto en el Chat */
-    .chat-contact-dropdown {
-      display: none;
-      position: absolute;
-      top: 50px;
-      right: 10px;
-      width: 210px;
-      background: var(--white);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
-      border: 1px solid rgba(51, 188, 169, 0.2);
-      padding: 6px 0;
-      z-index: 160;
-      animation: fadeInDown 0.18s ease-out;
-    }
-
-    .chat-contact-dropdown.active { display: block; }
 
     .messages-area {
       flex: 1;
@@ -778,15 +612,6 @@
 
     .message-row.sent { justify-content: flex-end; }
 
-    .avatar-msg {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid var(--turquoise);
-      background: var(--white);
-    }
-
     .message-bubble {
       max-width: 82%;
       padding: 10px 14px;
@@ -802,48 +627,12 @@
       color: var(--dark-teal);
       border-bottom-left-radius: 4px;
       box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(51, 188, 169, 0.12);
     }
 
     .msg-sent {
       background-color: var(--green-organic);
       color: var(--white);
       border-bottom-right-radius: 4px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .msg-time {
-      font-size: 9.5px;
-      opacity: 0.75;
-      margin-top: 4px;
-      text-align: right;
-    }
-
-    /* BUBBLE ADJUNTOS ESPECIALES & BOTONES DE DESCARGA */
-    .attachment-card {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      border-radius: 12px;
-      overflow: hidden;
-      min-width: 210px;
-    }
-
-    .attachment-doc-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(0,0,0,0.06);
-      padding: 10px 12px;
-      border-radius: 10px;
-    }
-
-    .attachment-img-preview {
-      width: 100%;
-      max-height: 220px;
-      border-radius: 10px;
-      object-fit: cover;
-      cursor: pointer;
     }
 
     .download-action-btn {
@@ -859,86 +648,10 @@
       font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 4px;
+      margin-top: 6px;
       box-shadow: var(--shadow-sm);
-      transition: all 0.2s;
       text-decoration: none;
       width: 100%;
-    }
-
-    .download-action-btn:active {
-      transform: scale(0.96);
-      background: var(--green-organic);
-    }
-
-    .audio-player-bubble {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(0,0,0,0.06);
-      padding: 8px 12px;
-      border-radius: 20px;
-      min-width: 180px;
-    }
-
-    .audio-play-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--turquoise);
-      color: var(--white);
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .audio-waveform-bars {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      flex: 1;
-      height: 20px;
-    }
-
-    .audio-bar {
-      width: 3px;
-      background: var(--turquoise);
-      border-radius: 2px;
-    }
-
-    /* ESTILO ENCUESTA INTERACTIVA */
-    .poll-card {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 220px;
-    }
-
-    .poll-question {
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .poll-option-btn {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(51, 188, 169, 0.3);
-      border-radius: 10px;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .poll-option-btn.voted {
-      background: var(--mint);
-      border-color: var(--turquoise);
-      color: var(--dark-teal);
     }
 
     .chat-input-bar {
@@ -954,17 +667,12 @@
     .chat-input {
       flex: 1;
       background-color: var(--bg-cream);
-      border: 1px solid transparent;
+      border: none;
       padding: 10px 16px;
       border-radius: 24px;
       font-size: 13.5px;
       outline: none;
       color: var(--dark-teal);
-    }
-
-    .chat-input:focus {
-      border-color: var(--turquoise);
-      background-color: var(--white);
     }
 
     .send-btn {
@@ -980,7 +688,7 @@
       cursor: pointer;
     }
 
-    /* Menú Adjuntos (Clip) Tipo WhatsApp */
+    /* Menú Adjuntos Clip */
     .clip-menu {
       display: none;
       position: absolute;
@@ -989,18 +697,12 @@
       right: 16px;
       background: var(--white);
       border-radius: var(--radius-lg);
-      padding: 18px 14px;
+      padding: 16px;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px 10px;
+      gap: 12px;
       box-shadow: var(--shadow-lg);
       border: 1px solid rgba(51, 188, 169, 0.2);
       z-index: 100;
-      animation: fadeInUp 0.2s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .clip-menu.active { display: grid; }
@@ -1009,34 +711,23 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       font-size: 11px;
       color: var(--dark-teal);
       cursor: pointer;
       font-weight: 600;
     }
 
-    .clip-icon-circle {
-      width: 48px;
-      height: 48px;
+    .clip-icon {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--white);
       box-shadow: var(--shadow-sm);
-      transition: transform 0.15s;
     }
-
-    .clip-item:active .clip-icon-circle { transform: scale(0.9); }
-
-    .bg-doc { background: linear-gradient(135deg, #7F66FF, #512DA8); }
-    .bg-cam { background: linear-gradient(135deg, #FF5252, #D32F2F); }
-    .bg-gal { background: linear-gradient(135deg, #EC407A, #C2185B); }
-    .bg-aud { background: linear-gradient(135deg, #FF9800, #F57C00); }
-    .bg-ubi { background: linear-gradient(135deg, #26A69A, #00796B); }
-    .bg-con { background: linear-gradient(135deg, #0288D1, #0277BD); }
-    .bg-enc { background: linear-gradient(135deg, #FFB300, #FF8F00); }
 
     /* MODAL DIRECTORIO DE CONTACTOS PARA LLAMADAS */
     .directory-modal-overlay {
@@ -1051,7 +742,6 @@
       align-items: center;
       justify-content: center;
       padding: 18px;
-      animation: fadeIn 0.2s;
     }
 
     .directory-modal-overlay.active { display: flex; }
@@ -1066,24 +756,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      max-height: 82vh;
-    }
-
-    .directory-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--bg-cream);
-      padding-bottom: 10px;
-    }
-
-    .directory-contacts-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      overflow-y: auto;
-      max-height: 60vh;
-      padding-right: 4px;
+      max-height: 80vh;
     }
 
     .directory-contact-card {
@@ -1103,8 +776,8 @@
     }
 
     .dir-contact-avatar {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--turquoise);
@@ -1125,696 +798,6 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      transition: transform 0.15s;
-    }
-
-    .dir-call-btn:active { transform: scale(0.92); }
-
-    .dir-btn-voice {
-      background: var(--mint);
-      color: var(--green-organic);
-      border: 1px solid var(--turquoise);
-    }
-
-    .dir-btn-video {
-      background: var(--turquoise);
-      color: var(--white);
-    }
-
-    /* MODAL DE CÁMARA FOTOGRÁFICA */
-    .photo-camera-modal {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      z-index: 180;
-      flex-direction: column;
-      justify-content: space-between;
-      animation: fadeIn 0.2s;
-    }
-
-    .photo-camera-modal.active { display: flex; }
-
-    .cam-top-bar {
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #fff;
-      z-index: 10;
-    }
-
-    .cam-viewfinder {
-      flex: 1;
-      position: relative;
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .cam-video-feed {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .cam-canvas-snap { display: none; }
-
-    .cam-bottom-bar {
-      padding: 24px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      background: rgba(0,0,0,0.8);
-      z-index: 10;
-    }
-
-    .shutter-btn {
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
-      border: 4px solid var(--white);
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .shutter-btn::after {
-      content: '';
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: var(--white);
-      display: block;
-      transition: transform 0.1s;
-    }
-
-    .shutter-btn:active::after { transform: scale(0.85); }
-
-    /* MODAL DE GRABACIÓN DE AUDIO */
-    .audio-recorder-modal {
-      display: none;
-      position: absolute;
-      bottom: 60px;
-      left: 0;
-      width: 100%;
-      background: var(--white);
-      padding: 16px 20px;
-      border-top: 2px solid var(--turquoise);
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-      z-index: 120;
-      align-items: center;
-      justify-content: space-between;
-      animation: fadeInUp 0.2s ease-out;
-    }
-
-    .audio-recorder-modal.active { display: flex; }
-
-    .rec-timer-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      color: var(--red-alert);
-      font-size: 15px;
-    }
-
-    .rec-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--red-alert);
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-
-    /* MODAL DE CREACIÓN DE ENCUESTA */
-    .poll-modal-overlay {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 190;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      animation: fadeIn 0.2s;
-    }
-
-    .poll-modal-overlay.active { display: flex; }
-
-    .poll-modal-card {
-      width: 100%;
-      max-width: 360px;
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: var(--shadow-lg);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .poll-modal-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--dark-teal);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .poll-input-field {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(51, 188, 169, 0.3);
-      outline: none;
-      font-size: 13px;
-      color: var(--dark-teal);
-    }
-
-    .poll-modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    /* MODAL DE SELECCIÓN DE CONTACTO */
-    .contact-modal-overlay {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 190;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      animation: fadeIn 0.2s;
-    }
-
-    .contact-modal-overlay.active { display: flex; }
-
-    .contact-modal-card {
-      width: 100%;
-      max-width: 360px;
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: var(--shadow-lg);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-
-    /* Panel de Emojis WhatsApp */
-    .emoji-picker-panel {
-      display: none;
-      position: absolute;
-      bottom: 60px;
-      left: 0;
-      width: 100%;
-      height: 220px;
-      background: var(--white);
-      border-top: 1px solid rgba(51, 188, 169, 0.2);
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
-      z-index: 110;
-      flex-direction: column;
-      animation: fadeInUp 0.2s ease-out;
-    }
-
-    .emoji-picker-panel.active { display: flex; }
-
-    .emoji-header-tabs {
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--bg-cream);
-      background: var(--mint);
-    }
-
-    .emoji-tab-btn {
-      background: none;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      opacity: 0.6;
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-    }
-
-    .emoji-tab-btn.active {
-      opacity: 1;
-      background: var(--white);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .emoji-grid-content {
-      flex: 1;
-      padding: 10px 14px;
-      overflow-y: auto;
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 10px;
-      font-size: 22px;
-    }
-
-    .emoji-char {
-      cursor: pointer;
-      text-align: center;
-      user-select: none;
-      transition: transform 0.1s;
-    }
-
-    .emoji-char:active { transform: scale(1.3); }
-
-    /* Pestaña 2: Wellness */
-    .wellness-page {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      overflow-y: auto;
-    }
-
-    .card-widget {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(51, 188, 169, 0.15);
-    }
-
-    .widget-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .widget-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--dark-teal);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .water-progress {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .water-metric {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--green-organic);
-    }
-
-    .water-sub {
-      font-size: 12px;
-      color: var(--gray-muted);
-    }
-
-    .water-btn-group {
-      display: flex;
-      gap: 8px;
-    }
-
-    .habit-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--bg-cream);
-    }
-
-    .habit-item:last-child { border-bottom: none; }
-
-    .habit-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .habit-checkbox {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      border: 2px solid var(--turquoise);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--white);
-    }
-
-    .habit-checkbox.checked { background-color: var(--turquoise); }
-
-    /* Pestaña 3: Tienda PyME */
-    .tienda-page {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      overflow-y: auto;
-    }
-
-    .promo-banner {
-      background: linear-gradient(135deg, var(--green-organic), var(--turquoise));
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      color: var(--white);
-    }
-
-    .promo-banner h3 { font-size: 18px; margin-bottom: 6px; }
-    .promo-banner p { font-size: 12px; opacity: 0.9; margin-bottom: 14px; }
-
-    .pyme-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .pyme-card {
-      background: var(--white);
-      border-radius: var(--radius-md);
-      padding: 12px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .pyme-img {
-      width: 100%;
-      height: 90px;
-      border-radius: 8px;
-      background-color: var(--mint);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-    }
-
-    .pyme-name { font-size: 13px; font-weight: 700; color: var(--dark-teal); }
-    .pyme-desc { font-size: 11px; color: var(--gray-muted); }
-    .pyme-price { font-size: 14px; font-weight: 800; color: var(--green-organic); }
-
-    /* Pestaña 4: Morfeo */
-    .morfeo-page {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      background: linear-gradient(180deg, var(--bg-cream) 0%, #E2F4F2 100%);
-      height: 100%;
-      overflow-y: auto;
-    }
-
-    .morfeo-card {
-      background: var(--dark-teal);
-      color: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      box-shadow: var(--shadow-md);
-    }
-
-    .pulse-circle {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      background: rgba(51, 188, 169, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      margin: 10px 0;
-      overflow: hidden;
-      border: 2px solid var(--turquoise);
-      padding: 6px;
-    }
-
-    .pulse-circle img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 50%;
-    }
-
-    /* Navbar Inferior */
-    .bottom-nav {
-      height: 66px;
-      background-color: var(--white);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      border-top: 1px solid rgba(51, 188, 169, 0.15);
-      z-index: 10;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      background: none;
-      border: none;
-      color: var(--gray-muted);
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 25%;
-      transition: color 0.2s;
-    }
-
-    .nav-item.active { color: var(--green-organic); }
-    .nav-item.active i { stroke: var(--turquoise); }
-
-    /* Modal Videollamada HD con Cámara WebRTC Real */
-    .video-call-modal {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--call-bg);
-      z-index: 100;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 48px 24px 36px 24px;
-      color: var(--white);
-      box-sizing: border-box;
-      animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .video-call-modal.active { display: flex; }
-
-    @keyframes modalSlideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
-
-    .call-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: #8AA2A2;
-      font-weight: 500;
-    }
-
-    .call-lock {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .call-user-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    .call-avatar-wrap {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 3.5px solid var(--turquoise);
-      overflow: hidden;
-      margin-bottom: 12px;
-      box-shadow: 0 0 20px rgba(51, 188, 169, 0.4);
-      background: var(--white);
-    }
-
-    .call-avatar-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      border-radius: 50%;
-    }
-
-    .call-user-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
-
-    .call-status {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--turquoise);
-      letter-spacing: 0.8px;
-    }
-
-    .call-video-card {
-      width: 100%;
-      max-width: 320px;
-      height: 220px;
-      background-color: #1A3C3C;
-      border-radius: 24px;
-      margin: 16px auto;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-      border: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .webcam-video-element {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scaleX(-1);
-    }
-
-    .fallback-avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .voice-wave-animation {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(135deg, #123838, #0B2222);
-    }
-
-    .wave-bar {
-      width: 6px;
-      height: 30px;
-      background: var(--turquoise);
-      border-radius: 4px;
-      animation: wavePulse 1.2s infinite ease-in-out;
-    }
-
-    .wave-bar:nth-child(2) { animation-delay: 0.2s; height: 55px; }
-    .wave-bar:nth-child(3) { animation-delay: 0.4s; height: 80px; }
-    .wave-bar:nth-child(4) { animation-delay: 0.1s; height: 45px; }
-    .wave-bar:nth-child(5) { animation-delay: 0.3s; height: 65px; }
-
-    @keyframes wavePulse {
-      0%, 100% { transform: scaleY(0.4); opacity: 0.6; }
-      50% { transform: scaleY(1.2); opacity: 1; }
-    }
-
-    .call-controls-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px 16px;
-      margin-top: auto;
-      padding: 0 10px;
-    }
-
-    .call-control-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    .call-btn {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.12);
-      border: none;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .call-btn:active {
-      transform: scale(0.9);
-      background-color: rgba(255, 255, 255, 0.25);
-    }
-
-    .call-btn.off {
-      background-color: var(--white);
-      color: var(--dark-teal);
-    }
-
-    .call-btn.hangup {
-      background-color: var(--red-alert);
-      color: var(--white);
-      box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
-    }
-
-    .call-btn-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: #B2C2C2;
-    }
-
-    .call-btn-label.red {
-      color: var(--red-alert);
-      font-weight: 700;
     }
 
     /* VISTA COMPLETA DE AJUSTES */
@@ -1828,7 +811,6 @@
       background-color: var(--bg-cream);
       z-index: 120;
       flex-direction: column;
-      animation: slideInRight 0.25s ease-out;
       overflow-y: auto;
     }
 
@@ -1846,100 +828,6 @@
       z-index: 10;
     }
 
-    .settings-title-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .settings-header-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--dark-teal);
-    }
-
-    .settings-actions-right {
-      display: flex;
-      gap: 8px;
-    }
-
-    .settings-profile-card {
-      padding: 20px 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: var(--white);
-      border-bottom: 1px solid rgba(51, 188, 169, 0.1);
-      position: relative;
-    }
-
-    .song-thought-bubble {
-      background: var(--white);
-      padding: 8px 16px;
-      border-radius: 18px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(51, 188, 169, 0.2);
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--dark-teal);
-      margin-bottom: 12px;
-      position: relative;
-      text-align: center;
-      max-width: 80%;
-      cursor: pointer;
-    }
-
-    .song-thought-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -7px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 7px 7px 0;
-      border-style: solid;
-      border-color: var(--white) transparent;
-      display: block;
-      width: 0;
-    }
-
-    .settings-avatar-wrap {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3.5px solid var(--turquoise);
-      box-shadow: var(--shadow-md);
-      margin-bottom: 10px;
-    }
-
-    .settings-avatar-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .settings-user-name {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--dark-teal);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .settings-user-handle {
-      font-size: 13px;
-      color: var(--gray-muted);
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .settings-menu-list {
-      padding: 8px 0;
-      display: flex;
-      flex-direction: column;
-    }
-
     .setting-row-item {
       padding: 14px 20px;
       display: flex;
@@ -1948,121 +836,85 @@
       background: var(--white);
       border-bottom: 1px solid var(--bg-cream);
       cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .setting-row-item:active { background-color: var(--mint); }
-
-    .setting-icon-box {
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--dark-teal);
-      flex-shrink: 0;
-    }
-
-    .setting-text-box {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
     }
 
     .setting-item-title {
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--dark-teal);
     }
 
     .setting-item-sub {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--gray-muted);
-      font-weight: 500;
     }
 
-    .meta-center-section {
-      padding: 20px;
-      background: var(--white);
-      margin-top: 12px;
-      border-top: 1px solid rgba(51, 188, 169, 0.1);
-    }
-
-    .meta-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--dark-teal);
-      margin-bottom: 4px;
-    }
-
-    .meta-desc {
-      font-size: 12px;
-      color: var(--gray-muted);
-      margin-bottom: 16px;
-    }
-
-    .meta-apps-grid {
-      display: flex;
+    /* MODAL VIDEOLLAMADA HD */
+    .video-call-modal {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--call-bg);
+      z-index: 100;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
+      padding: 40px 24px;
+      color: var(--white);
     }
 
-    .meta-app-icon {
+    .video-call-modal.active { display: flex; }
+
+    /* Navbar Inferior */
+    .bottom-nav {
+      height: 62px;
+      background-color: var(--white);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid rgba(51, 188, 169, 0.15);
+      z-index: 10;
+    }
+
+    .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--dark-teal);
+      gap: 3px;
+      background: none;
+      border: none;
+      color: var(--gray-muted);
+      font-size: 11px;
+      font-weight: 600;
       cursor: pointer;
+      width: 25%;
     }
 
-    .meta-app-badge {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: var(--bg-cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(51, 188, 169, 0.2);
-    }
+    .nav-item.active { color: var(--green-organic); }
   </style>
 </head>
 <body>
 
-  <!-- Hidden File Inputs para Documento, Galería y Fallback de Cámara -->
+  <!-- Hidden File Inputs -->
   <input type="file" id="fileInputDoc" accept=".pdf,.doc,.docx,.txt,.xlsx,.pptx,.png,.jpg,.jpeg" style="display:none;" onchange="handleSelectedDocument(this)">
   <input type="file" id="fileInputGallery" accept="image/*" style="display:none;" onchange="handleSelectedGalleryImage(this)">
   <input type="file" id="fileInputCameraCapture" accept="image/*" capture="environment" style="display:none;" onchange="handleCameraCaptureFallback(this)">
 
   <div class="app-frame">
     
-    <!-- Splash Screen Inicial con Logo Real de BIENESTAR Embebido en Base64 -->
+    <!-- Splash Screen Inicial -->
     <div class="splash-screen" id="splashScreen">
       <div class="splash-logo-wrap">
-        <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." id="splashLogoImg" alt="Logo BIENESTAR">
+        <img class="bienestar-logo-target" alt="Logo BIENESTAR">
       </div>
       <div class="splash-title">BIENESTAR</div>
       <div class="splash-sub">Ecosistema Integral</div>
       <div class="loading-bar-wrap">
         <div class="loading-bar-fill"></div>
       </div>
-      <span style="font-size: 11px; color: var(--gray-muted); margin-top: 12px; font-weight: 500;">Cargando experiencia...</span>
     </div>
-
-    <script>
-      setTimeout(function() {
-        var splash = document.getElementById('splashScreen');
-        if (splash) { splash.classList.add('hidden'); splash.style.display = 'none'; }
-      }, 2500);
-    </script>
 
     <!-- Status Bar Top -->
     <div class="status-bar">
@@ -2077,7 +929,7 @@
     <!-- Header Principal -->
     <div class="app-header">
       <div class="brand-logo-wrap">
-        <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." class="header-logo-img" alt="Logo BIENESTAR">
+        <img class="header-logo-img bienestar-logo-target" alt="Logo BIENESTAR">
         <div>
           <div class="brand-title">BIENESTAR</div>
           <div class="brand-subtitle">Ecosistema Integral</div>
@@ -2090,47 +942,25 @@
         <button class="icon-btn" title="Directorio - Videollamada HD" onclick="openCallDirectory('video')">
           <i data-lucide="video" size="18"></i>
         </button>
-        <button class="icon-btn" title="Menú WhatsApp" onclick="toggleWhatsAppMenu(event)">
+        <button class="icon-btn" title="Menú Ajustes" onclick="toggleWhatsAppMenu(event)">
           <i data-lucide="more-vertical" size="18"></i>
         </button>
 
         <!-- Menú Desplegable Flotante de WhatsApp -->
         <div class="whatsapp-dropdown-menu" id="whatsappMenu">
-          <div class="dropdown-item" onclick="triggerMenuAction('Nuevo grupo')">
-            <i data-lucide="users" size="16"></i> Nuevo grupo
-          </div>
-          <div class="dropdown-item" onclick="triggerMenuAction('Nueva comunidad')">
-            <i data-lucide="globe" size="16"></i> Nueva comunidad
-          </div>
-          <div class="dropdown-item" onclick="triggerMenuAction('Listas de difusión')">
-            <i data-lucide="radio" size="16"></i> Listas de difusión
-          </div>
-          <div class="dropdown-item" onclick="triggerMenuAction('Dispositivos vinculados')">
-            <i data-lucide="laptop" size="16"></i> Dispositivos vinculados
-          </div>
-          <div class="dropdown-item" onclick="triggerMenuAction('Destacado')">
-            <i data-lucide="star" size="16"></i> Destacado
-          </div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Nuevo grupo')"><i data-lucide="users" size="16"></i> Nuevo grupo</div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Nueva comunidad')"><i data-lucide="globe" size="16"></i> Nueva comunidad</div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Listas de difusión')"><i data-lucide="radio" size="16"></i> Listas de difusión</div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Dispositivos vinculados')"><i data-lucide="laptop" size="16"></i> Dispositivos vinculados</div>
+          <div class="dropdown-item" onclick="triggerMenuAction('Destacado')"><i data-lucide="star" size="16"></i> Destacado</div>
           <div class="dropdown-divider"></div>
-          <div class="dropdown-item" onclick="markAllAsRead()">
-            <i data-lucide="check-check" size="16"></i> Marcar todos como leídos
-          </div>
-          <div class="dropdown-item" onclick="triggerMenuAction('Privacidad de estados')">
-            <i data-lucide="shield-check" size="16"></i> Privacidad de estados
-          </div>
-          <div class="dropdown-item" onclick="switchTab('tienda', document.querySelectorAll('.nav-item')); toggleWhatsAppMenu();">
-            <i data-lucide="store" size="16"></i> Herramientas de empresa
-          </div>
-          <div class="dropdown-divider"></div>
-          <div class="dropdown-item" onclick="openFullSettings(); toggleWhatsAppMenu();">
-            <i data-lucide="settings" size="16"></i> Ajustes
-          </div>
+          <div class="dropdown-item" onclick="openFullSettings(); toggleWhatsAppMenu();"><i data-lucide="settings" size="16"></i> Ajustes / Configuración</div>
         </div>
       </div>
     </div>
 
     <!-- Áreas de Contenido -->
-    <div class="app-content" onclick="closeAllDropdownsOutside(event)">
+    <div class="app-content">
 
       <!-- TAB CHATS -->
       <div id="tab-chats" class="tab-page active">
@@ -2138,332 +968,518 @@
         <!-- REGULADOR EMOCIONAL DESLIZANTE -->
         <div class="emotional-slider-section">
           <div class="slider-header">
-            <div class="slider-title-wrap">
-              <i data-lucide="sliders" size="15"></i>
-              Regulador Emocional (Sensorial)
-            </div>
+            <div class="slider-title-wrap"><i data-lucide="sliders" size="14"></i> Regulador Emocional</div>
             <span class="slider-badge" id="sliderBadge">En Calma</span>
           </div>
-
-          <div class="slider-track-container">
-            <input 
-              type="range" 
-              min="1" 
-              max="6" 
-              value="4" 
-              step="1" 
-              class="neuro-slider-bar" 
-              id="neuroSlider" 
-              oninput="updateSensorySlider(this.value)"
-              onchange="logSensoryChange(this.value)"
-            >
-          </div>
-
+          <input type="range" min="1" max="6" value="4" class="neuro-slider-bar" oninput="updateSliderBadge(this.value)">
           <div class="slider-ticks-labels">
-            <span class="tick-label" style="color: #FF5A5F;">Crisis</span>
-            <span class="tick-label" style="color: #FF9F1C;">Ansiedad</span>
-            <span class="tick-label" style="color: #D6A000;">Alerta</span>
-            <span class="tick-label" style="color: #2EC4B6;">Calma</span>
-            <span class="tick-label" style="color: #3A86FF;">Enfoque</span>
-            <span class="tick-label" style="color: #8338EC;">Vínculo</span>
+            <span>Crisis</span><span>Ansiedad</span><span>Alerta</span><span>Calma</span><span>Enfoque</span><span>Vínculo</span>
           </div>
         </div>
 
         <!-- Carrusel de Estados / Historias -->
         <div class="stories-container">
-          <div class="story-item" onclick="editSongBubble()">
-            <div class="story-ring my-story">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Mi Estado">
-              <div class="add-story-badge">+</div>
-            </div>
+          <div class="story-item">
+            <div class="story-ring"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120" class="story-avatar" alt="Tu estado"></div>
             <span class="story-name">Tu estado</span>
           </div>
-
-          <div class="story-item" onclick="openSingleChat('Camila Silva 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Amiga • En línea')">
-            <div class="story-ring">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Camila">
-            </div>
+          <div class="story-item" onclick="openSingleChat('Camila Silva 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120', 'Amiga • En línea')">
+            <div class="story-ring"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120" class="story-avatar" alt="Camila"></div>
             <span class="story-name">Camila S.</span>
           </div>
-
-          <div class="story-item" onclick="openSingleChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80', 'Amigo & Médico Specialist')">
-            <div class="story-ring">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Aldo">
-            </div>
+          <div class="story-item" onclick="openSingleChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120', 'Amigo & Médico Specialist')">
+            <div class="story-ring"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120" class="story-avatar" alt="Aldo"></div>
             <span class="story-name">Dr. Aldo</span>
           </div>
-
-          <div class="story-item" onclick="openSingleChat('Dra. Elena Ramos', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80', 'Nutricionista Clínica & Holística')">
-            <div class="story-ring">
-              <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80" class="story-avatar" alt="Dra. Elena">
-            </div>
-            <span class="story-name">Dra. Elena</span>
-          </div>
-
           <div class="story-item" onclick="switchTab('morfeo', document.querySelectorAll('.nav-item'))">
-            <div class="story-ring">
-              <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." class="story-avatar" alt="Morfeo 432Hz">
-            </div>
+            <div class="story-ring"><img class="story-avatar bienestar-logo-target" alt="Morfeo"></div>
             <span class="story-name">Morfeo</span>
           </div>
         </div>
 
         <!-- Filtros Rápidos de Chat -->
         <div class="chat-filter-pills">
-          <button class="chat-filter-btn active" onclick="filterChatCategory('todos', this)">Todos</button>
-          <button class="chat-filter-btn" onclick="filterChatCategory('amigos', this)">👥 Amigos</button>
-          <button class="chat-filter-btn" onclick="filterChatCategory('asistente', this)">🌿 Asistente IA</button>
-          <button class="chat-filter-btn" onclick="filterChatCategory('unread', this)">📩 No leídos</button>
+          <button class="chat-filter-btn active">Todos</button>
+          <button class="chat-filter-btn">Amigos</button>
+          <button class="chat-filter-btn">Asistente IA</button>
+          <button class="chat-filter-btn">No leídos</button>
         </div>
 
         <!-- Buscador Limpio -->
         <div class="search-filter-section">
           <div class="search-box">
             <i data-lucide="search" size="18" color="#2C7A7B"></i>
-            <input type="text" class="search-input" placeholder="Buscar amigos, especialistas, PyMEs..." onkeyup="filterContacts(this.value)">
+            <input type="text" class="search-input" placeholder="Buscar amigos, especialistas, PyMEs...">
           </div>
         </div>
 
         <!-- Lista de Contactos / Amigos -->
-        <div class="contacts-list" id="contactsList">
-          
-          <!-- AMIGO 1: Camila Silva -->
-          <div class="contact-item chat-type-amigos" onclick="openSingleChat('Camila Silva 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', 'Amiga • En línea')">
+        <div class="contacts-list">
+          <div class="contact-item" onclick="openSingleChat('Camila Silva 🌿', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120', 'Amiga • En línea')">
             <div class="contact-left">
-              <div class="contact-avatar-wrap">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Camila Silva">
-                <div class="badge-business">💚</div>
-              </div>
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120" class="contact-avatar" alt="Camila">
               <div class="contact-info">
-                <div class="contact-name-row">
-                  <span class="contact-name">Camila Silva</span>
-                  <span class="business-tag">Amiga</span>
-                </div>
+                <div class="contact-name">Camila Silva 🌿</div>
                 <div class="last-msg">¡Hola! Te comparto la Guía Nutricional en PDF 📄</div>
               </div>
             </div>
-            <div class="contact-right">
-              <span class="msg-time-badge">10:14</span>
-              <span class="unread-count">2</span>
-            </div>
+            <span class="unread-count">2</span>
           </div>
 
-          <!-- AMIGO 2: Dr. Aldo Licandeo -->
-          <div class="contact-item chat-type-amigos" onclick="openSingleChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80', 'Amigo & Especialista')">
+          <div class="contact-item" onclick="openSingleChat('Dr. Aldo Licandeo', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120', 'Amigo & Médico Specialist')">
             <div class="contact-left">
-              <div class="contact-avatar-wrap">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Aldo">
-                <div class="badge-business">✓</div>
-              </div>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120" class="contact-avatar" alt="Aldo">
               <div class="contact-info">
-                <div class="contact-name-row">
-                  <span class="contact-name">Dr. Aldo Licandeo</span>
-                  <span class="business-tag">Amigo</span>
-                </div>
-                <div class="last-msg">Te adjunto el documento en Word con las recomendaciones.</div>
+                <div class="contact-name">Dr. Aldo Licandeo</div>
+                <div class="last-msg">Te adjunto el documento en Word con las pautas.</div>
               </div>
             </div>
-            <div class="contact-right">
-              <span class="msg-time-badge">09:30</span>
-            </div>
+            <span style="font-size:11px; color:var(--gray-muted);">09:30</span>
           </div>
 
-          <!-- ASISTENTE IA -->
-          <div class="contact-item chat-type-asistente" onclick="openSingleChat('Asistente IA BIENESTAR 🌿', 'data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]...', 'Especialista en Salud Integral')">
+          <div class="contact-item" onclick="openSingleChat('Asistente IA BIENESTAR 🌿', LOGO_SRC, 'Especialista en Salud Integral')">
             <div class="contact-left">
-              <div class="contact-avatar-wrap">
-                <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." class="contact-avatar" alt="Logo">
-                <div class="badge-business">✓</div>
-              </div>
+              <img class="contact-avatar bienestar-logo-target" alt="IA">
               <div class="contact-info">
-                <div class="contact-name-row">
-                  <span class="contact-name">Asistente IA BIENESTAR</span>
-                  <span class="business-tag">Oficial</span>
-                </div>
-                <div class="last-msg">¿Te gustaría un consejo personalizado para conciliar el sueño?</div>
+                <div class="contact-name">Asistente IA BIENESTAR 🌿</div>
+                <div class="last-msg">¿Te gustaría un consejo personalizado?</div>
               </div>
             </div>
-            <div class="contact-right">
-              <span class="msg-time-badge">Ayer</span>
-            </div>
+            <span style="font-size:11px; color:var(--gray-muted);">Ayer</span>
           </div>
-
-          <!-- ESPECIALISTA: Dra. Elena Ramos -->
-          <div class="contact-item chat-type-amigos" onclick="openSingleChat('Dra. Elena Ramos', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80', 'Nutricionista Clínica & Holística')">
-            <div class="contact-left">
-              <div class="contact-avatar-wrap">
-                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop&q=80" class="contact-avatar" alt="Dra. Elena">
-                <div class="badge-business">🩺</div>
-              </div>
-              <div class="contact-info">
-                <div class="contact-name-row">
-                  <span class="contact-name">Dra. Elena Ramos</span>
-                  <span class="business-tag">Nutrición</span>
-                </div>
-                <div class="last-msg">Tu plan nutricional de la semana está listo 🥗</div>
-              </div>
-            </div>
-            <div class="contact-right">
-              <span class="msg-time-badge">17:15</span>
-            </div>
-          </div>
-
         </div>
-
-        <button class="fab-new-chat" onclick="promptNewFriend()" title="Agregar Amigo / Chat">
-          <i data-lucide="user-plus" size="24"></i>
-        </button>
 
       </div>
 
       <!-- TAB WELLNESS -->
       <div id="tab-wellness" class="tab-page">
-        <div class="wellness-page">
-          <div class="card-widget">
-            <div class="widget-header">
-              <div class="widget-title"><i data-lucide="droplet" color="#33BCA9"></i> Hidratación Diaria</div>
-              <span class="water-sub">Meta: 2.5 L</span>
-            </div>
-            <div class="water-progress">
-              <div>
-                <div class="water-metric" id="waterCounter">1.8 L</div>
-                <div class="water-sub">72% de tu objetivo</div>
-              </div>
-              <div class="water-btn-group">
-                <button class="icon-btn" onclick="updateWater(-0.25)">-</button>
-                <button class="icon-btn" style="background:var(--turquoise); color:white;" onclick="updateWater(0.25)">+</button>
-              </div>
-            </div>
+        <div style="padding:16px;">
+          <h3 style="margin-bottom:12px;">Metas Wellness</h3>
+          <div style="background:white; padding:16px; border-radius:16px; margin-bottom:12px;">
+            <h4>💧 Hidratación: 1.8 L / 2.5 L</h4>
           </div>
-
-          <div class="card-widget">
-            <div class="widget-header">
-              <div class="widget-title"><i data-lucide="footprints" color="#2C7A7B"></i> Pasos Diarios</div>
-              <span class="water-sub">Meta: 10,000</span>
-            </div>
-            <div class="water-metric">6,420</div>
-            <div class="water-sub" style="margin-top:4px;">🔥 280 kcal quemadas hoy</div>
-          </div>
-
-          <div class="card-widget">
-            <div class="widget-header">
-              <div class="widget-title"><i data-lucide="check-square" color="#33BCA9"></i> Checklist de Hábitos</div>
-            </div>
-            <div class="habit-item">
-              <div class="habit-left">
-                <div class="habit-checkbox checked" onclick="toggleCheck(this)"><i data-lucide="check" size="14"></i></div>
-                <span>Meditación matutina (10 min)</span>
-              </div>
-            </div>
-            <div class="habit-item">
-              <div class="habit-left">
-                <div class="habit-checkbox checked" onclick="toggleCheck(this)"><i data-lucide="check" size="14"></i></div>
-                <span>Caminata al aire libre</span>
-              </div>
-            </div>
-            <div class="habit-item">
-              <div class="habit-left">
-                <div class="habit-checkbox" onclick="toggleCheck(this)"><i data-lucide="check" size="14"></i></div>
-                <span>Lectura de bienestar</span>
-              </div>
-            </div>
+          <div style="background:white; padding:16px; border-radius:16px;">
+            <h4>🚶 Pasos: 6,420 / 10,000</h4>
           </div>
         </div>
       </div>
 
-      <!-- TAB TIENDA PyME -->
+      <!-- TAB TIENDA -->
       <div id="tab-tienda" class="tab-page">
-        <div class="tienda-page">
-          <div class="promo-banner">
-            <h3>Vitrina PyME & Herbolaria 🌿</h3>
-            <p>Conecta con productores locales de productos naturales, esenciales y artesanales.</p>
-            <button class="pill-btn" style="border:none; background:white; color:var(--dark-teal); padding:6px 14px; border-radius:20px; font-weight:700;" onclick="alert('🛍️ Catálogo completo de PyMEs locales actualizado.')">Ver Destacados</button>
-          </div>
-
-          <div class="pyme-grid">
-            <div class="pyme-card" onclick="addMessage('🛍️ Interés en: Té de Lavanda & Toronjil', 'sent')">
-              <div class="pyme-img">🌿</div>
-              <div class="pyme-name">Té de Lavanda & Toronjil</div>
-              <div class="pyme-desc">Infusión relajante 100% orgánica</div>
-              <div class="pyme-price">$8.500</div>
-            </div>
-            <div class="pyme-card" onclick="addMessage('🛍️ Interés en: Vela Aromática Soya', 'sent')">
-              <div class="pyme-img">🕯️</div>
-              <div class="pyme-name">Vela Aromática Soya</div>
-              <div class="pyme-desc">Aceites esenciales naturales</div>
-              <div class="pyme-price">$12.000</div>
-            </div>
-            <div class="pyme-card" onclick="addMessage('🛍️ Interés en: Aceite Esencial Menta', 'sent')">
-              <div class="pyme-img">💧</div>
-              <div class="pyme-name">Aceite Menta Piperita</div>
-              <div class="pyme-desc">Especial para concentración</div>
-              <div class="pyme-price">$9.900</div>
-            </div>
-            <div class="pyme-card" onclick="addMessage('🛍️ Interés en: Sal de Baño Romero', 'sent')">
-              <div class="pyme-img">🧂</div>
-              <div class="pyme-name">Sales Minerales Romero</div>
-              <div class="pyme-desc">Desintoxicante & relajante</div>
-              <div class="pyme-price">$7.400</div>
-            </div>
-          </div>
+        <div style="padding:16px;">
+          <h3>Vitrina PyME & Herbolaria 🌿</h3>
+          <p style="font-size:12px; color:var(--gray-muted); margin-top:4px;">Productos naturales y esenciales de emprendimientos locales.</p>
         </div>
       </div>
 
       <!-- TAB MORFEO -->
       <div id="tab-morfeo" class="tab-page">
-        <div class="morfeo-page">
-          <div class="morfeo-card">
-            <i data-lucide="moon" size="32" color="#33BCA9"></i>
-            <h3>Morfeo - Sueño & Descanso</h3>
-            <p style="font-size:12px; opacity:0.8;">Ondas binaurales a 432Hz para inducir el descanso profundo y reducir el estrés.</p>
-            
-            <div class="pulse-circle">
-              <img src="data:image/jpeg;base64,...[LOGO_BASE64_BIENESTAR]..." alt="Morfeo Logo">
-            </div>
-
-            <button id="audioToggleBtn" class="pill-btn" style="background:var(--turquoise); color:white; border:none; padding:10px 24px; font-size:14px; border-radius:20px; font-weight:700;" onclick="toggleMorfeoSound()">
-              ▶ Reproducir 432Hz
-            </button>
-          </div>
+        <div style="padding:24px; text-align:center;">
+          <img class="bienestar-logo-target" style="width:100px; height:100px; border-radius:50%; margin-bottom:16px; border:3px solid var(--turquoise);" alt="Morfeo">
+          <h3>Morfeo - Descanso 432Hz</h3>
+          <button style="margin-top:16px; padding:10px 20px; background:var(--turquoise); color:white; border:none; border-radius:20px; font-weight:700; cursor:pointer;" onclick="alert('Reproduciendo Ondas Binaurales a 432Hz...')">▶ Reproducir 432Hz</button>
         </div>
       </div>
 
     </div>
 
-    <!-- MODAL DIRECTORIO DE CONTACTOS PARA LLAMADAS -->
+    <!-- DIRECTORIO MODAL DE LLAMADAS -->
     <div class="directory-modal-overlay" id="directoryModalOverlay">
       <div class="directory-modal-card">
-        <div class="directory-modal-header">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <i data-lucide="book-open" size="20" color="#2C7A7B"></i>
-            <span style="font-size:16px; font-weight:800; color:var(--dark-teal);">Directorio de Llamadas</span>
-          </div>
-          <button class="icon-btn" style="background:none;" onclick="closeCallDirectory()">
-            <i data-lucide="x" size="20"></i>
-          </button>
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:8px;">
+          <strong style="font-size:16px;">Directorio de Llamadas</strong>
+          <button class="icon-btn" onclick="closeCallDirectory()"><i data-lucide="x" size="18"></i></button>
         </div>
-        <p style="font-size:12px; color:var(--gray-muted); margin-bottom:4px;">Selecciona a cuál amigo o especialista deseas llamar:</p>
-        <div class="directory-contacts-list" id="directoryContactsList">
-          <!-- JS rellena contactos con botones Voz / Video -->
-        </div>
+        <div id="directoryContactsList" style="display:flex; flex-direction:column; gap:8px;"></div>
       </div>
     </div>
 
-    <!-- VISTA MODAL CHAT INDIVIDUAL -->
+    <!-- CHAT INDIVIDUAL MODAL -->
     <div class="single-chat-view" id="singleChatView">
       <div class="chat-header-bar">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <button class="icon-btn" style="background:none;" onclick="closeSingleChat()">
-            <i data-lucide="arrow-left" size="20"></i>
-          </button>
-          <div class="chat-user-info" onclick="openContactSubmenu('Ver perfil del amigo')">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" id="activeChatAvatar" class="chat-user-avatar" alt="Avatar">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="icon-btn" onclick="closeSingleChat()"><i data-lucide="arrow-left" size="18"></i></button>
+          <div class="chat-user-info" onclick="openFullSettings()">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120" id="activeChatAvatar" class="chat-user-avatar" alt="Avatar">
             <div>
               <div class="contact-name" id="activeChatName">Camila Silva 🌿</div>
               <div style="font-size:10px; color:var(--green-organic);" id="activeChatSubtitle">Amiga • En línea</div>
             </div>
           </div>
         </div>
-        <div style="display: flex; gap: 6px;">
-          <button class="icon-btn" onclick="startDirectCallForActiveChat('video')" title="Llamar con Video a este amigo"><i data-lucide="video" size="18"></i></button>
-          <button class="icon-btn" onclick="startDirectCallForActiveChat('voice')" title="Llamar por Voz a este amigo"><i data-luc
+        <div style="display:flex; gap:6px;">
+          <button class="icon-btn" onclick="startCallActiveChat('video')" title="Videollamada"><i data-lucide="video" size="18"></i></button>
+          <button class="icon-btn" onclick="startCallActiveChat('voice')" title="Llamada de voz"><i data-lucide="phone" size="18"></i></button>
+          <button class="icon-btn" onclick="openFullSettings()" title="Ajustes"><i data-lucide="more-vertical" size="18"></i></button>
+        </div>
+      </div>
+
+      <div class="messages-area" id="messagesArea">
+        <div class="message-row">
+          <div class="message-bubble msg-received">
+            ¡Hola! Te comparto los documentos y archivos para descargar:
+          </div>
+        </div>
+      </div>
+
+      <!-- Menú Clip Adjuntos -->
+      <div class="clip-menu" id="clipMenu">
+        <div class="clip-item" onclick="triggerDocUpload()"><div class="clip-icon" style="background:#7F66FF;"><i data-lucide="file-text" size="20"></i></div><span>Documento</span></div>
+        <div class="clip-item" onclick="triggerCamUpload()"><div class="clip-icon" style="background:#FF5252;"><i data-lucide="camera" size="20"></i></div><span>Cámara</span></div>
+        <div class="clip-item" onclick="triggerGalleryUpload()"><div class="clip-icon" style="background:#EC407A;"><i data-lucide="image" size="20"></i></div><span>Galería</span></div>
+        <div class="clip-item" onclick="alert('📍 Ubicación compartida.')"><div class="clip-icon" style="background:#26A69A;"><i data-lucide="map-pin" size="20"></i></div><span>Ubicación</span></div>
+      </div>
+
+      <div class="chat-input-bar">
+        <button class="icon-btn" onclick="toggleClipMenu()"><i data-lucide="paperclip" size="18"></i></button>
+        <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
+        <button class="send-btn" onclick="sendMessage()"><i data-lucide="send" size="18"></i></button>
+      </div>
+    </div>
+
+    <!-- SETTINGS VIEW (CONFIGURACIÓN COMPLETA) -->
+    <div class="settings-full-view" id="settingsView">
+      <div class="settings-top-bar">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="icon-btn" onclick="closeFullSettings()"><i data-lucide="arrow-left" size="18"></i></button>
+          <strong style="font-size:16px;">Ajustes / Configuración</strong>
+        </div>
+      </div>
+      <div style="padding:20px; text-align:center; background:white; border-bottom:1px solid #eee;">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" style="width:80px; height:80px; border-radius:50%; border:3px solid var(--turquoise);" alt="Andrea">
+        <h3 style="margin-top:8px;">Andrea</h3>
+        <p style="font-size:12px; color:var(--gray-muted);">@licandeo30</p>
+      </div>
+      <div style="padding:10px 0;">
+        <div class="setting-row-item"><i data-lucide="award" size="20"></i><div><div class="setting-item-title">Suscripciones</div><div class="setting-item-sub">Explorar beneficios premium</div></div></div>
+        <div class="setting-row-item"><i data-lucide="key" size="20"></i><div><div class="setting-item-title">Cuenta</div><div class="setting-item-sub">Notificaciones de seguridad, cambiar número</div></div></div>
+        <div class="setting-row-item"><i data-lucide="lock" size="20"></i><div><div class="setting-item-title">Privacidad</div><div class="setting-item-sub">Cuentas bloqueadas, mensajes temporales</div></div></div>
+        <div class="setting-row-item"><i data-lucide="users" size="20"></i><div><div class="setting-item-title">Listas</div><div class="setting-item-sub">Administrar personas y grupos</div></div></div>
+        <div class="setting-row-item"><i data-lucide="message-square" size="20"></i><div><div class="setting-item-title">Chats</div><div class="setting-item-sub">Historial de chat, copia de seguridad</div></div></div>
+        <div class="setting-row-item"><i data-lucide="palette" size="20"></i><div><div class="setting-item-title">Apariencia</div><div class="setting-item-sub">Estilo del chat, ícono de la aplicación</div></div></div>
+        <div class="setting-row-item"><i data-lucide="radio" size="20"></i><div><div class="setting-item-title">Difusiones</div><div class="setting-item-sub">Administrar listas y enviar difusiones</div></div></div>
+        <div class="setting-row-item"><i data-lucide="bell" size="20"></i><div><div class="setting-item-title">Notificaciones</div><div class="setting-item-sub">Tonos de mensajes, grupos y llamadas</div></div></div>
+        <div class="setting-row-item"><i data-lucide="database" size="20"></i><div><div class="setting-item-title">Almacenamiento y datos</div><div class="setting-item-sub">Uso de red, descarga automática</div></div></div>
+        <div class="setting-row-item"><i data-lucide="shield" size="20"></i><div><div class="setting-item-title">Controles parentales</div><div class="setting-item-sub">Ajustes para tu familia</div></div></div>
+        <div class="setting-row-item"><i data-lucide="accessibility" size="20"></i><div><div class="setting-item-title">Accesibilidad</div><div class="setting-item-sub">Aumentar contraste, animación</div></div></div>
+        <div class="setting-row-item"><i data-lucide="globe" size="20"></i><div><div class="setting-item-title">Idioma de la aplicación</div><div class="setting-item-sub">Español (idioma del dispositivo)</div></div></div>
+        <div class="setting-row-item"><i data-lucide="help-circle" size="20"></i><div><div class="setting-item-title">Ayuda y comentarios</div><div class="setting-item-sub">Centro de ayuda, contáctanos, política de privacidad</div></div></div>
+        <div class="setting-row-item"><i data-lucide="user-plus" size="20"></i><div><div class="setting-item-title">Invitar amigos</div><div class="setting-item-sub">Compartir enlace de descarga</div></div></div>
+        <div class="setting-row-item"><i data-lucide="refresh-cw" size="20"></i><div><div class="setting-item-title">Actualizaciones de la aplicación</div><div class="setting-item-sub">Versión 2.4.0 (Última versión)</div></div></div>
+      </div>
+    </div>
+
+    <!-- VIDEO CALL MODAL -->
+    <div class="video-call-modal" id="videoCallModal">
+      <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+        <span>🔒 Cifrado de extremo a extremo</span>
+      </div>
+      <div style="text-align:center; margin-top:20px;">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" id="callAvatar" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--turquoise);" alt="Call User">
+        <h3 id="callName" style="margin-top:8px;">Camila Silva</h3>
+        <p style="font-size:12px; color:var(--turquoise);">LLAMADA EN CURSO...</p>
+      </div>
+      <div style="display:flex; justify-content:center; gap:20px; margin-top:auto;">
+        <button class="icon-btn" style="width:56px; height:56px; background:var(--red-alert); color:white;" onclick="closeVideoCall()"><i data-lucide="phone-off" size="24"></i></button>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+      <button class="nav-item active" onclick="switchTab('chats', this)"><i data-lucide="message-circle" size="20"></i><span>Chats</span></button>
+      <button class="nav-item" onclick="switchTab('wellness', this)"><i data-lucide="heart-pulse" size="20"></i><span>Wellness</span></button>
+      <button class="nav-item" onclick="switchTab('tienda', this)"><i data-lucide="store" size="20"></i><span>Tienda</span></button>
+      <button class="nav-item" onclick="switchTab('morfeo', this)"><i data-lucide="moon" size="20"></i><span>Morfeo</span></button>
+    </div>
+
+  </div>
+
+  <script>
+    const LOGO_SRC = "data:image/jpeg;base64,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";
+
+    // Registry system to eliminate quote syntax errors in dynamic HTML
+    const downloadRegistry = [];
+
+    function registerDownload(filename, dataUrl, mimeType) {
+      const id = downloadRegistry.length;
+      downloadRegistry.push({ filename: filename, dataUrl: dataUrl, mimeType: mimeType });
+      return id;
+    }
+
+    function triggerDownloadById(id) {
+      const item = downloadRegistry[id];
+      if (item) downloadFile(item.filename, item.dataUrl, item.mimeType);
+    }
+
+    function downloadFile(filename, content, type) {
+      try {
+        let blob;
+        if (typeof content === 'string' && content.startsWith('data:')) {
+          const parts = content.split(';base64,');
+          const contentType = parts[0].replace('data:', '') || type;
+          const raw = window.atob(parts[1]);
+          const uInt8Array = new Uint8Array(raw.length);
+          for (let i = 0; i < raw.length; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+          }
+          blob = new Blob([uInt8Array], { type: contentType });
+        } else {
+          blob = new Blob([content], { type: type || 'text/plain;charset=utf-8' });
+        }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 150);
+        alert('📥 Descargando archivo: ' + filename);
+      } catch (err) {
+        console.error('Download error:', err);
+        alert('📥 Iniciando descarga de ' + filename);
+      }
+    }
+
+    function populateLogos() {
+      document.querySelectorAll('.bienestar-logo-target').forEach(function(img) {
+        if (!img.src || img.src === window.location.href) {
+          img.src = LOGO_SRC;
+        }
+      });
+    }
+
+    // Hide Splash Screen
+    setTimeout(function() {
+      var splash = document.getElementById('splashScreen');
+      if (splash) splash.classList.add('hidden');
+    }, 2200);
+
+    // Initialize Icons & Logos
+    function initIcons() {
+      populateLogos();
+      if (window.lucide && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+      }
+    }
+    window.addEventListener('DOMContentLoaded', initIcons);
+    setTimeout(initIcons, 300);
+
+    // Navigation Tabs
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-page').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (btn) btn.classList.add('active');
+      initIcons();
+    }
+
+    // Dropdown WhatsApp Menu
+    function toggleWhatsAppMenu(e) {
+      if (e) e.stopPropagation();
+      var menu = document.getElementById('whatsappMenu');
+      menu.classList.toggle('active');
+      initIcons();
+    }
+
+    function triggerMenuAction(act) {
+      alert('Opción seleccionada: ' + act);
+      document.getElementById('whatsappMenu').classList.remove('active');
+    }
+
+    // Settings Modal
+    function openFullSettings() {
+      document.getElementById('settingsView').classList.add('active');
+      document.getElementById('whatsappMenu').classList.remove('active');
+      initIcons();
+    }
+
+    function closeFullSettings() {
+      document.getElementById('settingsView').classList.remove('active');
+    }
+
+    // Directory System (Index-based, 0 quote errors)
+    const dirContacts = [
+      { name: "Camila Silva 🌿", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120", status: "Amiga • En línea" },
+      { name: "Dr. Aldo Licandeo", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120", status: "Amigo & Médico Specialist" },
+      { name: "Dra. Elena Ramos", avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=120", status: "Nutricionista Holística" },
+      { name: "Asistente IA BIENESTAR 🌿", avatar: LOGO_SRC, status: "Especialista en Salud Integral" }
+    ];
+
+    function openCallDirectory(mode) {
+      var modal = document.getElementById('directoryModalOverlay');
+      var list = document.getElementById('directoryContactsList');
+      list.innerHTML = '';
+      dirContacts.forEach(function(c, index) {
+        var d = document.createElement('div');
+        d.className = 'directory-contact-card';
+        d.innerHTML = '<div class="dir-contact-info">' +
+            '<img src="' + c.avatar + '" class="dir-contact-avatar" alt="Avatar">' +
+            '<div>' +
+              '<div style="font-size:13px; font-weight:800; color:var(--dark-teal);">' + c.name + '</div>' +
+              '<div style="font-size:11px; color:var(--gray-muted);">' + c.status + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="dir-call-btns">' +
+            '<button class="dir-call-btn" style="background:var(--mint); color:var(--green-organic);" onclick="startVoiceCall(' + index + ')">📞 Voz</button>' +
+            '<button class="dir-call-btn" style="background:var(--turquoise); color:white;" onclick="startVideoCall(' + index + ')">📹 Video</button>' +
+          '</div>';
+        list.appendChild(d);
+      });
+      modal.classList.add('active');
+      initIcons();
+    }
+
+    function closeCallDirectory() {
+      document.getElementById('directoryModalOverlay').classList.remove('active');
+    }
+
+    function startVoiceCall(index) {
+      closeCallDirectory();
+      const c = dirContacts[index];
+      if (c) {
+        document.getElementById('callName').innerText = c.name;
+        document.getElementById('callAvatar').src = c.avatar;
+        document.getElementById('videoCallModal').classList.add('active');
+      }
+    }
+
+    function startVideoCall(index) {
+      closeCallDirectory();
+      const c = dirContacts[index];
+      if (c) {
+        document.getElementById('callName').innerText = c.name;
+        document.getElementById('callAvatar').src = c.avatar;
+        document.getElementById('videoCallModal').classList.add('active');
+      }
+    }
+
+    function startCallActiveChat(type) {
+      var name = document.getElementById('activeChatName').innerText;
+      var avatar = document.getElementById('activeChatAvatar').src;
+      document.getElementById('callName').innerText = name;
+      document.getElementById('callAvatar').src = avatar;
+      document.getElementById('videoCallModal').classList.add('active');
+    }
+
+    function closeVideoCall() {
+      document.getElementById('videoCallModal').classList.remove('active');
+    }
+
+    // Chat Single View
+    function openSingleChat(name, avatar, subtitle) {
+      document.getElementById('activeChatName').innerText = name;
+      document.getElementById('activeChatAvatar').src = avatar;
+      document.getElementById('activeChatSubtitle').innerText = subtitle;
+      document.getElementById('singleChatView').classList.add('active');
+      initIcons();
+    }
+
+    function closeSingleChat() {
+      document.getElementById('singleChatView').classList.remove('active');
+    }
+
+    // Clip Menu & File Upload Handlers
+    function toggleClipMenu() {
+      document.getElementById('clipMenu').classList.toggle('active');
+      initIcons();
+    }
+
+    function triggerDocUpload() {
+      document.getElementById('clipMenu').classList.remove('active');
+      document.getElementById('fileInputDoc').click();
+    }
+
+    function triggerCamUpload() {
+      document.getElementById('clipMenu').classList.remove('active');
+      document.getElementById('fileInputCameraCapture').click();
+    }
+
+    function triggerGalleryUpload() {
+      document.getElementById('clipMenu').classList.remove('active');
+      document.getElementById('fileInputGallery').click();
+    }
+
+    function addBubble(text, dir, filename, dataUrl, mime) {
+      var area = document.getElementById('messagesArea');
+      var row = document.createElement('div');
+      row.className = 'message-row ' + dir;
+      var html = '<div class="message-bubble msg-' + dir + '">' + text;
+      if (filename && dataUrl) {
+        const regId = registerDownload(filename, dataUrl, mime);
+        html += '<button class="download-action-btn" onclick="triggerDownloadById(' + regId + ')">📥 Descargar Archivo</button>';
+      }
+      html += '</div>';
+      row.innerHTML = html;
+      area.appendChild(row);
+      area.scrollTop = area.scrollHeight;
+      initIcons();
+    }
+
+    function handleSelectedDocument(input) {
+      if (input.files && input.files[0]) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          addBubble('📄 Documento: ' + file.name, 'sent', file.name, e.target.result, file.type);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handleSelectedGalleryImage(input) {
+      if (input.files && input.files[0]) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          addBubble('🖼️ Imagen: ' + file.name, 'sent', file.name, e.target.result, file.type);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handleCameraCaptureFallback(input) {
+      if (input.files && input.files[0]) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          addBubble('📷 Fotografía Capturada', 'sent', 'Foto_' + Date.now() + '.jpg', e.target.result, 'image/jpeg');
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function sendMessage() {
+      var input = document.getElementById('chatInput');
+      if (input.value.trim() !== '') {
+        addBubble(input.value.trim(), 'sent');
+        input.value = '';
+      }
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') sendMessage();
+    }
+
+    function updateSliderBadge(val) {
+      var labels = ["", "Crisis", "Ansiedad", "Alerta", "En Calma", "Enfoque", "Vínculo"];
+      var badge = document.getElementById('sliderBadge');
+      if (badge) badge.innerText = labels[val] || "En Calma";
+    }
+
+    // Add initial sample downloadable files
+    window.addEventListener('DOMContentLoaded', function() {
+      const doc1Id = registerDownload('Guia_Nutricion_Bienestar.pdf', 'data:application/pdf;base64,JVBERi0xLjQK...', 'application/pdf');
+      const doc2Id = registerDownload('Rutina_Ejercicios.docx', 'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,UEsDBBQ...', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+      
+      const area = document.getElementById('messagesArea');
+      if (area) {
+        area.innerHTML += '<div class="message-row"><div class="message-bubble msg-received">📄 <strong>Guia_Nutricion_Bienestar.pdf</strong><button class="download-action-btn" onclick="triggerDownloadById(' + doc1Id + ')">📥 Descargar Documento (PDF)</button></div></div>';
+        area.innerHTML += '<div class="message-row"><div class="message-bubble msg-received">📝 <strong>Rutina_Ejercicios.docx</strong><button class="download-action-btn" onclick="triggerDownloadById(' + doc2Id + ')">📥 Descargar Documento (Word)</button></div></div>';
+      }
+    });
+  </script>
+</body>
+</html>
