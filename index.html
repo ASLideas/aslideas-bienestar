@@ -148,27 +148,28 @@
 
     /* Stories Carousel */
     .stories-container {
-      padding: 10px 16px 8px 16px; display: flex; gap: 14px; overflow-x: auto;
-      scrollbar-width: none; background: var(--bg-cream); border-bottom: 1px solid rgba(51, 188, 169, 0.1);
+      padding: 8px 16px; display: flex; gap: 12px; overflow-x: auto;
+      scrollbar-width: none; background: transparent; border-bottom: 1px solid rgba(51, 188, 169, 0.08);
     }
     .stories-container::-webkit-scrollbar { display: none; }
-    .story-item { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; flex-shrink: 0; width: 64px; }
+    .story-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0; width: 52px; }
     .story-ring {
-      width: 58px; height: 58px; border-radius: 50%; padding: 2.5px;
-      background: linear-gradient(135deg, var(--turquoise), var(--green-organic));
+      width: 46px; height: 46px; border-radius: 50%; padding: 2px;
+      background: linear-gradient(135deg, #2EC4B6, #2C7A7B);
       display: flex; align-items: center; justify-content: center; position: relative;
     }
-    .story-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-cream); background: var(--white); }
-    .story-name { font-size: 10.5px; font-weight: 600; color: var(--dark-teal); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+    .story-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white); background: var(--white); }
+    .story-name { font-size: 10px; font-weight: 500; color: var(--dark-teal); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
 
     /* Chat Filters & Search */
-    .chat-filter-pills { display: flex; gap: 8px; padding: 10px 16px 4px 16px; overflow-x: auto; scrollbar-width: none; }
+    .chat-filter-pills { display: flex; gap: 16px; padding: 10px 16px 6px 16px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid rgba(51, 188, 169, 0.12); }
     .chat-filter-pills::-webkit-scrollbar { display: none; }
     .chat-filter-btn {
-      padding: 6px 14px; border-radius: var(--radius-full); border: 1px solid rgba(51, 188, 169, 0.25);
-      background: var(--white); color: var(--dark-teal); font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+      padding: 4px 4px; border: none; background: transparent; box-shadow: none; outline: none;
+      color: var(--gray-muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+      border-bottom: 2px solid transparent; border-radius: 0;
     }
-    .chat-filter-btn.active { background: var(--turquoise); color: var(--white); border-color: var(--turquoise); }
+    .chat-filter-btn.active { color: var(--dark-teal); font-weight: 700; border-bottom: 2.5px solid var(--green-organic); background: transparent; }
 
     .search-filter-section { padding: 8px 16px; display: flex; flex-direction: column; gap: 10px; }
     .search-box {
@@ -373,21 +374,6 @@
       background: none; border: none; color: var(--gray-muted); font-size: 11px; font-weight: 600; cursor: pointer; width: 25%;
     }
     .nav-item.active { color: var(--green-organic); }
-  
-    /* Video Call Control Grid (Photo 7/8 Style) */
-    .call-ctrl-btn {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      background: none; border: none; color: #D1E5E5; font-size: 11px; font-weight: 500; cursor: pointer;
-    }
-    .call-ctrl-btn.active .call-icon-circle {
-      background: var(--turquoise); color: white;
-    }
-    .call-icon-circle {
-      width: 54px; height: 54px; border-radius: 50%; background: rgba(255,255,255,0.12);
-      display: flex; align-items: center; justify-content: center; color: white; transition: all 0.2s ease;
-    }
-    .call-icon-circle:active { transform: scale(0.92); }
-
   </style>
 </head>
 <body>
@@ -429,20 +415,11 @@
           <div class="brand-subtitle">Ecosistema Integral & Social</div>
         </div>
       </div>
-      <div class="header-actions">
-        <button class="icon-btn" title="Directorio - Llamada de Voz" onclick="openCallDirectory('voice')">
-          <i data-lucide="phone" size="18"></i>
+            <div class="header-actions">
+        <button class="icon-btn" title="Menú Ajustes" onclick="toggleMainDropdownMenu(event)">
+          <i data-lucide="more-vertical" size="20"></i>
         </button>
-        <button class="icon-btn" title="Directorio - Videollamada HD" onclick="openCallDirectory('video')">
-          <i data-lucide="video" size="18"></i>
-        </button>
-        <button class="icon-btn" title="Menú Ajustes" onclick="toggleWhatsAppMenu(event)">
-          <i data-lucide="more-vertical" size="18"></i>
-        </button>
-
-        <!-- Dropdown Menu (3 Puntos WhatsApp) -->
-        <div class="whatsapp-dropdown-menu" id="whatsappMenu">
-          <div class="dropdown-item" onclick="triggerMenuAction('Nuevo grupo')"><i data-lucide="users" size="16"></i> Nuevo grupo</div>
+      </div>
           <div class="dropdown-item" onclick="triggerMenuAction('Nueva comunidad')"><i data-lucide="globe" size="16"></i> Nueva comunidad</div>
           <div class="dropdown-item" onclick="triggerMenuAction('Listas de difusión')"><i data-lucide="radio" size="16"></i> Listas de difusión</div>
           <div class="dropdown-item" onclick="triggerMenuAction('Dispositivos vinculados')"><i data-lucide="laptop" size="16"></i> Dispositivos vinculados</div>
@@ -481,14 +458,7 @@
             <button class="state-pill-btn" style="background:#8338EC; color:white;" onclick="setSliderVal(6)">Vínculo</button>
           </div>
 
-          <div class="state-info-card" id="stateInfoCard">
-            <strong>🌿 Zona Óptima de Tolerancia (Verde)</strong><br>
-            Te encuentras en autorregulación y calma. Momento ideal para actividades sociales o de aprendizaje.
-          </div>
 
-          <button class="download-action-btn" style="background:var(--green-organic); font-size:11px;" onclick="registerStateInChat()">
-            📢 Registrar mi Estado en el Chat
-          </button>
         </div>
 
         <!-- Stories Carousel -->
@@ -520,9 +490,9 @@
         <!-- Filter Pills & Search -->
         <div class="chat-filter-pills">
           <button class="chat-filter-btn active" onclick="filterChats('todos', this)">Todos</button>
-          <button class="chat-filter-btn" onclick="filterChats('amigos', this)">👥 Amigos</button>
-          <button class="chat-filter-btn" onclick="filterChats('asistente', this)">🌿 Asistente IA</button>
-          <button class="chat-filter-btn" onclick="filterChats('unread', this)">📩 No leídos</button>
+          <button class="chat-filter-btn" onclick="filterChats('amigos', this)">Amigos</button>
+          <button class="chat-filter-btn" onclick="filterChats('asistente', this)">Asistente IA</button>
+          <button class="chat-filter-btn" onclick="filterChats('unread', this)">No leídos</button>
         </div>
 
         <div class="search-filter-section">
@@ -812,43 +782,19 @@
       </div>
     </div>
 
-    <!-- VIDEO CALL MODAL (PHOTO 7 / 8 INTERACTIVE MENU) -->
+    <!-- VIDEO CALL MODAL -->
     <div class="video-call-modal" id="videoCallModal">
       <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#8AA2A2;">
         <span>🔒 Cifrado de extremo a extremo</span>
-        <i data-lucide="user-plus" size="18" style="color:#8AA2A2; cursor:pointer;"></i>
       </div>
-      <div style="text-align:center; margin-top:15px;">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200" id="callAvatar" style="width:110px; height:110px; border-radius:50%; border:3.5px solid var(--turquoise); object-fit:cover; box-shadow:0 0 20px rgba(51,188,169,0.3);" alt="Call Avatar">
-        <h3 id="callName" style="margin-top:12px; font-size:20px; font-weight:700; color:white;">Camila Silva</h3>
-        <span id="callStatusText" style="font-size:12px; color:var(--turquoise); font-weight:700; letter-spacing:0.5px;">VIDEOLLAMADA EN CURSO...</span>
+      <div style="text-align:center; margin-top:20px;">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200" id="callAvatar" style="width:100px; height:100px; border-radius:50%; border:3.5px solid var(--turquoise);" alt="Call Avatar">
+        <h3 id="callName" style="margin-top:10px; font-size:20px;">Camila Silva</h3>
+        <span style="font-size:12px; color:var(--turquoise); font-weight:700;">VIDEOLLAMADA EN CURSO...</span>
       </div>
-
-      <!-- Controls Grid Matching Photo 7 / 8 -->
-      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px 12px; margin-top:auto; padding:10px 10px 20px 10px;">
-        <button class="call-ctrl-btn" onclick="toggleSpeaker(this)">
-          <div class="call-icon-circle"><i data-lucide="volume-2" size="22"></i></div>
-          <span>Altavoz</span>
-        </button>
-        <button class="call-ctrl-btn" onclick="toggleCamera(this)">
-          <div class="call-icon-circle"><i data-lucide="video" size="22"></i></div>
-          <span>Video</span>
-        </button>
-        <button class="call-ctrl-btn" onclick="toggleMute(this)">
-          <div class="call-icon-circle"><i data-lucide="mic-off" size="22"></i></div>
-          <span>Silenciar</span>
-        </button>
-        <button class="call-ctrl-btn" onclick="toggleMoreCallOptions()">
-          <div class="call-icon-circle"><i data-lucide="more-horizontal" size="22"></i></div>
-          <span>Más</span>
-        </button>
-        <button class="call-ctrl-btn" onclick="shareCallLink()">
-          <div class="call-icon-circle"><i data-lucide="share-2" size="22"></i></div>
-          <span>Compartir</span>
-        </button>
-        <button class="call-ctrl-btn" onclick="closeVideoCall()">
-          <div class="call-icon-circle" style="background:var(--red-alert); color:white;"><i data-lucide="phone-off" size="22"></i></div>
-          <span style="color:var(--red-alert); font-weight:700;">Finalizar</span>
+      <div style="display:flex; justify-content:center; gap:20px; margin-top:auto;">
+        <button class="icon-btn" style="width:56px; height:56px; background:var(--red-alert); color:white;" onclick="closeVideoCall()">
+          <i data-lucide="phone-off" size="24"></i>
         </button>
       </div>
     </div>
@@ -1081,40 +1027,14 @@
       }
     }
 
-    function addImageBubble(dataUrl, filename, dir) {
-      var area = document.getElementById('messagesArea');
-      var row = document.createElement('div');
-      row.className = 'message-row ' + dir;
-      var cleanName = filename || 'Imagen.jpg';
-      if (cleanName.length > 25) {
-        var ext = cleanName.includes('.') ? cleanName.substring(cleanName.lastIndexOf('.')) : '.jpg';
-        cleanName = cleanName.substring(0, 18) + '..' + ext;
-      }
-      row.innerHTML = '<div class="message-bubble msg-' + dir + '" style="max-width:82%; padding:6px; background:rgba(255,255,255,0.95); border:1px solid rgba(44,122,123,0.25); border-radius:14px; box-shadow:0 2px 8px rgba(0,0,0,0.06);">' +
-        '<img src="' + dataUrl + '" style="width:100%; max-height:220px; border-radius:10px; object-fit:cover; cursor:pointer; display:block;" onclick="viewImageModal(this.src)" alt="Imagen">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px; padding:0 4px; font-size:11px; color:var(--dark-teal); font-weight:700;">' +
-        '<span>🖼️ ' + cleanName + '</span>' +
-        '<a href="' + dataUrl + '" download="' + (filename || 'imagen.jpg') + '" style="color:var(--turquoise); text-decoration:none; font-weight:800; background:rgba(51,188,169,0.12); padding:3px 8px; border-radius:6px;">📥 Guardar</a>' +
-        '</div></div>';
-      area.appendChild(row);
-      area.scrollTop = area.scrollHeight;
-    }
-
-    function viewImageModal(src) {
-      var overlay = document.createElement('div');
-      overlay.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.88); z-index:9999; display:flex; align-items:center; justify-content:center; cursor:pointer;';
-      overlay.onclick = function() { document.body.removeChild(overlay); };
-      overlay.innerHTML = '<img src="' + src + '" style="max-width:92%; max-height:88%; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,0.6); border:2px solid var(--turquoise);">';
-      document.body.appendChild(overlay);
-    }
-
     function handleSelectedGalleryImage(input) {
       if (input.files && input.files[0]) {
         var file = input.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-          addImageBubble(e.target.result, file.name, 'sent');
-          toggleClipModal();
+          var storeId = 'img_' + Date.now();
+          fileDataStore[storeId] = { filename: file.name, dataUrl: e.target.result };
+          addBubbleWithDownload('🖼️ Imagen: ' + file.name, 'sent', storeId, file.name);
         };
         reader.readAsDataURL(file);
       }
@@ -1125,36 +1045,11 @@
         var file = input.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-          addImageBubble(e.target.result, 'Foto_Capturada.jpg', 'sent');
-          toggleClipModal();
+          var storeId = 'cam_' + Date.now();
+          fileDataStore[storeId] = { filename: 'Foto_Capturada.jpg', dataUrl: e.target.result };
+          addBubbleWithDownload('📷 Fotografía Capturada', 'sent', storeId, 'Foto_Capturada.jpg');
         };
         reader.readAsDataURL(file);
-      }
-    }
-
-    function toggleSpeaker(btn) {
-      btn.classList.toggle('active');
-      var isAct = btn.classList.contains('active');
-      alert(isAct ? '🔊 Altavoz activado' : '🔈 Altavoz desactivado');
-    }
-    function toggleCamera(btn) {
-      btn.classList.toggle('active');
-      var isAct = btn.classList.contains('active');
-      alert(isAct ? '📹 Cámara encendida' : '📷 Cámara apagada');
-    }
-    function toggleMute(btn) {
-      btn.classList.toggle('active');
-      var isAct = btn.classList.contains('active');
-      alert(isAct ? '🎙️ Micrófono silenciado' : '🎤 Micrófono activo');
-    }
-    function toggleMoreCallOptions() {
-      alert('⚙️ Opciones de llamada: Ajustes de audio, efectos de video y segundo plano.');
-    }
-    function shareCallLink() {
-      if (navigator.share) {
-        navigator.share({ title: 'BIENESTAR Videollamada', text: 'Únete a mi videollamada en BIENESTAR App', url: window.location.href });
-      } else {
-        alert('🔗 Enlace de videollamada copiado al portapapeles.');
       }
     }
 
