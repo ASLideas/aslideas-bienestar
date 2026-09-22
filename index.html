@@ -70,10 +70,13 @@
       z-index: 2000; transition: opacity 0.5s ease, visibility 0.5s ease;
     }
     .splash-logo-wrap {
-      width: 110px; height: 110px; border-radius: 50%;
-      background: var(--white); padding: 6px; border: 3px solid var(--turquoise);
-      box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center;
-      animation: pulseLogo 2s infinite ease-in-out;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: var(--white); padding: 12px; border: 3.5px solid var(--turquoise);
+      box-shadow: 0 8px 28px rgba(44, 122, 123, 0.25); display: flex; align-items: center; justify-content: center;
+      overflow: hidden; margin: 0 auto; animation: pulseLogo 2s infinite ease-in-out;
+    }
+    .splash-logo-wrap img {
+      width: 100%; height: 100%; border-radius: 50%; object-fit: contain; object-position: center; display: block;
     }
     @keyframes pulseLogo {
       0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(51, 188, 169, 0.4); }
@@ -376,12 +379,15 @@
         <!-- Menú Desplegable Principal -->
         <div class="dropdown-menu" id="mainDropdownMenu">
           <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Crear nuevo grupo...');"><i data-lucide="users" size="16"></i> Nuevo grupo</div>
-          <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Nueva comunidad...');"><i data-lucide="globe" size="16"></i> Nueva comunidad</div>
+          <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Abriendo comunidades...');"><i data-lucide="globe" size="16"></i> Nueva comunidad</div>
           <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Listas de difusión...');"><i data-lucide="radio" size="16"></i> Listas de difusión</div>
           <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Dispositivos vinculados...');"><i data-lucide="laptop" size="16"></i> Dispositivos vinculados</div>
-          <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Mensajes destacados...');"><i data-lucide="star" size="16"></i> Destacado</div>
-          <div class="dropdown-item" onclick="toggleWhatsAppMenu(); openSettingsView();"><i data-lucide="settings" size="16"></i> Ajustes de Perfil</div>
+          <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Mensajes destacados...');"><i data-lucide="star" size="16"></i> Mensajes destacados</div>
+          <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Todos los chats marcados como leídos');"><i data-lucide="check-check" size="16"></i> Marcar como leídos</div>
+          <div class="dropdown-item" onclick="toggleWhatsAppMenu(); alert('Privacidad de estados...');"><i data-lucide="shield-check" size="16"></i> Privacidad de estados</div>
+          <div class="dropdown-item" onclick="toggleWhatsAppMenu(); openSettingsView();"><i data-lucide="settings" size="16"></i> Ajustes</div>
         </div>
+      </div>
       </div>
     </div>
 
@@ -684,12 +690,16 @@
 
         <!-- Menú de 3 Puntos en el Chat -->
         <div class="dropdown-menu" id="chatOptionsMenu" style="top:44px; right:10px;">
-          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); openSettingsView();"><i data-lucide="user" size="15"></i> Ver contacto</div>
-          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Mostrando archivos y enlaces compartidos...');"><i data-lucide="file-text" size="15"></i> Archivos y enlaces</div>
-          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Buscar en este chat...');"><i data-lucide="search" size="15"></i> Buscar</div>
-          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Notificaciones silenciadas.');"><i data-lucide="bell-off" size="15"></i> Silenciar</div>
-          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); document.getElementById('messagesArea').innerHTML='';"><i data-lucide="trash-2" size="15"></i> Vaciar chat</div>
+          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); openSettingsView();"><i data-lucide="user" size="16"></i> Ver contacto</div>
+          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Mostrando archivos, enlaces y documentos...');"><i data-lucide="file-text" size="16"></i> Archivos, enlaces y docs</div>
+          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Buscar en el chat...');"><i data-lucide="search" size="16"></i> Buscar</div>
+          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Notificaciones silenciadas.');"><i data-lucide="bell-off" size="16"></i> Silenciar notificaciones</div>
+          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Configurando mensajes temporales...');"><i data-lucide="clock" size="16"></i> Mensajes temporales</div>
+          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Cambiando fondo de pantalla...');"><i data-lucide="image" size="16"></i> Fondo de pantalla</div>
+          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); alert('Contacto bloqueado');"><i data-lucide="slash" size="16"></i> Bloquear</div>
+          <div class="dropdown-item" onclick="toggleChatOptionsMenu(); document.getElementById('messagesArea').innerHTML='';"><i data-lucide="trash-2" size="16"></i> Vaciar chat</div>
         </div>
+      </div>
       </div>
 
       <!-- Messages Area -->
