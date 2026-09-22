@@ -41,24 +41,47 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      min-height: 100dvh;
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: var(--dark-teal);
+      margin: 0;
+      padding: 0;
       overflow-x: hidden;
     }
 
-    /* Contenedor Principal Estilo Teléfono */
+    /* Contenedor Principal Responsivo (Celular y Escritorio) */
     .app-frame {
       width: 100%;
-      max-width: 430px;
+      max-width: 420px;
       height: 100vh;
-      max-height: 932px;
+      height: 100dvh;
+      max-height: 880px;
       background-color: var(--bg-cream);
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
-      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border-radius: 32px;
+      border: 6px solid #1E293B;
+    }
+
+    /* Adaptación Pantalla Completa para Celulares */
+    @media (max-width: 500px) {
+      body {
+        background-color: var(--bg-cream);
+        align-items: stretch;
+      }
+      .app-frame {
+        max-width: 100% !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        max-height: 100vh !important;
+        max-height: 100dvh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
     }
 
     /* Pantalla de Carga (Splash Screen) */
@@ -869,7 +892,6 @@
       <button class="nav-item" onclick="switchTab('morfeo', this)"><i data-lucide="moon" size="19"></i><span>Morfeo</span></button>
     </div>
 
-  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -881,6 +903,7 @@
         if (splash) {
           splash.style.opacity = '0';
           splash.style.pointerEvents = 'none';
+          setTimeout(function() { splash.style.display = 'none'; }, 500);
         }
       }, 1800);
     });
