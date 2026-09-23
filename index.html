@@ -1413,7 +1413,22 @@
 
     function startCallActiveChat(type) {
       var modal = document.getElementById('videoCallModal');
-      if (modal) modal.classList.add('active');
+      if (!modal) return;
+      
+      var nameEl = document.getElementById('activeChatName');
+      var avatarEl = document.getElementById('activeChatAvatar');
+      
+      var callNameEl = document.getElementById('callName');
+      var callAvatarEl = document.getElementById('callAvatar');
+      var callTypeEl = document.getElementById('callTypeTitle');
+      
+      if (nameEl && callNameEl) callNameEl.innerText = nameEl.innerText;
+      if (avatarEl && callAvatarEl) callAvatarEl.src = avatarEl.src;
+      if (callTypeEl) {
+        callTypeEl.innerText = (type === 'video') ? 'VIDEOLLAMADA EN CURSO...' : 'LLAMADA DE VOZ EN CURSO...';
+      }
+      
+      modal.classList.add('active');
     }
 
     function closeVideoCall() {
