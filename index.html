@@ -344,38 +344,12 @@
     }
 
     /* Clip Modal Overlay */
-    .clip-modal-overlay {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.45);
-      z-index: 1000;
-      align-items: flex-end;
-      justify-content: center;
-    }
-    .clip-modal-overlay.active {
-      display: flex !important;
-    }
+    
+    
 
     /* Location Picker Overlay */
-    .location-picker-overlay {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.45);
-      z-index: 1050;
-      align-items: flex-end;
-      justify-content: center;
-    }
-    .location-picker-overlay.active {
-      display: flex !important;
-    }
+    
+    
 
     /* Video Call Modal */
     .video-call-modal {
@@ -396,7 +370,7 @@
       display: flex !important;
     }
 
-    .clip-modal-overlay.active { display: flex; }
+    
     .clip-modal-card {
       background: var(--white); width: 100%; border-top-left-radius: var(--radius-lg); border-top-right-radius: var(--radius-lg);
       padding: 20px 20px 28px 20px; box-shadow: 0 -8px 30px rgba(0,0,0,0.15); animation: slideUp 0.25s ease-out;
@@ -404,8 +378,8 @@
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
     .clip-grid-8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 8px; }
-    .location-picker-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.45); z-index: 550; align-items: flex-end; justify-content: center; }
-    .location-picker-overlay.active { display: flex; }
+    
+    
     .clip-grid-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
     .clip-icon-circle {
       width: 50px; height: 50px; border-radius: 50%; background: var(--mint);
@@ -461,7 +435,79 @@
       background: none; border: none; color: var(--gray-muted); font-size: 10.5px; font-weight: 700; cursor: pointer; width: 25%;
     }
     .nav-item.active { color: var(--green-organic); }
-  </style>
+  
+    /* Overlay Modals CSS */
+    .clip-modal-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 1000;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .clip-modal-overlay.active {
+      display: flex !important;
+    }
+
+    .location-picker-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 1050;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .location-picker-overlay.active {
+      display: flex !important;
+    }
+
+    .shopping-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      border: 1px solid rgba(51, 188, 169, 0.15);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .shopping-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green-organic);
+      background: var(--mint);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .product-item {
+      background: var(--bg-cream);
+      border: 1px solid rgba(51, 188, 169, 0.2);
+      border-radius: 10px;
+      padding: 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+</style>
 </head>
 <body>
 
@@ -532,23 +578,7 @@
       <div class="tab-pane active" id="tab-chats">
         
         <!-- Regulador Emocional Sensorial Limpio -->
-        <div class="emotional-slider-section">
-          <div class="slider-header">
-            <div class="slider-title-wrap"><i data-lucide="sliders" size="14"></i> Escala de Regulación Emocional</div>
-            <span class="slider-badge" id="sliderBadge">Calma</span>
-          </div>
-
-          <input type="range" min="1" max="6" value="4" step="1" class="neuro-slider-bar" id="neuroSlider" oninput="updateSliderState(this.value)">
-
-          <div class="slider-buttons-row">
-            <button class="state-pill-btn" style="background:#FF5A5F; color:white;" onclick="setSliderVal(1)">Crisis</button>
-            <button class="state-pill-btn" style="background:#FF9F1C; color:white;" onclick="setSliderVal(2)">Estrés</button>
-            <button class="state-pill-btn" style="background:#FFBF00; color:white;" onclick="setSliderVal(3)">Alerta</button>
-            <button class="state-pill-btn" style="background:#2EC4B6; color:white;" onclick="setSliderVal(4)">Calma</button>
-            <button class="state-pill-btn" style="background:#3A86FF; color:white;" onclick="setSliderVal(5)">Cansado</button>
-            <button class="state-pill-btn" style="background:#8338EC; color:white;" onclick="setSliderVal(6)">Vínculo</button>
-          </div>
-        </div>
+        
 
         <!-- Stories Carousel -->
         <div class="stories-container">
@@ -656,6 +686,25 @@
       <!-- TAB 2: WELLNESS / SALUD & BIENESTAR -->
       <div class="tab-pane" id="tab-wellness">
         <div class="wellness-container">
+
+          <div class="emotional-slider-section">
+          <div class="slider-header">
+            <div class="slider-title-wrap"><i data-lucide="sliders" size="14"></i> Escala de Regulación Emocional</div>
+            <span class="slider-badge" id="sliderBadge">Calma</span>
+          </div>
+
+          <input type="range" min="1" max="6" value="4" step="1" class="neuro-slider-bar" id="neuroSlider" oninput="updateSliderState(this.value)">
+
+          <div class="slider-buttons-row">
+            <button class="state-pill-btn" style="background:#FF5A5F; color:white;" onclick="setSliderVal(1)">Crisis</button>
+            <button class="state-pill-btn" style="background:#FF9F1C; color:white;" onclick="setSliderVal(2)">Estrés</button>
+            <button class="state-pill-btn" style="background:#FFBF00; color:white;" onclick="setSliderVal(3)">Alerta</button>
+            <button class="state-pill-btn" style="background:#2EC4B6; color:white;" onclick="setSliderVal(4)">Calma</button>
+            <button class="state-pill-btn" style="background:#3A86FF; color:white;" onclick="setSliderVal(5)">Cansado</button>
+            <button class="state-pill-btn" style="background:#8338EC; color:white;" onclick="setSliderVal(6)">Vínculo</button>
+          </div>
+        </div>
+
           
           <!-- 1. Agendador de Citas Médicas -->
           <div class="wellness-card">
@@ -825,31 +874,131 @@
               <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px; border:1px solid rgba(51,188,169,0.2);">
                 <div>
                   <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🏃‍♂️ Precalentamiento & Movilidad</div>
-                  <div style="font-size:10px; color:var(--gray-muted);">10 Minutos | Articulaciones & Músculos</div>
-                </div>
-                <button class="btn-action" style="padding:6px 12px; font-size:11px; background:var(--dark-teal);" onclick="startWorkoutWithAudio('Precalentamiento', 10)">▶ Iniciar</button>
+                  <div class="tab-pane" id="tab-shopping">
+        <!-- Header Shopping estilo WhatsApp Business -->
+        <div class="app-header" style="position:relative;">
+          <div class="logo-area">
+            <span style="font-size:18px; font-weight:800; color:var(--dark-teal); font-family:var(--font-heading);">Shopping BIENESTAR</span>
+          </div>
+          <div class="header-actions">
+            <button class="icon-btn" onclick="toggleShoppingMenu()" title="Opciones de Tienda"><i data-lucide="more-vertical" size="18"></i></button>
+          </div>
+
+          <!-- Menú de 3 Puntos en Shopping -->
+          <div class="dropdown-menu" id="shoppingOptionsMenu" style="top:44px; right:12px; z-index:100;">
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); triggerAlert('📦 Abriendo mi catálogo de empresa...');"><i data-lucide="package" size="15"></i> Mi Catálogo</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); showCartSummary();"><i data-lucide="shopping-cart" size="15"></i> Carrito de Compras (<span id="cartBadgeMenu">2</span>)</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); triggerAlert('💼 Herramientas de Empresa activas.');"><i data-lucide="briefcase" size="15"></i> Herramientas Empresa</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); triggerAlert('📣 Anúnciate en BIENESTAR Business...');"><i data-lucide="megaphone" size="15"></i> Anunciarse</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openSettingsView();"><i data-lucide="settings" size="15"></i> Ajustes de Tienda</div>
+          </div>
+        </div>
+
+        <div class="wellness-container">
+          
+          <!-- Banner WhatsApp Business Directory -->
+          <div style="background:linear-gradient(135deg, var(--dark-teal), var(--green-organic)); color:white; padding:14px; border-radius:16px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-size:14px; font-weight:800;">Catálogo de Empresas & Salud</div>
+              <div style="font-size:11px; opacity:0.9; margin-top:2px;">Compra directa por WhatsApp Business con envío a domicilio</div>
+            </div>
+            <button onclick="showCartSummary()" style="background:var(--turquoise); color:white; border:none; padding:8px 12px; border-radius:12px; font-size:11px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px;">
+              <i data-lucide="shopping-cart" size="16"></i> <span id="cartBadgeCount">2</span>
+            </button>
+          </div>
+
+          <!-- Categorías de Productos -->
+          <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:4px;">
+            <button class="chat-filter-btn active" onclick="filterStores('todos', this)">Todas</button>
+            <button class="chat-filter-btn" onclick="filterStores('farmacia', this)">Farmacias</button>
+            <button class="chat-filter-btn" onclick="filterStores('alimentacion', this)">Alimentación</button>
+            <button class="chat-filter-btn" onclick="filterStores('equipos', this)">Equipos Médicos</button>
+            <button class="chat-filter-btn" onclick="filterStores('yoga', this)">Yoga & Relax</button>
+          </div>
+
+          <!-- Tienda 1: Farmacia Orgánica -->
+          <div class="shopping-card" data-cat="farmacia">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:var(--dark-teal);">🌿 Farmacia & Herbolaria Orgánica</div>
+                <span class="shopping-badge">✓ Negocio Verificado • ⭐️ 4.9 (128 reseñas)</span>
               </div>
             </div>
+            <p style="font-size:11px; color:var(--gray-muted); margin:0;">Tés medicinales, aceites esenciales y suplementos naturales.</p>
+
+            <div class="product-grid">
+              <div class="product-item">
+                <div style="font-size:11.5px; font-weight:800; color:var(--dark-teal);">Té Herbal Relajante</div>
+                <div style="font-size:12px; font-weight:800; color:var(--green-organic); margin:4px 0;">$4.990</div>
+                <button class="btn-action" style="padding:4px 8px; font-size:10px; margin-top:4px;" onclick="addToCart('Té Herbal Relajante', 4990)">+ Agregar</button>
+              </div>
+              <div class="product-item">
+                <div style="font-size:11.5px; font-weight:800; color:var(--dark-teal);">Aceite de Lavanda</div>
+                <div style="font-size:12px; font-weight:800; color:var(--green-organic); margin:4px 0;">$7.500</div>
+                <button class="btn-action" style="padding:4px 8px; font-size:10px; margin-top:4px;" onclick="addToCart('Aceite de Lavanda', 7500)">+ Agregar</button>
+              </div>
+            </div>
+
+            <button class="btn-action" style="background:var(--green-organic);" onclick="openSingleChat('Farmacia Orgánica BIENESTAR')">
+              💬 Pedir por WhatsApp Business
+            </button>
           </div>
 
+          <!-- Tienda 2: Miel & Nutrición -->
+          <div class="shopping-card" data-cat="alimentacion">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:var(--dark-teal);">🥗 Miel & Nutrición Orgánica</div>
+                <span class="shopping-badge">✓ Negocio Verificado • ⭐️ 4.8 (94 reseñas)</span>
+              </div>
+            </div>
+            <p style="font-size:11px; color:var(--gray-muted); margin:0;">Miel multifloral de apicultura sustentable y granola artesanal.</p>
 
-      ="tab-pane" id="tab-shopping">
-        <div style="padding:16px; display:flex; flex-direction:column; gap:12px;">
-          <div style="font-size:15px; font-weight:800; color:var(--green-organic);">🛍️ Vitrina PyME & Herbolaria Orgánica</div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div style="background:white; padding:10px; border-radius:12px; border:1px solid rgba(51,188,169,0.15); text-align:center;">
-              <div style="font-size:28px;">🌿</div>
-              <div style="font-size:12px; font-weight:800; color:var(--dark-teal); margin-top:4px;">Té de Lavanda & Toronjil</div>
-              <div style="font-size:11px; color:var(--turquoise); font-weight:700;">$4.990</div>
-              <button class="btn-action" style="margin-top:6px; font-size:10px; width:100%;" onclick="triggerAlert('Producto agregado al carrito de compras.')">Comprar</button>
+            <div class="product-grid">
+              <div class="product-item">
+                <div style="font-size:11.5px; font-weight:800; color:var(--dark-teal);">Miel Multifloral 1kg</div>
+                <div style="font-size:12px; font-weight:800; color:var(--green-organic); margin:4px 0;">$8.000</div>
+                <button class="btn-action" style="padding:4px 8px; font-size:10px; margin-top:4px;" onclick="addToCart('Miel Multifloral 1kg', 8000)">+ Agregar</button>
+              </div>
+              <div class="product-item">
+                <div style="font-size:11.5px; font-weight:800; color:var(--dark-teal);">Granola Artesanal 500g</div>
+                <div style="font-size:12px; font-weight:800; color:var(--green-organic); margin:4px 0;">$5.500</div>
+                <button class="btn-action" style="padding:4px 8px; font-size:10px; margin-top:4px;" onclick="addToCart('Granola Artesanal 500g', 5500)">+ Agregar</button>
+              </div>
             </div>
-            <div style="background:white; padding:10px; border-radius:12px; border:1px solid rgba(51,188,169,0.15); text-align:center;">
-              <div style="font-size:28px;">🍯</div>
-              <div style="font-size:12px; font-weight:800; color:var(--dark-teal); margin-top:4px;">Miel Nativa Multifloral</div>
-              <div style="font-size:11px; color:var(--turquoise); font-weight:700;">$6.500</div>
-              <button class="btn-action" style="margin-top:6px; font-size:10px; width:100%;" onclick="triggerAlert('Producto agregado al carrito de compras.')">Comprar</button>
-            </div>
+
+            <button class="btn-action" style="background:var(--green-organic);" onclick="openSingleChat('Miel & Nutrición Orgánica')">
+              💬 Pedir por WhatsApp Business
+            </button>
           </div>
+
+          <!-- Tienda 3: Equipos Médicos -->
+          <div class="shopping-card" data-cat="equipos">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:var(--dark-teal);">🩺 Equipos Médicos Providencia</div>
+                <span class="shopping-badge">✓ Negocio Verificado • ⭐️ 5.0 (210 reseñas)</span>
+              </div>
+            </div>
+
+            <div class="product-grid">
+              <div class="product-item">
+                <div style="font-size:11.5px; font-weight:800; color:var(--dark-teal);">Tensiómetro Digital</div>
+                <div style="font-size:12px; font-weight:800; color:var(--green-organic); margin:4px 0;">$24.990</div>
+                <button class="btn-action" style="padding:4px 8px; font-size:10px; margin-top:4px;" onclick="addToCart('Tensiómetro Digital', 24990)">+ Agregar</button>
+              </div>
+              <div class="product-item">
+                <div style="font-size:11.5px; font-weight:800; color:var(--dark-teal);">Glucómetro Kit</div>
+                <div style="font-size:12px; font-weight:800; color:var(--green-organic); margin:4px 0;">$18.500</div>
+                <button class="btn-action" style="padding:4px 8px; font-size:10px; margin-top:4px;" onclick="addToCart('Glucómetro Kit', 18500)">+ Agregar</button>
+              </div>
+            </div>
+
+            <button class="btn-action" style="background:var(--green-organic);" onclick="openSingleChat('Equipos Médicos Providencia')">
+              💬 Pedir por WhatsApp Business
+            </button>
+          </div>
+
         </div>
       </div>
 
@@ -1135,6 +1284,86 @@
           <i data-lucide="mic" id="sendOrMicIcon" size="18"></i>
         </button>
       </div>
+
+      <!-- Attach / Share Modal (Clip Grid of 8) INSIDE singleChatView -->
+      <div class="clip-modal-overlay" id="clipModalOverlay" onclick="if(event.target===this) closeClipModal()">
+        <div class="clip-modal-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <span style="font-size:12px; font-weight:800; color:var(--dark-teal); letter-spacing:0.5px;">ADJUNTAR / COMPARTIR</span>
+            <button style="background:none; border:none; cursor:pointer;" onclick="closeClipModal()"><i data-lucide="x" size="18"></i></button>
+          </div>
+
+          <div class="clip-grid-8">
+            <div class="clip-grid-item" onclick="triggerDocUpload()">
+              <div class="clip-icon-circle"><i data-lucide="file-text" size="20"></i></div>
+              <span class="clip-label">Documento</span>
+            </div>
+            <div class="clip-grid-item" onclick="triggerGalleryUpload()">
+              <div class="clip-icon-circle"><i data-lucide="image" size="20"></i></div>
+              <span class="clip-label">Galería</span>
+            </div>
+            <div class="clip-grid-item" onclick="triggerCamUpload()">
+              <div class="clip-icon-circle"><i data-lucide="camera" size="20"></i></div>
+              <span class="clip-label">Cámara</span>
+            </div>
+            <div class="clip-grid-item" onclick="shareVoiceNoteSim(); closeClipModal();">
+              <div class="clip-icon-circle"><i data-lucide="mic" size="20"></i></div>
+              <span class="clip-label">Audio</span>
+            </div>
+            <div class="clip-grid-item" onclick="toggleLocationPicker()">
+              <div class="clip-icon-circle"><i data-lucide="map-pin" size="20"></i></div>
+              <span class="clip-label">Ubicación</span>
+            </div>
+            <div class="clip-grid-item" onclick="shareContactCard(); closeClipModal();">
+              <div class="clip-icon-circle"><i data-lucide="user" size="20"></i></div>
+              <span class="clip-label">Contacto</span>
+            </div>
+            <div class="clip-grid-item" onclick="startCallActiveChat('video'); closeClipModal();">
+              <div class="clip-icon-circle"><i data-lucide="video" size="20"></i></div>
+              <span class="clip-label">Videollamada</span>
+            </div>
+            <div class="clip-grid-item" onclick="startCallActiveChat('voice'); closeClipModal();">
+              <div class="clip-icon-circle"><i data-lucide="phone" size="20"></i></div>
+              <span class="clip-label">Llamar</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location Picker Sub-Modal (WhatsApp Style) INSIDE singleChatView -->
+      <div class="location-picker-overlay" id="locationPickerOverlay" onclick="if(event.target===this) toggleLocationPicker()">
+        <div class="clip-modal-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <i data-lucide="map-pin" size="18" color="#2C7A7B"></i>
+              <span style="font-size:13px; font-weight:800; color:var(--dark-teal);">COMPARTIR UBICACIÓN</span>
+            </div>
+            <button style="background:none; border:none; cursor:pointer;" onclick="toggleLocationPicker()"><i data-lucide="x" size="18"></i></button>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div onclick="sendLiveLocationMessage(); toggleLocationPicker(); closeClipModal();" style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--mint); border-radius:12px; border:1px solid var(--turquoise); cursor:pointer;">
+              <div style="width:40px; height:40px; border-radius:50%; background:var(--green-organic); color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                <i data-lucide="navigation" size="20"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Compartir ubicación en tiempo real</div>
+                <div style="font-size:10.5px; color:var(--gray-muted);">Transmisión GPS en vivo por 8 horas</div>
+              </div>
+            </div>
+
+            <div onclick="sendFixedLocationMessage(); toggleLocationPicker(); closeClipModal();" style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--white); border-radius:12px; border:1px solid rgba(51,188,169,0.2); cursor:pointer;">
+              <div style="width:40px; height:40px; border-radius:50%; background:var(--turquoise); color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                <i data-lucide="map-pin" size="20"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Enviar mi ubicación actual</div>
+                <div style="font-size:10.5px; color:var(--gray-muted);">Precisión GPS a 5 metros</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="location-picker-overlay" id="locationPickerOverlay" onclick="if(event.target===this) toggleLocationPicker()">
@@ -1170,94 +1399,6 @@
         </div>
       </div>
     </div>
-
-    <div class="clip-modal-overlay" id="clipModalOverlay" onclick="if(event.target===this) closeClipModal()">
-      <div class="clip-modal-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-          <span style="font-size:12px; font-weight:800; color:var(--dark-teal); letter-spacing:0.5px;">ADJUNTAR / COMPARTIR</span>
-          <button style="background:none; border:none; cursor:pointer;" onclick="closeClipModal()"><i data-lucide="x" size="18"></i></button>
-        </div>
-
-        <div class="clip-grid-8">
-          <div class="clip-grid-item" onclick="triggerDocUpload()">
-            <div class="clip-icon-circle"><i data-lucide="file-text" size="20"></i></div>
-            <span class="clip-label">Documento</span>
-          </div>
-          <div class="clip-grid-item" onclick="triggerGalleryUpload()">
-            <div class="clip-icon-circle"><i data-lucide="image" size="20"></i></div>
-            <span class="clip-label">Galería</span>
-          </div>
-          <div class="clip-grid-item" onclick="triggerCamUpload()">
-            <div class="clip-icon-circle"><i data-lucide="camera" size="20"></i></div>
-            <span class="clip-label">Cámara</span>
-          </div>
-          <div class="clip-grid-item" onclick="shareVoiceNoteSim(); closeClipModal();">
-            <div class="clip-icon-circle"><i data-lucide="mic" size="20"></i></div>
-            <span class="clip-label">Audio</span>
-          </div>
-          <div class="clip-grid-item" onclick="toggleLocationPicker()">
-            <div class="clip-icon-circle"><i data-lucide="map-pin" size="20"></i></div>
-            <span class="clip-label">Ubicación</span>
-          </div>
-          <div class="clip-grid-item" onclick="shareContactCard(); closeClipModal();">
-            <div class="clip-icon-circle"><i data-lucide="user" size="20"></i></div>
-            <span class="clip-label">Contacto</span>
-          </div>
-          <div class="clip-grid-item" onclick="startCallActiveChat('video'); closeClipModal();">
-            <div class="clip-icon-circle"><i data-lucide="video" size="20"></i></div>
-            <span class="clip-label">Videollamada</span>
-          </div>
-          <div class="clip-grid-item" onclick="startCallActiveChat('voice'); closeClipModal();">
-            <div class="clip-icon-circle"><i data-lucide="phone" size="20"></i></div>
-            <span class="clip-label">Llamar</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Location Picker Sub-Modal (WhatsApp Style) -->
-    
-
-    
-    <!-- Attach / Share Modal (Clip Grid of 8) -->
-    
-
-    <!-- Location Picker Sub-Modal (WhatsApp Style) -->
-    <div class="location-picker-overlay" id="locationPickerOverlay" onclick="if(event.target===this) toggleLocationPicker()">
-      <div class="clip-modal-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <i data-lucide="map-pin" size="18" color="#2C7A7B"></i>
-            <span style="font-size:13px; font-weight:800; color:var(--dark-teal);">COMPARTIR UBICACIÓN</span>
-          </div>
-          <button style="background:none; border:none; cursor:pointer;" onclick="toggleLocationPicker()"><i data-lucide="x" size="18"></i></button>
-        </div>
-
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <div onclick="sendLiveLocationMessage(); toggleLocationPicker(); closeClipModal();" style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--mint); border-radius:12px; border:1px solid var(--turquoise); cursor:pointer;">
-            <div style="width:40px; height:40px; border-radius:50%; background:var(--green-organic); color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <i data-lucide="navigation" size="20"></i>
-            </div>
-            <div>
-              <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Compartir ubicación en tiempo real</div>
-              <div style="font-size:10.5px; color:var(--gray-muted);">Transmisión GPS en vivo por 8 horas</div>
-            </div>
-          </div>
-
-          <div onclick="sendFixedLocationMessage(); toggleLocationPicker(); closeClipModal();" style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--white); border-radius:12px; border:1px solid rgba(51,188,169,0.2); cursor:pointer;">
-            <div style="width:40px; height:40px; border-radius:50%; background:var(--turquoise); color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <i data-lucide="map-pin" size="20"></i>
-            </div>
-            <div>
-              <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Enviar mi ubicación actual</div>
-              <div style="font-size:10.5px; color:var(--gray-muted);">Precisión GPS a 5 metros</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <!-- Video Call Modal -->
     <div class="video-call-modal" id="videoCallModal" style="z-index:1200;">
@@ -1860,6 +2001,70 @@
       }
     }
 
+    
+    // Shopping & Cart Functions
+    var cartItems = [
+      { name: 'Té Herbal Relajante', price: 4990 },
+      { name: 'Aceite de Lavanda', price: 7500 }
+    ];
+
+    function toggleShoppingMenu() {
+      var menu = document.getElementById('shoppingOptionsMenu');
+      if (menu) menu.classList.toggle('active');
+    }
+
+    function filterStores(cat, btn) {
+      document.querySelectorAll('#tab-shopping .shopping-card').forEach(function(card) {
+        if (cat === 'todos' || card.getAttribute('data-cat') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      document.querySelectorAll('#tab-shopping .chat-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      if (btn) btn.classList.add('active');
+    }
+
+    function addToCart(pName, price) {
+      cartItems.push({ name: pName, price: price });
+      var badge = document.getElementById('cartBadgeCount');
+      if (badge) badge.innerText = cartItems.length;
+      var menuBadge = document.getElementById('cartBadgeMenu');
+      if (menuBadge) menuBadge.innerText = cartItems.length;
+      triggerAlert('🛒 ' + pName + ' agregado al carrito de compras.');
+    }
+
+    function showCartSummary() {
+      var total = cartItems.reduce(function(acc, item) { return acc + item.price; }, 0);
+      var text = '🛒 Resumen de tu Carrito de Compras:\n\n';
+      cartItems.forEach(function(item, idx) {
+        text += (idx + 1) + '. ' + item.name + ' - $' + item.price.toLocaleString('es-CL') + '\n';
+      });
+      text += '\nTotal a Pagar: $' + total.toLocaleString('es-CL') + '\n\n¿Deseas confirmar tu pedido para despacho?';
+      if (confirm(text)) {
+        cartItems = [];
+        var badge = document.getElementById('cartBadgeCount');
+        if (badge) badge.innerText = '0';
+        var menuBadge = document.getElementById('cartBadgeMenu');
+        if (menuBadge) menuBadge.innerText = '0';
+        alert('🎉 ¡Pedido confirmado con éxito! La tienda procesará tu despacho de inmediato.');
+      }
+    }
+
+    function changeAppLanguage(lang) {
+      var names = {
+        es: 'Español (América Latina)',
+        en: 'English (United States)',
+        pt: 'Português (Brasil)',
+        fr: 'Français (France)',
+        de: 'Deutsch (Deutschland)',
+        it: 'Italiano (Italia)',
+        zh: '中文 (Chinese)',
+        ja: '日本語 (Japanese)'
+      };
+      alert('🌐 Idioma de la aplicación cambiado a: ' + (names[lang] || lang) + '. Todos los textos y descargas se han configurado.');
+    }
+
     function startWorkoutTimer(title, duration) {
       alert('▶ Iniciando rutina de ' + title + ' (' + duration + ' min). ¡A mover el cuerpo!');
     }
@@ -1887,5 +2092,10 @@
     }
 
   </script>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
