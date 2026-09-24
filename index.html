@@ -817,7 +817,7 @@
       <div class="chat-header-bar">
         <div style="display:flex; align-items:center; gap:8px;">
           <button class="icon-btn" style="width:32px; height:32px;" onclick="closeSingleChat()" title="Volver">
-            <i data-lucide="arrow-left" size="18"></i>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2C7A7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           </button>
           <div class="chat-user-info" onclick="openSettingsView()">
             <img src="" id="activeChatAvatar" style="width:36px; height:36px; border-radius:50%; object-fit:contain; border:1.5px solid var(--turquoise);" alt="Avatar">
@@ -829,9 +829,9 @@
         </div>
 
         <div style="display:flex; gap:6px;">
-          <button class="icon-btn" style="width:32px; height:32px;" title="Llamada de Voz" onclick="startCallActiveChat('voice')"><i data-lucide="phone" size="15"></i></button>
-          <button class="icon-btn" style="width:32px; height:32px;" title="Videollamada HD" onclick="startCallActiveChat('video')"><i data-lucide="video" size="15"></i></button>
-          <button class="icon-btn" style="width:32px; height:32px;" title="Opciones" onclick="toggleChatOptionsMenu()"><i data-lucide="more-vertical" size="15"></i></button>
+          <button class="icon-btn" style="width:32px; height:32px;" title="Llamada de Voz" onclick="startCallActiveChat('voice')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2C7A7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
+          <button class="icon-btn" style="width:32px; height:32px;" title="Videollamada HD" onclick="startCallActiveChat('video')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2C7A7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></button>
+          <button class="icon-btn" style="width:32px; height:32px;" title="Opciones" onclick="toggleChatOptionsMenu()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2C7A7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
         </div>
 
         <!-- Menú de 3 Puntos en el Chat -->
@@ -1063,17 +1063,17 @@
       <!-- Barra de Mensaje WhatsApp Completa v26 -->
       <div class="chat-input-bar">
         <button class="icon-btn" style="width:34px; height:34px; border:none; box-shadow:none; background:transparent;" onclick="toggleEmojiPicker()" title="Emojis">
-          <i data-lucide="smile" size="22" color="#718096"></i>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
         </button>
         <button class="icon-btn" style="width:34px; height:34px; border:none; box-shadow:none; background:transparent;" onclick="toggleClipModal()" title="Adjuntar archivo (Clip)">
-          <i data-lucide="paperclip" size="22" color="#718096"></i>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
         </button>
         <input type="text" id="chatInput" class="chat-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)" oninput="handleChatInputTyping(this)">
         <button class="icon-btn" style="width:34px; height:34px; border:none; box-shadow:none; background:transparent;" onclick="triggerCamUpload()" title="Tomar foto con cámara">
-          <i data-lucide="camera" size="22" color="#718096"></i>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
         </button>
         <button class="icon-btn" id="sendOrMicBtn" style="width:38px; height:36px; background:var(--green-organic); color:white; border:none; border-radius:50%; flex-shrink:0;" onclick="handleSendOrMicClick()" title="Enviar / Nota de Voz">
-          <i data-lucide="mic" id="sendOrMicIcon" size="18"></i>
+          <span id="sendOrMicIcon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></span>
         </button>
       </div>
     </div>
@@ -1119,40 +1119,40 @@
       <div class="clip-modal-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
           <span style="font-size:12px; font-weight:800; color:var(--dark-teal); letter-spacing:0.5px;">ADJUNTAR / COMPARTIR</span>
-          <button style="background:none; border:none; cursor:pointer;" onclick="closeClipModal()"><i data-lucide="x" size="18"></i></button>
+          <button style="background:none; border:none; cursor:pointer;" onclick="closeClipModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         </div>
 
         <div class="clip-grid-8">
           <div class="clip-grid-item" onclick="triggerDocUpload()">
-            <div class="clip-icon-circle"><i data-lucide="file-text" size="20"></i></div>
+            <div class="clip-icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33BCA9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
             <span class="clip-label">Documento</span>
           </div>
           <div class="clip-grid-item" onclick="triggerGalleryUpload()">
-            <div class="clip-icon-circle"><i data-lucide="image" size="20"></i></div>
+            <div class="clip-icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33BCA9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
             <span class="clip-label">Galería</span>
           </div>
           <div class="clip-grid-item" onclick="triggerCamUpload()">
-            <div class="clip-icon-circle"><i data-lucide="camera" size="20"></i></div>
+            <div class="clip-icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33BCA9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
             <span class="clip-label">Cámara</span>
           </div>
           <div class="clip-grid-item" onclick="shareVoiceNoteSim(); closeClipModal();">
-            <div class="clip-icon-circle"><i data-lucide="mic" size="20"></i></div>
+            <div class="clip-icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33BCA9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
             <span class="clip-label">Audio</span>
           </div>
           <div class="clip-grid-item" onclick="toggleLocationPicker()">
-            <div class="clip-icon-circle"><i data-lucide="map-pin" size="20"></i></div>
+            <div class="clip-icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33BCA9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
             <span class="clip-label">Ubicación</span>
           </div>
           <div class="clip-grid-item" onclick="shareContactCard(); closeClipModal();">
-            <div class="clip-icon-circle"><i data-lucide="user" size="20"></i></div>
+            <div class="clip-icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33BCA9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
             <span class="clip-label">Contacto</span>
           </div>
           <div class="clip-grid-item" onclick="startCallActiveChat('video'); closeClipModal();">
-            <div class="clip-icon-circle"><i data-lucide="video" size="20"></i></div>
+            <div class="clip-icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33BCA9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
             <span class="clip-label">Videollamada</span>
           </div>
           <div class="clip-grid-item" onclick="startCallActiveChat('voice'); closeClipModal();">
-            <div class="clip-icon-circle"><i data-lucide="phone" size="20"></i></div>
+            <div class="clip-icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33BCA9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
             <span class="clip-label">Llamar</span>
           </div>
         </div>
@@ -1450,15 +1450,14 @@
 
     
     function handleChatInputTyping(input) {
-      var btn = document.getElementById('sendOrMicBtn');
-      if (!btn) return;
+      var iconContainer = document.getElementById('sendOrMicIcon');
+      if (!iconContainer) return;
       var val = input.value.trim();
       if (val.length > 0) {
-        btn.innerHTML = '<i data-lucide="send" size="18"></i>';
+        iconContainer.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
       } else {
-        btn.innerHTML = '<i data-lucide="mic" size="18"></i>';
+        iconContainer.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>';
       }
-      if (window.lucide) lucide.createIcons();
     }
 
     function handleSendOrMicClick() {
@@ -1735,3 +1734,4 @@
     }
   </script>
 </body>
+</html>
