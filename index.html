@@ -1113,6 +1113,88 @@
       </div>
     </div>
 
+    
+    <!-- Attach / Share Modal (Clip Grid of 8) -->
+    <div class="clip-modal-overlay" id="clipModalOverlay" onclick="if(event.target===this) closeClipModal()">
+      <div class="clip-modal-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <span style="font-size:12px; font-weight:800; color:var(--dark-teal); letter-spacing:0.5px;">ADJUNTAR / COMPARTIR</span>
+          <button style="background:none; border:none; cursor:pointer;" onclick="closeClipModal()"><i data-lucide="x" size="18"></i></button>
+        </div>
+
+        <div class="clip-grid-8">
+          <div class="clip-grid-item" onclick="triggerDocUpload()">
+            <div class="clip-icon-circle"><i data-lucide="file-text" size="20"></i></div>
+            <span class="clip-label">Documento</span>
+          </div>
+          <div class="clip-grid-item" onclick="triggerGalleryUpload()">
+            <div class="clip-icon-circle"><i data-lucide="image" size="20"></i></div>
+            <span class="clip-label">Galería</span>
+          </div>
+          <div class="clip-grid-item" onclick="triggerCamUpload()">
+            <div class="clip-icon-circle"><i data-lucide="camera" size="20"></i></div>
+            <span class="clip-label">Cámara</span>
+          </div>
+          <div class="clip-grid-item" onclick="shareVoiceNoteSim(); closeClipModal();">
+            <div class="clip-icon-circle"><i data-lucide="mic" size="20"></i></div>
+            <span class="clip-label">Audio</span>
+          </div>
+          <div class="clip-grid-item" onclick="toggleLocationPicker()">
+            <div class="clip-icon-circle"><i data-lucide="map-pin" size="20"></i></div>
+            <span class="clip-label">Ubicación</span>
+          </div>
+          <div class="clip-grid-item" onclick="shareContactCard(); closeClipModal();">
+            <div class="clip-icon-circle"><i data-lucide="user" size="20"></i></div>
+            <span class="clip-label">Contacto</span>
+          </div>
+          <div class="clip-grid-item" onclick="startCallActiveChat('video'); closeClipModal();">
+            <div class="clip-icon-circle"><i data-lucide="video" size="20"></i></div>
+            <span class="clip-label">Videollamada</span>
+          </div>
+          <div class="clip-grid-item" onclick="startCallActiveChat('voice'); closeClipModal();">
+            <div class="clip-icon-circle"><i data-lucide="phone" size="20"></i></div>
+            <span class="clip-label">Llamar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Picker Sub-Modal (WhatsApp Style) -->
+    <div class="location-picker-overlay" id="locationPickerOverlay" onclick="if(event.target===this) toggleLocationPicker()">
+      <div class="clip-modal-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <i data-lucide="map-pin" size="18" color="#2C7A7B"></i>
+            <span style="font-size:13px; font-weight:800; color:var(--dark-teal);">COMPARTIR UBICACIÓN</span>
+          </div>
+          <button style="background:none; border:none; cursor:pointer;" onclick="toggleLocationPicker()"><i data-lucide="x" size="18"></i></button>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div onclick="sendLiveLocationMessage(); toggleLocationPicker(); closeClipModal();" style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--mint); border-radius:12px; border:1px solid var(--turquoise); cursor:pointer;">
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--green-organic); color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i data-lucide="navigation" size="20"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Compartir ubicación en tiempo real</div>
+              <div style="font-size:10.5px; color:var(--gray-muted);">Transmisión GPS en vivo por 8 horas</div>
+            </div>
+          </div>
+
+          <div onclick="sendFixedLocationMessage(); toggleLocationPicker(); closeClipModal();" style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--white); border-radius:12px; border:1px solid rgba(51,188,169,0.2); cursor:pointer;">
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--turquoise); color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i data-lucide="map-pin" size="20"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Enviar mi ubicación actual</div>
+              <div style="font-size:10.5px; color:var(--gray-muted);">Precisión GPS a 5 metros</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- Video Call Modal -->
     <div class="video-call-modal" id="videoCallModal">
       <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#8AA2A2;">
@@ -1653,4 +1735,3 @@
     }
   </script>
 </body>
-</html>
