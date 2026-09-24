@@ -774,7 +774,66 @@
       </div>
 
       <!-- TAB 3: TIENDA -->
-      <div class="tab-pane" id="tab-tienda">
+      <div class
+          <!-- 3. Registro de Hidratación / Agua -->
+          <div class="wellness-card">
+            <div class="wellness-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2C7A7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              Registro de Hidratación (Agua)
+            </div>
+            
+            <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 14px; border-radius:12px; border:1px solid var(--turquoise);">
+              <div>
+                <div style="font-size:18px; font-weight:800; color:var(--dark-teal);" id="waterIntakeText">1,500 ml</div>
+                <div style="font-size:10px; color:var(--gray-muted);">Meta diaria: 2,500 ml (60%)</div>
+              </div>
+              <button class="btn-action" style="padding:6px 12px; font-size:11px; background:var(--turquoise);" onclick="addWaterGlass()">
+                +1 Vaso (+250 ml)
+              </button>
+            </div>
+
+            <div class="toggle-row" style="margin-top:8px;">
+              <span>🔔 Recordatorio de Alarma (Cada 2 Horas)</span>
+              <input type="checkbox" id="waterAlarmToggle" checked style="accent-color:var(--turquoise); width:18px; height:18px;">
+            </div>
+          </div>
+
+          <!-- 4. Rutinas de Ejercicio en Casa con Guía de Audio -->
+          <div class="wellness-card">
+            <div class="wellness-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2C7A7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              Rutinas de Ejercicio en Casa (Con Guía de Audio)
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px; border:1px solid rgba(51,188,169,0.2);">
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🔥 HIIT de Cardio Quema-Grasa</div>
+                  <div style="font-size:10px; color:var(--gray-muted);">15 Minutos | Alta Intensidad | Audio Guía</div>
+                </div>
+                <button class="btn-action" style="padding:6px 12px; font-size:11px; background:var(--green-organic);" onclick="startWorkoutWithAudio('HIIT de Cardio', 15)">▶ Iniciar</button>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px; border:1px solid rgba(51,188,169,0.2);">
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🧘‍♀️ Yoga & Flexibilidad Corporal</div>
+                  <div style="font-size:10px; color:var(--gray-muted);">20 Minutos | Relajación & Estiramiento</div>
+                </div>
+                <button class="btn-action" style="padding:6px 12px; font-size:11px; background:var(--turquoise);" onclick="startWorkoutWithAudio('Yoga & Flexibilidad', 20)">▶ Iniciar</button>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px; border:1px solid rgba(51,188,169,0.2);">
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🏃‍♂️ Precalentamiento & Movilidad</div>
+                  <div style="font-size:10px; color:var(--gray-muted);">10 Minutos | Articulaciones & Músculos</div>
+                </div>
+                <button class="btn-action" style="padding:6px 12px; font-size:11px; background:var(--dark-teal);" onclick="startWorkoutWithAudio('Precalentamiento', 10)">▶ Iniciar</button>
+              </div>
+            </div>
+          </div>
+
+
+      ="tab-pane" id="tab-shopping">
         <div style="padding:16px; display:flex; flex-direction:column; gap:12px;">
           <div style="font-size:15px; font-weight:800; color:var(--green-organic);">🛍️ Vitrina PyME & Herbolaria Orgánica</div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
@@ -1078,7 +1137,6 @@
       </div>
     </div>
 
-    <!-- Location Picker Sub-Modal (WhatsApp Style) -->
     <div class="location-picker-overlay" id="locationPickerOverlay" onclick="if(event.target===this) toggleLocationPicker()">
       <div class="clip-modal-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
@@ -1113,8 +1171,6 @@
       </div>
     </div>
 
-    
-    <!-- Attach / Share Modal (Clip Grid of 8) -->
     <div class="clip-modal-overlay" id="clipModalOverlay" onclick="if(event.target===this) closeClipModal()">
       <div class="clip-modal-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
@@ -1159,8 +1215,48 @@
       </div>
     </div>
 
+
     <!-- Location Picker Sub-Modal (WhatsApp Style) -->
- 
+    
+
+    
+    <!-- Attach / Share Modal (Clip Grid of 8) -->
+    
+
+    <!-- Location Picker Sub-Modal (WhatsApp Style) -->
+    <div class="location-picker-overlay" id="locationPickerOverlay" onclick="if(event.target===this) toggleLocationPicker()">
+      <div class="clip-modal-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <i data-lucide="map-pin" size="18" color="#2C7A7B"></i>
+            <span style="font-size:13px; font-weight:800; color:var(--dark-teal);">COMPARTIR UBICACIÓN</span>
+          </div>
+          <button style="background:none; border:none; cursor:pointer;" onclick="toggleLocationPicker()"><i data-lucide="x" size="18"></i></button>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div onclick="sendLiveLocationMessage(); toggleLocationPicker(); closeClipModal();" style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--mint); border-radius:12px; border:1px solid var(--turquoise); cursor:pointer;">
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--green-organic); color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i data-lucide="navigation" size="20"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Compartir ubicación en tiempo real</div>
+              <div style="font-size:10.5px; color:var(--gray-muted);">Transmisión GPS en vivo por 8 horas</div>
+            </div>
+          </div>
+
+          <div onclick="sendFixedLocationMessage(); toggleLocationPicker(); closeClipModal();" style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--white); border-radius:12px; border:1px solid rgba(51,188,169,0.2); cursor:pointer;">
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--turquoise); color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i data-lucide="map-pin" size="20"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Enviar mi ubicación actual</div>
+              <div style="font-size:10.5px; color:var(--gray-muted);">Precisión GPS a 5 metros</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     <!-- Video Call Modal -->
@@ -1170,7 +1266,6 @@
         <button style="background:none; border:none; color:white; cursor:pointer; font-size:16px; font-weight:bold;" onclick="closeVideoCall()">✕</button>
       </div>
       <div style="text-align:center; margin-top:20px;">
-        <video id="callWebcamFeed" autoplay playsinline style="width:140px; height:140px; border-radius:20px; object-fit:cover; display:none; margin:0 auto 10px auto; border:3px solid var(--turquoise); box-shadow:0 8px 25px rgba(0,0,0,0.4);"></video>
         <img src="" id="callAvatar" style="width:96px; height:96px; border-radius:50%; object-fit:contain; border:3px solid var(--turquoise); background:var(--white); box-shadow:0 8px 20px rgba(0,0,0,0.3);" alt="Call Avatar">
         <h3 id="callName" style="margin-top:12px; font-size:20px; font-weight:800;">Camila Silva</h3>
         <div id="callTypeTitle" style="font-size:11px; color:var(--turquoise); font-weight:700; letter-spacing:0.5px; margin-top:4px;">VIDEOLLAMADA EN CURSO...</div>
@@ -1346,7 +1441,7 @@
     <div class="bottom-nav">
       <button class="nav-item active" onclick="switchTab('chats', this)"><i data-lucide="message-circle" size="19"></i><span>Chats</span></button>
       <button class="nav-item" onclick="switchTab('wellness', this)"><i data-lucide="heart-pulse" size="19"></i><span>Wellness</span></button>
-      <button class="nav-item" onclick="switchTab('tienda', this)"><i data-lucide="shopping-bag" size="19"></i><span>Tienda</span></button>
+      <button class="nav-item" onclick="switchTab('shopping', this)"><i data-lucide="shopping-bag" size="19"></i><span>Shopping</span></button>
       <button class="nav-item" onclick="switchTab('morfeo', this)"><i data-lucide="moon" size="19"></i><span>Morfeo</span></button>
     </div>
 
@@ -1528,68 +1623,68 @@
       }
     }
 
-    function downloadRealFile(filename, dataUrl) {
-      var fname = filename || "Documento_BIENESTAR.pdf";
+    function downloadFileDoc(filename) {
+      var fname = filename || "Documento_BIENESTAR.txt";
+      var content = "BIENESTAR App - Documento Adjunto\n\nEste archivo ha sido generado y descargado desde BIENESTAR App.\nFecha: " + new Date().toLocaleString() + "\n\nGracias por utilizar BIENESTAR Ecosistema Integral & Social.";
+      var blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
       var a = document.createElement("a");
-      a.href = dataUrl;
+      a.href = url;
       a.download = fname;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      alert("📥 Descargando " + fname + "...");
+      URL.revokeObjectURL(url);
+      alert("📥 Documento " + fname + " descargado con éxito.");
     }
 
     function handleSelectedDocument(input) {
       if (input.files && input.files[0]) {
         var file = input.files[0];
-        var safeName = file.name.replace(/['"]/g, "");
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var fileDataUrl = e.target.result;
-          var docHtml = '📄 <strong>' + safeName + '</strong><br>' +
-            '<button onclick="downloadRealFile(\'' + safeName + '\', \'' + fileDataUrl + '\')" style="margin-top:6px; background:var(--turquoise); color:white; border:none; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer;">📥 Descargar Documento</button>';
-          addBubble(docHtml, 'sent');
-        };
-        reader.readAsDataURL(file);
+        var safeName = file.name.replace(/'/g, "");
+        var docHtml = '📄 <strong>' + safeName + '</strong><br><button onclick="downloadFileDoc(\'' + safeName + '\')" style="margin-top:6px; background:var(--turquoise); color:white; border:none; padding:4px 10px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer;">📥 Descargar Documento</button>';
+        addBubble(docHtml, 'sent');
       }
-      input.value = '';
     }
 
-    function handleSelectedGalleryImage(input) {
-      if (input.files && input.files[0]) {
-        var file = input.files[0];
-        var safeName = file.name.replace(/['"]/g, "");
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var fileDataUrl = e.target.result;
-          var imgHtml = '<img src="' + fileDataUrl + '" style="max-width:100%; max-height:220px; border-radius:12px; cursor:pointer; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.15);" onclick="window.open(this.src)" alt="Foto">' +
-            '<div style="margin-top:4px; display:flex; align-items:center; justify-content:space-between;">' +
-            '<span style="font-size:10px; opacity:0.8;">📷 ' + safeName + '</span>' +
-            '<button onclick="downloadRealFile(\'' + safeName + '\', \'' + fileDataUrl + '\')" style="background:var(--turquoise); color:white; border:none; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">📥 Descargar Foto</button>' +
-            '</div>';
-          addBubble(imgHtml, 'sent');
-        };
-        reader.readAsDataURL(file);
-      }
-      input.value = '';
+
+
+    function toggleLocationPicker() {
+      var overlay = document.getElementById('locationPickerOverlay');
+      if (overlay) overlay.classList.toggle('active');
     }
 
-    function handleCameraCaptureFallback(input) {
-      if (input.files && input.files[0]) {
-        var file = input.files[0];
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var fileDataUrl = e.target.result;
-          var imgHtml = '<img src="' + fileDataUrl + '" style="max-width:100%; max-height:220px; border-radius:12px; cursor:pointer; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.15);" onclick="window.open(this.src)" alt="Foto">' +
-            '<div style="margin-top:4px; display:flex; align-items:center; justify-content:space-between;">' +
-            '<span style="font-size:10px; opacity:0.8;">📷 Captura de Cámara</span>' +
-            '<button onclick="downloadRealFile(\'Captura_Camara.jpg\', \'' + fileDataUrl + '\')" style="background:var(--turquoise); color:white; border:none; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">📥 Descargar Foto</button>' +
-            '</div>';
-          addBubble(imgHtml, 'sent');
-        };
-        reader.readAsDataURL(file);
-      }
-      input.value = '';
+    function sendFixedLocationMessage() {
+      var locHtml = '📍 <strong>Ubicación Actual (GPS)</strong><br>' +
+        '<span style="font-size:11px;">Av. Providencia 1234, Santiago</span><br>' +
+        '<div style="margin-top:6px; background:rgba(0,0,0,0.05); padding:6px 10px; border-radius:8px; display:flex; align-items:center; justify-content:space-between;">' +
+        '<span style="font-size:10px; color:var(--dark-teal);">Lat: -33.43720, Lng: -70.65060</span>' +
+        '<button onclick="window.open(\'https://maps.google.com/?q=-33.43720,-70.65060\',\'_blank\')" style="background:var(--green-organic); color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">🗺️ Ver Mapa</button>' +
+        '</div>';
+      addBubble(locHtml, 'sent');
+    }
+
+    function sendLiveLocationMessage() {
+      var liveHtml = '📡 <strong>Ubicación en Tiempo Real</strong> <span style="font-size:9px; background:#E53E3E; color:white; padding:1px 6px; border-radius:8px; font-weight:700;">● EN VIVO</span><br>' +
+        '<span style="font-size:11px;">Ubicación en vivo activa por 8 horas</span><br>' +
+        '<div style="margin-top:6px; background:var(--mint); padding:8px 10px; border-radius:8px; display:flex; align-items:center; justify-content:space-between; border:1px solid var(--turquoise);">' +
+        '<span style="font-size:10px; color:var(--dark-teal); font-weight:700;">📡 GPS Conectado</span>' +
+        '<button onclick="alert(\'Transmisión de ubicación en vivo finalizada.\')" style="background:var(--red-alert); color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">Detener</button>' +
+        '</div>';
+      addBubble(liveHtml, 'sent');
+    }
+
+    function shareContactCard() {
+      var contactHtml = '👤 <strong>Ficha de Contacto</strong><br>' +
+        '<div style="margin-top:4px; font-weight:800; color:var(--dark-teal);">Dr. Aldo Licandeo</div>' +
+        '<div style="font-size:11px; color:var(--gray-muted);">Médico Especialista • BIENESTAR</div>' +
+        '<div style="font-size:11px; color:var(--turquoise); margin-top:2px;">📱 +56 9 8765 4321</div>' +
+        '<div style="margin-top:6px; display:flex; gap:6px;">' +
+        '<button onclick="alert(\'Añadiendo a Dr. Aldo Licandeo a tus contactos...\')" style="background:var(--turquoise); color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">👤 Guardar Contacto</button>' +
+        '<button onclick="openSingleChat(\'Dr. Aldo Licandeo\')" style="background:var(--green-organic); color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">💬 Chat</button>' +
+        '</div>';
+      addBubble(contactHtml, 'sent');
+      toggleClipModal();
     }
 
     function toggleAudioPlayback(btn) {
@@ -1597,20 +1692,33 @@
         btn.innerText = "▶";
       } else {
         btn.innerText = "⏸";
-        try {
-          var ctx = new (window.AudioContext || window.webkitAudioContext)();
-          var osc = ctx.createOscillator();
-          var gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(523.25, ctx.currentTime);
-          gain.gain.setValueAtTime(0.12, ctx.currentTime);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start();
-          osc.stop(ctx.currentTime + 1.5);
-        } catch(e) {}
         setTimeout(function() { btn.innerText = "▶"; }, 4000);
       }
+    }
+
+    function shareVoiceNoteSim() {
+      var audioHtml = '🎙️ <strong>Nota de Voz</strong> (00:15)<br>' +
+        '<div style="margin-top:6px; display:flex; align-items:center; gap:8px; background:var(--green-organic); padding:6px 10px; border-radius:18px; color:white;">' +
+        '<button onclick="toggleAudioPlayback(this)" style="background:white; color:var(--green-organic); border:none; width:26px; height:26px; border-radius:50%; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-weight:800;">▶</button>' +
+        '<div style="flex:1; height:4px; background:rgba(255,255,255,0.4); border-radius:2px; overflow:hidden;">' +
+        '<div style="width:40%; height:100%; background:white;"></div>' +
+        '</div>' +
+        '<span style="font-size:10px;">00:15</span>' +
+        '</div>';
+      addBubble(audioHtml, 'sent');
+      toggleClipModal();
+    }
+
+    var callSeconds = 0;
+    var callTimerInterval = null;
+
+    function updateCallTimer() {
+      callSeconds++;
+      var mins = Math.floor(callSeconds / 60);
+      var secs = callSeconds % 60;
+      var display = (mins < 10 ? '0' + mins : mins) + ':' + (secs < 10 ? '0' + secs : secs);
+      var el = document.getElementById('callTimerDisplay');
+      if (el) el.innerText = display;
     }
 
     function startCallActiveChat(type) {
@@ -1639,25 +1747,6 @@
       if (callTimerInterval) clearInterval(callTimerInterval);
       callTimerInterval = setInterval(updateCallTimer, 1000);
       
-      var videoFeed = document.getElementById('callWebcamFeed');
-      if (type === 'video' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-          .then(function(stream) {
-            if (videoFeed) {
-              videoFeed.srcObject = stream;
-              videoFeed.style.display = 'block';
-              if (callAvatarEl) callAvatarEl.style.display = 'none';
-            }
-          })
-          .catch(function(err) {
-            if (videoFeed) videoFeed.style.display = 'none';
-            if (callAvatarEl) callAvatarEl.style.display = 'inline-block';
-          });
-      } else {
-        if (videoFeed) videoFeed.style.display = 'none';
-        if (callAvatarEl) callAvatarEl.style.display = 'inline-block';
-      }
-      
       modal.classList.add('active');
     }
 
@@ -1666,14 +1755,82 @@
         clearInterval(callTimerInterval);
         callTimerInterval = null;
       }
-      var videoFeed = document.getElementById('callWebcamFeed');
-      if (videoFeed && videoFeed.srcObject) {
-        var tracks = videoFeed.srcObject.getTracks();
-        tracks.forEach(function(track) { track.stop(); });
-        videoFeed.srcObject = null;
-      }
       var modal = document.getElementById('videoCallModal');
       if (modal) modal.classList.remove('active');
+    }
+
+    function toggleSpeakerCall(btn) {
+      var active = btn.classList.toggle('active-toggle');
+      btn.style.background = active ? 'var(--turquoise)' : 'rgba(255,255,255,0.15)';
+      triggerAlert(active ? '🔊 Altavoz activado' : '🔇 Altavoz desactivado');
+    }
+
+    function toggleMuteCall(btn) {
+      var active = btn.classList.toggle('active-toggle');
+      btn.style.background = active ? 'var(--red-alert)' : 'rgba(255,255,255,0.15)';
+      triggerAlert(active ? '🎙️ Micrófono silenciado' : '🎙️ Micrófono activado');
+    }
+
+    function toggleVideoFeedCall(btn) {
+      var active = btn.classList.toggle('active-toggle');
+      btn.style.background = active ? 'var(--red-alert)' : 'rgba(255,255,255,0.15)';
+      triggerAlert(active ? '📹 Cámara desactivada' : '📹 Cámara activada');
+    }
+
+    function flipCameraCall() {
+      triggerAlert('🔄 Alternando cámara frontal / trasera...');
+    }
+
+    function shareCallLink() {
+      triggerAlert('🔗 Enlace de videollamada copiado al portapapeles.');
+    }
+
+    function openSettingsView() {
+      var view = document.getElementById('settingsView');
+      if (view) view.classList.add('active');
+    }
+
+    function closeSettingsView() {
+      var view = document.getElementById('settingsView');
+      if (view) view.classList.remove('active');
+    }
+
+    function triggerProfileAvatarUpload() {
+      document.getElementById('profileAvatarFileInput').click();
+    }
+
+    function updateProfileAvatarFromFile(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var img = document.getElementById('mainProfileAvatarImg');
+          if (img) img.src = e.target.result;
+          alert('¡Foto de perfil actualizada con éxito!');
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function resetProfileAvatarToLogo() {
+      var img = document.getElementById('mainProfileAvatarImg');
+      if (img) img.src = BIENESTAR_LOGO;
+      alert('Se ha establecido el Logo Oficial como foto de perfil.');
+    }
+
+    function editProfileDisplayName() {
+      var current = document.getElementById('profileDisplayNameText').innerText;
+      var val = prompt('Ingresa tu nuevo nombre de usuario:', current);
+      if (val && val.trim() !== '') {
+        document.getElementById('profileDisplayNameText').innerText = val.trim();
+      }
+    }
+
+    function editProfileStatus() {
+      var current = document.getElementById('profileStatusText').innerText;
+      var val = prompt('Ingresa tu nuevo estado / frase:', current);
+      if (val && val.trim() !== '') {
+        document.getElementById('profileStatusText').innerText = val.trim();
+      }
     }
 
     // Funciones Módulo Wellness
@@ -1706,6 +1863,29 @@
     function startWorkoutTimer(title, duration) {
       alert('▶ Iniciando rutina de ' + title + ' (' + duration + ' min). ¡A mover el cuerpo!');
     }
+  
+    function changeAppLanguage(langName, flag) {
+      alert("🌐 Idioma actualizado con éxito: " + flag + " " + langName + "\nLa interfaz de mensajería universal BIENESTAR se ajustará a tu idioma seleccionado.");
+    }
+
+    var waterTotalMl = 1500;
+    function addWaterGlass() {
+      waterTotalMl += 250;
+      var el = document.getElementById("waterIntakeText");
+      if (el) el.innerText = waterTotalMl.toLocaleString() + " ml";
+      alert("💧 ¡Excelente hidratación! Has registrado un vaso de agua (+250 ml). Total: " + waterTotalMl.toLocaleString() + " ml.");
+    }
+
+    function startWorkoutWithAudio(routineName, minutes) {
+      var synth = window.speechSynthesis;
+      if (synth) {
+        var utterance = new SpeechSynthesisUtterance("Iniciando rutina de " + routineName + ". Duración: " + minutes + " minutos. ¡A mover el cuerpo!");
+        utterance.lang = "es-ES";
+        synth.speak(utterance);
+      }
+      startWorkoutTimer(routineName, minutes);
+    }
+
   </script>
 </body>
 </html>
