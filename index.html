@@ -983,7 +983,11 @@
         if (splash) {
           splash.style.opacity = '0';
           splash.style.pointerEvents = 'none';
-          setTimeout(function() { splash.style.display = 'none'; }, 500);
+          setTimeout(function() { 
+            splash.style.display = 'none';
+            // Auto-open Camila Silva chat so the user can test the chat bar immediately!
+            openSingleChat('Camila Silva');
+          }, 500);
         }
       }, 1800);
     });
@@ -1091,6 +1095,20 @@
     function insertEmoji(emoji) {
       var input = document.getElementById('chatInput');
       if (input) input.value += emoji;
+    }
+
+    
+    function handleChatInputChange(input) {
+      var micBtn = document.getElementById('micBtn');
+      var sendBtn = document.getElementById('sendBtn');
+      if (!micBtn || !sendBtn) return;
+      if (input.value.trim().length > 0) {
+        micBtn.style.display = 'none';
+        sendBtn.style.display = 'flex';
+      } else {
+        micBtn.style.display = 'flex';
+        sendBtn.style.display = 'none';
+      }
     }
 
     function handleKeyPress(e) {
