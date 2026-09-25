@@ -685,48 +685,56 @@
 
       <!-- TAB 2: WELLNESS / SALUD & BIENESTAR -->
             <!-- TAB 2: WELLNESS (Salud, Hidratación, Ejercicio e IA) -->
+      
+      <!-- TAB 2: WELLNESS (Salud, Hidratación, Pasos, IA Nutricional, Citas & Ejercicios) -->
       <div class="tab-pane" id="tab-wellness">
         <div class="wellness-container">
           
           <!-- 1. Regulación Emocional -->
           <div class="wellness-card">
             <div class="wellness-title"><i data-lucide="sliders" size="18"></i> Escala de Regulación Emocional</div>
-            <p style="font-size:11px; color:var(--gray-muted);">Desliza para registrar tu estado de ánimo actual:</p>
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-              <span id="sliderBadge" style="font-size:12px; font-weight:800; color:white; background:var(--turquoise); padding:4px 12px; border-radius:12px;">Calma</span>
-              <span style="font-size:10.5px; color:var(--gray-muted);">Nivel 4 / 6</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:11.5px; color:var(--gray-muted);">Estado Emocional Actual:</span>
+              <span class="slider-badge" id="sliderBadge">Calma</span>
             </div>
-            <input type="range" min="1" max="6" value="4" step="1" class="neuro-slider-bar" id="neuroSlider" oninput="updateSliderState(this.value)" style="margin-top:10px;">
+            <input type="range" min="1" max="6" value="4" step="1" class="neuro-slider-bar" id="neuroSlider" oninput="updateSliderState(this.value)">
+            <div class="slider-buttons-row" style="margin-top:10px;">
+              <button class="state-pill-btn" style="background:#FF5A5F; color:white;" onclick="setSliderVal(1)">Crisis</button>
+              <button class="state-pill-btn" style="background:#FF9F1C; color:white;" onclick="setSliderVal(2)">Estrés</button>
+              <button class="state-pill-btn" style="background:#FFBF00; color:white;" onclick="setSliderVal(3)">Alerta</button>
+              <button class="state-pill-btn" style="background:#2EC4B6; color:white;" onclick="setSliderVal(4)">Calma</button>
+              <button class="state-pill-btn" style="background:#3A86FF; color:white;" onclick="setSliderVal(5)">Cansado</button>
+              <button class="state-pill-btn" style="background:#8338EC; color:white;" onclick="setSliderVal(6)">Vínculo</button>
+            </div>
           </div>
 
-          <!-- 2. Registro & Recordatorio de Hidratación -->
+          <!-- 2. Registro de Hidratación & Recordatorio de Agua -->
           <div class="wellness-card">
-            <div class="wellness-title"><i data-lucide="droplet" size="18"></i> Control de Hidratación & Recordatorio</div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div>
-                <div style="font-size:18px; font-weight:800; color:var(--dark-teal);"><span id="waterProgressText">1,500</span> / 2,500 ml</div>
-                <div style="font-size:10.5px; color:var(--gray-muted);">6 de 10 vasos consumidos</div>
-              </div>
-              <div style="width:48px; height:48px; border-radius:50%; background:var(--mint); border:2px solid var(--turquoise); display:flex; align-items:center; justify-content:center; font-size:20px;">💧</div>
+            <div class="wellness-title"><i data-lucide="droplet" size="18"></i> Control de Hidratación Diaria</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:12px; font-weight:800; color:var(--dark-teal);" id="waterVolumeDisplay">1,500 ml / 2,500 ml</span>
+              <span style="font-size:10.5px; color:var(--turquoise); font-weight:700;">Meta: 2.5 Litros</span>
             </div>
+            <div style="width:100%; height:10px; background:var(--mint); border-radius:5px; overflow:hidden; border:1px solid rgba(51,188,169,0.2);">
+              <div id="waterProgressBar" style="width:60%; height:100%; background:linear-gradient(90deg, #2EC4B6 0%, #3A86FF 100%); transition:width 0.3s ease;"></div>
+            </div>
+
+            <div style="display:flex; gap:8px; margin-top:10px;">
+              <button class="btn-action" style="flex:1; background:var(--turquoise);" onclick="addWaterIntake()">
+                💧 +1 Vaso (+250 ml)
+              </button>
+            </div>
+
+            <div class="toggle-row" style="margin-top:10px;">
+              <span style="font-size:11px;">🔔 Recordatorio Alarma cada 2 horas</span>
+              <input type="checkbox" checked style="accent-color:var(--turquoise); width:18px; height:18px;">
+            </div>
+          </div>
+
+          <!-- 3. Podómetro & Objetivo Diario de Pasos -->
+          <div class="wellness-card">
+            <div class="wellness-title"><i data-lucide="footprints" size="18"></i> Podómetro & Actividad Física</div>
             
-            <div style="width:100%; height:8px; background:rgba(0,0,0,0.06); border-radius:4px; margin-top:10px; overflow:hidden;">
-              <div id="waterBarFill" style="width:60%; height:100%; background:var(--turquoise); transition:width 0.3s ease;"></div>
-            </div>
-
-            <div style="display:flex; gap:8px; margin-top:12px;">
-              <button class="btn-action" style="flex:1; background:var(--turquoise);" onclick="addWaterGlass()">
-                <i data-lucide="plus" size="16"></i> +1 Vaso (+250 ml)
-              </button>
-              <button class="btn-action" style="background:var(--mint); color:var(--dark-teal); border:1px solid var(--turquoise);" onclick="triggerAlert('🔔 Recordatorio de hidratación programado cada 2 horas.')">
-                <i data-lucide="bell" size="16"></i> Alarma 2h
-              </button>
-            </div>
-          </div>
-
-          <!-- 3. Podómetro & Registro de Pasos -->
-          <div class="wellness-card">
-            <div class="wellness-title"><i data-lucide="footprints" size="18"></i> Podómetro & Objetivo Diario</div>
             <div class="step-circle-container">
               <div>
                 <div class="step-number" id="stepCounterText">7,420</div>
@@ -738,49 +746,53 @@
                 <div>⏱️ <strong>48 min</strong> caminata</div>
               </div>
             </div>
+
             <button class="btn-action" style="background:var(--dark-teal); margin-top:10px;" onclick="addStepCountProgress()">
-              <i data-lucide="plus" size="16"></i> Registrar Caminata (+1,000 Pasos)
+              <i data-lucide="plus" size="16"></i> 👟 Registrar Caminata (+1,000 Pasos)
             </button>
           </div>
 
-          <!-- 4. Contador de Calorías por Foto (IA) -->
+          <!-- 4. Escáner Nutricional de Comida por Foto (IA) -->
           <div class="wellness-card">
-            <div class="wellness-title"><i data-lucide="camera" size="18"></i> Escáner de Comida por Foto (IA)</div>
-            <p style="font-size:11px; color:var(--gray-muted);">Fotografía tu plato para analizar su aporte nutricional instantáneo:</p>
-            <button class="btn-action" style="background:var(--green-organic); margin-top:8px;" onclick="triggerFoodPhotoUpload()">
-              <i data-lucide="aperture" size="16"></i> Tomar Foto a la Comida
+            <div class="wellness-title"><i data-lucide="camera" size="18"></i> Contador de Calorías por Foto (IA)</div>
+            <p style="font-size:11.5px; color:var(--gray-muted);">Toma una foto a tu plato de comida para calcular automáticamente su aporte nutricional y calorías.</p>
+            
+            <button class="btn-action" style="background:var(--turquoise); margin-top:8px;" onclick="triggerFoodPhotoUpload()">
+              <i data-lucide="aperture" size="16"></i> 📷 Tomar Foto a la Comida
             </button>
             <input type="file" id="foodFileInput" accept="image/*" style="display:none;" onchange="analyzeFoodPhoto(this)">
 
-            <div id="foodAnalysisResult" style="display:none; background:var(--mint); padding:10px; border-radius:8px; font-size:11.5px; margin-top:10px;">
-              <strong>📊 Análisis Nutricional Estimado:</strong>
+            <div id="foodAnalysisResult" style="display:none; background:var(--mint); padding:10px; border-radius:10px; font-size:11.5px; margin-top:10px;">
+              <strong>📊 Análisis Nutricional Estimado por IA:</strong>
               <div style="display:flex; justify-content:space-around; margin-top:8px; text-align:center;">
                 <div><div style="font-size:16px; font-weight:800; color:var(--green-organic);">420</div><div style="font-size:9.5px;">kcal</div></div>
                 <div><div style="font-size:16px; font-weight:800; color:var(--dark-teal);">28g</div><div style="font-size:9.5px;">Proteínas</div></div>
                 <div><div style="font-size:16px; font-weight:800; color:var(--turquoise);">35g</div><div style="font-size:9.5px;">Carbos</div></div>
                 <div><div style="font-size:16px; font-weight:800; color:#FF9F1C;">12g</div><div style="font-size:9.5px;">Grasas</div></div>
               </div>
+              <div style="margin-top:6px; font-size:10px; color:var(--green-organic); font-weight:700; text-align:center;">🟢 Plato Equilibrado & Saludable</div>
             </div>
           </div>
 
           <!-- 5. Agendador de Citas Médicas -->
           <div class="wellness-card">
             <div class="wellness-title"><i data-lucide="calendar" size="18"></i> Agenda de Citas Médicas</div>
-            <div class="form-group">
+            
+            <div class="form-group" style="margin-bottom:8px;">
               <label class="form-label">Tipo de Centro Médico</label>
               <select class="form-select" id="appType">
+                <option value="particular">Clínica / Consulta Particular</option>
                 <option value="cesfam">Consultorio / CESFAM</option>
                 <option value="hospital">Hospital Público</option>
-                <option value="particular">Clínica / Consulta Particular</option>
               </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:8px;">
               <label class="form-label">Especialista / Nombre del Doctor</label>
               <input type="text" class="form-input" id="appDoctor" placeholder="Ej. Dra. Elena Ramos - Nutrición">
             </div>
 
-            <div style="display:flex; gap:8px;">
+            <div style="display:flex; gap:8px; margin-bottom:8px;">
               <div class="form-group" style="flex:1;">
                 <label class="form-label">Fecha</label>
                 <input type="date" class="form-input" id="appDate">
@@ -791,50 +803,51 @@
               </div>
             </div>
 
-            <button class="btn-action" style="margin-top:8px;" onclick="scheduleMedicalAppointment()">
-              <i data-lucide="bell" size="16"></i> Agendar Cita con Alarma (30 min antes)
+            <div class="toggle-row" style="margin-bottom:8px;">
+              <span style="font-size:11px;">🔔 Recordatorio Alarma (30 min antes)</span>
+              <input type="checkbox" id="appAlarmToggle" checked style="accent-color:var(--turquoise); width:18px; height:18px;">
+            </div>
+
+            <button class="btn-action" onclick="scheduleMedicalAppointment()">
+              <i data-lucide="bell" size="16"></i> Agendar Cita con Alarma
             </button>
           </div>
 
-          <!-- 6. Rutinas de Ejercicio con Guía de Audio -->
+          <!-- 6. Rutinas de Ejercicio en Casa con Audio Guía & Timer -->
           <div class="wellness-card">
-            <div class="wellness-title"><i data-lucide="activity" size="18"></i> Rutinas de Ejercicios en Casa (con Audio)</div>
+            <div class="wellness-title"><i data-lucide="activity" size="18"></i> Rutinas de Ejercicio & Hábitos</div>
             
-            <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
-              <!-- HIIT Cardio -->
+            <div style="display:flex; flex-direction:column; gap:8px;">
               <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px;">
                 <div>
-                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🔥 HIIT de Cardio Quema-Grasa</div>
-                  <div style="font-size:10px; color:var(--gray-muted);">15 Minutos | Alta Intensidad</div>
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🔥 HIIT Cardio Quema-Grasa</div>
+                  <div style="font-size:10px; color:var(--gray-muted);">15 Minutos | Nivel Intenso</div>
                 </div>
-                <button class="btn-action" style="padding:5px 12px; font-size:10.5px;" onclick="startWorkoutWithAudio('HIIT de Cardio Quema-Grasa', 15)">▶ Audio & Timer</button>
+                <button class="btn-action" style="padding:6px 12px; font-size:10.5px; width:auto;" onclick="startWorkoutTimer('HIIT Cardio Quema-Grasa', 15)">▶ Audio & Timer</button>
               </div>
 
-              <!-- Cardio Suave -->
               <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px;">
                 <div>
-                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🚴 Cardio Suave & Resistencia</div>
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🚴‍♀️ Cardio Suave & Resistencia</div>
                   <div style="font-size:10px; color:var(--gray-muted);">20 Minutos | Nivel Moderado</div>
                 </div>
-                <button class="btn-action" style="padding:5px 12px; font-size:10.5px;" onclick="startWorkoutWithAudio('Cardio Suave', 20)">▶ Audio & Timer</button>
+                <button class="btn-action" style="padding:6px 12px; font-size:10.5px; width:auto;" onclick="startWorkoutTimer('Cardio Suave', 20)">▶ Audio & Timer</button>
               </div>
 
-              <!-- Ejercicios en Silla -->
-              <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px; border:1px solid var(--turquoise);">
-                <div>
-                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🪑 Ejercicios en Silla (Movilidad Reducida)</div>
-                  <div style="font-size:10px; color:var(--gray-muted);">12 Minutos | Apto Adultos Mayores</div>
-                </div>
-                <button class="btn-action" style="padding:5px 12px; font-size:10.5px; background:var(--dark-teal);" onclick="startWorkoutWithAudio('Ejercicios en Silla', 12)">▶ Audio & Timer</button>
-              </div>
-
-              <!-- Yoga y Meditación -->
               <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px;">
                 <div>
-                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🧘‍♀️ Yoga & Meditación Guiada</div>
-                  <div style="font-size:10px; color:var(--gray-muted);">15 Minutos | Estiramiento & Calma</div>
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🪑 Ejercicios en Silla (Movilidad)</div>
+                  <div style="font-size:10px; color:var(--gray-muted);">12 Minutos | Adulto Mayor / Silla</div>
                 </div>
-                <button class="btn-action" style="padding:5px 12px; font-size:10.5px;" onclick="startWorkoutWithAudio('Yoga y Meditación', 15)">▶ Audio & Timer</button>
+                <button class="btn-action" style="padding:6px 12px; font-size:10.5px; width:auto;" onclick="startWorkoutTimer('Ejercicios en Silla', 12)">▶ Audio & Timer</button>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; background:var(--mint); padding:10px 12px; border-radius:10px;">
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🧘‍♀️ Yoga & Meditación Anti-Estrés</div>
+                  <div style="font-size:10px; color:var(--gray-muted);">15 Minutos | Nivel Suave</div>
+                </div>
+                <button class="btn-action" style="padding:6px 12px; font-size:10.5px; width:auto;" onclick="startWorkoutTimer('Yoga & Meditación', 15)">▶ Audio & Timer</button>
               </div>
             </div>
           </div>
@@ -842,199 +855,221 @@
         </div>
       </div>
 
-<!-- TAB 3: SHOPPING (Estilo WhatsApp Business + IA de Pago) -->
+
+      
+      <!-- TAB 3: SHOPPING (WhatsApp Business + IA Pro de Pago) -->
       <div class="tab-pane" id="tab-shopping">
-        <!-- Header Shopping WhatsApp Business -->
-        <div class="app-header" style="position:relative; background:var(--white); border-bottom:1px solid rgba(51,188,169,0.15);">
+        <!-- Header Shopping estilo WhatsApp Business -->
+        <div class="app-header" style="position:relative;">
           <div class="logo-area">
-            <span style="font-size:17px; font-weight:800; color:var(--dark-teal); font-family:var(--font-heading);">🛍️ Shopping BIENESTAR</span>
+            <span style="font-size:18px; font-weight:800; color:var(--dark-teal); font-family:var(--font-heading);">Shopping BIENESTAR</span>
           </div>
-          <div class="header-actions" style="display:flex; align-items:center; gap:8px;">
-            <button class="icon-btn" onclick="showCartSummary()" title="Carrito de Compras" style="position:relative;">
-              <i data-lucide="shopping-cart" size="18"></i>
-              <span id="cartBadgeCount" style="position:absolute; top:-4px; right:-4px; background:var(--red-alert); color:white; font-size:9px; font-weight:800; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center;">2</span>
-            </button>
-            <button class="icon-btn" onclick="toggleShoppingMenu()" title="Opciones WhatsApp Business"><i data-lucide="more-vertical" size="18"></i></button>
+          <div class="header-actions">
+            <button class="icon-btn" onclick="toggleShoppingMenu()" title="Opciones de Tienda"><i data-lucide="more-vertical" size="18"></i></button>
           </div>
 
-          <!-- Menú 3 Puntos WhatsApp Business -->
-          <div class="dropdown-menu" id="shoppingOptionsMenu" style="top:44px; right:12px; z-index:1000;">
+          <!-- Menú de 3 Puntos en Shopping -->
+          <div class="dropdown-menu" id="shoppingOptionsMenu" style="top:44px; right:12px; z-index:100;">
             <div class="dropdown-item" onclick="toggleShoppingMenu(); triggerAlert('📦 Abriendo mi catálogo de empresa...');"><i data-lucide="package" size="15"></i> Mi Catálogo</div>
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); triggerAlert('💼 Abriendo herramientas de empresa WhatsApp Business...');"><i data-lucide="briefcase" size="15"></i> Herramientas de Empresa</div>
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); showAiAdGeneratorModal();"><i data-lucide="sparkles" size="15"></i> Generador de Anuncios IA Pro</div>
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); showCartSummary();"><i data-lucide="shopping-bag" size="15"></i> Mi Carrito (<span id="cartBadgeMenu">2</span>)</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); triggerAlert('🤖 Servicio Pro de Anuncios IA activo');"><i data-lucide="sparkles" size="15"></i> Anuncios IA Pro</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); showCartSummary();"><i data-lucide="shopping-cart" size="15"></i> Mi Carrito (<span id="cartBadgeMenu">0</span> <span id="cartBadgeCount" style="display:none;">0</span>)</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); triggerAlert('📊 Herramientas de Empresa WhatsApp Business');"><i data-lucide="briefcase" size="15"></i> Herramientas Empresa</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openSettingsView();"><i data-lucide="settings" size="15"></i> Ajustes de Tienda</div>
           </div>
         </div>
 
         <div style="padding:14px; display:flex; flex-direction:column; gap:14px;">
           
-          <!-- Módulo de IA para Anuncios (Servicio de Pago / Suscripción Pro) -->
-          <div style="background:linear-gradient(135deg, #2C7A7B 0%, #1A365D 100%); color:white; padding:16px; border-radius:16px; box-shadow:var(--shadow-md); position:relative; overflow:hidden;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <span style="background:#FFBF00; color:#1A202C; font-size:9px; font-weight:800; padding:3px 8px; border-radius:12px; text-transform:uppercase; letter-spacing:0.5px;">⭐ SERVICIO PRO / DE PAGO</span>
-                <h4 style="font-size:15px; font-weight:800; margin-top:6px;">Generador de Anuncios IA para PyMEs</h4>
-                <p style="font-size:11px; opacity:0.9; margin-top:2px;">Crea campañas publicitarias automáticas para tu catálogo de productos.</p>
+          <!-- BANNER PRO / SERVICIO DE PAGO IA -->
+          <div style="background:linear-gradient(135deg, #075E54 0%, #128C7E 100%); color:white; padding:14px; border-radius:16px; box-shadow:0 4px 15px rgba(7,94,84,0.25);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:10px; font-weight:800; background:#FFD700; color:#000; padding:2px 8px; border-radius:10px; text-transform:uppercase; letter-spacing:0.5px;">⭐ SERVICIO PRO - $9.990/mes</span>
+              <i data-lucide="sparkles" size="18" color="#FFD700"></i>
+            </div>
+            <div style="font-size:14px; font-weight:800; margin-top:8px;">🤖 Generador de Anuncios IA para PyMEs</div>
+            <div style="font-size:11px; opacity:0.9; margin-top:2px;">Crea copys publicitarios persuasivos para promocionar tus productos en Instagram y WhatsApp Business.</div>
+
+            <div style="margin-top:12px; background:rgba(255,255,255,0.12); padding:10px; border-radius:12px; backdrop-filter:blur(5px);">
+              <div class="form-group" style="margin-bottom:8px;">
+                <label style="font-size:10px; font-weight:700; color:white; margin-bottom:4px; display:block;">Nombre del Producto o Servicio</label>
+                <input type="text" id="adProductName" placeholder="Ej. Té de Lavanda y Melisa Orgánico" style="width:100%; border:none; padding:8px 12px; border-radius:8px; font-size:12px; outline:none; background:white; color:var(--dark-teal);">
               </div>
-              <i data-lucide="sparkles" size="24" color="#FFBF00"></i>
-            </div>
 
-            <div style="margin-top:12px; background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.2);">
-              <input type="text" id="aiAdInput" placeholder="Ej. Miel Orgánica Mapeada 500g con Hierbas..." style="width:100%; border:none; background:transparent; outline:none; color:white; font-size:11.5px;" value="Miel Orgánica Nativa de Toronjil & Lavanda">
-            </div>
+              <div class="form-group" style="margin-bottom:8px;">
+                <label style="font-size:10px; font-weight:700; color:white; margin-bottom:4px; display:block;">Tono del Anuncio</label>
+                <select id="adToneSelect" style="width:100%; border:none; padding:8px 12px; border-radius:8px; font-size:12px; outline:none; background:white; color:var(--dark-teal);">
+                  <option value="persuasive">🔥 Persuasivo & Vendedor</option>
+                  <option value="professional">📋 Profesional & Empresarial</option>
+                  <option value="friendly">🌿 Amigable & Saludable</option>
+                  <option value="offer">⚡ Oferta Flash por Tiempo Limitado</option>
+                </select>
+              </div>
 
-            <div style="margin-top:10px; display:flex; gap:8px;">
-              <button class="btn-action" style="background:#FFBF00; color:#1A202C; font-weight:800; flex:1; padding:8px; font-size:11px;" onclick="generateAiAdCopy()">
-                <i data-lucide="cpu" size="14"></i> Generar Anuncio IA
+              <button onclick="generateAIAdPro()" style="width:100%; background:var(--green-organic); color:white; border:none; padding:8px; border-radius:8px; font-size:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; margin-top:6px;">
+                <i data-lucide="wand2" size="14"></i> ✨ Generar Anuncio IA Pro
               </button>
-              <button class="btn-action" style="background:rgba(255,255,255,0.2); color:white; font-weight:800; padding:8px 12px; font-size:11px;" onclick="triggerAlert('💳 Suscripción Pro BIENESTAR: $9.990/mes. Incluye anuncios ilimitados e integración con Meta/WhatsApp Business.')">
-                $9.990/mes
-              </button>
-            </div>
 
-            <div id="aiAdResultBox" style="display:none; margin-top:12px; background:white; color:var(--dark-teal); padding:10px; border-radius:10px; font-size:11px;">
-              <strong>✨ Anuncio Generado por IA (Muestra Gratis):</strong>
-              <p id="aiAdText" style="margin-top:4px; font-style:italic; color:#4A5568;"></p>
-              <div style="margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:9.5px; color:var(--green-organic); font-weight:700;">🟢 Listo para publicar en WhatsApp Business</span>
-                <button onclick="triggerAlert('Copiando anuncio al portapapeles...')" style="background:var(--turquoise); color:white; border:none; padding:3px 8px; border-radius:6px; font-size:10px; cursor:pointer;">Copiar</button>
+              <div id="aiAdResultBox" style="display:none; margin-top:10px; background:white; color:var(--dark-teal); padding:10px; border-radius:8px; font-size:11px;">
+                <div style="font-weight:800; font-size:10px; color:var(--turquoise); margin-bottom:4px;">Resultado Generado por IA:</div>
+                <div id="aiAdTextResult" style="line-height:1.4;"></div>
+                <button onclick="copyAIAdText()" style="margin-top:6px; background:var(--turquoise); color:white; border:none; padding:4px 10px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">📋 Copiar Anuncio</button>
               </div>
             </div>
           </div>
 
-          <!-- Vitrina de Tiendas Orgánicas & Salud -->
-          <div style="font-size:13px; font-weight:800; color:var(--dark-teal); display:flex; justify-content:space-between; align-items:center;">
-            <span>🏪 Tiendas & Emprendimientos BIENESTAR</span>
-            <span style="font-size:10px; color:var(--turquoise); font-weight:700;">Ver Todos</span>
-          </div>
-
-          <!-- Tienda 1 -->
-          <div style="background:var(--white); padding:12px; border-radius:14px; border:1px solid rgba(51,188,169,0.15); box-shadow:var(--shadow-sm);">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-              <div style="width:42px; height:42px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center; font-size:20px; border:1px solid var(--turquoise);">🌿</div>
-              <div style="flex:1;">
-                <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">Herbolaria & Farmacia Natural San Camilo <span style="color:var(--turquoise);">✓</span></div>
-                <div style="font-size:10.5px; color:var(--gray-muted);">Fitoterapia • Infusiones • Aceites Esenciales</div>
-              </div>
+          <!-- Directorio de Tiendas Verificadas & Herbolaria -->
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="font-size:13px; font-weight:800; color:var(--dark-teal); display:flex; align-items:center; justify-content:space-between;">
+              <span>🏪 Tiendas & Herbolaria Orgánica Verificada</span>
+              <span style="font-size:10px; color:var(--turquoise); font-weight:700;">WhatsApp Business</span>
             </div>
 
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-              <div style="background:var(--bg-cream); padding:8px; border-radius:10px; text-align:center;">
-                <div style="font-size:24px;">🍵</div>
-                <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:2px;">Té Melisa & Lavanda</div>
-                <div style="font-size:10.5px; color:var(--turquoise); font-weight:700;">$4.990</div>
-                <div style="display:flex; gap:4px; margin-top:6px;">
-                  <button onclick="openSingleChat('Herbolaria San Camilo')" style="flex:1; background:var(--green-organic); color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">💬 Pedir</button>
-                  <button onclick="addToCart('Té Melisa & Lavanda', 4990)" style="background:var(--turquoise); color:white; border:none; padding:4px 6px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">🛒 +1</button>
+            <!-- Tienda 1: Herbolaria Orgánica -->
+            <div style="background:white; border-radius:14px; padding:12px; border:1px solid rgba(51,188,169,0.15); box-shadow:var(--shadow-sm);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:36px; height:36px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center; font-size:18px;">🌿</div>
+                  <div>
+                    <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Herbolaria Orgánica San Camilo <span style="color:#128C7E;">✓</span></div>
+                    <div style="font-size:10px; color:var(--gray-muted);">⭐ 4.9 (128 pedidos) • Infusiones & Fitoterapia</div>
+                  </div>
                 </div>
               </div>
 
-              <div style="background:var(--bg-cream); padding:8px; border-radius:10px; text-align:center;">
-                <div style="font-size:24px;">🍯</div>
-                <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:2px;">Miel Nativa Ulmo 500g</div>
-                <div style="font-size:10.5px; color:var(--turquoise); font-weight:700;">$6.500</div>
-                <div style="display:flex; gap:4px; margin-top:6px;">
-                  <button onclick="openSingleChat('Apícola Nativa')" style="flex:1; background:var(--green-organic); color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">💬 Pedir</button>
-                  <button onclick="addToCart('Miel Nativa Ulmo 500g', 6500)" style="background:var(--turquoise); color:white; border:none; padding:4px 6px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">🛒 +1</button>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+                <div style="background:var(--bg-cream); padding:8px; border-radius:10px; text-align:center;">
+                  <div style="font-size:22px;">🍵</div>
+                  <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:2px;">Té Lavanda & Melisa</div>
+                  <div style="font-size:11px; color:var(--turquoise); font-weight:800;">$4.990</div>
+                  <div style="display:flex; gap:4px; margin-top:6px;">
+                    <button onclick="addToCart('Té Lavanda & Melisa', 4990)" style="flex:1; background:var(--turquoise); color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">🛒 Carrito</button>
+                    <button onclick="window.open('https://wa.me/56987654321?text=Hola,%20quisiera%20pedir%20el%20Te%20de%20Lavanda%20y%20Melisa','_blank')" style="flex:1; background:#128C7E; color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">💬 Pedir</button>
+                  </div>
+                </div>
+
+                <div style="background:var(--bg-cream); padding:8px; border-radius:10px; text-align:center;">
+                  <div style="font-size:22px;">🍯</div>
+                  <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:2px;">Miel Nativa Multifloral</div>
+                  <div style="font-size:11px; color:var(--turquoise); font-weight:800;">$6.500</div>
+                  <div style="display:flex; gap:4px; margin-top:6px;">
+                    <button onclick="addToCart('Miel Nativa Multifloral', 6500)" style="flex:1; background:var(--turquoise); color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">🛒 Carrito</button>
+                    <button onclick="window.open('https://wa.me/56987654321?text=Hola,%20quisiera%20pedir%20Miel%20Nativa','_blank')" style="flex:1; background:#128C7E; color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">💬 Pedir</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Tienda 2 -->
-          <div style="background:var(--white); padding:12px; border-radius:14px; border:1px solid rgba(51,188,169,0.15); box-shadow:var(--shadow-sm);">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-              <div style="width:42px; height:42px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center; font-size:20px; border:1px solid var(--turquoise);">🩺</div>
-              <div style="flex:1;">
-                <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">Insumos Médicos & Salud Providencia <span style="color:var(--turquoise);">✓</span></div>
-                <div style="font-size:10.5px; color:var(--gray-muted);">Equipos • Tensiómetros • Cuidado Clínico</div>
-              </div>
-            </div>
-
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-              <div style="background:var(--bg-cream); padding:8px; border-radius:10px; text-align:center;">
-                <div style="font-size:24px;">📊</div>
-                <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:2px;">Tensiómetro Digital</div>
-                <div style="font-size:10.5px; color:var(--turquoise); font-weight:700;">$24.990</div>
-                <div style="display:flex; gap:4px; margin-top:6px;">
-                  <button onclick="openSingleChat('Salud Providencia')" style="flex:1; background:var(--green-organic); color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">💬 Pedir</button>
-                  <button onclick="addToCart('Tensiómetro Digital', 24990)" style="background:var(--turquoise); color:white; border:none; padding:4px 6px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">🛒 +1</button>
+            <!-- Tienda 2: Equipos Médicos -->
+            <div style="background:white; border-radius:14px; padding:12px; border:1px solid rgba(51,188,169,0.15); box-shadow:var(--shadow-sm);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:36px; height:36px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center; font-size:18px;">🩺</div>
+                  <div>
+                    <div style="font-size:12.5px; font-weight:800; color:var(--dark-teal);">Equipos Médicos Providencia <span style="color:#128C7E;">✓</span></div>
+                    <div style="font-size:10px; color:var(--gray-muted);">⭐ 5.0 (84 pedidos) • Salud & Bienestar</div>
+                  </div>
                 </div>
               </div>
 
-              <div style="background:var(--bg-cream); padding:8px; border-radius:10px; text-align:center;">
-                <div style="font-size:24px;">🧘‍♀️</div>
-                <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:2px;">Mat de Yoga Antideslizante</div>
-                <div style="font-size:10.5px; color:var(--turquoise); font-weight:700;">$14.990</div>
-                <div style="display:flex; gap:4px; margin-top:6px;">
-                  <button onclick="openSingleChat('Yoga Studio')" style="flex:1; background:var(--green-organic); color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">💬 Pedir</button>
-                  <button onclick="addToCart('Mat de Yoga Antideslizante', 14990)" style="background:var(--turquoise); color:white; border:none; padding:4px 6px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">🛒 +1</button>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+                <div style="background:var(--bg-cream); padding:8px; border-radius:10px; text-align:center;">
+                  <div style="font-size:22px;">📊</div>
+                  <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:2px;">Tensiómetro Digital</div>
+                  <div style="font-size:11px; color:var(--turquoise); font-weight:800;">$24.900</div>
+                  <div style="display:flex; gap:4px; margin-top:6px;">
+                    <button onclick="addToCart('Tensiómetro Digital', 24900)" style="flex:1; background:var(--turquoise); color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">🛒 Carrito</button>
+                    <button onclick="window.open('https://wa.me/56987654321?text=Hola,%20quisiera%20pedir%20un%20Tensiometro','_blank')" style="flex:1; background:#128C7E; color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">💬 Pedir</button>
+                  </div>
+                </div>
+
+                <div style="background:var(--bg-cream); padding:8px; border-radius:10px; text-align:center;">
+                  <div style="font-size:22px;">🩺</div>
+                  <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:2px;">Oxímetro de Pulso</div>
+                  <div style="font-size:11px; color:var(--turquoise); font-weight:800;">$14.500</div>
+                  <div style="display:flex; gap:4px; margin-top:6px;">
+                    <button onclick="addToCart('Oxímetro de Pulso', 14500)" style="flex:1; background:var(--turquoise); color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">🛒 Carrito</button>
+                    <button onclick="window.open('https://wa.me/56987654321?text=Hola,%20quisiera%20pedir%20un%20Oximetro','_blank')" style="flex:1; background:#128C7E; color:white; border:none; padding:4px; border-radius:6px; font-size:9.5px; font-weight:700; cursor:pointer;">💬 Pedir</button>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
 
         </div>
       </div>
 
-<!-- TAB 4: MORFEO 432Hz -->
-            <!-- TAB 4: MORFEO (Descanso, Frecuencias, Spotify e Infusiones) -->
+
+      
+      <!-- TAB 4: MORFEO 432Hz (Descanso, Sueño, Spotify & Herbolaria) -->
       <div class="tab-pane" id="tab-morfeo">
-        <div class="wellness-container">
+        <div style="padding:16px; display:flex; flex-direction:column; gap:14px;">
           
-          <!-- Reproductores de Frecuencias Relajantes -->
-          <div class="wellness-card" style="text-align:center; background:linear-gradient(180deg, #FAF8EE 0%, #E2F1AF 100%); border:1px solid var(--turquoise);">
-            <div style="width:70px; height:70px; border-radius:50%; background:var(--white); border:3px solid var(--turquoise); display:flex; align-items:center; justify-content:center; margin:0 auto;">
-              <i data-lucide="moon" size="32" color="#2C7A7B"></i>
+          <!-- Banner Principal Morfeo 432Hz -->
+          <div style="background:linear-gradient(135deg, #1E293B 0%, #0F172A 100%); color:white; padding:18px; border-radius:20px; text-align:center; box-shadow:0 8px 25px rgba(15,23,42,0.3);">
+            <div style="width:70px; height:70px; border-radius:50%; background:rgba(51,188,169,0.15); border:2px solid var(--turquoise); display:flex; align-items:center; justify-content:center; margin:0 auto;">
+              <i data-lucide="moon" size="36" color="#2EC4B6"></i>
             </div>
-            <h3 style="font-size:16px; font-weight:800; color:var(--dark-teal); margin-top:8px;">Morfeo - Relajación 432Hz</h3>
-            <p style="font-size:11px; color:var(--gray-muted); margin-top:2px;">Ondas binaurales e Inducción al Sueño Profundo</p>
+            <div style="font-size:18px; font-weight:800; margin-top:10px; font-family:var(--font-heading);">Morfeo Frecuencia 432Hz</div>
+            <div style="font-size:11px; opacity:0.8; margin-top:2px;">Música Orgánica & Sonidos Ambientales para Sueño Profundo</div>
 
-            <!-- Botón Spotify -->
-            <button class="btn-action" style="background:#1DB954; color:white; font-weight:800; margin-top:10px; padding:10px;" onclick="window.open('https://open.spotify.com', '_blank')">
-              <i data-lucide="music" size="18"></i> Abrir Playlist Oficial en Spotify
-            </button>
-            <button class="btn-action" style="background:var(--dark-teal); margin-top:6px; padding:8px; font-size:11px;" onclick="triggerAlert('📥 Descargando sesión de relajación 432Hz para escuchar offline...')">
-              <i data-lucide="download" size="15"></i> Descargar Audio Offline
+            <div style="display:flex; justify-content:center; gap:10px; margin-top:14px;">
+              <button onclick="triggerAlert('▶ Reproduciendo Frecuencia Relajante 432Hz...')" style="background:var(--turquoise); color:white; border:none; padding:8px 18px; border-radius:20px; font-size:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                <i data-lucide="play" size="16"></i> Reproducir 432Hz
+              </button>
+              <button onclick="openSpotifyPlaylist()" style="background:#1DB954; color:white; border:none; padding:8px 16px; border-radius:20px; font-size:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                <i data-lucide="music" size="16"></i> Spotify Official
+              </button>
+            </div>
+
+            <button onclick="downloadSleepAudioSession()" style="margin-top:10px; background:transparent; color:var(--turquoise); border:1px solid var(--turquoise); padding:6px 14px; border-radius:16px; font-size:10.5px; font-weight:700; cursor:pointer;">
+              📥 Descargar Sesión de Audio para Escuchar Offline
             </button>
           </div>
 
-          <!-- Infusiones & Hierbas Naturales para Dormir -->
+          <!-- Terapia de Respiración 4-7-8 -->
           <div class="wellness-card">
-            <div class="wellness-title"><i data-lucide="coffee" size="18"></i> Infusiones Naturales para Conciliar el Sueño</div>
+            <div class="wellness-title"><i data-lucide="wind" size="18"></i> Guía de Respiración Nocturna (Técnica 4-7-8)</div>
+            <p style="font-size:11.5px; color:var(--gray-muted);">La técnica 4-7-8 relaja el sistema nervioso central e induce el sueño en menos de 5 minutos.</p>
+
+            <button class="btn-action" style="background:var(--dark-teal); margin-top:8px;" onclick="startBreathingExercise()">
+              <i data-lucide="activity" size="16"></i> 🌬️ Iniciar Guía de Respiración
+            </button>
+
+            <div id="breathingBox" style="display:none; margin-top:10px; background:var(--mint); padding:12px; border-radius:12px; text-align:center;">
+              <div id="breathingStatusText" style="font-size:15px; font-weight:800; color:var(--dark-teal);">Prepárate...</div>
+            </div>
+          </div>
+
+          <!-- Guía de Infusiones & Hierbas Naturales para Dormir -->
+          <div class="wellness-card">
+            <div class="wellness-title"><i data-lucide="coffee" size="18"></i> Guía de Infusiones & Herbolaria para el Insomnio</div>
             
-            <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
-              <div style="background:var(--mint); padding:10px; border-radius:10px; border-left:3px solid var(--green-organic);">
-                <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🍵 Té de Manzanilla, Lavanda & Melisa</div>
-                <div style="font-size:10.5px; color:var(--gray-muted); margin-top:2px;">Tomar caliente 20 minutos antes de acostarse. Reduce el cortisol y relaja el sistema nervioso.</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="background:var(--bg-cream); padding:8px 12px; border-radius:10px; border-left:3px solid var(--turquoise);">
+                <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🍵 Manzanilla & Miel Orgánica</div>
+                <div style="font-size:10.5px; color:var(--gray-muted);">Calmante nervioso y digestivo suave. Tomar 30 min antes de acostarse.</div>
               </div>
 
-              <div style="background:var(--mint); padding:10px; border-radius:10px; border-left:3px solid var(--turquoise);">
-                <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🌿 Infusión de Valeriana & Pasiflora</div>
-                <div style="font-size:10.5px; color:var(--gray-muted); margin-top:2px;">Especial para insomnio severo o ansiedad nocturna. Favorece la fase de sueño REM.</div>
+              <div style="background:var(--bg-cream); padding:8px 12px; border-radius:10px; border-left:3px solid var(--green-organic);">
+                <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🌸 Lavanda & Toronjil</div>
+                <div style="font-size:10.5px; color:var(--gray-muted);">Reduce el ritmo cardíaco y relaja la tensión muscular acumulada.</div>
+              </div>
+
+              <div style="background:var(--bg-cream); padding:8px 12px; border-radius:10px; border-left:3px solid #8338EC;">
+                <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🌿 Melisa, Valeriana & Pasiflora</div>
+                <div style="font-size:10.5px; color:var(--gray-muted);">Sedante natural potente para insomnio severo. Infusión de 5 min a 90°C.</div>
               </div>
             </div>
           </div>
 
-          <!-- Consejos & Yoga Nocturno para Descansar -->
+          <!-- Posturas de Yoga & Consejos de Higiene del Sueño -->
           <div class="wellness-card">
-            <div class="wellness-title"><i data-lucide="sparkles" size="18"></i> Consejos & Yoga Nocturno</div>
-            
-            <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px; font-size:11.5px;">
-              <div style="display:flex; align-items:center; gap:8px; background:var(--bg-cream); padding:8px 10px; border-radius:8px;">
-                <span style="font-size:16px;">🧘‍♂️</span>
-                <div><strong>Postura Piernas en la Pared:</strong> Eleva las piernas 5 min antes de dormir para mejorar la circulación.</div>
-              </div>
-
-              <div style="display:flex; align-items:center; gap:8px; background:var(--bg-cream); padding:8px 10px; border-radius:8px;">
-                <span style="font-size:16px;">💨</span>
-                <div><strong>Respiración 4-7-8:</strong> Inhala en 4s, retén 7s y exhala en 8s por 4 ciclos.</div>
-              </div>
-
-              <div style="display:flex; align-items:center; gap:8px; background:var(--bg-cream); padding:8px 10px; border-radius:8px;">
-                <span style="font-size:16px;">🕯️</span>
-                <div><strong>Higiene del Sueño:</strong> Desconecta pantallas y celulares 30 minutos antes de dormir.</div>
-              </div>
+            <div class="wellness-title"><i data-lucide="sparkles" size="18"></i> Higiene del Sueño & Yoga Nocturno</div>
+            <div style="font-size:11px; color:var(--dark-teal); display:flex; flex-direction:column; gap:6px;">
+              <div>🧘‍♀️ <strong>Postura "Piernas en la pared" (Viparita Karani)</strong>: Eleva tus piernas 10 min antes de dormir para mejorar el flujo sanguíneo.</div>
+              <div>📱 <strong>Desconexión de Pantallas</strong>: Apaga la luz azul 45 minutos antes de acostarte.</div>
+              <div>🌡️ <strong>Temperatura Ideal</strong>: Mantén la habitación entre 18°C y 20°C para favorecer la melatonina.</div>
             </div>
           </div>
 
@@ -1042,8 +1077,8 @@
       </div>
 
 
+    </div>
 
-        <!-- Single Chat View Overlay -->
     <div class="single-chat-view" id="singleChatView">
       <div class="chat-header-bar">
         <div style="display:flex; align-items:center; gap:8px;">
@@ -2099,7 +2134,7 @@
     var waterTotalMl = 1500;
     function addWaterGlass() {
       waterTotalMl += 250;
-      var el = document.getElementById("waterProgressText");
+      var el = document.getElementById("waterVolumeDisplay");
       if (el) el.innerText = waterTotalMl.toLocaleString() + " ml";
       alert("💧 ¡Excelente hidratación! Has registrado un vaso de agua (+250 ml). Total: " + waterTotalMl.toLocaleString() + " ml.");
     }
@@ -2114,8 +2149,120 @@
       startWorkoutTimer(routineName, minutes);
     }
 
+  
+    // --- V32 ENHANCED JS MODULES ---
+    var waterIntakeTotal = 1500;
+    var breathingTimer = null;
+
+    function addWaterIntake() {
+      waterIntakeTotal += 250;
+      if (waterIntakeTotal > 2500) waterIntakeTotal = 2500;
+      var el = document.getElementById('waterVolumeDisplay');
+      var bar = document.getElementById('waterProgressBar');
+      if (el) el.innerText = waterIntakeTotal.toLocaleString() + ' ml / 2,500 ml';
+      if (bar) {
+        var pct = Math.min(100, Math.round((waterIntakeTotal / 2500) * 100));
+        bar.style.width = pct + '%';
+      }
+      alert('💧 ¡Excelente hidratación! Registraste +250 ml de agua. Total: ' + waterIntakeTotal + ' ml.');
+    }
+
+    function generateAIAdPro() {
+      var prodName = document.getElementById('adProductName').value;
+      var tone = document.getElementById('adToneSelect').value;
+      var resultDiv = document.getElementById('aiAdResultBox');
+      var textEl = document.getElementById('aiAdTextResult');
+
+      if (!prodName || prodName.trim() === '') {
+        alert('Por favor ingresa el nombre de tu producto o servicio.');
+        return;
+      }
+
+      var name = prodName.trim();
+      var templates = {
+        persuasive: "🌟 ¡Descubre " + name + "! La solución natural y saludable que eras buscando para transformar tu día. 🌿 Compra hoy con envío rápido por WhatsApp Business. 📱 ¡Pide el tuyo aquí!",
+        professional: "📋 Presentamos " + name + " de BIENESTAR Shopping. Producto verificado de alta calidad y origen orgánico. Consulta nuestro catálogo completo y agenda tu pedido profesional.",
+        friendly: "¡Hola! 🌿 Queremos recomendarte " + name + ", nuestro producto favorito para cuidar de ti y de tu familia. ¡Escríbenos por WhatsApp y te orientamos con mucho cariño! ❤️",
+        offer: "⚡ ¡OFERTA FLASH EN SHOPPING! ⚡ Consigue " + name + " a precio especial por tiempo limitado. 🎁 Incluye despacho rápido. ¡Haz tu pedido ahora antes que se agote!"
+      };
+
+      var text = templates[tone] || templates.persuasive;
+      if (textEl) textEl.innerText = text;
+      if (resultDiv) resultDiv.style.display = 'block';
+      alert('🤖 Anuncio generado con éxito por la IA Pro de BIENESTAR.');
+    }
+
+    function copyAIAdText() {
+      var textEl = document.getElementById('aiAdTextResult');
+      if (textEl) {
+        var str = textEl.innerText;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(str).then(function() {
+            alert('📋 ¡Anuncio copiado al portapapeles! Listo para compartir.');
+          }).catch(function() {
+            alert('📋 Copiado: ' + str.substring(0, 30) + '...');
+          });
+        } else {
+          alert('📋 Anuncio: ' + str);
+        }
+      }
+    }
+
+    function startBreathingExercise() {
+      var box = document.getElementById('breathingBox');
+      var statusEl = document.getElementById('breathingStatusText');
+      if (!box || !statusEl) return;
+
+      box.style.display = 'block';
+      var phase = 0; // 0: inhale 4s, 1: hold 7s, 2: exhale 8s
+      var count = 4;
+
+      if (breathingTimer) clearInterval(breathingTimer);
+
+      function updatePhase() {
+        if (phase === 0) {
+          statusEl.innerText = '🌬️ INHALA SUAVEMENTE (' + count + 's)';
+          statusEl.style.color = 'var(--turquoise)';
+          count--;
+          if (count < 0) { phase = 1; count = 7; }
+        } else if (phase === 1) {
+          statusEl.innerText = '⏸️ MANTÉN EL AIRE (' + count + 's)';
+          statusEl.style.color = '#FF9F1C';
+          count--;
+          if (count < 0) { phase = 2; count = 8; }
+        } else if (phase === 2) {
+          statusEl.innerText = '💨 EXHALA LENTAMENTE (' + count + 's)';
+          statusEl.style.color = 'var(--green-organic)';
+          count--;
+          if (count < 0) { phase = 0; count = 4; }
+        }
+      }
+
+      updatePhase();
+      breathingTimer = setInterval(updatePhase, 1000);
+    }
+
+    function openSpotifyPlaylist() {
+      window.open('https://open.spotify.com/search/meditacion%20432hz', '_blank');
+      alert('🟢 Abriendo Playlist Oficial de Meditación & Sueño en Spotify...');
+    }
+
+    function downloadSleepAudioSession() {
+      var content = "BIENESTAR Morfeo 432Hz - Sesión de Audio para Sueño Profundo\n\nFrecuencia: 432Hz Orgánica Calmante\nDuración: 45 Minutos\nGenerado el: " + new Date().toLocaleString() + "\n\n¡Buenas noches y feliz descanso!";
+      var blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "Morfeo_Sesion_Sueño_432Hz.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert('📥 Sesión de audio descargada con éxito para escuchar offline.');
+    }
+
   </script>
-</div>
+
 
 
 
