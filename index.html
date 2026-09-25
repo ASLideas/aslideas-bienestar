@@ -577,7 +577,24 @@
       <!-- TAB 1: CHATS -->
       <div class="tab-pane active" id="tab-chats">
         
-        <!-- Regulador Emocional Sensorial Limpio -->
+        <!-- Escala de Regulación Emocional (Sección Principal) -->
+        <div class="emotional-slider-section">
+          <div class="slider-header">
+            <div class="slider-title-wrap"><i data-lucide="sliders" size="14"></i> Escala de Regulación Emocional</div>
+            <span class="slider-badge" id="sliderBadge">Calma</span>
+          </div>
+
+          <input type="range" min="1" max="6" value="4" step="1" class="neuro-slider-bar" id="neuroSlider" oninput="updateSliderState(this.value)">
+
+          <div class="slider-buttons-row">
+            <button class="state-pill-btn" style="background:#FF5A5F; color:white;" onclick="setSliderVal(1)">Crisis</button>
+            <button class="state-pill-btn" style="background:#FF9F1C; color:white;" onclick="setSliderVal(2)">Estrés</button>
+            <button class="state-pill-btn" style="background:#FFBF00; color:white;" onclick="setSliderVal(3)">Alerta</button>
+            <button class="state-pill-btn" style="background:#2EC4B6; color:white;" onclick="setSliderVal(4)">Calma</button>
+            <button class="state-pill-btn" style="background:#3A86FF; color:white;" onclick="setSliderVal(5)">Cansado</button>
+            <button class="state-pill-btn" style="background:#8338EC; color:white;" onclick="setSliderVal(6)">Vínculo</button>
+          </div>
+        </div>
         
 
         <!-- Stories Carousel -->
