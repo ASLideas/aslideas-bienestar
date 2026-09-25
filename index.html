@@ -9,7 +9,101 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@latest">
+    function setStepGoal(goal) {
+      var el = document.getElementById('stepGoalDisplay');
+      if (el) el.innerText = 'Objetivo Diario: ' + goal.toLocaleString() + ' Pasos';
+      triggerAlert('🎯 Meta diaria de pasos actualizada a ' + goal.toLocaleString() + ' pasos.');
+    }
+
+    function playSoundMorfeo(type) {
+      var names = {
+        'ballenas': '🐋 Canto de Ballenas Marinas',
+        'cuenco': '🔔 Cuenco Tibetano 432Hz',
+        'celta': '🍀 Música Celta de Relajación',
+        'cosmos': '🌌 Lluvia Estelar Nocturna'
+      };
+      triggerAlert('▶ Reproduciendo: ' + (names[type] || 'Sonido de Morfeo'));
+    }
+
+    function askMorfeoAICounsel() {
+      var sel = document.getElementById('morfeoProblemSelect').value;
+      var answers = {
+        'dificultad': '😴 Consejo Morfeo IA: Bebe una infusión tibia de Toronjil 30 min antes de acostarte. Apaga la luz azul del teléfono y realiza 4 ciclos de respiración 4-7-8.',
+        'despertar': '🌙 Consejo Morfeo IA: Si despiertas a medianoche, mantén los ojos cerrados y no mires la hora. Imagina una suave ola marina y respira lentamente.',
+        'ansiedad': '🧠 Consejo Morfeo IA: Coloca las piernas elevadas en la pared por 10 minutos para derivar la tensión física. Morfeo 432Hz ayudará a desacelerar tu mente.',
+        'cansancio': '🥱 Consejo Morfeo IA: Toma un baño de agua tibia y mantén tu habitación entre 18°C y 20°C. La melatonina natural se activará rápidamente.'
+      };
+      
+      var box = document.getElementById('morfeoAiCounselBox');
+      var txt = document.getElementById('morfeoAiCounselText');
+      if (box && txt) {
+        txt.innerText = answers[sel] || answers['dificultad'];
+        box.style.display = 'block';
+      }
+    }
+
+    function openBusinessCatalog() {
+      triggerAlert('📦 Abriendo catálogo de WhatsApp Business...');
+    }
+
+    function openPublicCatalog() {
+      triggerAlert('🌐 Generando enlace público de tu catálogo de tienda...');
+    }
+
+    function openAddProductModal() {
+      var name = prompt('Ingresa el nombre del nuevo producto:');
+      if (name && name.trim() !== '') {
+        var price = prompt('Ingresa el precio ($):', '4990');
+        triggerAlert('➕ Producto "' + name.trim() + '" ($' + price + ') añadido con éxito a tu catálogo.');
+      }
+    }
+
+    function openEditCatalogModal() {
+      triggerAlert('✏️ Modo edición de catálogo activo.');
+    }
+
+    function openPaymentIntegrationModal() {
+      var modal = document.getElementById('paymentIntegrationModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function openBusinessProfileModal() {
+      triggerAlert('🏪 Abriendo perfil de empresa WhatsApp Business...');
+    }
+
+    function openWelcomeMsgModal() {
+      triggerAlert('👋 Configurando mensaje de bienvenida automático...');
+    }
+
+    function openAwayMsgModal() {
+      triggerAlert('🌙 Configurando mensaje de ausencia...');
+    }
+
+    function openQuickRepliesModal() {
+      triggerAlert('⚡ Configurando respuestas rápidas (/gracias, /precio)...');
+    }
+
+    function openCustomerLabelsModal() {
+      triggerAlert('🏷️ Configurando etiquetas de clientes (Nuevo Cliente, Pago Pendiente, Pagado)...');
+    }
+
+    function openQRLinkModal() {
+      var modal = document.getElementById('qrLinkModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function copyQRLink(type) {
+      var links = {
+        'whatsapp': 'https://wa.me/56987654321?text=Hola,%20quisiera%20consultar%20tu%20catalogo',
+        'socials': 'https://instagram.com/bienestar_app_oficial',
+        'email': 'mailto:contacto@bienestarapp.cl',
+        'phone': 'tel:+56987654321'
+      };
+      triggerAlert('📋 Enlace ' + type.toUpperCase() + ' copiado al portapapeles:\n' + (links[type] || links['whatsapp']));
+    }
+
+</script>
 
   <style>
     *, *::before, *::after {
@@ -529,6 +623,66 @@
     .wellness-sheet { display: none; flex-direction: column; gap: 16px; }
     .wellness-sheet.active { display: flex; animation: fadeIn 0.25s ease-out; }
 
+
+    /* Wellness Sliding Sub-Nav Bar */
+    .wellness-subnav {
+      display: flex;
+      gap: 8px;
+      padding: 10px 14px;
+      background: var(--white);
+      border-bottom: 1px solid rgba(51, 188, 169, 0.15);
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .wellness-subnav::-webkit-scrollbar { display: none; }
+    .wellness-subnav-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(51, 188, 169, 0.2);
+      background: var(--mint);
+      color: var(--dark-teal);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .wellness-subnav-btn.active {
+      background: var(--green-organic);
+      color: var(--white);
+      border-color: var(--green-organic);
+      box-shadow: 0 2px 8px rgba(46, 196, 182, 0.3);
+    }
+
+    /* Dedicated Dark Theme for Morfeo Tab */
+    #tab-morfeo {
+      background: #0B132B !important;
+      color: #E2E8F0 !important;
+      min-height: 100%;
+    }
+    #tab-morfeo .wellness-card {
+      background: #1C2541 !important;
+      border: 1px solid rgba(56, 189, 248, 0.2) !important;
+      color: #F8FAFC !important;
+    }
+    #tab-morfeo .wellness-title {
+      color: #38BDF8 !important;
+    }
+    #tab-morfeo .form-label {
+      color: #CBD5E1 !important;
+    }
+    #tab-morfeo .form-input, #tab-morfeo .form-select {
+      background: #0F172A !important;
+      color: #F8FAFC !important;
+      border: 1px solid rgba(56, 189, 248, 0.3) !important;
+    }
+
 </style>
 </head>
 <body>
@@ -727,180 +881,62 @@
       
       <!-- TAB 2: WELLNESS (Salud, Hidratación, Pasos, IA Nutricional, Citas & Ejercicios) -->
       <div class="tab-pane" id="tab-wellness">
-        <!-- Sub-Navegación de Wellness (7 Hojas Dedicadas con Texto Grande & Claro para Alta Legibilidad) -->
+        <!-- Sub-Navegación Deslizable de Wellness (Chips Horizontales con Desplazamiento Suave) -->
         <div class="wellness-subnav">
-          <button class="wellness-subnav-btn active" onclick="switchWellnessSubTab('scanner', this)">
-            <i data-lucide="camera" size="18"></i><span>Escáner IA</span>
+          <button class="wellness-subnav-btn active" onclick="switchWellnessSubTab('steps', this)">
+            <i data-lucide="footprints" size="16"></i><span>1. Pasos</span>
           </button>
           <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('water', this)">
-            <i data-lucide="droplet" size="18"></i><span>Agua & Alarma</span>
+            <i data-lucide="droplet" size="16"></i><span>2. Hidratación</span>
           </button>
-          <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('steps', this)">
-            <i data-lucide="footprints" size="18"></i><span>Podómetro</span>
-          </button>
-          <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('weight', this)">
-            <i data-lucide="scale" size="18"></i><span>Peso & Tabla</span>
-          </button>
-          <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('routine', this)">
-            <i data-lucide="clock" size="18"></i><span>Rutina Diaria</span>
-          </button>
-          <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('workout', this)">
-            <i data-lucide="activity" size="18"></i><span>Ejercicios</span>
+          <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('scanner', this)">
+            <i data-lucide="camera" size="16"></i><span>3. Escáner IA</span>
           </button>
           <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('citas', this)">
-            <i data-lucide="calendar" size="18"></i><span>Citas Médicas</span>
+            <i data-lucide="calendar" size="16"></i><span>4. Horas Médicas</span>
+          </button>
+          <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('workout', this)">
+            <i data-lucide="activity" size="16"></i><span>5. Ejercicios</span>
+          </button>
+          <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('weight', this)">
+            <i data-lucide="scale" size="16"></i><span>6. Control Peso</span>
+          </button>
+          <button class="wellness-subnav-btn" onclick="switchWellnessSubTab('schedule', this)">
+            <i data-lucide="clock" size="16"></i><span>7. Rutina Diaria</span>
           </button>
         </div>
 
         <div class="wellness-container" style="padding:16px;">
           
-          <!-- HOJA 1: ESCÁNER NUTRICIONAL POR FOTO (IA) -->
-          <div class="wellness-sheet active" id="sheet-scanner">
-            <div class="wellness-card" style="padding:20px; border-radius:18px;">
-              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
-                  <i data-lucide="aperture" size="24" color="#2C7A7B"></i>
-                </div>
-                <div>
-                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Escáner Nutricional por Foto (IA)</div>
-                  <div style="font-size:13px; color:var(--gray-muted);">Análisis de calorías consumidas vs quemadas en el día</div>
-                </div>
-              </div>
-
-              <p style="font-size:13.5px; color:var(--dark-teal); line-height:1.5; margin-bottom:16px;">
-                Toma una foto a tu plato de comida o bebida. La Inteligencia Artificial analizará la imagen para calcular automáticamente las calorías y macronutrientes.
-              </p>
-
-              <button class="btn-action" style="background:var(--turquoise); padding:14px 20px; font-size:15px; font-weight:800; width:100%; border-radius:14px;" onclick="triggerFoodPhotoUpload()">
-                <i data-lucide="camera" size="20"></i> TOMAR FOTO A LA COMIDA
-              </button>
-              <input type="file" id="foodFileInput" accept="image/*" style="display:none;" onchange="analyzeFoodPhoto(this)">
-
-              <div id="foodAnalysisResult" style="display:none; margin-top:16px; background:var(--mint); padding:16px; border-radius:14px; border:1.5px solid var(--turquoise);">
-                <div style="font-size:15px; font-weight:800; color:var(--dark-teal); margin-bottom:12px;">📊 Resultado del Análisis Nutricional:</div>
-                
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:center;">
-                  <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
-                    <div style="font-size:28px; font-weight:900; color:var(--green-organic);">420</div>
-                    <div style="font-size:12px; font-weight:700; color:var(--gray-muted);">Calorías Consumidas (kcal)</div>
-                  </div>
-                  <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
-                    <div style="font-size:28px; font-weight:900; color:#3A86FF;">310</div>
-                    <div style="font-size:12px; font-weight:700; color:var(--gray-muted);">Calorías Quemadas (Pasos)</div>
-                  </div>
-                  <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
-                    <div style="font-size:22px; font-weight:800; color:var(--dark-teal);">28g</div>
-                    <div style="font-size:12px; font-weight:700; color:var(--gray-muted);">Proteínas</div>
-                  </div>
-                  <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
-                    <div style="font-size:22px; font-weight:800; color:var(--turquoise);">35g</div>
-                    <div style="font-size:12px; font-weight:700; color:var(--gray-muted);">Carbohidratos</div>
-                  </div>
-                </div>
-
-                <div style="margin-top:12px; font-size:13px; color:var(--green-organic); font-weight:800; text-align:center; background:rgba(46,196,182,0.15); padding:8px; border-radius:8px;">
-                  🟢 Balance Energético Positivo & Equilibrado
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HOJA 2: REGISTRO DE HIDRATACIÓN, AGUA & AJUSTE DE SONIDOS DE ALARMA -->
-          <div class="wellness-sheet" id="sheet-water">
-            <div class="wellness-card" style="padding:20px; border-radius:18px;">
-              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
-                  <i data-lucide="droplet" size="24" color="#3A86FF"></i>
-                </div>
-                <div>
-                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Control de Hidratación & Ajuste de Sonido</div>
-                  <div style="font-size:13px; color:var(--gray-muted);">Registro de consumo de agua & volumen de alarma</div>
-                </div>
-              </div>
-
-              <div style="background:var(--mint); padding:16px; border-radius:14px; text-align:center; margin-bottom:16px; border:1px solid rgba(51,188,169,0.2);">
-                <div style="font-size:13px; color:var(--gray-muted); font-weight:700;">Volumen Consumido Hoy:</div>
-                <div style="font-size:32px; font-weight:900; color:var(--dark-teal); margin:6px 0;" id="waterVolumeDisplay">1,500 ml / 2,500 ml</div>
-                <div style="font-size:13px; color:var(--turquoise); font-weight:800;">Meta Diaria: 2.5 Litros (10 Vasos)</div>
-
-                <div style="width:100%; height:16px; background:white; border-radius:10px; overflow:hidden; border:1.5px solid var(--turquoise); margin-top:12px;">
-                  <div id="waterProgressBar" style="width:60%; height:100%; background:linear-gradient(90deg, #2EC4B6 0%, #3A86FF 100%); transition:width 0.3s ease;"></div>
-                </div>
-              </div>
-
-              <button class="btn-action" style="background:var(--green-organic); padding:14px 20px; font-size:15px; font-weight:800; width:100%; border-radius:14px; margin-bottom:16px;" onclick="addWaterGlass()">
-                💧 REGISTRAR +1 VASO DE AGUA (+250 ml)
-              </button>
-
-              <!-- MÓDULO DE AJUSTE DE SONIDOS Y VOLUMEN DE ALARMA -->
-              <div style="background:var(--bg-cream); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.2);">
-                <div style="font-size:14px; font-weight:800; color:var(--dark-teal); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                  <i data-lucide="volume-2" size="18"></i> Ajuste de Sonido de la Alarma de Agua
-                </div>
-
-                <div class="form-group" style="margin-bottom:10px;">
-                  <label class="form-label" style="font-size:12px; font-weight:700;">Tono de Alarma</label>
-                  <select class="form-select" id="waterSoundSelect" style="padding:8px; font-size:12px; border-radius:8px;">
-                    <option value="water_bubbles">💧 Burbujas de Agua Naturales</option>
-                    <option value="tone_432hz">🎵 Tono Armónico 432Hz</option>
-                    <option value="zen_bell">🔔 Campana Zen TIBETANA</option>
-                    <option value="gentle_chime">🎼 Carillón de Viento Suave</option>
-                  </select>
-                </div>
-
-                <div class="form-group" style="margin-bottom:10px;">
-                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:700; color:var(--dark-teal);">
-                    <span>Volumen de Alarma:</span>
-                    <span id="waterVolumeValText">80%</span>
-                  </div>
-                  <input type="range" id="waterVolumeSlider" min="10" max="100" value="80" style="width:100%; accent-color:var(--turquoise);" oninput="document.getElementById('waterVolumeValText').innerText = this.value + '%'">
-                </div>
-
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                  <button class="btn-action" style="padding:8px 14px; font-size:11px; background:var(--turquoise); width:auto;" onclick="playWaterSoundTest()">
-                    🔊 Probar Sonido
-                  </button>
-                  <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="font-size:11.5px; font-weight:700; color:var(--dark-teal);">Alarma Activa</span>
-                    <input type="checkbox" id="waterAlarmToggle" checked style="accent-color:var(--turquoise); width:18px; height:18px;">
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- HOJA 3: PODÓMETRO & META PERSONALIZADA DE PASOS -->
-          <div class="wellness-sheet" id="sheet-steps">
+          <!-- HOJA 1: PODÓMETRO & CONTADOR DE PASOS -->
+          <div class="wellness-sheet active" id="sheet-steps">
             <div class="wellness-card" style="padding:20px; border-radius:18px;">
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                 <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
                   <i data-lucide="footprints" size="24" color="#2C7A7B"></i>
                 </div>
                 <div>
-                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Podómetro & Meta de Pasos</div>
-                  <div style="font-size:13px; color:var(--gray-muted);">Ajuste de objetivo diario & métricas de caminata</div>
+                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Podómetro & Contador de Pasos</div>
+                  <div style="font-size:13px; color:var(--gray-muted);">Métricas y objetivos de actividad física diaria</div>
                 </div>
               </div>
 
-              <!-- AJUSTE DE META PERSONALIZADA -->
-              <div style="background:var(--bg-cream); padding:12px; border-radius:12px; margin-bottom:16px; border:1px solid rgba(51,188,169,0.15);">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <span style="font-size:13px; font-weight:800; color:var(--dark-teal);">🎯 Ajustar Meta Diaria:</span>
-                  <select id="stepGoalSelect" style="padding:6px 10px; border-radius:8px; border:1px solid var(--turquoise); font-size:12px; font-weight:800; color:var(--dark-teal);" onchange="updateStepGoal(this.value)">
-                    <option value="5000">5,000 Pasos (Iniciación)</option>
-                    <option value="8000">8,000 Pasos (Saludable)</option>
-                    <option value="10000" selected>10,000 Pasos (Estándar)</option>
-                    <option value="12000">12,000 Pasos (Avanzado)</option>
-                    <option value="15000">15,000 Pasos (Atleta)</option>
-                  </select>
+              <!-- Selector de Meta Personalizada de Pasos -->
+              <div style="background:var(--bg-cream); padding:12px; border-radius:12px; margin-bottom:14px; border:1px solid rgba(51,188,169,0.15);">
+                <label style="font-size:12px; font-weight:800; color:var(--dark-teal); display:block; margin-bottom:6px;">🎯 Definir Meta Diaria de Pasos:</label>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <button class="state-pill-btn" onclick="setStepGoal(5000)" style="background:var(--mint); color:var(--dark-teal); border:1px solid var(--turquoise);">5,000</button>
+                  <button class="state-pill-btn" onclick="setStepGoal(8000)" style="background:var(--mint); color:var(--dark-teal); border:1px solid var(--turquoise);">8,000</button>
+                  <button class="state-pill-btn" onclick="setStepGoal(10000)" style="background:var(--turquoise); color:white;">10,000</button>
+                  <button class="state-pill-btn" onclick="setStepGoal(12000)" style="background:var(--mint); color:var(--dark-teal); border:1px solid var(--turquoise);">12,000</button>
+                  <button class="state-pill-btn" onclick="setStepGoal(15000)" style="background:var(--mint); color:var(--dark-teal); border:1px solid var(--turquoise);">15,000</button>
                 </div>
               </div>
 
               <div style="background:var(--mint); padding:20px; border-radius:16px; text-align:center; margin-bottom:16px; border:1.5px solid var(--turquoise);">
                 <div style="font-size:42px; font-weight:900; color:var(--green-organic);" id="stepCounterText">7,420</div>
                 <div style="font-size:14px; font-weight:800; color:var(--dark-teal);">PASOS RECORRIDOS HOY</div>
-                <div style="font-size:13px; color:var(--gray-muted); margin-top:2px;" id="stepGoalText">de 10,000 Pasos Meta</div>
+                <div style="font-size:12px; color:var(--gray-muted); margin-top:2px;" id="stepGoalDisplay">Objetivo Diario: 10,000 Pasos</div>
 
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:16px; text-align:center;">
                   <div style="background:white; padding:10px; border-radius:10px;">
@@ -924,212 +960,117 @@
             </div>
           </div>
 
-          <!-- HOJA 4: CONTROL DE PESO & TABLA DE EVOLUCIÓN -->
-          <div class="wellness-sheet" id="sheet-weight">
+          <!-- HOJA 2: REGISTRO DE HIDRATACIÓN & RECORDATORIO DE AGUA -->
+          <div class="wellness-sheet" id="sheet-water">
             <div class="wellness-card" style="padding:20px; border-radius:18px;">
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                 <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
-                  <i data-lucide="scale" size="24" color="#2C7A7B"></i>
+                  <i data-lucide="droplet" size="24" color="#3A86FF"></i>
                 </div>
                 <div>
-                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Control & Tabla de Evolución de Peso</div>
-                  <div style="font-size:13px; color:var(--gray-muted);">Registro de baja de peso corporal & metas</div>
+                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Control de Hidratación Diaria</div>
+                  <div style="font-size:13px; color:var(--gray-muted);">Registro de consumo de agua & recordatorio de alarma</div>
                 </div>
               </div>
 
-              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; text-align:center; margin-bottom:16px;">
-                <div style="background:var(--mint); padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
-                  <div style="font-size:22px; font-weight:900; color:var(--dark-teal);" id="currentWeightDisplay">72.5 kg</div>
-                  <div style="font-size:11px; color:var(--gray-muted); font-weight:700;">Peso Actual</div>
-                </div>
-                <div style="background:var(--mint); padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
-                  <div style="font-size:22px; font-weight:900; color:var(--turquoise);" id="targetWeightDisplay">68.0 kg</div>
-                  <div style="font-size:11px; color:var(--gray-muted); font-weight:700;">Peso Meta</div>
-                </div>
-                <div style="background:var(--mint); padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
-                  <div style="font-size:22px; font-weight:900; color:var(--green-organic);" id="weightDiffDisplay">-3.2 kg</div>
-                  <div style="font-size:11px; color:var(--gray-muted); font-weight:700;">Baja Acumulada</div>
+              <div style="background:var(--mint); padding:16px; border-radius:14px; text-align:center; margin-bottom:16px; border:1px solid rgba(51,188,169,0.2);">
+                <div style="font-size:13px; color:var(--gray-muted); font-weight:700;">Volumen Consumido Hoy:</div>
+                <div style="font-size:32px; font-weight:900; color:var(--dark-teal); margin:6px 0;" id="waterVolumeDisplay">1,500 ml / 2,500 ml</div>
+                <div style="font-size:13px; color:var(--turquoise); font-weight:800;">Meta Diaria: 2.5 Litros (10 Vasos)</div>
+
+                <div style="width:100%; height:16px; background:white; border-radius:10px; overflow:hidden; border:1.5px solid var(--turquoise); margin-top:12px;">
+                  <div id="waterProgressBar" style="width:60%; height:100%; background:linear-gradient(90deg, #2EC4B6 0%, #3A86FF 100%); transition:width 0.3s ease;"></div>
                 </div>
               </div>
 
-              <div style="background:var(--bg-cream); padding:14px; border-radius:14px; margin-bottom:16px; border:1px solid rgba(51,188,169,0.15);">
-                <div style="font-size:13px; font-weight:800; color:var(--dark-teal); margin-bottom:8px;">⚖️ Registrar Peso de Hoy:</div>
-                <div style="display:flex; gap:10px;">
-                  <input type="number" id="currentWeightInput" step="0.1" placeholder="Ej. 72.0" style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--turquoise); font-size:13px; outline:none;">
-                  <button class="btn-action" style="padding:10px 16px; font-size:13px; font-weight:800; background:var(--turquoise); width:auto;" onclick="saveWeightEntry()">Guardar</button>
-                </div>
-              </div>
-
-              <div style="font-size:13.5px; font-weight:800; color:var(--dark-teal); margin-bottom:8px;">📊 Tabla de Evolución & Historial:</div>
-              <div style="overflow-x:auto;">
-                <table style="width:100%; border-collapse:collapse; font-size:12px; text-align:left;">
-                  <thead>
-                    <tr style="background:var(--dark-teal); color:white;">
-                      <th style="padding:8px 10px; border-top-left-radius:8px;">Fecha</th>
-                      <th style="padding:8px 10px;">Peso</th>
-                      <th style="padding:8px 10px;">Variación</th>
-                      <th style="padding:8px 10px; border-top-right-radius:8px;">Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody id="weightHistoryTableBody">
-                    <tr style="border-bottom:1px solid var(--mint);">
-                      <td style="padding:8px 10px; font-weight:700;">25 Sep</td>
-                      <td style="padding:8px 10px;">72.5 kg</td>
-                      <td style="padding:8px 10px; color:var(--green-organic); font-weight:800;">-0.5 kg</td>
-                      <td style="padding:8px 10px;"><span style="background:var(--mint); color:var(--green-organic); padding:2px 6px; border-radius:6px; font-size:10px; font-weight:800;">🟢 En Baja</span></td>
-                    </tr>
-                    <tr style="border-bottom:1px solid var(--mint);">
-                      <td style="padding:8px 10px; font-weight:700;">18 Sep</td>
-                      <td style="padding:8px 10px;">73.0 kg</td>
-                      <td style="padding:8px 10px; color:var(--green-organic); font-weight:800;">-0.8 kg</td>
-                      <td style="padding:8px 10px;"><span style="background:var(--mint); color:var(--green-organic); padding:2px 6px; border-radius:6px; font-size:10px; font-weight:800;">🟢 En Baja</span></td>
-                    </tr>
-                    <tr>
-                      <td style="padding:8px 10px; font-weight:700;">10 Sep</td>
-                      <td style="padding:8px 10px;">73.8 kg</td>
-                      <td style="padding:8px 10px; color:var(--dark-teal); font-weight:800;">Inicial</td>
-                      <td style="padding:8px 10px;"><span style="background:rgba(51,188,169,0.15); color:var(--dark-teal); padding:2px 6px; border-radius:6px; font-size:10px; font-weight:800;">🔵 Inicio</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- HOJA 5: CRONOGRAMA & RUTINA DIARIA ESTRUCTURADA -->
-          <div class="wellness-sheet" id="sheet-routine">
-            <div class="wellness-card" style="padding:20px; border-radius:18px;">
-              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
-                  <i data-lucide="clock" size="24" color="#2C7A7B"></i>
-                </div>
-                <div>
-                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Cronograma & Rutina Diaria Estructurada</div>
-                  <div style="font-size:13px; color:var(--gray-muted);">Organización de hábitos hora a hora con deslizador</div>
-                </div>
-              </div>
-
-              <!-- DESLIZADOR BARRITA DE TIEMPO DEL DÍA -->
-              <div style="background:var(--mint); padding:14px; border-radius:14px; margin-bottom:16px; border:1px solid rgba(51,188,169,0.2);">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                  <span style="font-size:13px; font-weight:800; color:var(--dark-teal);">🎛️ Deslizar Hora del Día:</span>
-                  <span style="font-size:14px; font-weight:900; color:var(--green-organic);" id="routineTimeValText">07:00 AM</span>
-                </div>
-                <input type="range" id="dayTimeSlider" min="6" max="22" value="7" step="1" style="width:100%; accent-color:var(--turquoise);" oninput="updateDailyRoutineTimeline(this.value)">
-                <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--gray-muted); margin-top:4px; font-weight:700;">
-                  <span>06:00 AM</span>
-                  <span>13:00 PM</span>
-                  <span>22:00 PM</span>
-                </div>
-              </div>
-
-              <!-- TIMELINE HORA A HORA -->
-              <div style="display:flex; flex-direction:column; gap:10px;" id="routineTimelineList">
-                
-                <div class="routine-block-item" style="background:var(--bg-cream); padding:12px; border-radius:12px; border-left:4px solid #FF9F1C;">
-                  <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">🏃 06:00 AM - Ejercicio Matutino (15 min Cardio)</div>
-                    <span style="font-size:10px; background:#FF9F1C; color:white; padding:2px 8px; border-radius:8px; font-weight:800;">Mañana</span>
-                  </div>
-                  <div style="font-size:11.5px; color:var(--gray-muted); margin-top:4px;">15 min HIIT o Caminata rápida en casa para activar el metabolismo.</div>
-                </div>
-
-                <div class="routine-block-item" style="background:var(--bg-cream); padding:12px; border-radius:12px; border-left:4px solid #3A86FF;">
-                  <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">🚿 06:30 AM - Ducha Terapéutica & Aseo</div>
-                    <span style="font-size:10px; background:#3A86FF; color:white; padding:2px 8px; border-radius:8px; font-weight:800;">Higiene</span>
-                  </div>
-                  <div style="font-size:11.5px; color:var(--gray-muted); margin-top:4px;">Ducha refrescante y aplicación de crema hidratante.</div>
-                </div>
-
-                <div class="routine-block-item" style="background:var(--bg-cream); padding:12px; border-radius:12px; border-left:4px solid #2EC4B6;">
-                  <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">🍳 07:00 AM - Desayuno / Once Saludable</div>
-                    <span style="font-size:10px; background:#2EC4B6; color:white; padding:2px 8px; border-radius:8px; font-weight:800;">Nutrición</span>
-                  </div>
-                  <div style="font-size:11.5px; color:var(--gray-muted); margin-top:4px;">Proteína + frutas + 1 vaso de agua. Escanear con IA.</div>
-                </div>
-
-                <div class="routine-block-item" style="background:var(--bg-cream); padding:12px; border-radius:12px; border-left:4px solid var(--dark-teal);">
-                  <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">🚗 07:30 AM - Salida al Trabajo / Actividades</div>
-                    <span style="font-size:10px; background:var(--dark-teal); color:white; padding:2px 8px; border-radius:8px; font-weight:800;">Jornada</span>
-                  </div>
-                  <div style="font-size:11.5px; color:var(--gray-muted); margin-top:4px;">Inicio de trayecto. Mantener agua en botella.</div>
-                </div>
-
-                <div class="routine-block-item" style="background:var(--bg-cream); padding:12px; border-radius:12px; border-left:4px solid #8338EC;">
-                  <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">🌙 22:00 PM - Morfeo 432Hz & Desconexión</div>
-                    <span style="font-size:10px; background:#8338EC; color:white; padding:2px 8px; border-radius:8px; font-weight:800;">Noche</span>
-                  </div>
-                  <div style="font-size:11.5px; color:var(--gray-muted); margin-top:4px;">Apagar pantallas, infusión de manzanilla y música relajante.</div>
-                </div>
-
-              </div>
-
-              <button class="btn-action" style="margin-top:16px; background:var(--green-organic); padding:12px; font-size:14px; font-weight:800; width:100%;" onclick="triggerAlert('✅ Hábitos de la rutina del día marcados como completados. ¡Excelente trabajo!')">
-                ✅ Marcar Hábitos Completados Hoy
+              <button class="btn-action" style="background:var(--green-organic); padding:14px 20px; font-size:15px; font-weight:800; width:100%; border-radius:14px; margin-bottom:16px;" onclick="addWaterGlass()">
+                💧 REGISTRAR +1 VASO DE AGUA (+250 ml)
               </button>
+
+              <!-- Submenú de Ajuste de Sonido de Alarma -->
+              <div style="background:var(--bg-cream); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.15);">
+                <div style="font-size:13px; font-weight:800; color:var(--dark-teal); margin-bottom:10px;">🔔 Configuración de Sonido de Alarma de Agua:</div>
+                
+                <div class="form-group" style="margin-bottom:10px;">
+                  <label class="form-label" style="font-size:11.5px;">Tono de Alarma</label>
+                  <select class="form-select" id="waterSoundSelect" style="padding:8px; font-size:12px;">
+                    <option value="burbujas">💧 Burbujas de Agua Naturales</option>
+                    <option value="zen">🧘‍♂️ Tono Armónico 432Hz</option>
+                    <option value="cuenco">🔔 Campana Zen Tibetana</option>
+                    <option value="carillon">🎶 Carillón Suave de Manantial</option>
+                  </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom:10px;">
+                  <label class="form-label" style="font-size:11.5px;">Volumen de Sonido</label>
+                  <input type="range" min="10" max="100" value="80" style="width:100%; accent-color:var(--turquoise);" oninput="document.getElementById('volVal').innerText = this.value + '%'">
+                  <span style="font-size:11px; color:var(--gray-muted);" id="volVal">80%</span>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:12px; font-weight:700; color:var(--dark-teal);">Recordatorio cada 2 horas</span>
+                  <input type="checkbox" id="waterAlarmToggle" checked style="accent-color:var(--turquoise); width:20px; height:20px;">
+                </div>
+
+                <button class="btn-action" style="margin-top:10px; background:var(--turquoise); font-size:11.5px; padding:8px 12px; width:100%;" onclick="triggerAlert('🔊 Probando sonido de alarma de agua...')">
+                  🔊 Probar Sonido Seleccionado
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- HOJA 6: RUTINAS DE EJERCICIO DEL DÍA (3 VÍAS DE EJECUCIÓN) -->
-          <div class="wellness-sheet" id="sheet-workout">
+          <!-- HOJA 3: ESCÁNER NUTRICIONAL POR FOTO (IA) -->
+          <div class="wellness-sheet" id="sheet-scanner">
             <div class="wellness-card" style="padding:20px; border-radius:18px;">
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                 <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
-                  <i data-lucide="activity" size="24" color="#2C7A7B"></i>
+                  <i data-lucide="aperture" size="24" color="#2C7A7B"></i>
                 </div>
                 <div>
-                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Ejercicios del Día (Múltiples Vías)</div>
-                  <div style="font-size:13px; color:var(--gray-muted);">Videollamada en vivo, Audio guía o Descargar guía</div>
+                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Escáner Nutricional por Foto (IA)</div>
+                  <div style="font-size:13px; color:var(--gray-muted);">Análisis de calorías y nutrientes por imagen</div>
                 </div>
               </div>
 
-              <div style="display:flex; flex-direction:column; gap:14px;">
+              <p style="font-size:13.5px; color:var(--dark-teal); line-height:1.5; margin-bottom:16px;">
+                Toma una foto a tu plato de comida o bebida. La Inteligencia Artificial analizará la imagen para calcular automáticamente las calorías e impacto nutricional.
+              </p>
+
+              <button class="btn-action" style="background:var(--turquoise); padding:14px 20px; font-size:15px; font-weight:800; width:100%; border-radius:14px;" onclick="triggerFoodPhotoUpload()">
+                <i data-lucide="camera" size="20"></i> TOMAR FOTO A LA COMIDA
+              </button>
+              <input type="file" id="foodFileInput" accept="image/*" style="display:none;" onchange="analyzeFoodPhoto(this)">
+
+              <div id="foodAnalysisResult" style="display:none; margin-top:16px; background:var(--mint); padding:16px; border-radius:14px; border:1.5px solid var(--turquoise);">
+                <div style="font-size:15px; font-weight:800; color:var(--dark-teal); margin-bottom:12px;">📊 Resultado del Análisis Nutricional:</div>
                 
-                <!-- RUTINA 1 -->
-                <div style="background:var(--mint); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.2);">
-                  <div style="font-size:15px; font-weight:800; color:var(--dark-teal);">🔥 HIIT Cardio Quema-Grasa (15 min)</div>
-                  <div style="font-size:12px; color:var(--gray-muted); margin-bottom:10px;">Aumenta el ritmo cardíaco y quema calorías en casa.</div>
-
-                  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--turquoise);" onclick="startWorkoutLiveCall('HIIT Cardio Quema-Grasa')">📹 Videollamada Live</button>
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--green-organic);" onclick="startWorkoutWithAudio('HIIT Cardio Quema-Grasa', 15)">▶ Audio Guía</button>
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--dark-teal);" onclick="downloadWorkoutGuide('HIIT_Cardio_Quema_Grasa')">📥 Descargar Guía</button>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:center;">
+                  <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
+                    <div style="font-size:28px; font-weight:900; color:var(--green-organic);">420</div>
+                    <div style="font-size:12px; font-weight:700; color:var(--gray-muted);">Calorías (kcal)</div>
+                  </div>
+                  <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
+                    <div style="font-size:24px; font-weight:800; color:var(--dark-teal);">28g</div>
+                    <div style="font-size:12px; font-weight:700; color:var(--gray-muted);">Proteínas</div>
+                  </div>
+                  <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
+                    <div style="font-size:24px; font-weight:800; color:var(--turquoise);">35g</div>
+                    <div style="font-size:12px; font-weight:700; color:var(--gray-muted);">Carbohidratos</div>
+                  </div>
+                  <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
+                    <div style="font-size:24px; font-weight:800; color:#FF9F1C;">12g</div>
+                    <div style="font-size:12px; font-weight:700; color:var(--gray-muted);">Grasas</div>
                   </div>
                 </div>
 
-                <!-- RUTINA 2 -->
-                <div style="background:var(--mint); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.2);">
-                  <div style="font-size:15px; font-weight:800; color:var(--dark-teal);">🪑 Ejercicios en Silla (Adulto Mayor / Movilidad)</div>
-                  <div style="font-size:12px; color:var(--gray-muted); margin-bottom:10px;">12 Minutos | Ejercicios suaves sin impacto articular.</div>
-
-                  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--turquoise);" onclick="startWorkoutLiveCall('Ejercicios en Silla')">📹 Videollamada Live</button>
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--green-organic);" onclick="startWorkoutWithAudio('Ejercicios en Silla', 12)">▶ Audio Guía</button>
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--dark-teal);" onclick="downloadWorkoutGuide('Ejercicios_en_Silla')">📥 Descargar Guía</button>
-                  </div>
+                <div style="margin-top:12px; font-size:13px; color:var(--green-organic); font-weight:800; text-align:center; background:rgba(46,196,182,0.15); padding:8px; border-radius:8px;">
+                  🟢 Plato Saludable & Equilibrado
                 </div>
-
-                <!-- RUTINA 3 -->
-                <div style="background:var(--mint); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.2);">
-                  <div style="font-size:15px; font-weight:800; color:var(--dark-teal);">🧘‍♀️ Yoga & Flexibilidad Anti-Estrés (20 min)</div>
-                  <div style="font-size:12px; color:var(--gray-muted); margin-bottom:10px;">Estiramientos y respiración para aliviar tensiones.</div>
-
-                  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--turquoise);" onclick="startWorkoutLiveCall('Yoga Anti-Estrés')">📹 Videollamada Live</button>
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--green-organic);" onclick="startWorkoutWithAudio('Yoga Anti-Estrés', 20)">▶ Audio Guía</button>
-                    <button class="btn-action" style="padding:8px 4px; font-size:10.5px; font-weight:800; background:var(--dark-teal);" onclick="downloadWorkoutGuide('Yoga_Anti_Estres')">📥 Descargar Guía</button>
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
 
-          <!-- HOJA 7: AGENDA DE CITAS MÉDICAS & SPOTIFY LINK DE ALARMA -->
+          <!-- HOJA 4: AGENDA DE CITAS MÉDICAS -->
           <div class="wellness-sheet" id="sheet-citas">
             <div class="wellness-card" style="padding:20px; border-radius:18px;">
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
@@ -1137,18 +1078,18 @@
                   <i data-lucide="calendar" size="24" color="#2C7A7B"></i>
                 </div>
                 <div>
-                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Agenda de Citas Médicas & Spotify Link</div>
-                  <div style="font-size:13px; color:var(--gray-muted);">CESFAM, Hospital Público o Clínica Privada</div>
+                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Agenda de Citas Médicas</div>
+                  <div style="font-size:13px; color:var(--gray-muted);">Agendamiento para CESFAM, Hospital o Particular</div>
                 </div>
               </div>
 
               <div class="form-group" style="margin-bottom:12px;">
                 <label class="form-label" style="font-size:13px; font-weight:800;">Tipo de Centro Médico</label>
                 <select class="form-select" id="appType" style="padding:10px; font-size:13.5px; border-radius:10px;">
-                  <option value="particular">🏥 Clínica / Consulta Particular</option>
                   <option value="cesfam">🩺 Consultorio / CESFAM</option>
-                  <option value="salud">🏥 Centro de Salud Familiar</option>
+                  <option value="cesfam_sec">🏥 Centro de Salud Familiar (CESFAM Secundario)</option>
                   <option value="hospital">🏥 Hospital Público</option>
+                  <option value="particular">🏥 Clínica / Consulta Particular</option>
                 </select>
               </div>
 
@@ -1168,13 +1109,10 @@
                 </div>
               </div>
 
-              <!-- MÓDULO DE VINCULACIÓN CON SPOTIFY PARA ALARMAR CITAS -->
-              <div style="background:var(--mint); padding:12px; border-radius:12px; margin-bottom:16px; border:1px solid rgba(51,188,169,0.2);">
-                <div style="font-size:13px; font-weight:800; color:var(--dark-teal); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
-                  <i data-lucide="music" size="16"></i> Sonido de Alarma de Cita Médica
-                </div>
-                <button class="btn-action" style="background:#1DB954; color:white; padding:10px; font-size:12px; font-weight:800; width:100%; border-radius:10px;" onclick="linkSpotifyToAppointmentAlarm()">
-                  🟢 Vincular Alarma con Playlist de Spotify
+              <div style="background:var(--mint); padding:10px; border-radius:10px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:11.5px; font-weight:700; color:var(--dark-teal);">🟢 Vincular Alarma con Playlist de Spotify</span>
+                <button class="btn-action" style="padding:4px 10px; font-size:10px; background:#1DB954; color:white;" onclick="openSpotifyPlaylist()">
+                  <i data-lucide="music" size="14"></i> Spotify
                 </button>
               </div>
 
@@ -1184,137 +1122,314 @@
             </div>
           </div>
 
+          <!-- HOJA 5: RUTINAS DE EJERCICIO CON AUDIO GUÍA -->
+          <div class="wellness-sheet" id="sheet-workout">
+            <div class="wellness-card" style="padding:20px; border-radius:18px;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
+                  <i data-lucide="activity" size="24" color="#2C7A7B"></i>
+                </div>
+                <div>
+                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Rutinas de Ejercicio & Opciones</div>
+                  <div style="font-size:13px; color:var(--gray-muted);">Entrenamientos en casa con múltiples vías de ejecución</div>
+                </div>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                
+                <!-- CARD RUTINA 1 -->
+                <div style="background:var(--mint); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.2);">
+                  <div style="font-size:15px; font-weight:800; color:var(--dark-teal);">🔥 HIIT Cardio Quema-Grasa</div>
+                  <div style="font-size:12px; color:var(--gray-muted); margin-bottom:10px;">15 Minutos | Nivel Dinámico</div>
+                  <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--turquoise); flex:1;" onclick="startCallActiveChat('video')">📹 Videollamada Live</button>
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--green-organic); flex:1;" onclick="startWorkoutWithAudio('HIIT Cardio Quema-Grasa', 15)">▶ Audio Guía</button>
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--dark-teal); flex:1;" onclick="downloadFileDoc('Rutina_HIIT_Cardio.pdf')">📥 Descargar Guía</button>
+                  </div>
+                </div>
+
+                <!-- CARD RUTINA 2 -->
+                <div style="background:var(--mint); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.2);">
+                  <div style="font-size:15px; font-weight:800; color:var(--dark-teal);">🪑 Ejercicios en Silla (Adulto Mayor)</div>
+                  <div style="font-size:12px; color:var(--gray-muted); margin-bottom:10px;">12 Minutos | Movilidad Reducida</div>
+                  <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--turquoise); flex:1;" onclick="startCallActiveChat('video')">📹 Videollamada Live</button>
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--green-organic); flex:1;" onclick="startWorkoutWithAudio('Ejercicios en Silla', 12)">▶ Audio Guía</button>
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--dark-teal); flex:1;" onclick="downloadFileDoc('Rutina_Ejercicios_Silla.pdf')">📥 Descargar Guía</button>
+                  </div>
+                </div>
+
+                <!-- CARD RUTINA 3 -->
+                <div style="background:var(--mint); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.2);">
+                  <div style="font-size:15px; font-weight:800; color:var(--dark-teal);">🧘‍♀️ Yoga & Flexibilidad Anti-Estrés</div>
+                  <div style="font-size:12px; color:var(--gray-muted); margin-bottom:10px;">20 Minutos | Nivel Suave</div>
+                  <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--turquoise); flex:1;" onclick="startCallActiveChat('video')">📹 Videollamada Live</button>
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--green-organic); flex:1;" onclick="startWorkoutWithAudio('Yoga Anti-Estrés', 20)">▶ Audio Guía</button>
+                    <button class="btn-action" style="padding:6px 10px; font-size:10.5px; font-weight:800; background:var(--dark-teal); flex:1;" onclick="downloadFileDoc('Rutina_Yoga_AntiEstres.pdf')">📥 Descargar Guía</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- HOJA 6: CONTROL DE PESO & EVOLUCIÓN -->
+          <div class="wellness-sheet" id="sheet-weight">
+            <div class="wellness-card" style="padding:20px; border-radius:18px;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
+                  <i data-lucide="scale" size="24" color="#2C7A7B"></i>
+                </div>
+                <div>
+                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Control de Peso & Tabla de Evolución</div>
+                  <div style="font-size:13px; color:var(--gray-muted);">Seguimiento de avance de peso corporal</div>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; text-align:center;">
+                <div style="background:var(--mint); padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
+                  <div style="font-size:20px; font-weight:900; color:var(--dark-teal);" id="currentWeightDisplay">72.5 kg</div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Peso Actual</div>
+                </div>
+                <div style="background:var(--mint); padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
+                  <div style="font-size:20px; font-weight:900; color:var(--turquoise);">68.0 kg</div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Meta Deseada</div>
+                </div>
+                <div style="background:var(--mint); padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
+                  <div style="font-size:20px; font-weight:900; color:var(--green-organic);"><span id="weightDiffDisplay">-3.2 kg</span></div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Baja Total</div>
+                </div>
+              </div>
+
+              <div style="background:var(--bg-cream); padding:12px; border-radius:12px; margin-bottom:16px;">
+                <label class="form-label" style="font-size:12px; font-weight:800;">Registrar Peso de Hoy (kg):</label>
+                <div style="display:flex; gap:8px; margin-top:4px;">
+                  <input type="number" step="0.1" id="currentWeightInput" class="form-input" placeholder="Ej. 72.1" style="flex:1; padding:8px; border-radius:8px;">
+                  <button class="btn-action" style="padding:8px 14px; font-size:12px;" onclick="triggerAlert('⚖️ Peso registrado con éxito en tu tabla de avance.')">Guardar</button>
+                </div>
+              </div>
+
+              <!-- Tabla de Evolución -->
+              <div style="background:white; padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
+                <div style="font-size:13px; font-weight:800; color:var(--dark-teal); margin-bottom:8px;">📊 Tabla de Historial de Peso:</div>
+                <table style="width:100%; font-size:11.5px; text-align:left; border-collapse:collapse;">
+                  <thead>
+                    <tr style="background:var(--mint); color:var(--dark-teal);">
+                      <th style="padding:6px;">Fecha</th>
+                      <th style="padding:6px;">Peso</th>
+                      <th style="padding:6px;">Avance</th>
+                    </tr>
+                  </thead>
+                  <tbody id="weightHistoryTableBody">
+                    <tr style="border-bottom:1px solid #E2E8F0;">
+                      <td style="padding:6px;">Hoy</td>
+                      <td style="padding:6px; font-weight:800;">72.5 kg</td>
+                      <td style="padding:6px; color:var(--green-organic); font-weight:800;">-0.4 kg 🟢</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #E2E8F0;">
+                      <td style="padding:6px;">Semana Pasada</td>
+                      <td style="padding:6px; font-weight:800;">72.9 kg</td>
+                      <td style="padding:6px; color:var(--green-organic); font-weight:800;">-0.8 kg 🟢</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:6px;">Hace 1 Mes</td>
+                      <td style="padding:6px; font-weight:800;">75.7 kg</td>
+                      <td style="padding:6px; color:var(--dark-teal); font-weight:800;">Inicio 🔵</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- HOJA 7: RUTINA DIARIA & CRONOGRAMA POR HORAS -->
+          <div class="wellness-sheet" id="sheet-schedule">
+            <div class="wellness-card" style="padding:20px; border-radius:18px;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                <div style="width:40px; height:40px; border-radius:50%; background:var(--mint); display:flex; align-items:center; justify-content:center;">
+                  <i data-lucide="clock" size="24" color="#2C7A7B"></i>
+                </div>
+                <div>
+                  <div style="font-size:18px; font-weight:800; color:var(--dark-teal);">Cronograma & Rutina Diaria</div>
+                  <div style="font-size:13px; color:var(--gray-muted);">Estructura del día hora a hora con barra deslizadora</div>
+                </div>
+              </div>
+
+              <!-- Barrita Deslizadora de Horario -->
+              <div style="background:var(--mint); padding:14px; border-radius:14px; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:800; color:var(--dark-teal); margin-bottom:6px;">
+                  <span>🌅 06:00 AM</span>
+                  <span id="scheduleHourBadge" style="background:var(--turquoise); color:white; padding:2px 10px; border-radius:10px;">07:00 AM</span>
+                  <span>🌙 22:00 PM</span>
+                </div>
+                <input type="range" min="6" max="22" value="7" style="width:100%; accent-color:var(--dark-teal);" oninput="document.getElementById('scheduleHourBadge').innerText = (this.value < 10 ? '0' + this.value : this.value) + ':00 hrs'">
+              </div>
+
+              <!-- Lista de Bloques del Día -->
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="background:var(--bg-cream); padding:10px; border-radius:10px; border-left:4px solid var(--turquoise);">
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🏃 06:00 AM - Ejercicio Matutino (15 min Cardio)</div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Precalentamiento rápido para activar el metabolismo.</div>
+                </div>
+
+                <div style="background:var(--bg-cream); padding:10px; border-radius:10px; border-left:4px solid var(--green-organic);">
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🚿 06:30 AM - Ducha Terapéutica & Aseo Personal</div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Higiene y energía fresca para comenzar el día.</div>
+                </div>
+
+                <div style="background:var(--bg-cream); padding:10px; border-radius:10px; border-left:4px solid #FF9F1C;">
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🍳 07:00 AM - Desayuno / Once Saludable & Hidratación</div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Tomar +1 Vaso de Agua y alimento equilibrado.</div>
+                </div>
+
+                <div style="background:var(--bg-cream); padding:10px; border-radius:10px; border-left:4px solid #3A86FF;">
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🚗 07:30 AM - Salida al Trabajo / Jornada Laboral</div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Comienzo de trayecto y actividades diarias.</div>
+                </div>
+
+                <div style="background:var(--bg-cream); padding:10px; border-radius:10px; border-left:4px solid var(--turquoise);">
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🥗 13:00 PM - Almuerzo Equilibrado & Escáner IA</div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Foto a la comida para registro de calorías.</div>
+                </div>
+
+                <div style="background:var(--bg-cream); padding:10px; border-radius:10px; border-left:4px solid #8338EC;">
+                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🌙 22:00 PM - Morfeo 432Hz & Desconexión</div>
+                  <div style="font-size:10.5px; color:var(--gray-muted);">Infusión natural y sonidos estelares para dormir.</div>
+                </div>
+              </div>
+
+              <button class="btn-action" style="margin-top:14px; background:var(--green-organic); font-size:13px; padding:12px; width:100%; border-radius:12px;" onclick="triggerAlert('✅ Hábitos y rutina del día completados con éxito.')">
+                ✅ Marcar Hábitos Completados Hoy
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      <!-- TAB 3: SHOPPING -->
-      <div class=id="tab-shopping">
+id="tab-shopping">
         <!-- Header Shopping estilo WhatsApp Business con Menú Único de 3 Puntos -->
         <div class="app-header" style="position:relative;">
           <div class="logo-area">
-            <span style="font-size:18px; font-weight:800; color:var(--dark-teal); font-family:var(--font-heading);">Shopping BIENESTAR</span>
+            <span style="font-size:18px; font-weight:800; color:var(--dark-teal); font-family:var(--font-heading);">Shopping</span>
           </div>
           <div class="header-actions">
             <button class="icon-btn" onclick="toggleShoppingMenu()" title="Opciones WhatsApp Business"><i data-lucide="more-vertical" size="18"></i></button>
           </div>
 
-          <!-- Menú Único de 3 Puntos en Shopping (WhatsApp Business Completo) -->
+          <!-- Menú Único de 3 Puntos en Shopping (WhatsApp Business Completo - 13 Opciones) -->
           <div class="dropdown-menu" id="shoppingOptionsMenu" style="top:44px; right:12px; z-index:100;">
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); openBusinessCatalog();"><i data-lucide="package" size="15"></i> Mi Catálogo WhatsApp Business</div>
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); switchShoppingSubTab('video_ia');"><i data-lucide="sparkles" size="15"></i> Anuncios & Videos IA Pro</div>
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); switchShoppingSubTab('afiches');"><i data-lucide="image" size="15"></i> Ver Afiches Promocionales</div>
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); showCartSummary();"><i data-lucide="shopping-cart" size="15"></i> Mi Carrito (<span id="cartBadgeMenu">0</span>)</div>
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); triggerAlert('📊 Herramientas de Empresa: Respuestas Rápidas, Perfil & Etiquetas');"><i data-lucide="briefcase" size="15"></i> Herramientas de Empresa</div>
-            <div class="dropdown-item" onclick="toggleShoppingMenu(); openSettingsView();"><i data-lucide="settings" size="15"></i> Ajustes de Tienda Virtual</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openBusinessCatalog();"><i data-lucide="package" size="15"></i> 📦 Ver Catálogo</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openPublicCatalog();"><i data-lucide="globe" size="15"></i> 🌐 Catálogo Público</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openAddProductModal();"><i data-lucide="plus-circle" size="15"></i> ➕ Añadir y Crear Producto</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openEditCatalogModal();"><i data-lucide="edit-3" size="15"></i> ✏️ Editar Catálogo Existente</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openPaymentIntegrationModal();"><i data-lucide="credit-card" size="15"></i> 💳 Ruta Integración Medios de Pago</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openBusinessProfileModal();"><i data-lucide="briefcase" size="15"></i> 🏪 Perfil de Empresa</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openWelcomeMsgModal();"><i data-lucide="smile" size="15"></i> 👋 Mensaje de Bienvenida</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openAwayMsgModal();"><i data-lucide="moon" size="15"></i> 🌙 Mensaje de Ausencia</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openQuickRepliesModal();"><i data-lucide="zap" size="15"></i> ⚡ Respuestas Rápidas</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openCustomerLabelsModal();"><i data-lucide="tag" size="15"></i> 🏷️ Etiquetas de Cliente</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); openQRLinkModal();"><i data-lucide="qr-code" size="15"></i> 🔗 Enlace con Código QR</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); switchShoppingSubTab('video_ia');"><i data-lucide="sparkles" size="15"></i> 🤖 Agente IA Videoclip & Marketing Pro</div>
+            <div class="dropdown-item" onclick="toggleShoppingMenu(); showCartSummary();"><i data-lucide="shopping-cart" size="15"></i> 🛒 Carrito de Compras (<span id="cartBadgeMenu">0</span>)</div>
           </div>
         </div>
 
         <div style="padding:14px; display:flex; flex-direction:column; gap:14px;">
           
-          <!-- SUB-NAVEGACIÓN SHOPPING -->
-          <div style="display:flex; gap:8px; background:var(--mint); padding:4px; border-radius:12px; border:1px solid rgba(51,188,169,0.2);">
-            <button class="shopping-subtab-btn active" style="flex:1; padding:8px; border:none; border-radius:8px; font-size:12px; font-weight:800; background:var(--turquoise); color:white; cursor:pointer;" onclick="switchShoppingSubTab('catalog', this)">🛍️ Catálogo PyME</button>
-            <button class="shopping-subtab-btn" style="flex:1; padding:8px; border:none; border-radius:8px; font-size:12px; font-weight:800; background:transparent; color:var(--dark-teal); cursor:pointer;" onclick="switchShoppingSubTab('video_ia', this)">🎬 Videos & Anuncios IA</button>
-            <button class="shopping-subtab-btn" style="flex:1; padding:8px; border:none; border-radius:8px; font-size:12px; font-weight:800; background:transparent; color:var(--dark-teal); cursor:pointer;" onclick="switchShoppingSubTab('afiches', this)">🎨 Afiches</button>
+          <!-- BANNER PRO / SERVICIO DE PAGO IA VIDEOCLIP & GUIONES -->
+          <div style="background:linear-gradient(135deg, #075E54 0%, #128C7E 100%); color:white; padding:16px; border-radius:18px; box-shadow:0 4px 15px rgba(7,94,84,0.25);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:10px; font-weight:800; background:#FFD700; color:#000; padding:2px 8px; border-radius:10px; text-transform:uppercase; letter-spacing:0.5px;">⭐ SERVICIO PRO - $9.990/mes</span>
+              <i data-lucide="sparkles" size="18" color="#FFD700"></i>
+            </div>
+            <div style="font-size:15px; font-weight:800; margin-top:8px;">🎬 Agente de IA Videoclip & Guiones Promocionales</div>
+            <div style="font-size:11.5px; opacity:0.9; margin-top:2px;">Genera bocetos de afiches, guiones de video y anuncios para promocionar tu catálogo en WhatsApp Business e Instagram.</div>
+
+            <div style="margin-top:12px; background:rgba(255,255,255,0.12); padding:12px; border-radius:12px; backdrop-filter:blur(5px);">
+              <div class="form-group" style="margin-bottom:8px;">
+                <label style="font-size:10.5px; font-weight:700; color:white; margin-bottom:4px; display:block;">Nombre del Producto o Servicio</label>
+                <input type="text" id="adProductName" placeholder="Ej. Té de Lavanda y Melisa Orgánico" style="width:100%; border:none; padding:8px 12px; border-radius:8px; font-size:12px; outline:none; background:white; color:var(--dark-teal);">
+              </div>
+
+              <div class="form-group" style="margin-bottom:8px;">
+                <label style="font-size:10.5px; font-weight:700; color:white; margin-bottom:4px; display:block;">Estilo del Anuncio / Video</label>
+                <select id="adVideoStyleSelect" style="width:100%; border:none; padding:8px 12px; border-radius:8px; font-size:12px; outline:none; background:white; color:var(--dark-teal);">
+                  <option value="demo">📹 Demostración de Producto (Video Clip)</option>
+                  <option value="unboxing">📦 Unboxing & Presentación</option>
+                  <option value="testimonial">💬 Testimonio & Beneficios</option>
+                  <option value="offer">⚡ Oferta Flash & Venta Rápida</option>
+                </select>
+              </div>
+
+              <button class="btn-action" style="background:#FFD700; color:#000; font-weight:800; width:100%; margin-top:6px; font-size:12px; padding:10px; border-radius:8px;" onclick="generateAIAdPro()">
+                ✨ GENERAR GUION & BOCETO IA PRO
+              </button>
+            </div>
+
+            <div id="aiVideoResultBox" style="display:none; margin-top:12px; background:white; color:var(--dark-teal); padding:12px; border-radius:10px; font-size:11.5px;">
+              <strong>📋 Guion & Boceto Publicitario Generado por IA:</strong>
+              <div id="aiVideoTextResult" style="margin-top:6px; font-family:sans-serif; white-space:pre-line; background:var(--bg-cream); padding:8px; border-radius:6px; border-left:3px solid var(--turquoise);"></div>
+              <button class="btn-action" style="margin-top:8px; font-size:11px; padding:6px 12px;" onclick="copyAIAdText()">📋 Copiar Guion & Anuncio</button>
+            </div>
           </div>
 
-          <!-- SECCIÓN 1: CATÁLOGO PYME & HERBOLARIA -->
-          <div id="shopSectionCatalog" class="shopping-sheet-section">
-            <div style="font-size:15px; font-weight:800; color:var(--green-organic); margin-bottom:10px;">🛍️ Catálogo de Tiendas Verificadas & Herbolaria</div>
+          <!-- DIRECTORIO DE HERRAMIENTAS & VITRINA VIRTUAL BUSINESS -->
+          <div class="wellness-card">
+            <div class="wellness-title"><i data-lucide="briefcase" size="18"></i> Herramientas de Empresa WhatsApp Business</div>
             
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+              <button class="btn-action" style="background:var(--mint); color:var(--dark-teal); border:1px solid rgba(51,188,169,0.3); font-size:11.5px; padding:10px;" onclick="openBusinessCatalog()">📦 Mi Catálogo</button>
+              <button class="btn-action" style="background:var(--mint); color:var(--dark-teal); border:1px solid rgba(51,188,169,0.3); font-size:11.5px; padding:10px;" onclick="openAddProductModal()">➕ Crear Producto</button>
+              <button class="btn-action" style="background:var(--mint); color:var(--dark-teal); border:1px solid rgba(51,188,169,0.3); font-size:11.5px; padding:10px;" onclick="openPaymentIntegrationModal()">💳 Pasarela Pagos</button>
+              <button class="btn-action" style="background:var(--mint); color:var(--dark-teal); border:1px solid rgba(51,188,169,0.3); font-size:11.5px; padding:10px;" onclick="openQRLinkModal()">🔗 Código QR Link</button>
+            </div>
+          </div>
+
+          <!-- VITRINA DE TIENDAS VERIFICADAS -->
+          <div class="wellness-card">
+            <div class="wellness-title"><i data-lucide="store" size="18"></i> Vitrina PyME & Herbolaria Orgánica</div>
+            
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
               
-              <div style="background:white; padding:12px; border-radius:14px; border:1px solid rgba(51,188,169,0.15); text-align:center; box-shadow:var(--shadow-sm);">
+              <!-- PRODUCTO 1 -->
+              <div style="background:var(--bg-cream); padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2); display:flex; gap:12px; align-items:center;">
                 <div style="font-size:32px;">🌿</div>
-                <div style="font-size:13px; font-weight:800; color:var(--dark-teal); margin-top:4px;">Té de Lavanda & Toronjil</div>
-                <div style="font-size:11px; color:var(--gray-muted);">Herbolaria San Camilo ✓</div>
-                <div style="font-size:14px; color:var(--turquoise); font-weight:900; margin:4px 0;">$4.990</div>
-                <div style="display:flex; flex-direction:column; gap:4px; margin-top:6px;">
-                  <button class="btn-action" style="font-size:10.5px; padding:6px; background:var(--green-organic);" onclick="window.open('https://wa.me/56987654321?text=Hola,%20quisiera%20comprar%20el%20T%C3%A9%20de%20Lavanda')">💬 Pedir por WhatsApp</button>
-                  <button class="btn-action" style="font-size:10.5px; padding:6px; background:var(--turquoise);" onclick="addToCart('Té de Lavanda & Toronjil', 4990)">🛒 Agregar al Carrito</button>
-                  <button class="btn-action" style="font-size:10px; padding:4px; background:var(--dark-teal);" onclick="viewProductPoster('Té de Lavanda')">🖼️ Ver Afiche</button>
+                <div style="flex:1;">
+                  <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">Té de Lavanda & Toronjil <span style="font-size:10px; color:var(--green-organic);">✓ Verificado</span></div>
+                  <div style="font-size:11px; color:var(--gray-muted);">Herbolaria San Camilo • 100g</div>
+                  <div style="font-size:13px; font-weight:900; color:var(--turquoise); margin-top:2px;">$4.990</div>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <button class="btn-action" style="padding:4px 8px; font-size:10px;" onclick="addToCart('Té de Lavanda', 4990)">🛒 Comprar</button>
+                  <button class="btn-action" style="padding:4px 8px; font-size:10px; background:var(--green-organic);" onclick="openSingleChat('Herbolaria San Camilo')">💬 WhatsApp</button>
                 </div>
               </div>
 
-              <div style="background:white; padding:12px; border-radius:14px; border:1px solid rgba(51,188,169,0.15); text-align:center; box-shadow:var(--shadow-sm);">
+              <!-- PRODUCTO 2 -->
+              <div style="background:var(--bg-cream); padding:12px; border-radius:12px; border:1px solid rgba(51,188,169,0.2); display:flex; gap:12px; align-items:center;">
                 <div style="font-size:32px;">🍯</div>
-                <div style="font-size:13px; font-weight:800; color:var(--dark-teal); margin-top:4px;">Miel Nativa Multifloral</div>
-                <div style="font-size:11px; color:var(--gray-muted);">Apícola Nativa ✓</div>
-                <div style="font-size:14px; color:var(--turquoise); font-weight:900; margin:4px 0;">$6.500</div>
-                <div style="display:flex; flex-direction:column; gap:4px; margin-top:6px;">
-                  <button class="btn-action" style="font-size:10.5px; padding:6px; background:var(--green-organic);" onclick="window.open('https://wa.me/56987654321?text=Hola,%20quisiera%20comprar%20Miel%20Nativa')">💬 Pedir por WhatsApp</button>
-                  <button class="btn-action" style="font-size:10.5px; padding:6px; background:var(--turquoise);" onclick="addToCart('Miel Nativa Multifloral', 6500)">🛒 Agregar al Carrito</button>
-                  <button class="btn-action" style="font-size:10px; padding:4px; background:var(--dark-teal);" onclick="viewProductPoster('Miel Nativa')">🖼️ Ver Afiche</button>
+                <div style="flex:1;">
+                  <div style="font-size:13px; font-weight:800; color:var(--dark-teal);">Miel Nativa Multifloral <span style="font-size:10px; color:var(--green-organic);">✓ Verificado</span></div>
+                  <div style="font-size:11px; color:var(--gray-muted);">Apícola Nativa • 500g</div>
+                  <div style="font-size:13px; font-weight:900; color:var(--turquoise); margin-top:2px;">$6.500</div>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <button class="btn-action" style="padding:4px 8px; font-size:10px;" onclick="addToCart('Miel Nativa', 6500)">🛒 Comprar</button>
+                  <button class="btn-action" style="padding:4px 8px; font-size:10px; background:var(--green-organic);" onclick="openSingleChat('Apícola Nativa')">💬 WhatsApp</button>
                 </div>
               </div>
 
-            </div>
-          </div>
-
-          <!-- SECCIÓN 2: GENERADOR DE ANUNCIOS & VIDEOS IA PRO -->
-          <div id="shopSectionVideoIA" class="shopping-sheet-section" style="display:none;">
-            <div style="background:linear-gradient(135deg, #075E54 0%, #128C7E 100%); color:white; padding:16px; border-radius:16px; box-shadow:0 4px 15px rgba(7,94,84,0.25);">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:10px; font-weight:800; background:#FFD700; color:#000; padding:2px 8px; border-radius:10px; text-transform:uppercase;">⭐ SERVICIO PRO - $9.990/mes</span>
-                <i data-lucide="sparkles" size="18" color="#FFD700"></i>
-              </div>
-              <div style="font-size:15px; font-weight:800; margin-top:8px;">🎬 Generador de Videos & Guiones IA para PyMEs</div>
-              <div style="font-size:11.5px; opacity:0.9; margin-top:2px;">Crea guiones de video promocionales y bocetos de publicidad para WhatsApp Business.</div>
-
-              <div style="margin-top:12px; background:rgba(255,255,255,0.12); padding:12px; border-radius:12px;">
-                <div class="form-group" style="margin-bottom:8px;">
-                  <label style="font-size:11px; font-weight:700; color:white; margin-bottom:4px; display:block;">Nombre del Producto / Servicio</label>
-                  <input type="text" id="adProductName" placeholder="Ej. Té de Lavanda y Melisa Orgánico" style="width:100%; border:none; padding:8px 12px; border-radius:8px; font-size:12px; outline:none; background:white; color:var(--dark-teal);">
-                </div>
-
-                <div class="form-group" style="margin-bottom:8px;">
-                  <label style="font-size:11px; font-weight:700; color:white; margin-bottom:4px; display:block;">Estilo de Video Promocional</label>
-                  <select id="adVideoStyleSelect" style="width:100%; border:none; padding:8px 12px; border-radius:8px; font-size:12px; outline:none; background:white; color:var(--dark-teal);">
-                    <option value="demo">📹 Demostración de Producto (Uso Real)</option>
-                    <option value="unboxing">📦 Unboxing & Presentación de Empaque</option>
-                    <option value="testimonial">💬 Testimonio & Beneficios de Salud</option>
-                    <option value="offer">⚡ Oferta Flash & Descuento Especial</option>
-                  </select>
-                </div>
-
-                <button class="btn-action" style="background:#FFD700; color:#000; padding:10px; font-size:13px; font-weight:800; width:100%; border-radius:10px; margin-top:8px;" onclick="generateAIVideoScript()">
-                  🎬 GENERAR GUION TÉCNICO DE VIDEO IA
-                </button>
-              </div>
-
-              <div id="aiVideoResultBox" style="display:none; margin-top:12px; background:white; color:var(--dark-teal); padding:12px; border-radius:12px; font-size:12px;">
-                <strong>🎬 Guion de Video IA Pro Generado:</strong>
-                <div id="aiVideoTextResult" style="margin-top:6px; white-space:pre-wrap; background:var(--mint); padding:10px; border-radius:8px; font-family:monospace;"></div>
-                <button class="btn-action" style="margin-top:8px; padding:6px 12px; font-size:11px; background:var(--turquoise);" onclick="triggerAlert('📋 Guion de Video copiado al portapapeles!')">📋 Copiar Guion</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- SECCIÓN 3: AFICHES PROMOCIONALES -->
-          <div id="shopSectionAfiches" class="shopping-sheet-section" style="display:none;">
-            <div style="background:var(--mint); padding:14px; border-radius:14px; border:1px solid rgba(51,188,169,0.2);">
-              <div style="font-size:14px; font-weight:800; color:var(--dark-teal); margin-bottom:8px;">🎨 Afiches Promocionales Generados por IA</div>
-              <p style="font-size:11.5px; color:var(--gray-muted); margin-bottom:12px;">Visualiza los bocetos de afiches listos para compartir en estados de WhatsApp Business.</p>
-
-              <div style="background:white; padding:16px; border-radius:12px; text-align:center; border:2px dashed var(--turquoise);">
-                <div style="font-size:42px;">🌿</div>
-                <div style="font-size:16px; font-weight:900; color:var(--green-organic); margin-top:6px;">TÉ DE LAVANDA & TORONJIL</div>
-                <div style="font-size:12px; color:var(--dark-teal); font-weight:700;">"100% Orgánico • Relajación Natural"</div>
-                <div style="font-size:18px; color:var(--turquoise); font-weight:900; margin-top:8px;">$4.990</div>
-                <button class="btn-action" style="margin-top:10px; padding:8px 16px; font-size:12px; background:var(--green-organic);" onclick="triggerAlert('📥 Descargando Afiche Promocional HD...')">📥 Descargar Afiche HD</button>
-              </div>
             </div>
           </div>
 
         </div>
       </div>
-
-      <!-- TAB 4: MORFEO -->
-      <div class=id="tab-morfeo">
+id="tab-morfeo">
         <div style="padding:16px; display:flex; flex-direction:column; gap:14px;">
           
-          <!-- ARTE VISUAL DEL SISTEMA SOLAR & COSMOS TRANQUILO -->
-          <div style="background:linear-gradient(135deg, #0A1128 0%, #1C2541 50%, #001233 100%); color:white; padding:20px; border-radius:22px; text-align:center; box-shadow:0 10px 30px rgba(10,17,40,0.5); position:relative; overflow:hidden;">
+          <!-- ARTE VISUAL DEL SISTEMA SOLAR & COSMOS NOCTURNO (FONDO OSCURO AMENO Y RELAJANTE) -->
+          <div style="background:linear-gradient(135deg, #0A1128 0%, #1C2541 50%, #001233 100%); color:#E2E8F0; padding:22px; border-radius:22px; text-align:center; box-shadow:0 10px 30px rgba(10,17,40,0.5); position:relative; overflow:hidden;">
             
             <!-- Órbitas Estelares & Sistema Solar Ilustrado -->
             <div style="width:120px; height:120px; border-radius:50%; border:1px dashed rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; margin:0 auto; position:relative;">
@@ -1326,78 +1441,117 @@
               <div style="position:absolute; bottom:14px; left:14px; width:18px; height:18px; border-radius:50%; background:#E0A96D; box-shadow:0 0 8px #E0A96D;"></div>
             </div>
 
-            <div style="font-size:18px; font-weight:800; margin-top:12px; font-family:var(--font-heading); color:#E2E8F0;">🌌 Morfeo • Armonía del Cosmos & 432Hz</div>
-            <div style="font-size:11.5px; opacity:0.85; margin-top:4px; color:#94A3B8;">Sonidos Ambientales del Sistema Solar & Música Orgánica para Sueño Profundo</div>
+            <div style="font-size:19px; font-weight:800; margin-top:14px; font-family:var(--font-heading); color:#E2E8F0;">🌌 Morfeo • Armonía del Cosmos & 432Hz</div>
+            <div style="font-size:12px; opacity:0.85; margin-top:4px; color:#94A3B8;">Sistema Solar & Sonidos Ambientales para Inducción al Sueño Profundo</div>
 
-            <div style="display:flex; justify-content:center; gap:10px; margin-top:16px;">
-              <button onclick="startCosmos432Sound()" style="background:var(--turquoise); color:white; border:none; padding:10px 20px; border-radius:20px; font-size:12.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(46,196,182,0.3);">
-                <i data-lucide="play" size="16"></i> Reproducir Cosmos 432Hz
+            <!-- BIBLIOTECA DE SONIDOS DE RELAJACIÓN -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px;">
+              <button onclick="playSoundMorfeo('ballenas')" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); padding:10px; border-radius:12px; font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                🐋 Ballenas Marinas
               </button>
+              <button onclick="playSoundMorfeo('cuenco')" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); padding:10px; border-radius:12px; font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                🔔 Cuenco Tibetano 432Hz
+              </button>
+              <button onclick="playSoundMorfeo('celta')" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); padding:10px; border-radius:12px; font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                🍀 Música Celta
+              </button>
+              <button onclick="playSoundMorfeo('cosmos')" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); padding:10px; border-radius:12px; font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                🌌 Lluvia Estelar
+              </button>
+            </div>
+
+            <div style="display:flex; justify-content:center; gap:10px; margin-top:14px;">
               <button onclick="openSpotifyPlaylist()" style="background:#1DB954; color:white; border:none; padding:10px 18px; border-radius:20px; font-size:12.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px;">
                 <i data-lucide="music" size="16"></i> Spotify Official
               </button>
+              <button onclick="downloadSleepAudioSession()" style="background:transparent; color:#38BDF8; border:1px solid #38BDF8; padding:10px 16px; border-radius:20px; font-size:11.5px; font-weight:700; cursor:pointer;">
+                📥 Descargar Offline
+              </button>
             </div>
-
-            <button onclick="downloadSleepAudioSession()" style="margin-top:12px; background:transparent; color:#38BDF8; border:1px solid #38BDF8; padding:8px 16px; border-radius:18px; font-size:11px; font-weight:700; cursor:pointer;">
-              📥 Descargar Sesión de Audio para Escuchar Offline
-            </button>
           </div>
 
-          <!-- Terapia de Respiración Nocturna (Técnica 4-7-8) -->
+          <!-- PLAN DE MORFEO (RUTINA NOCTURNA DE SUEÑO PASO A PASO) -->
+          <div class="wellness-card">
+            <div class="wellness-title"><i data-lucide="list-checks" size="18"></i> Plan de Morfeo (Rutina Nocturna Paso a Paso)</div>
+            
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="background:#0F172A; padding:10px; border-radius:10px; border-left:3px solid #38BDF8;">
+                <div style="font-size:12px; font-weight:800; color:#38BDF8;">📱 22:00 PM - Desconexión de Pantallas & Luz Azul</div>
+                <div style="font-size:10.5px; color:#94A3B8;">Activa el filtro nocturno y reduce estímulos visuales.</div>
+              </div>
+
+              <div style="background:#0F172A; padding:10px; border-radius:10px; border-left:3px solid #4ADE80;">
+                <div style="font-size:12px; font-weight:800; color:#4ADE80;">🍵 22:15 PM - Infusión Herbolaria Calmante</div>
+                <div style="font-size:10.5px; color:#94A3B8;">Taza tibia de Melisa, Valeriana o Lavanda.</div>
+              </div>
+
+              <div style="background:#0F172A; padding:10px; border-radius:10px; border-left:3px solid #FACC15;">
+                <div style="font-size:12px; font-weight:800; color:#FACC15;">🌬️ 22:30 PM - Respiración Nocturna 4-7-8</div>
+                <div style="font-size:10.5px; color:#94A3B8;">5 minutos de ciclo respiratorio para calmar el ritmo cardíaco.</div>
+              </div>
+
+              <div style="background:#0F172A; padding:10px; border-radius:10px; border-left:3px solid #A855F7;">
+                <div style="font-size:12px; font-weight:800; color:#A855F7;">🌌 22:45 PM - Frecuencia 432Hz o Canto de Ballenas</div>
+                <div style="font-size:10.5px; color:#94A3B8;">Inicia el sonido ambiental y descansa.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ASISTENTE DE CONSEJOS MORFEO IA (NUEVO) -->
+          <div class="wellness-card">
+            <div class="wellness-title"><i data-lucide="sparkles" size="18"></i> Asistente de Consejos de Morfeo IA</div>
+            <p style="font-size:11.5px; color:#94A3B8;">¿Qué dificultad tienes para dormir hoy? Morfeo IA te entregará un consejo personalizado instantáneo.</p>
+
+            <div class="form-group" style="margin-top:8px;">
+              <select id="morfeoProblemSelect" class="form-select" style="font-size:12px;">
+                <option value="dificultad">💤 Dificultad para conciliar el sueño (Insomnio)</option>
+                <option value="despertar">🌙 Despertar a medianoche / Sueño liviano</option>
+                <option value="ansiedad">🧠 Rumiación de pensamientos / Ansiedad nocturna</option>
+                <option value="cansancio">🥱 Cansancio físico sin poder descansar</option>
+              </select>
+            </div>
+
+            <button class="btn-action" style="background:#38BDF8; color:#000; font-weight:800; width:100%; margin-top:8px;" onclick="askMorfeoAICounsel()">
+              🤖 PEDIR CONSEJO A MORFEO IA
+            </button>
+
+            <div id="morfeoAiCounselBox" style="display:none; margin-top:10px; background:#0F172A; padding:12px; border-radius:10px; border-left:3px solid #38BDF8;">
+              <div id="morfeoAiCounselText" style="font-size:12px; color:#F8FAFC; line-height:1.5;"></div>
+            </div>
+          </div>
+
+          <!-- TERAPIA DE RESPIRACIÓN NOCTURNA (TÉCNICA 4-7-8) -->
           <div class="wellness-card">
             <div class="wellness-title"><i data-lucide="wind" size="18"></i> Guía de Respiración Nocturna (Técnica 4-7-8)</div>
-            <p style="font-size:11.5px; color:var(--gray-muted);">La técnica 4-7-8 relaja el sistema nervioso central e induce el sueño en menos de 5 minutos.</p>
+            <p style="font-size:11.5px; color:#94A3B8;">La técnica 4-7-8 relaja el sistema nervioso central e induce el sueño en menos de 5 minutos.</p>
 
-            <button class="btn-action" style="background:var(--dark-teal); margin-top:8px;" onclick="startBreathingExercise()">
+            <button class="btn-action" style="background:#2C7A7B; margin-top:8px; color:white;" onclick="startBreathingExercise()">
               <i data-lucide="activity" size="16"></i> 🌬️ Iniciar Guía de Respiración
             </button>
 
-            <div id="breathingBox" style="display:none; margin-top:10px; background:var(--mint); padding:12px; border-radius:12px; text-align:center;">
-              <div id="breathingStatusText" style="font-size:15px; font-weight:800; color:var(--dark-teal);">Prepárate...</div>
+            <div id="breathingBox" style="display:none; margin-top:10px; background:#0F172A; padding:12px; border-radius:12px; text-align:center;">
+              <div id="breathingStatusText" style="font-size:15px; font-weight:800; color:#38BDF8;">Prepárate...</div>
             </div>
           </div>
 
-          <!-- Cuentos & Historias Nocturnas del Cosmos -->
-          <div class="wellness-card">
-            <div class="wellness-title"><i data-lucide="book-open" size="18"></i> Cuentos Nocturnos del Universo & Naturaleza</div>
-            
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <div style="background:var(--bg-cream); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
-                <div>
-                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">✨ Viaje Estelar por las Constelaciones</div>
-                  <div style="font-size:10.5px; color:var(--gray-muted);">15 min | Narración en Voz Suave</div>
-                </div>
-                <button class="btn-action" style="padding:4px 10px; font-size:10px; width:auto;" onclick="triggerAlert('📖 Reproduciendo Cuento: Viaje Estelar por las Constelaciones...')">▶ Escuchar</button>
-              </div>
-
-              <div style="background:var(--bg-cream); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
-                <div>
-                  <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🌲 Noche Estrellada en el Bosque Nativo</div>
-                  <div style="font-size:10.5px; color:var(--gray-muted);">20 min | Sonidos de Viento & Fuego</div>
-                </div>
-                <button class="btn-action" style="padding:4px 10px; font-size:10px; width:auto;" onclick="triggerAlert('📖 Reproduciendo Cuento: Noche Estrellada en el Bosque Nativo...')">▶ Escuchar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Guía de Infusiones & Hierbas Naturales para Dormir -->
+          <!-- GUÍA DE INFUSIONES & HIERBAS NATURALES PARA DORMIR -->
           <div class="wellness-card">
             <div class="wellness-title"><i data-lucide="coffee" size="18"></i> Guía de Infusiones & Herbolaria para el Insomnio</div>
             
             <div style="display:flex; flex-direction:column; gap:8px;">
-              <div style="background:var(--bg-cream); padding:8px 12px; border-radius:10px; border-left:3px solid var(--turquoise);">
-                <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🍵 Manzanilla & Miel Orgánica</div>
-                <div style="font-size:10.5px; color:var(--gray-muted);">Calmante nervioso y digestivo suave. Tomar 30 min antes de acostarse.</div>
+              <div style="background:#0F172A; padding:8px 12px; border-radius:10px; border-left:3px solid #38BDF8;">
+                <div style="font-size:12px; font-weight:800; color:#38BDF8;">🍵 Manzanilla & Miel Orgánica</div>
+                <div style="font-size:10.5px; color:#94A3B8;">Calmante nervioso y digestivo suave. Tomar 30 min antes de acostarse.</div>
               </div>
 
-              <div style="background:var(--bg-cream); padding:8px 12px; border-radius:10px; border-left:3px solid var(--green-organic);">
-                <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🌸 Lavanda & Toronjil</div>
-                <div style="font-size:10.5px; color:var(--gray-muted);">Reduce el ritmo cardíaco y relaja la tensión muscular acumulada.</div>
+              <div style="background:#0F172A; padding:8px 12px; border-radius:10px; border-left:3px solid #4ADE80;">
+                <div style="font-size:12px; font-weight:800; color:#4ADE80;">🌸 Lavanda & Toronjil</div>
+                <div style="font-size:10.5px; color:#94A3B8;">Reduce el ritmo cardíaco y relaja la tensión muscular acumulada.</div>
               </div>
 
-              <div style="background:var(--bg-cream); padding:8px 12px; border-radius:10px; border-left:3px solid #8338EC;">
-                <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🌿 Melisa, Valeriana & Pasiflora</div>
-                <div style="font-size:10.5px; color:var(--gray-muted);">Sedante natural potente para insomnio severo. Infusión de 5 min a 90°C.</div>
+              <div style="background:#0F172A; padding:8px 12px; border-radius:10px; border-left:3px solid #A855F7;">
+                <div style="font-size:12px; font-weight:800; color:#A855F7;">🌿 Melisa, Valeriana & Pasiflora</div>
+                <div style="font-size:10.5px; color:#94A3B8;">Sedante natural potente para insomnio severo. Infusión de 5 min a 90°C.</div>
               </div>
             </div>
           </div>
@@ -1405,9 +1559,71 @@
         </div>
       </div>
 
+    <!-- MODAL 1: CÓDIGO QR Y ENLACE DE NEGOCIO -->
+    <div class="clip-modal-overlay" id="qrLinkModal" onclick="if(event.target===this) document.getElementById('qrLinkModal').classList.remove('active')">
+      <div class="clip-modal-card" style="padding:20px; border-radius:18px;">
+        <div style="display:flex; justify-content:space-between; align-align:center; margin-bottom:12px;">
+          <span style="font-size:14px; font-weight:800; color:var(--dark-teal);">🔗 Enlace Directo con Código QR</span>
+          <button style="background:none; border:none; cursor:pointer;" onclick="document.getElementById('qrLinkModal').classList.remove('active')"><i data-lucide="x" size="18"></i></button>
+        </div>
+        <p style="font-size:11.5px; color:var(--gray-muted); margin-bottom:12px;">Selecciona el destino del código QR de tu tienda virtual:</p>
+
+        <div style="text-align:center; background:var(--mint); padding:16px; border-radius:14px; margin-bottom:12px;">
+          <!-- SVG QR CODE SIMULADO -->
+          <svg width="120" height="120" viewBox="0 0 100 100" fill="none" style="background:white; padding:8px; border-radius:8px;">
+            <rect width="100" height="100" fill="white"/>
+            <path d="M0 0h30v30H0zM10 10h10v10H10zM70 0h30v30H70zM80 10h10v10H80zM0 70h30v30H0zM10 80h10v10H10z" fill="#075E54"/>
+            <path d="M40 10h20v10H40zM40 40h20v20H40zM10 40h20v20H10zM70 40h20v10H70zM40 70h10v20H40zM60 70h30v10H60zM80 80h10v20H80z" fill="#128C7E"/>
+          </svg>
+          <div style="font-size:11px; font-weight:800; color:var(--dark-teal); margin-top:8px;">QR Oficial WhatsApp Business</div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <button class="btn-action" style="font-size:11.5px; padding:8px; background:var(--green-organic);" onclick="copyQRLink('whatsapp')">💬 Compartir a WhatsApp Directo</button>
+          <button class="btn-action" style="font-size:11.5px; padding:8px; background:var(--turquoise);" onclick="copyQRLink('socials')">🌐 Compartir a Redes Sociales (Instagram / FB)</button>
+          <button class="btn-action" style="font-size:11.5px; padding:8px; background:var(--dark-teal);" onclick="copyQRLink('email')">📧 Compartir por Correo Electrónico</button>
+          <button class="btn-action" style="font-size:11.5px; padding:8px; background:#FF9F1C;" onclick="copyQRLink('phone')">📱 Compartir Número Telefónico</button>
+        </div>
+      </div>
     </div>
 
-    <div class="single-chat-view" id="singleChatView">
+    <!-- MODAL 2: INTEGRACIÓN MEDIOS DE PAGO -->
+    <div class="clip-modal-overlay" id="paymentIntegrationModal" onclick="if(event.target===this) document.getElementById('paymentIntegrationModal').classList.remove('active')">
+      <div class="clip-modal-card" style="padding:20px; border-radius:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:14px; font-weight:800; color:var(--dark-teal);">💳 Pasarela & Medios de Pago</span>
+          <button style="background:none; border:none; cursor:pointer;" onclick="document.getElementById('paymentIntegrationModal').classList.remove('active')"><i data-lucide="x" size="18"></i></button>
+        </div>
+        <p style="font-size:11.5px; color:var(--gray-muted); margin-bottom:12px;">Configura cómo deseas recibir los pagos de tus clientes:</p>
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="background:var(--mint); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🇨🇱 Webpay / Transbank</div>
+              <div style="font-size:10px; color:var(--gray-muted);">Tarjetas de Débito y Crédito</div>
+            </div>
+            <button class="btn-action" style="padding:4px 8px; font-size:10px;" onclick="triggerAlert('✅ Pasarela Webpay vinculada con éxito.')">Conectar</button>
+          </div>
+
+          <div style="background:var(--mint); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🌐 Mercado Pago</div>
+              <div style="font-size:10px; color:var(--gray-muted);">Cobro con Enlace & QR</div>
+            </div>
+            <button class="btn-action" style="padding:4px 8px; font-size:10px;" onclick="triggerAlert('✅ Pasarela Mercado Pago vinculada con éxito.')">Conectar</button>
+          </div>
+
+          <div style="background:var(--mint); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-size:12px; font-weight:800; color:var(--dark-teal);">🏛️ Transferencia Bancaria Directa</div>
+              <div style="font-size:10px; color:var(--gray-muted);">Datos de Cuenta Rut / Corriente</div>
+            </div>
+            <button class="btn-action" style="padding:4px 8px; font-size:10px;" onclick="triggerAlert('✅ Datos de transferencia configurados.')">Editar Datos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+id="singleChatView">
       <div class="chat-header-bar">
         <div style="display:flex; align-items:center; gap:8px;">
           <button class="icon-btn" style="width:32px; height:32px;" onclick="closeSingleChat()" title="Volver">
@@ -1750,7 +1966,6 @@
           </div>
         </div>
       </div>
-    </div>
 
     <div class="location-picker-overlay" id="locationPickerOverlay" onclick="if(event.target===this) toggleLocationPicker()">
       <div class="clip-modal-card">
@@ -1971,8 +2186,6 @@
       <button class="nav-item" onclick="switchTab('shopping', this)"><i data-lucide="shopping-bag" size="19"></i><span>Shopping</span></button>
       <button class="nav-item" onclick="switchTab('morfeo', this)"><i data-lucide="moon" size="19"></i><span>Morfeo</span></button>
     </div>
-
-  </div>
 
   <script>
     const BIENESTAR_LOGO = "data:image/png;base64,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";
@@ -2623,7 +2836,7 @@
     }
 
     function updateStepGoal(val) {
-      var goalText = document.getElementById('stepGoalText');
+      var goalText = document.getElementById('stepGoalDisplay');
       if (goalText) goalText.innerText = 'de ' + parseInt(val).toLocaleString() + ' Pasos Meta';
       triggerAlert('🎯 Meta diaria ajustada a ' + parseInt(val).toLocaleString() + ' pasos.');
     }
@@ -2651,7 +2864,7 @@
     }
 
     function updateDailyRoutineTimeline(val) {
-      var timeDisplay = document.getElementById('routineTimeValText');
+      var timeDisplay = document.getElementById('scheduleHourBadge');
       var hour = parseInt(val);
       var timeStr = (hour < 10 ? '0' + hour : hour) + ':00 ' + (hour >= 12 ? 'PM' : 'AM');
       if (timeDisplay) timeDisplay.innerText = timeStr;
@@ -2712,26 +2925,242 @@
     }
 
     function switchShoppingSubTab(tabId, btn) {
-      document.querySelectorAll('.shopping-sheet-section').forEach(function(sec) { sec.style.display = 'none'; });
-      document.querySelectorAll('.shopping-subtab-btn').forEach(function(b) {
-        b.style.background = 'transparent';
-        b.style.color = 'var(--dark-teal)';
-      });
-
       if (tabId === 'catalog') {
-        var el = document.getElementById('shopSectionCatalog');
-        if (el) el.style.display = 'block';
+        openBusinessCatalog();
       } else if (tabId === 'video_ia') {
-        var el = document.getElementById('shopSectionVideoIA');
-        if (el) el.style.display = 'block';
+        var box = document.getElementById('aiVideoResultBox');
+        if (box) box.scrollIntoView({ behavior: 'smooth' });
+        triggerAlert('🤖 Módulo Agente IA Videoclip & Marketing Pro activo.');
       } else if (tabId === 'afiches') {
-        var el = document.getElementById('shopSectionAfiches');
-        if (el) el.style.display = 'block';
+        triggerAlert('🎨 Abriendo galería de afiches promocionales...');
+      }
+    }
+
+    function generateAIAdPro() {
+      var prodName = document.getElementById('adProductName').value;
+      var tone = (document.getElementById('adVideoStyleSelect') || document.getElementById('adVideoStyleSelect')).value;
+      var resultDiv = (document.getElementById('aiVideoResultBox') || document.getElementById('aiVideoResultBox'));
+      var textEl = (document.getElementById('aiVideoTextResult') || document.getElementById('aiVideoTextResult'));
+
+      if (!prodName || prodName.trim() === '') {
+        alert('Por favor ingresa el nombre de tu producto o servicio.');
+        return;
       }
 
-      if (btn) {
-        btn.style.background = 'var(--turquoise)';
-        btn.style.color = 'white';
+      var name = prodName.trim();
+      var templates = {
+        persuasive: "🌟 ¡Descubre " + name + "! La solución natural y saludable que eras buscando para transformar tu día. 🌿 Compra hoy con envío rápido por WhatsApp Business. 📱 ¡Pide el tuyo aquí!",
+        professional: "📋 Presentamos " + name + " de BIENESTAR Shopping. Producto verificado de alta calidad y origen orgánico. Consulta nuestro catálogo completo y agenda tu pedido profesional.",
+        friendly: "¡Hola! 🌿 Queremos recomendarte " + name + ", nuestro producto favorito para cuidar de ti y de tu familia. ¡Escríbenos por WhatsApp y te orientamos con mucho cariño! ❤️",
+        offer: "⚡ ¡OFERTA FLASH EN SHOPPING! ⚡ Consigue " + name + " a precio especial por tiempo limitado. 🎁 Incluye despacho rápido. ¡Haz tu pedido ahora antes que se agote!"
+      };
+
+      var text = templates[tone] || templates.persuasive;
+      if (textEl) textEl.innerText = text;
+      if (resultDiv) resultDiv.style.display = 'block';
+      alert('🤖 Anuncio generado con éxito por la IA Pro de BIENESTAR.');
+    }
+
+    function copyAIAdText() {
+      var textEl = (document.getElementById('aiVideoTextResult') || document.getElementById('aiVideoTextResult'));
+      if (textEl) {
+        var str = textEl.innerText;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(str).then(function() {
+            alert('📋 ¡Anuncio copiado al portapapeles! Listo para compartir.');
+          }).catch(function() {
+            alert('📋 Copiado: ' + str.substring(0, 30) + '...');
+          });
+        } else {
+          alert('📋 Anuncio: ' + str);
+        }
+      }
+    }
+
+    function startBreathingExercise() {
+      var box = document.getElementById('breathingBox');
+      var statusEl = document.getElementById('breathingStatusText');
+      if (!box || !statusEl) return;
+
+      box.style.display = 'block';
+      var phase = 0; // 0: inhale 4s, 1: hold 7s, 2: exhale 8s
+      var count = 4;
+
+      if (breathingTimer) clearInterval(breathingTimer);
+
+      function updatePhase() {
+        if (phase === 0) {
+          statusEl.innerText = '🌬️ INHALA SUAVEMENTE (' + count + 's)';
+          statusEl.style.color = 'var(--turquoise)';
+          count--;
+          if (count < 0) { phase = 1; count = 7; }
+        } else if (phase === 1) {
+          statusEl.innerText = '⏸️ MANTÉN EL AIRE (' + count + 's)';
+          statusEl.style.color = '#FF9F1C';
+          count--;
+          if (count < 0) { phase = 2; count = 8; }
+        } else if (phase === 2) {
+          statusEl.innerText = '💨 EXHALA LENTAMENTE (' + count + 's)';
+          statusEl.style.color = 'var(--green-organic)';
+          count--;
+          if (count < 0) { phase = 0; count = 4; }
+        }
+      }
+
+      updatePhase();
+      breathingTimer = setInterval(updatePhase, 1000);
+    }
+
+    function openSpotifyPlaylist() {
+      window.open('https://open.spotify.com/search/meditacion%20432hz', '_blank');
+      alert('🟢 Abriendo Playlist Oficial de Meditación & Sueño en Spotify...');
+    }
+
+    function downloadSleepAudioSession() {
+      var content = "BIENESTAR Morfeo 432Hz - Sesión de Audio para Sueño Profundo\n\nFrecuencia: 432Hz Orgánica Calmante\nDuración: 45 Minutos\nGenerado el: " + new Date().toLocaleString() + "\n\n¡Buenas noches y feliz descanso!";
+      var blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "Morfeo_Sesion_Sueño_432Hz.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert('📥 Sesión de audio descargada con éxito para escuchar offline.');
+    }
+
+  
+    function switchWellnessSubTab(sheetId, btn) {
+      document.querySelectorAll('.wellness-sheet').forEach(function(s) { s.classList.remove('active'); });
+      document.querySelectorAll('.wellness-subnav-btn').forEach(function(b) { b.classList.remove('active'); });
+      
+      var sheet = document.getElementById('sheet-' + sheetId);
+      if (sheet) sheet.classList.add('active');
+      if (btn) btn.classList.add('active');
+      if (window.lucide) lucide.createIcons();
+    }
+
+
+    // --- ENHANCEMENTS V37 WELLNESS, SHOPPING & MORFEO ---
+    function playWaterSoundTest() {
+      var select = document.getElementById('waterSoundSelect');
+      var toneName = select ? select.options[select.selectedIndex].text : "Burbujas de Agua";
+      try {
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(432, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(528, audioCtx.currentTime + 0.5);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+      } catch(e) {}
+      triggerAlert('🔊 Probando sonido de alarma: ' + toneName);
+    }
+
+    function updateStepGoal(val) {
+      var goalText = document.getElementById('stepGoalDisplay');
+      if (goalText) goalText.innerText = 'de ' + parseInt(val).toLocaleString() + ' Pasos Meta';
+      triggerAlert('🎯 Meta diaria ajustada a ' + parseInt(val).toLocaleString() + ' pasos.');
+    }
+
+    function saveWeightEntry() {
+      var valInput = document.getElementById('currentWeightInput');
+      if (!valInput || !valInput.value) { alert('Por favor ingresa tu peso actual.'); return; }
+      var weight = parseFloat(valInput.value).toFixed(1);
+      document.getElementById('currentWeightDisplay').innerText = weight + ' kg';
+      var diff = (weight - 68.0).toFixed(1);
+      document.getElementById('weightDiffDisplay').innerText = (diff > 0 ? '+' : '') + diff + ' kg';
+      
+      var tableBody = document.getElementById('weightHistoryTableBody');
+      if (tableBody) {
+        var newRow = document.createElement('tr');
+        newRow.style.borderBottom = '1px solid var(--mint)';
+        newRow.innerHTML = '<td style="padding:8px 10px; font-weight:700;">Hoy</td>' +
+          '<td style="padding:8px 10px;">' + weight + ' kg</td>' +
+          '<td style="padding:8px 10px; color:var(--green-organic); font-weight:800;">-0.3 kg</td>' +
+          '<td style="padding:8px 10px;"><span style="background:var(--mint); color:var(--green-organic); padding:2px 6px; border-radius:6px; font-size:10px; font-weight:800;">🟢 En Baja</span></td>';
+        tableBody.insertBefore(newRow, tableBody.firstChild);
+      }
+      alert('⚖️ Peso de ' + weight + ' kg registrado en la tabla de evolución.');
+      valInput.value = '';
+    }
+
+    function updateDailyRoutineTimeline(val) {
+      var timeDisplay = document.getElementById('scheduleHourBadge');
+      var hour = parseInt(val);
+      var timeStr = (hour < 10 ? '0' + hour : hour) + ':00 ' + (hour >= 12 ? 'PM' : 'AM');
+      if (timeDisplay) timeDisplay.innerText = timeStr;
+    }
+
+    function startWorkoutLiveCall(workoutName) {
+      startCallActiveChat('video');
+      triggerAlert('📹 Conectando a sesión en vivo de ' + workoutName + ' por videollamada HD...');
+    }
+
+    function downloadWorkoutGuide(workoutSlug) {
+      var fname = "Guia_Ejercicios_" + workoutSlug + ".pdf";
+      var content = "BIENESTAR App - Guía de Ejercicios en Casa\n\nRutina: " + workoutSlug + "\nInstrucciones:\n1. Calentamiento suave 3 min.\n2. Ejecución de series graduadas.\n3. Hidratación constante.\n4. Estiramiento final.\n\n¡Mantén el hábito diario!";
+      var blob = new Blob([content], { type: "application/pdf" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = fname;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert("📥 Guía de entrenamiento " + fname + " descargada con éxito.");
+    }
+
+    function linkSpotifyToAppointmentAlarm() {
+      triggerAlert('🟢 Alarma de Cita Médica vinculada con tu Playlist favorita de Spotify!');
+    }
+
+    function generateAIVideoScript() {
+      var pName = document.getElementById('adProductName').value || "Té de Lavanda y Melisa Orgánico";
+      var style = document.getElementById('adVideoStyleSelect').value;
+
+      var script = "🎬 GUION TÉCNICO DE VIDEO PROMONICIONAL IA\n" +
+        "Producto: " + pName + "\n" +
+        "Estilo: " + style.toUpperCase() + "\n\n" +
+        "ESCENA 1 (0-3s): [Primer Plano] Muestra el producto " + pName + " con iluminación suave.\n" +
+        "TEXTO EN PANTALLA: '¿Buscas calidad y salud nativa?'\n\n" +
+        "ESCENA 2 (3-10s): [Demostración] Muestra el empaque y uso del producto en acción.\n" +
+        "LOCUCIÓN: 'Descubre los beneficios de " + pName + ". Calidad garantizada para tu bienestar.'\n\n" +
+        "ESCENA 3 (10-15s): [Llamado a la Acción]\n" +
+        "TEXTO: '💬 Haz tu pedido directo por WhatsApp Business!'";
+
+      var box = document.getElementById('aiVideoResultBox');
+      var txt = document.getElementById('aiVideoTextResult');
+      if (txt) txt.innerText = script;
+      if (box) box.style.display = 'block';
+    }
+
+    function openBusinessCatalog() {
+      switchShoppingSubTab('catalog');
+      triggerAlert('📦 Abriendo mi Catálogo Oficial WhatsApp Business...');
+    }
+
+    function viewProductPoster(productName) {
+      switchShoppingSubTab('afiches');
+      triggerAlert('🎨 Visualizando afiche promocional de ' + productName);
+    }
+
+    function switchShoppingSubTab(tabId, btn) {
+      if (tabId === 'catalog') {
+        openBusinessCatalog();
+      } else if (tabId === 'video_ia') {
+        var box = document.getElementById('aiVideoResultBox');
+        if (box) box.scrollIntoView({ behavior: 'smooth' });
+        triggerAlert('🤖 Módulo Agente IA Videoclip & Marketing Pro activo.');
+      } else if (tabId === 'afiches') {
+        triggerAlert('🎨 Abriendo galería de afiches promocionales...');
       }
     }
 
