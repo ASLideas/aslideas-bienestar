@@ -199,6 +199,51 @@
                     </div>
 
                     <!-- Fila deslizable libre de círculos o contornos con drag suave y rueda de ratón (NUNCA QUEDA ESTÁTICO) -->
+
+                <!-- ESCALA DE REGULACIÓN EMOCIONAL EN SECCIÓN AMIGOS (SLIDER DESLIZABLE) -->
+                <div class="px-4 py-2.5 bg-[#E0F7F4]/40 border-b border-[#33BCA9]/20">
+                    <div class="bg-white/95 backdrop-blur-md rounded-2xl p-3 shadow-xs border border-[#33BCA9]/25 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 bg-[#E0F7F4] text-[#2C7A7B] rounded-xl flex items-center justify-center font-bold shadow-2xs">
+                                    <i data-lucide="sliders" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-wide flex items-center gap-1.5">
+                                        Escala Emocional <span class="text-[8.5px] bg-teal-100 text-[#2C7A7B] px-1.5 py-0.2 rounded font-extrabold">Amigos</span>
+                                    </h3>
+                                    <p class="text-[8.5px] text-slate-500 font-medium">Desliza para compartir tu estado con la comunidad</p>
+                                </div>
+                            </div>
+                            <span id="chat-emotion-level-badge" class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[9.5px] font-black uppercase shadow-2xs">
+                                Nivel 2 • Calma Total
+                            </span>
+                        </div>
+
+                        <!-- Barra de Rango Deslizable (Range Slider sin números estáticos) -->
+                        <div class="space-y-1 pt-1">
+                            <div class="flex justify-between text-[8px] font-black text-slate-400 uppercase tracking-wider px-1">
+                                <span class="text-emerald-600 font-bold">1 • Calma</span>
+                                <span class="text-teal-600 font-bold">4 • Equilibrio</span>
+                                <span class="text-amber-600 font-bold">7 • Tensión</span>
+                                <span class="text-red-600 font-bold">10 • Crisis</span>
+                            </div>
+                            <input type="range" id="chat-emotion-range-slider" min="1" max="10" value="2" oninput="updateChatEmotionSlider(this.value)" class="w-full h-2 bg-gradient-to-r from-emerald-400 via-teal-400 via-amber-400 to-red-500 rounded-lg appearance-none cursor-pointer accent-[#2C7A7B]">
+                        </div>
+
+                        <!-- Indicación personalizada dinámica -->
+                        <div id="chat-emotion-info-box" class="bg-[#E0F7F4]/60 border border-[#33BCA9]/30 rounded-xl p-2 text-[10.5px] text-slate-700 flex justify-between items-center">
+                            <div class="flex items-center gap-1.5 font-semibold text-[#2C7A7B]">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#33BCA9]"></i>
+                                <span id="chat-emotion-rec-text">Estado verde: Calma y claridad mental. Ideal para pausas activas.</span>
+                            </div>
+                            <span class="text-[8px] bg-white text-[#2C7A7B] px-2 py-0.5 rounded-full font-extrabold border border-[#33BCA9]/30 shrink-0">
+                                Compartido 🟢
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
                     <div id="chat-filter-scroll-container" class="w-full overflow-x-auto whitespace-nowrap no-scrollbar scroll-smooth select-none">
                         <div class="px-6 py-2.5 flex gap-7 w-max items-center">
                             <button id="filter-btn-todos" onclick="switchChatFilter('todos', this)" class="chat-filter-btn text-[#2C7A7B] text-[13px] font-black transition relative shrink-0">
@@ -7831,7 +7876,9 @@ Te enviaremos los detalles de entrega por chat.`);
                     closeAppDownloadModal();
                 });
             } else {
-                alert('📱 ¡App Bienestar Lista! Para agregar a tu pantalla de inicio:\n- En iPhone (Safari): Toca "Compartir" -> "Agregar a inicio"\n- En Android (Chrome): Toca los 3 puntos -> "Instalar Aplicación"');
+                alert(`📱 ¡App Bienestar Lista! Para agregar a tu pantalla de inicio:
+• En iPhone (Safari): Toca Compartir y luego Agregar a inicio
+• En Android (Chrome): Toca los 3 puntos y luego Instalar Aplicación`);
                 closeAppDownloadModal();
             }
         }
