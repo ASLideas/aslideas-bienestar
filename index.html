@@ -200,60 +200,50 @@
 
                     <!-- Fila deslizable libre de círculos o contornos con drag suave y rueda de ratón (NUNCA QUEDA ESTÁTICO) -->
 
-                <!-- ESCALA DE REGULACIÓN EMOCIONAL emocional EN SECCIÓN AMIGOS / CONTACTOS -->
-                <!-- ESCALA DE REGULACIÓN EMOCIONAL ARCOÍRIS EN SECCIÓN AMIGOS -->
+                <!-- ESCALA DE REGULACIÓN EMOCIONAL EN SECCIÓN AMIGOS (SÓLO BARRA DESLIZABLE SIN NÚMEROS) -->
                 <div class="px-4 py-2.5 bg-[#E0F7F4]/40 border-b border-[#33BCA9]/20">
-                    <div class="bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-xs border border-[#33BCA9]/25 space-y-2.5">
+                    <div class="bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-xs border border-[#33BCA9]/25 space-y-3">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-2">
                                 <div class="w-8 h-8 bg-[#E0F7F4] text-[#2C7A7B] rounded-xl flex items-center justify-center font-bold shadow-2xs">
                                     <i data-lucide="sliders" class="w-4 h-4 text-[#2C7A7B]"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-wide flex items-center gap-1.5">
-                                        Escala de Regulación Emocional <span class="text-[8.5px] bg-[#E0F7F4] text-[#2C7A7B] px-1.5 py-0.2 rounded font-extrabold">1 al 10</span>
+                                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-wide">
+                                        Escala de Regulación Emocional
                                     </h3>
-                                    <p class="text-[8.5px] text-slate-500 font-medium">Mide tu tensión emocional para sugerir tu tratamiento integrativo</p>
+                                    <p class="text-[8.5px] text-slate-500 font-medium">Desliza la barra para compartir tu estado emocional con tus contactos</p>
                                 </div>
                             </div>
-                            <span id="chat-emotion-level-badge" class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[9.5px] font-black uppercase shadow-2xs">
-                                Nivel 2 • Calma
+                            <span id="chat-emotion-level-badge" class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-black uppercase shadow-2xs">
+                                Calma y Equilibrio 🟢
                             </span>
                         </div>
 
-                        <!-- Grilla Arcoíris de 10 Botones Numerados (Foto 20.41.56) -->
-                        <div class="grid grid-cols-10 gap-1 text-center font-black text-xs py-1 select-none">
-                            <button type="button" onclick="updateChatEmotionSlider(1)" class="chat-emotion-btn py-2 rounded-lg bg-emerald-500 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="1 - Calma Total">1</button>
-                            <button type="button" onclick="updateChatEmotionSlider(2)" class="chat-emotion-btn py-2 rounded-lg bg-emerald-400 text-white hover:opacity-90 transition active:scale-95 shadow-2xs ring-2 ring-slate-800" title="2 - Equilibrio">2</button>
-                            <button type="button" onclick="updateChatEmotionSlider(3)" class="chat-emotion-btn py-2 rounded-lg bg-teal-400 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="3 - Inquietud Leve">3</button>
-                            <button type="button" onclick="updateChatEmotionSlider(4)" class="chat-emotion-btn py-2 rounded-lg bg-teal-500 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="4 - Estrés Leve">4</button>
-                            <button type="button" onclick="updateChatEmotionSlider(5)" class="chat-emotion-btn py-2 rounded-lg bg-amber-400 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="5 - Tensión Moderada">5</button>
-                            <button type="button" onclick="updateChatEmotionSlider(6)" class="chat-emotion-btn py-2 rounded-lg bg-amber-500 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="6 - Carga Mental">6</button>
-                            <button type="button" onclick="updateChatEmotionSlider(7)" class="chat-emotion-btn py-2 rounded-lg bg-orange-400 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="7 - Sobrecarga">7</button>
-                            <button type="button" onclick="updateChatEmotionSlider(8)" class="chat-emotion-btn py-2 rounded-lg bg-orange-500 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="8 - Agotamiento">8</button>
-                            <button type="button" onclick="updateChatEmotionSlider(9)" class="chat-emotion-btn py-2 rounded-lg bg-red-500 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="9 - Crisis Leve">9</button>
-                            <button type="button" onclick="updateChatEmotionSlider(10)" class="chat-emotion-btn py-2 rounded-lg bg-red-600 text-white hover:opacity-90 transition active:scale-95 shadow-2xs" title="10 - Angustia Severa">10</button>
+                        <!-- BARRA DESLIZABLE SUAVE (RANGE SLIDER SIN NÚMEROS) -->
+                        <div class="space-y-1.5 pt-0.5">
+                            <input type="range" id="chat-emotion-range-slider" min="1" max="100" value="20" oninput="updateChatEmotionSlider(this.value)" class="w-full h-3 bg-gradient-to-r from-emerald-400 via-teal-400 via-amber-400 to-red-500 rounded-lg appearance-none cursor-pointer accent-[#2C7A7B] shadow-inner">
+                            <div class="flex justify-between text-[8.5px] font-extrabold text-slate-400 uppercase tracking-wider px-1 pt-0.5">
+                                <span class="text-emerald-600">Calma</span>
+                                <span class="text-teal-600">Equilibrio</span>
+                                <span class="text-amber-600">Tensión</span>
+                                <span class="text-red-600">Crisis</span>
+                            </div>
                         </div>
 
-                        <!-- Indicación personalizada dinámica con estilo Foto 20.41.56 -->
+                        <!-- Indicación de Estado Emocional Dinámico -->
                         <div id="chat-emotion-info-box" class="bg-[#E0F7F4]/70 border border-[#33BCA9]/40 rounded-xl p-2.5 text-xs space-y-1.5 transition-all duration-300">
                             <div class="flex justify-between items-center">
                                 <span class="font-extrabold text-[#2C7A7B] flex items-center gap-1.5" id="chat-emotion-title">
-                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Estado: Calma y Equilibrio
+                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Estado: Calma y Mente Despejada
                                 </span>
-                                <span class="text-[8.5px] bg-white text-[#2C7A7B] px-2 py-0.5 rounded-full font-bold shadow-2xs" id="chat-emotion-code">Estado Verde</span>
+                                <span class="text-[8.5px] bg-white text-[#2C7A7B] px-2 py-0.5 rounded-full font-extrabold border border-[#33BCA9]/30 shrink-0">
+                                    Compartido con Amigos 🟢
+                                </span>
                             </div>
                             <p class="text-[10.5px] text-slate-700 leading-relaxed" id="chat-emotion-rec-text">
-                                Te encuentras en un estado óptimo de regulación. Es un excelente momento para mantener tus pausas activas preventivas o disfrutar de una infusión suave de Manzanilla.
+                                Te encuentras en un estado de confort emocional. Ideal para pausas activas preventivas e interacción con la comunidad.
                             </p>
-                            <div class="flex flex-wrap gap-2 pt-0.5">
-                                <button type="button" onclick="switchTab('relajacion')" class="bg-[#2C7A7B] text-white px-2.5 py-1 rounded-lg text-[9.5px] font-bold hover:bg-[#33BCA9] transition flex items-center gap-1 shadow-2xs">
-                                    <i data-lucide="headphones" class="w-3 h-3"></i> Frecuencia Alfa (Serenidad)
-                                </button>
-                                <button type="button" onclick="simulateSendAttachment('documento', 'Ficha_Regulacion_Emocional.pdf')" class="bg-white text-[#2C7A7B] border border-[#33BCA9]/50 px-2.5 py-1 rounded-lg text-[9.5px] font-bold hover:bg-teal-50 transition flex items-center gap-1 shadow-2xs">
-                                    <i data-lucide="file-text" class="w-3 h-3"></i> Ver Ficha de Autocuidado
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -2575,7 +2565,7 @@
         </div>
 
         <!-- ================= ONBOARDING DE INSTALACIÓN / DESCARGA (Foto 21.20.01 style) ================= -->
-        <div id="onboarding-screen" class="fixed inset-0 bg-[#121E2B]/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 hidden">
+        <div id="onboarding-screen" class="fixed inset-0 bg-[#F4FCFA] z-[100] flex items-center justify-center p-4 hidden">
             <div class="bg-white rounded-3xl max-w-sm w-full p-7 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden animate-in fade-in zoom-in duration-200">
 
                 <!-- LOGO DE BIENESTAR OFICIAL EN CÍRCULO VERDE (Foto 21.20.01) -->
@@ -7686,50 +7676,37 @@ Te enviaremos los detalles de entrega por chat.`);
             if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
-        function updateChatEmotionSlider(val) {
-            const level = parseInt(val, 10);
+                function updateChatEmotionSlider(val) {
+            const score = parseInt(val, 10);
             const badge = document.getElementById('chat-emotion-level-badge');
             const title = document.getElementById('chat-emotion-title');
-            const code = document.getElementById('chat-emotion-code');
             const text = document.getElementById('chat-emotion-rec-text');
-            const btns = document.querySelectorAll('.chat-emotion-btn');
 
-            btns.forEach((btn, idx) => {
-                if (idx + 1 === level) {
-                    btn.classList.add('ring-2', 'ring-slate-800', 'scale-110');
-                } else {
-                    btn.classList.remove('ring-2', 'ring-slate-800', 'scale-110');
-                }
-            });
-
-            if (level <= 2) {
-                if (badge) { badge.innerText = `Nivel ${level} • Calma Total`; badge.className = "px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[9.5px] font-black uppercase shadow-2xs"; }
+            if (score <= 25) {
+                if (badge) { badge.innerText = "Calma Total 🟢"; badge.className = "px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
                 if (title) title.innerHTML = '<i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i> Estado: Calma y Equilibrio';
-                if (code) { code.innerText = "Estado Verde"; code.className = "text-[8.5px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Te encuentras en un estado óptimo de regulación. Es un excelente momento para mantener tus pausas activas preventivas o disfrutar de una infusión suave de Manzanilla.";
-            } else if (level <= 4) {
-                if (badge) { badge.innerText = `Nivel ${level} • Estrés Leve`; badge.className = "px-2.5 py-1 bg-teal-100 text-teal-800 rounded-full text-[9.5px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="wind" class="w-3.5 h-3.5 text-teal-600"></i> Estado: Tensión Leve';
-                if (code) { code.innerText = "Atención Leve"; code.className = "text-[8.5px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Sientes una ligera tensión acumulada. Te recomendamos una pausa activa de respiración 4-7-8 y estiramiento lumbar de 15 segundos.";
-            } else if (level <= 6) {
-                if (badge) { badge.innerText = `Nivel ${level} • Tensión Moderada`; badge.className = "px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full text-[9.5px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5 text-amber-600"></i> Estado: Carga Mental Activa';
-                if (code) { code.innerText = "Intervención Sugerida"; code.className = "text-[8.5px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Experimentas un flujo elevado de pensamientos. Aplica infusión de Melisa y escucha Frecuencia Alfa (10 Hz) en la sección Serenidad.";
-            } else if (level <= 8) {
-                if (badge) { badge.innerText = `Nivel ${level} • Sobrecarga`; badge.className = "px-2.5 py-1 bg-orange-100 text-orange-800 rounded-full text-[9.5px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-600"></i> Estado: Agotamiento / Tensión Alta';
-                if (code) { code.innerText = "Soporte Prioritario"; code.className = "text-[8.5px] bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Tensión alta detectada. Activa el ejercicio de Enraizamiento 5-4-3-2-1 y considera el uso de Ungüento de Romero en sienes.";
+                if (text) text.innerText = "Te encuentras en un estado óptimo de regulación. Momento perfecto para pausas de respiración y relajación.";
+            } else if (score <= 50) {
+                if (badge) { badge.innerText = "Equilibrio Leve 🌿"; badge.className = "px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="wind" class="w-3.5 h-3.5 text-teal-600"></i> Estado: Inquietud Leve / Sensibilidad';
+                if (text) text.innerText = "Sientes una ligera variación emocional. Se recomienda estiramiento de 15 segundos e infusión suave.";
+            } else if (score <= 75) {
+                if (badge) { badge.innerText = "Carga Mental 🟡"; badge.className = "px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5 text-amber-600"></i> Estado: Tensión / Flujo de Pensamientos';
+                if (text) text.innerText = "Flujo elevado de pensamientos. Se sugiere pausa activa con Frecuencia Alfa (10 Hz) en la sección Serenidad.";
+            } else if (score <= 90) {
+                if (badge) { badge.innerText = "Sobrecarga 🟠"; badge.className = "px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-600"></i> Estado: Sobrecarga / Agotamiento';
+                if (text) text.innerText = "Tensión y cansancio acumulado. Aplica técnica de enraizamiento 5-4-3-2-1 e infusión de Melisa/Romero.";
             } else {
-                if (badge) { badge.innerText = `Nivel ${level} • Crisis / Angustia`; badge.className = "px-2.5 py-1 bg-red-100 text-red-800 rounded-full text-[9.5px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-red-600"></i> Estado: Necesidad de Auxilio Inmediato';
-                if (code) { code.innerText = "Alerta Emocional"; code.className = "text-[8.5px] bg-red-100 text-red-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Nivel crítico de angustia. Inicia Frecuencia Delta en Serenidad y presiona para contactar directamente con la Dra. Elena o Aldo en el Chat.";
+                if (badge) { badge.innerText = "Crisis / Tensión Alta 🔴"; badge.className = "px-3 py-1 bg-red-100 text-red-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-red-600"></i> Estado: Crisis / Necesidad de Silencio';
+                if (text) text.innerText = "Nivel elevado de desregulación. Espacio seguro sin estímulos. Activa Frecuencia Delta o contacta a tus profesionales en el Chat.";
             }
 
-            if (typeof lucide !== 'undefined') lucide.createIcons();
+            if (window.lucide && typeof lucide.createIcons === 'function') {
+                lucide.createIcons();
+            }
         }
 
         function openAppDownloadModal() {
@@ -7785,7 +7762,7 @@ Te enviaremos los detalles de entrega por chat.`);
 
 
             <!-- ================= MODAL DE DESCARGA DE LA APP CON LOGO DE BIENESTAR ================= -->
-            <div id="app-download-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 hidden">
+            <div id="app-download-modal" class="fixed inset-0 bg-[#F4FCFA] z-[100] flex items-center justify-center p-4 hidden">
                 <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden animate-in fade-in zoom-in duration-200">
                     <button type="button" onclick="closeAppDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 transition">
                         <i data-lucide="x" class="w-4 h-4"></i>
@@ -7836,4 +7813,3 @@ Te enviaremos los detalles de entrega por chat.`);
 </div>
 </body>
 </html>
-
