@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script></script>
+  <script src="https://unpkg.com/lucide@latest"></script></script></script>
 
   <style>
     *, *::before, *::after {
@@ -2235,6 +2235,85 @@ const BIENESTAR_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAADkCA
 
     function triggerAlert(msg) {
       alert(msg);
+    }
+
+    
+    /* --- FUNCIONES DE VIDEOLLAMADA Y LLAMADA EN VIVO HD --- */
+    var callTimerInterval = null;
+    var callSeconds = 0;
+
+    function startCallActiveChat(type) {
+      var modal = document.getElementById('videoCallModal');
+      if (!modal) return;
+      
+      var nameEl = document.getElementById('activeChatName');
+      var avatarEl = document.getElementById('activeChatAvatar');
+      
+      var callNameEl = document.getElementById('callName');
+      var callAvatarEl = document.getElementById('callAvatar');
+      var callTypeEl = document.getElementById('callTypeTitle');
+      
+      if (nameEl && callNameEl) callNameEl.innerText = nameEl.innerText;
+      if (avatarEl && callAvatarEl && avatarEl.src) callAvatarEl.src = avatarEl.src;
+      else if (callAvatarEl) callAvatarEl.src = typeof BIENESTAR_LOGO !== 'undefined' ? BIENESTAR_LOGO : '';
+      
+      if (callTypeEl) {
+        callTypeEl.innerText = (type === 'video') ? 'VIDEOLLAMADA EN CURSO...' : 'LLAMADA DE VOZ EN CURSO...';
+      }
+      
+      callSeconds = 0;
+      var timerEl = document.getElementById('callTimerDisplay');
+      if (timerEl) timerEl.innerText = '00:00';
+      
+      if (callTimerInterval) clearInterval(callTimerInterval);
+      callTimerInterval = setInterval(updateCallTimer, 1000);
+      
+      modal.classList.add('active');
+    }
+
+    function updateCallTimer() {
+      callSeconds++;
+      var mins = Math.floor(callSeconds / 60);
+      var secs = callSeconds % 60;
+      var timerEl = document.getElementById('callTimerDisplay');
+      if (timerEl) {
+        timerEl.innerText = (mins < 10 ? '0' + mins : mins) + ':' + (secs < 10 ? '0' + secs : secs);
+      }
+    }
+
+    function closeVideoCall() {
+      if (callTimerInterval) {
+        clearInterval(callTimerInterval);
+        callTimerInterval = null;
+      }
+      var modal = document.getElementById('videoCallModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function toggleSpeakerCall(btn) {
+      var active = btn.classList.toggle('active-toggle');
+      btn.style.background = active ? 'var(--turquoise)' : 'rgba(255,255,255,0.15)';
+      triggerAlert(active ? '🔊 Altavoz activado' : '🔇 Altavoz desactivado');
+    }
+
+    function toggleMuteCall(btn) {
+      var active = btn.classList.toggle('active-toggle');
+      btn.style.background = active ? 'var(--red-alert)' : 'rgba(255,255,255,0.15)';
+      triggerAlert(active ? '🎙️ Micrófono silenciado' : '🎙️ Micrófono activado');
+    }
+
+    function toggleVideoFeedCall(btn) {
+      var active = btn.classList.toggle('active-toggle');
+      btn.style.background = active ? 'var(--red-alert)' : 'rgba(255,255,255,0.15)';
+      triggerAlert(active ? '📹 Cámara desactivada' : '📹 Cámara activada');
+    }
+
+    function flipCameraCall() {
+      triggerAlert('🔄 Alternando cámara frontal / trasera...');
+    }
+
+    function shareCallLink() {
+      triggerAlert('🔗 Enlace de videollamada copiado al portapapeles.');
     }
 
     function switchTab(tabId, btn) {
