@@ -2111,31 +2111,31 @@
         </div>
 
         <!-- ================= PANTALLA SPLASH INTRO (ESTILO WHATSAPP / META / INSTAGRAM) ================= -->
-        <div id="splash-intro-screen" onclick="dismissSplashScreen()" class="fixed inset-0 bg-white text-slate-800 z-[9999] flex flex-col justify-between p-6 sm:p-8 select-none transition-all duration-400 cursor-pointer overflow-hidden">
-            <div class="text-center my-auto space-y-4">
-                <!-- Logo circular de alta resolución con resplandor neón -->
-                <div class="w-36 h-36 sm:w-40 sm:h-40 bg-white rounded-full flex items-center justify-center mx-auto shadow-[0_0_40px_rgba(51,188,169,0.4)] p-2 border-4 border-[#33BCA9] relative overflow-hidden shrink-0 aspect-square">
-                    <img src="logo bienestar png.jpeg" alt="Logo Bienestar" class="w-full h-full object-cover rounded-full aspect-square" onerror="handleLogoError(this)">
+        <div id="splash-intro-screen" onclick="dismissSplashScreen()" class="fixed inset-0 bg-white text-slate-800 z-[9999] flex flex-col justify-between p-6 sm:p-8 select-none transition-all duration-300 cursor-pointer overflow-hidden">
+            <div class="text-center my-auto space-y-5">
+                <!-- Logo circular de alta resolución en contenedor blanco puro -->
+                <div class="w-36 h-36 bg-white rounded-full flex items-center justify-center mx-auto shadow-[0_0_40px_rgba(51,188,169,0.35)] p-2 border-4 border-[#33BCA9] relative overflow-hidden">
+                    <img src="logo bienestar png.jpeg" alt="ASLIDEAS Bienestar Logo" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
                 </div>
-                <div class="space-y-1">
+                <div class="space-y-1.5">
                     <h1 class="text-2xl font-black tracking-widest text-[#2C7A7B] uppercase">BIENESTAR</h1>
-                    <p class="text-xs text-slate-600 max-w-xs mx-auto font-bold leading-relaxed">Súper-App Integrativa de Salud Herbolaria, Frecuencias Binaurales & Serenidad</p>
+                    <p class="text-xs text-[#33BCA9] max-w-xs mx-auto font-bold leading-relaxed">Ecosistema Integral, Salud Herbolaria & Frecuencias</p>
                 </div>
             </div>
 
             <!-- Indicador de Carga e Identidad Corporativa -->
             <div class="text-center space-y-3 mb-6">
-                <div class="w-48 bg-[#33BCA9]/20 h-2 rounded-full mx-auto overflow-hidden border border-white/10">
-                    <div id="splash-progress-bar" class="bg-gradient-to-r from-[#33BCA9] to-emerald-300 h-full w-0 transition-all duration-300"></div>
+                <div class="w-48 bg-[#E0F7F4] h-2 rounded-full mx-auto overflow-hidden border border-[#33BCA9]/30">
+                    <div id="splash-progress-bar" class="bg-gradient-to-r from-[#33BCA9] to-emerald-400 h-full w-0 transition-all duration-300"></div>
                 </div>
                 <p id="splash-status-text" class="text-[10px] text-[#2C7A7B] font-extrabold tracking-wider uppercase">Cargando Ecosistema Bienestar...</p>
-                <div class="pt-2 border-t border-white/10 w-36 mx-auto">
-                    <span class="text-[9px] text-[#33BCA9] font-black tracking-widest uppercase">from ASLIDEAS</span>
+                <div class="pt-2 border-t border-slate-100 w-36 mx-auto">
+                    <span class="text-[9px] text-slate-400 font-bold tracking-widest uppercase">from ASLIDEAS</span>
                 </div>
             </div>
         </div>
 
-<!-- PANTALLA SECURE LOCK BIOMÉTRICO -->
+        <!-- PANTALLA SECURE LOCK BIOMÉTRICO -->
         <!-- PANTALLA SECURE LOCK BIOMÉTRICO Y PIN AVANZADO -->
         <div id="biometric-lock-screen" class="absolute inset-0 bg-[#0D171E]/95 backdrop-blur-xl text-white z-50 flex flex-col justify-between p-6 hidden select-none">
             <!-- Cabecera de Seguridad -->
@@ -2632,11 +2632,11 @@
 
         <!-- ================= ONBOARDING DE INSTALACIÓN / DESCARGA (Foto 21.20.01 style) ================= -->
         <div id="onboarding-screen" class="fixed inset-0 bg-white z-[100] flex items-center justify-center p-4 hidden">
-            <div class="bg-white rounded-3xl max-w-sm w-full p-7 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden transition-all duration-200">
+            <div class="bg-white rounded-3xl max-w-sm w-full p-7 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden animate-in fade-in zoom-in duration-200">
 
-                <!-- LOGO DE BIENESTAR OFICIAL EN CÍRCULO VERDE (Foto 21.20.01) -->
-                <div class="w-36 h-36 bg-[#F4FCFA] rounded-full flex items-center justify-center mx-auto shadow-xl p-2 border-4 border-[#33BCA9] relative overflow-hidden ring-4 ring-[#33BCA9]/20 shrink-0 aspect-square">
-                    <img src="logo bienestar png.jpeg" alt="Logo Bienestar" class="w-full h-full object-cover rounded-full aspect-square" onerror="handleLogoError(this)">
+                <!-- LOGO DE BIENESTAR OFICIAL EN CÍRCULO VERDE BLANCO PURO -->
+                <div class="w-36 h-36 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl p-3 border-4 border-[#33BCA9] relative overflow-hidden ring-4 ring-[#33BCA9]/20">
+                    <img src="logo bienestar png.jpeg" alt="Logo Bienestar" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
                 </div>
 
                 <div class="space-y-1">
@@ -7834,15 +7834,15 @@ Te enviaremos los detalles de entrega por chat.`);
 
 
             <!-- ================= MODAL DE DESCARGA DE LA APP CON LOGO DE BIENESTAR ================= -->
-            <div id="app-download-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden transition-opacity duration-200">
-                <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden transition-all duration-200">
+            <div id="app-download-modal" class="fixed inset-0 bg-white z-[100] flex items-center justify-center p-4 hidden">
+                <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden animate-in fade-in zoom-in duration-200">
                     <button type="button" onclick="closeAppDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 transition">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
 
-                    <!-- LOGO DE BIENESTAR OFICIAL DESTACADO EN CÍRCULO VERDE (Foto 21.20.01) -->
-                    <div class="w-32 h-32 sm:w-36 sm:h-36 bg-[#F4FCFA] rounded-full flex items-center justify-center mx-auto shadow-xl p-2 border-4 border-[#33BCA9] relative overflow-hidden ring-4 ring-[#33BCA9]/20 shrink-0 aspect-square">
-                        <img src="logo bienestar png.jpeg" alt="Logo Bienestar" class="w-full h-full object-cover rounded-full aspect-square" onerror="handleLogoError(this)">
+                    <!-- LOGO DE BIENESTAR OFICIAL DESTACADO EN CÍRCULO VERDE BLANCO PURO -->
+                    <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl p-2.5 border-4 border-[#33BCA9] relative overflow-hidden ring-4 ring-[#33BCA9]/20">
+                        <img src="logo bienestar png.jpeg" alt="Logo Bienestar" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
                     </div>
 
                     <div class="space-y-1">
