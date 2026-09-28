@@ -2045,26 +2045,26 @@
         </div>
 
         <!-- ================= PANTALLA SPLASH INTRO (ESTILO WHATSAPP / META / INSTAGRAM) ================= -->
-        <div id="splash-intro-screen" onclick="dismissSplashScreen()" class="fixed inset-0 bg-[#0A1118] text-white z-[9999] flex flex-col justify-between p-6 sm:p-8 select-none transition-all duration-400 cursor-pointer overflow-hidden">
+        <div id="splash-intro-screen" onclick="dismissSplashScreen()" class="fixed inset-0 bg-gradient-to-br from-[#E0F7F4] via-[#F4FCFA] to-[#B8F2EE] text-slate-800 z-[9999] flex flex-col justify-between p-6 sm:p-8 select-none transition-all duration-400 cursor-pointer overflow-hidden shadow-2xl">
             <div class="text-center my-auto space-y-4">
                 <!-- Logo circular de alta resolución con resplandor neón -->
                 <div class="w-32 h-32 bg-white/95 rounded-full flex items-center justify-center mx-auto shadow-[0_0_50px_rgba(51,188,169,0.5)] p-4 border-4 border-[#33BCA9] relative overflow-hidden animate-pulse">
                     <img src="logo png.jpeg" alt="ASLIDEAS Bienestar Logo" class="w-full h-full object-contain rounded-full" onerror="handleLogoError(this)">
                 </div>
                 <div class="space-y-1">
-                    <h1 class="text-2xl font-black tracking-widest text-[#E0F7F4] uppercase">BIENESTAR</h1>
-                    <p class="text-xs text-teal-100 max-w-xs mx-auto font-semibold leading-relaxed">Súper-App Integrativa de Salud Herbolaria, Frecuencias Binaurales & Serenidad</p>
+                    <h1 class="text-2xl font-black tracking-widest text-[#2C7A7B] uppercase">BIENESTAR</h1>
+                    <p class="text-xs text-slate-600 max-w-xs mx-auto font-bold leading-relaxed">Súper-App Integrativa de Salud Herbolaria, Frecuencias Binaurales & Serenidad</p>
                 </div>
             </div>
 
             <!-- Indicador de Carga e Identidad Corporativa -->
             <div class="text-center space-y-3 mb-6">
-                <div class="w-48 bg-black/30 h-1.5 rounded-full mx-auto overflow-hidden border border-white/10">
+                <div class="w-48 bg-[#33BCA9]/20 h-2 rounded-full mx-auto overflow-hidden border border-white/10">
                     <div id="splash-progress-bar" class="bg-gradient-to-r from-[#33BCA9] to-emerald-300 h-full w-0 transition-all duration-300"></div>
                 </div>
-                <p id="splash-status-text" class="text-[10px] text-teal-200 font-bold tracking-wider uppercase">Cargando Ecosistema Bienestar...</p>
+                <p id="splash-status-text" class="text-[10px] text-[#2C7A7B] font-extrabold tracking-wider uppercase">Cargando Ecosistema Bienestar...</p>
                 <div class="pt-2 border-t border-white/10 w-36 mx-auto">
-                    <span class="text-[9px] text-teal-100/70 font-bold tracking-widest uppercase">from ASLIDEAS</span>
+                    <span class="text-[9px] text-[#33BCA9] font-black tracking-widest uppercase">from ASLIDEAS</span>
                 </div>
             </div>
         </div>
@@ -2565,7 +2565,7 @@
         </div>
 
         <!-- ================= ONBOARDING DE INSTALACIÓN / DESCARGA (Foto 21.20.01 style) ================= -->
-        <div id="onboarding-screen" class="fixed inset-0 bg-[#F4FCFA] z-[100] flex items-center justify-center p-4 hidden">
+        <div id="onboarding-screen" class="fixed inset-0 bg-gradient-to-br from-[#E0F7F4] via-[#F4FCFA] to-[#B8F2EE] z-[100] flex items-center justify-center p-4 hidden">
             <div class="bg-white rounded-3xl max-w-sm w-full p-7 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden animate-in fade-in zoom-in duration-200">
 
                 <!-- LOGO DE BIENESTAR OFICIAL EN CÍRCULO VERDE (Foto 21.20.01) -->
@@ -2647,7 +2647,7 @@
         // Función de Respaldo Limpia para el Logo de Bienestar
         function handleLogoError(img) {
             img.onerror = null;
-            img.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23E0F7F4' stroke='%2333BCA9' stroke-width='3'/><path d='M50 20 C35 35 25 50 25 65 C25 78 36 85 50 85 C64 85 75 78 75 65 C75 50 65 35 50 20 Z' fill='%232C7A7B'/><path d='M50 30 C40 42 33 53 33 63 C33 72 41 77 50 77 C59 77 67 72 67 63 C67 53 60 42 50 30 Z' fill='%2333BCA9'/><circle cx='50' cy='52' r='8' fill='%23E0F7F4'/></svg>";
+            img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="%23E0F7F4" stroke="%2333BCA9" stroke-width="4"/><path d="M60 25 C42 42 30 60 30 78 C30 93 43 100 60 100 C77 100 90 93 90 78 C90 60 78 42 60 25 Z" fill="%232C7A7B"/><path d="M60 38 C48 52 40 64 40 75 C40 85 49 90 60 90 C71 90 80 85 80 75 C80 64 72 52 60 38 Z" fill="%2333BCA9"/><circle cx="60" cy="65" r="10" fill="%23E0F7F4"/><text x="60" y="112" font-family="sans-serif" font-size="9" font-weight="900" fill="%232C7A7B" text-anchor="middle">BIENESTAR</text></svg>';
         }
 
         function completeOnboarding() {
@@ -5351,7 +5351,7 @@
         let splashTime = 0;
         const splashInterval = setInterval(() => {
             splashTime += 100;
-            const percent = Math.min((splashTime / 3500) * 100, 100);
+            const percent = Math.min((splashTime / 800) * 100, 100);
             const progressBar = document.getElementById('splash-progress-bar');
             const statusText = document.getElementById('splash-status-text');
             if (progressBar) progressBar.style.width = percent + '%';
@@ -7677,36 +7677,52 @@ Te enviaremos los detalles de entrega por chat.`);
         }
 
                 function updateChatEmotionSlider(val) {
-            const score = parseInt(val, 10);
+            const level = parseInt(val, 10);
+            const slider = document.getElementById('chat-emotion-range-slider');
             const badge = document.getElementById('chat-emotion-level-badge');
             const title = document.getElementById('chat-emotion-title');
+            const code = document.getElementById('chat-emotion-code');
             const text = document.getElementById('chat-emotion-rec-text');
+            const btns = document.querySelectorAll('.chat-emotion-btn');
 
-            if (score <= 25) {
+            if (slider) slider.value = level;
+
+            btns.forEach((btn, idx) => {
+                if (idx + 1 === level) {
+                    btn.classList.add('ring-2', 'ring-slate-800', 'scale-105');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-slate-800', 'scale-105');
+                }
+            });
+
+            if (level <= 2) {
                 if (badge) { badge.innerText = "Calma Total 🟢"; badge.className = "px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
                 if (title) title.innerHTML = '<i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i> Estado: Calma y Equilibrio';
-                if (text) text.innerText = "Te encuentras en un estado óptimo de regulación. Momento perfecto para pausas de respiración y relajación.";
-            } else if (score <= 50) {
-                if (badge) { badge.innerText = "Equilibrio Leve 🌿"; badge.className = "px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="wind" class="w-3.5 h-3.5 text-teal-600"></i> Estado: Inquietud Leve / Sensibilidad';
-                if (text) text.innerText = "Sientes una ligera variación emocional. Se recomienda estiramiento de 15 segundos e infusión suave.";
-            } else if (score <= 75) {
-                if (badge) { badge.innerText = "Carga Mental 🟡"; badge.className = "px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5 text-amber-600"></i> Estado: Tensión / Flujo de Pensamientos';
-                if (text) text.innerText = "Flujo elevado de pensamientos. Se sugiere pausa activa con Frecuencia Alfa (10 Hz) en la sección Serenidad.";
-            } else if (score <= 90) {
+                if (code) { code.innerText = "Estado Verde"; code.className = "text-[9px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Te encuentras en un estado óptimo de regulación. Momento perfecto para mantener pausas activas o disfrutar de una infusión de Manzanilla.";
+            } else if (level <= 4) {
+                if (badge) { badge.innerText = "Equilibrio 🌿"; badge.className = "px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="wind" class="w-3.5 h-3.5 text-teal-600"></i> Estado: Serenidad Leve';
+                if (code) { code.innerText = "Atención Leve"; code.className = "text-[9px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Equilibrio activo. Te sugerimos una breve pausa de respiración consciente 4-7-8 y estiramiento de hombros.";
+            } else if (level <= 6) {
+                if (badge) { badge.innerText = "Tensión Leve 🟡"; badge.className = "px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5 text-amber-600"></i> Estado: Carga Mental';
+                if (code) { code.innerText = "Sugerencia Pausa"; code.className = "text-[9px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Flujo elevado de pensamientos. Aplica infusión de Melisa y escucha Frecuencia Alfa (10 Hz) en la pestaña Descanso.";
+            } else if (level <= 8) {
                 if (badge) { badge.innerText = "Sobrecarga 🟠"; badge.className = "px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-600"></i> Estado: Sobrecarga / Agotamiento';
-                if (text) text.innerText = "Tensión y cansancio acumulado. Aplica técnica de enraizamiento 5-4-3-2-1 e infusión de Melisa/Romero.";
+                if (title) title.innerHTML = '<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-600"></i> Estado: Tensión / Agotamiento';
+                if (code) { code.innerText = "Soporte Prioritario"; code.className = "text-[9px] bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Nivel de sobrecarga elevado. Practica enraizamiento 5-4-3-2-1 y considera masajear ungüento de Romero en sienes.";
             } else {
                 if (badge) { badge.innerText = "Crisis / Tensión Alta 🔴"; badge.className = "px-3 py-1 bg-red-100 text-red-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-red-600"></i> Estado: Crisis / Necesidad de Silencio';
-                if (text) text.innerText = "Nivel elevado de desregulación. Espacio seguro sin estímulos. Activa Frecuencia Delta o contacta a tus profesionales en el Chat.";
+                if (title) title.innerHTML = '<i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-red-600"></i> Estado: Auxilio Inmediato';
+                if (code) { code.innerText = "Alerta Emocional"; code.className = "text-[9px] bg-red-100 text-red-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Desregulación crítica. Escucha Frecuencia Delta en Descanso y contacta de inmediato con la Dra. Elena o Aldo en el Chat.";
             }
 
-            if (window.lucide && typeof lucide.createIcons === 'function') {
-                lucide.createIcons();
-            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
         function openAppDownloadModal() {
@@ -7762,7 +7778,7 @@ Te enviaremos los detalles de entrega por chat.`);
 
 
             <!-- ================= MODAL DE DESCARGA DE LA APP CON LOGO DE BIENESTAR ================= -->
-            <div id="app-download-modal" class="fixed inset-0 bg-[#F4FCFA] z-[100] flex items-center justify-center p-4 hidden">
+            <div id="app-download-modal" class="fixed inset-0 bg-gradient-to-br from-[#E0F7F4]/90 via-[#F4FCFA] to-[#B8F2EE]/90 backdrop-blur-md z-[100] flex items-center justify-center p-4 hidden">
                 <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden animate-in fade-in zoom-in duration-200">
                     <button type="button" onclick="closeAppDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 transition">
                         <i data-lucide="x" class="w-4 h-4"></i>
