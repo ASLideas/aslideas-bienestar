@@ -81,6 +81,38 @@
             --slate-gray: #5A738E;
             --navy-dark: #1B3B48;
         }
+
+        /* Thumb personalizado armónico para la barra de regulación emocional */
+        #chat-emotion-range-slider {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        #chat-emotion-range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 3.5px solid #2C7A7B;
+            box-shadow: 0 2px 8px rgba(44, 122, 123, 0.35);
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+        #chat-emotion-range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            border-color: #33BCA9;
+        }
+        #chat-emotion-range-slider::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 3.5px solid #2C7A7B;
+            box-shadow: 0 2px 8px rgba(44, 122, 123, 0.35);
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body class="bg-[#0B141B] md:bg-[#111C24] min-h-screen min-h-[100dvh] w-full flex items-center justify-center font-sans antialiased text-[#4C5C77] overflow-x-hidden p-0 md:p-4">
@@ -200,55 +232,55 @@
 
                     <!-- Fila deslizable libre de círculos o contornos con drag suave y rueda de ratón (NUNCA QUEDA ESTÁTICO) -->
 
-                <!-- ESCALA DE REGULACIÓN EMOCIONAL EN SECCIÓN AMIGOS (SÓLO BARRA DESLIZABLE SIN NÚMEROS) -->
-                <div class="px-4 py-2.5 bg-[#E0F7F4]/40 border-b border-[#33BCA9]/20">
-                    <div class="bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-xs border border-[#33BCA9]/25 space-y-3">
+                <!-- ESCALAS Y REGULACIÓN EMOCIONAL EN SECCIÓN AMIGOS (DISEÑO ARMÓNICO SIN EMOJIS DE CÍRCULOS) -->
+                <div class="px-4 py-2.5 bg-[#E0F7F4]/30 border-b border-[#33BCA9]/20">
+                    <div class="bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-xs border border-[#33BCA9]/25 space-y-2.5">
                         <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 bg-[#E0F7F4] text-[#2C7A7B] rounded-xl flex items-center justify-center font-bold shadow-2xs">
-                                    <i data-lucide="sliders" class="w-4 h-4 text-[#2C7A7B]"></i>
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-9 h-9 bg-[#E0F7F4] border border-[#33BCA9]/30 text-[#2C7A7B] rounded-2xl flex items-center justify-center font-bold shadow-2xs shrink-0">
+                                    <i data-lucide="sliders" class="w-4.5 h-4.5 text-[#2C7A7B]"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-wide">
+                                    <h3 class="text-xs font-extrabold text-slate-800 uppercase tracking-wide">
                                         Escala de Regulación Emocional
                                     </h3>
-                                    <p class="text-[8.5px] text-slate-500 font-medium">Desliza la barra para compartir tu estado emocional con tus contactos</p>
+                                    <p class="text-[9px] text-slate-500 font-medium">Desliza suavemente la barra para compartir tu estado</p>
                                 </div>
                             </div>
-                            <span id="chat-emotion-level-badge" class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-black uppercase shadow-2xs">
-                                Calma y Equilibrio 🟢
+                            <span id="chat-emotion-level-badge" class="px-3 py-1 bg-teal-50 text-[#2C7A7B] border border-[#33BCA9]/30 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs transition-all duration-300">
+                                Calma y Equilibrio
                             </span>
                         </div>
 
-                        <!-- BARRA DESLIZABLE SUAVE (RANGE SLIDER SIN NÚMEROS) -->
+                        <!-- BARRA DESLIZABLE SUAVE Y ARMÓNICA (RANGE SLIDER) -->
                         <div class="space-y-1.5 pt-0.5">
-                            <input type="range" id="chat-emotion-range-slider" min="1" max="100" value="20" oninput="updateChatEmotionSlider(this.value)" class="w-full h-3.5 rounded-lg appearance-none cursor-pointer accent-[#2C7A7B] shadow-inner" style="background: linear-gradient(to right, #9333EA, #3B82F6, #06B6D4, #10B981, #EAB308, #F97316, #EC4899, #EF4444);">
+                            <input type="range" id="chat-emotion-range-slider" min="1" max="100" value="20" oninput="updateChatEmotionSlider(this.value)" class="w-full h-2.5 rounded-full appearance-none cursor-pointer shadow-inner transition-all duration-300" style="background: linear-gradient(to right, #38BDF8, #2DD4BF, #34D399, #FBBF24, #F87171);">
                             <div class="flex justify-between text-[8.5px] font-extrabold text-slate-400 uppercase tracking-wider px-1 pt-0.5">
-                                <span class="text-emerald-600">Calma</span>
+                                <span class="text-sky-600">Calma</span>
                                 <span class="text-teal-600">Equilibrio</span>
                                 <span class="text-amber-600">Tensión</span>
-                                <span class="text-red-600">Crisis</span>
+                                <span class="text-rose-600">Crisis</span>
                             </div>
                         </div>
 
-                        <!-- Indicación de Estado Emocional Dinámico -->
-                        <div id="chat-emotion-info-box" class="bg-[#E0F7F4]/70 border border-[#33BCA9]/40 rounded-xl p-2.5 text-xs space-y-1.5 transition-all duration-300">
+                        <!-- Indicación de Estado Emocional Dinámico Armónico -->
+                        <div id="chat-emotion-info-box" class="bg-[#F4FCFA] border border-[#33BCA9]/30 rounded-2xl p-2.5 text-xs space-y-1.5 transition-all duration-300">
                             <div class="flex justify-between items-center">
-                                <span class="font-extrabold text-[#2C7A7B] flex items-center gap-1.5" id="chat-emotion-title">
-                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Estado: Calma y Mente Despejada
+                                <span class="font-extrabold text-[#2C7A7B] text-xs flex items-center gap-1.5" id="chat-emotion-title">
+                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Estado: Calma y Equilibrio
                                 </span>
-                                <span class="text-[8.5px] bg-white text-[#2C7A7B] px-2 py-0.5 rounded-full font-extrabold border border-[#33BCA9]/30 shrink-0">
-                                    Compartido con Amigos 🟢
+                                <span class="text-[8.5px] bg-white text-[#2C7A7B] px-2.5 py-0.5 rounded-full font-bold border border-[#33BCA9]/30 flex items-center gap-1 shrink-0">
+                                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Compartido
                                 </span>
                             </div>
-                            <p class="text-[10.5px] text-slate-700 leading-relaxed" id="chat-emotion-rec-text">
-                                Te encuentras en un estado de confort emocional. Ideal para pausas activas preventivas e interacción con la comunidad.
+                            <p class="text-[10.5px] text-slate-600 leading-relaxed font-medium" id="chat-emotion-rec-text">
+                                Te encuentras en un estado óptimo de confort emocional. Ideal para pausas activas preventivas e interacción con la comunidad.
                             </p>
                         </div>
                     </div>
                 </div>
 
-                    <div id="chat-filter-scroll-container" class="w-full overflow-x-auto whitespace-nowrap no-scrollbar scroll-smooth select-none">
+                <div id="chat-filter-scroll-container" class="w-full overflow-x-auto whitespace-nowrap no-scrollbar scroll-smooth select-none">
                         <div class="px-6 py-2.5 flex gap-7 w-max items-center">
                             <button id="filter-btn-todos" onclick="switchChatFilter('todos', this)" class="chat-filter-btn text-[#2C7A7B] text-[13px] font-black transition relative shrink-0">
                                 Todos
@@ -7683,43 +7715,34 @@ Te enviaremos los detalles de entrega por chat.`);
             const title = document.getElementById('chat-emotion-title');
             const code = document.getElementById('chat-emotion-code');
             const text = document.getElementById('chat-emotion-rec-text');
-            const btns = document.querySelectorAll('.chat-emotion-btn');
 
             if (slider) slider.value = level;
 
-            btns.forEach((btn, idx) => {
-                if (idx + 1 === level) {
-                    btn.classList.add('ring-2', 'ring-slate-800', 'scale-105');
-                } else {
-                    btn.classList.remove('ring-2', 'ring-slate-800', 'scale-105');
-                }
-            });
-
-            if (level <= 2) {
-                if (badge) { badge.innerText = "Calma Total 🟢"; badge.className = "px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
+            if (level <= 20) {
+                if (badge) { badge.innerText = "Calma y Equilibrio"; badge.className = "px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
                 if (title) title.innerHTML = '<i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i> Estado: Calma y Equilibrio';
-                if (code) { code.innerText = "Estado Verde"; code.className = "text-[9px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Te encuentras en un estado óptimo de regulación. Momento perfecto para mantener pausas activas o disfrutar de una infusión de Manzanilla.";
-            } else if (level <= 4) {
-                if (badge) { badge.innerText = "Equilibrio 🌿"; badge.className = "px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
+                if (code) { code.innerText = "Nivel Óptimo"; code.className = "text-[8.5px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Te encuentras en un estado óptimo de regulación emocional. Momento ideal para actividades creativas y pausas preventivas.";
+            } else if (level <= 40) {
+                if (badge) { badge.innerText = "Serenidad Leve"; badge.className = "px-3 py-1 bg-teal-50 text-teal-800 border border-teal-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
                 if (title) title.innerHTML = '<i data-lucide="wind" class="w-3.5 h-3.5 text-teal-600"></i> Estado: Serenidad Leve';
-                if (code) { code.innerText = "Atención Leve"; code.className = "text-[9px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Equilibrio activo. Te sugerimos una breve pausa de respiración consciente 4-7-8 y estiramiento de hombros.";
-            } else if (level <= 6) {
-                if (badge) { badge.innerText = "Tensión Leve 🟡"; badge.className = "px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5 text-amber-600"></i> Estado: Carga Mental';
-                if (code) { code.innerText = "Sugerencia Pausa"; code.className = "text-[9px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Flujo elevado de pensamientos. Aplica infusión de Melisa y escucha Frecuencia Alfa (10 Hz) en la pestaña Descanso.";
-            } else if (level <= 8) {
-                if (badge) { badge.innerText = "Sobrecarga 🟠"; badge.className = "px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-600"></i> Estado: Tensión / Agotamiento';
-                if (code) { code.innerText = "Soporte Prioritario"; code.className = "text-[9px] bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Nivel de sobrecarga elevado. Practica enraizamiento 5-4-3-2-1 y considera masajear ungüento de Romero en sienes.";
+                if (code) { code.innerText = "Atención Preventiva"; code.className = "text-[8.5px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Equilibrio estable. Te sugerimos una breve pausa de respiración consciente 4-7-8 e hidratación con agua de yerba buena.";
+            } else if (level <= 60) {
+                if (badge) { badge.innerText = "Carga Mental"; badge.className = "px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5 text-amber-600"></i> Estado: Carga Mental Activa';
+                if (code) { code.innerText = "Sugerencia Pausa"; code.className = "text-[8.5px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Flujo elevado de pensamientos. Se recomienda infusión de Toronjil o Melisa y escuchar Frecuencia Alfa (10 Hz) en Descanso.";
+            } else if (level <= 80) {
+                if (badge) { badge.innerText = "Sobrecarga"; badge.className = "px-3 py-1 bg-orange-50 text-orange-800 border border-orange-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-600"></i> Estado: Tensión Elevada';
+                if (code) { code.innerText = "Pausa Prioritaria"; code.className = "text-[8.5px] bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Tensión alta detectada. Activa el ejercicio de descompresión cervical y aplica Ungüento de Romero en las sienes.";
             } else {
-                if (badge) { badge.innerText = "Crisis / Tensión Alta 🔴"; badge.className = "px-3 py-1 bg-red-100 text-red-800 rounded-full text-[10px] font-black uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-red-600"></i> Estado: Auxilio Inmediato';
-                if (code) { code.innerText = "Alerta Emocional"; code.className = "text-[9px] bg-red-100 text-red-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Desregulación crítica. Escucha Frecuencia Delta en Descanso y contacta de inmediato con la Dra. Elena o Aldo en el Chat.";
+                if (badge) { badge.innerText = "Crisis / Auxilio"; badge.className = "px-3 py-1 bg-rose-50 text-rose-800 border border-rose-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
+                if (title) title.innerHTML = '<i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-rose-600"></i> Estado: Necesidad de Reposo';
+                if (code) { code.innerText = "Alerta Emocional"; code.className = "text-[8.5px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Estado crítico de angustia. Busca un espacio en silencio, inicia Frecuencia Delta y contacta a un profesional en el Chat.";
             }
 
             if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -7829,3 +7852,4 @@ Te enviaremos los detalles de entrega por chat.`);
 </div>
 </body>
 </html>
+
