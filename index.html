@@ -652,7 +652,9 @@
       box-shadow: 0 2px 8px rgba(46, 196, 182, 0.3);
     }
 
-</style>
+
+    .logo-area { display: flex; align-items: center; gap: 8px; }
+  </style>
 </head>
 <body>
 
@@ -1896,6 +1898,11 @@ id="singleChatView">
               <div class="clip-icon-circle"><i data-lucide="phone" size="20"></i></div>
               <span class="clip-label">Llamar</span>
             </div>
+            <div class="clip-grid-item" onclick="shareSalesStatsSim(); closeClipModal();">
+              <div class="clip-icon-circle"><i data-lucide="bar-chart-2" size="20"></i></div>
+              <span class="clip-label">Estadísticas</span>
+            </div>
+
           </div>
         </div>
       </div>
