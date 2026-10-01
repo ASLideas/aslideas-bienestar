@@ -7833,49 +7833,49 @@ Te enviaremos los detalles de entrega por chat.`);
     </div>
 
 
-            <!-- ================= MODAL DE DESCARGA DE LA APP CON LOGO DE BIENESTAR ================= -->
-            <div id="app-download-modal" class="fixed inset-0 bg-white z-[100] flex items-center justify-center p-4 hidden">
-                <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-[#33BCA9]/30 relative overflow-hidden animate-in fade-in zoom-in duration-200">
-                    <button type="button" onclick="closeAppDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 transition">
-                        <i data-lucide="x" class="w-4 h-4"></i>
+            <!-- ================= MODAL DE DESCARGA DE LA APP CON LOGO DE BIENESTAR (DISEÑO LIMPIO V65) ================= -->
+            <div id="app-download-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xl z-[99999] flex items-center justify-center p-4 hidden transition-all duration-300">
+                <div class="bg-white rounded-[36px] max-w-sm w-full p-7 text-center space-y-5 shadow-2xl border-2 border-[#33BCA9]/40 relative overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                    <button type="button" onclick="closeAppDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition shadow-xs">
+                        <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
 
-                    <!-- LOGO DE BIENESTAR OFICIAL DESTACADO EN CÍRCULO VERDE BLANCO PURO -->
-                    <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl p-2.5 border-4 border-[#33BCA9] relative overflow-hidden ring-4 ring-[#33BCA9]/20">
+                    <!-- LOGO DE BIENESTAR OFICIAL CIRCULAR AMPLIO CON FONDO BLANCO PURO (Foto & Requerimiento v65) -->
+                    <div class="w-36 h-36 sm:w-40 sm:h-40 bg-white rounded-full flex items-center justify-center mx-auto shadow-2xl p-3 border-4 border-[#33BCA9] relative overflow-hidden ring-8 ring-[#E0F7F4]">
                         <img src="logo bienestar png.jpeg" alt="Logo Bienestar" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
                     </div>
 
-                    <div class="space-y-1">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-[#33BCA9] bg-[#E0F7F4] px-3 py-1 rounded-full">Súper-App Oficial</span>
-                        <h3 class="text-lg font-black text-[#2C7A7B] tracking-wider uppercase pt-1">BIENESTAR</h3>
-                        <p class="text-[9px] font-black text-[#33BCA9] uppercase tracking-widest">ECOSISTEMA INTEGRAL & SOCIAL</p>
-                        <p class="text-[11px] text-slate-500 leading-relaxed pt-1">
+                    <div class="space-y-1.5 pt-1">
+                        <span class="text-[9.5px] font-black uppercase tracking-widest text-[#2C7A7B] bg-[#E0F7F4] px-3.5 py-1 rounded-full border border-[#33BCA9]/30">Súper-App Oficial</span>
+                        <h3 class="text-xl font-black text-[#2C7A7B] tracking-wider uppercase pt-1">BIENESTAR</h3>
+                        <p class="text-[9.5px] font-black text-[#33BCA9] uppercase tracking-widest">ECOSISTEMA INTEGRAL & SOCIAL</p>
+                        <p class="text-[11px] text-slate-600 leading-relaxed pt-1 font-medium">
                             Lleva tu salud integrativa, herbolaria y frecuencias de relajación directamente en tu pantalla de inicio con la PWA oficial.
                         </p>
                     </div>
 
                     <!-- Puntos clave de descarga -->
-                    <div class="bg-[#F4FCFA] rounded-2xl p-3 text-left text-[10px] space-y-2 border border-[#33BCA9]/20">
-                        <div class="flex items-center gap-2 text-slate-700 font-bold">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] shrink-0"></i>
+                    <div class="bg-[#F4FCFA] rounded-2xl p-3.5 text-left text-[10.5px] space-y-2.5 border border-[#33BCA9]/25 shadow-xs">
+                        <div class="flex items-center gap-2.5 text-slate-700 font-bold">
+                            <i data-lucide="check-circle-2" class="w-4.5 h-4.5 text-[#33BCA9] shrink-0"></i>
                             <span>Instalación instantánea sin ocupar almacenamiento</span>
                         </div>
-                        <div class="flex items-center gap-2 text-slate-700 font-bold">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] shrink-0"></i>
+                        <div class="flex items-center gap-2.5 text-slate-700 font-bold">
+                            <i data-lucide="check-circle-2" class="w-4 h-4.5 text-[#33BCA9] shrink-0"></i>
                             <span>Sincronización en vivo de pasos y chat</span>
                         </div>
-                        <div class="flex items-center gap-2 text-slate-700 font-bold">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] shrink-0"></i>
+                        <div class="flex items-center gap-2.5 text-slate-700 font-bold">
+                            <i data-lucide="check-circle-2" class="w-4.5 h-4.5 text-[#33BCA9] shrink-0"></i>
                             <span>Acceso a tus Fichas Clínicas sin internet</span>
                         </div>
                     </div>
 
                     <!-- Botón de Acción de Descarga -->
                     <div class="space-y-2 pt-1">
-                        <button type="button" onclick="triggerPWAInstallation()" class="w-full bg-[#2C7A7B] hover:bg-[#33BCA9] text-white font-extrabold py-3 px-4 rounded-xl text-xs shadow-lg shadow-[#33BCA9]/20 transition flex items-center justify-center gap-2 transform active:scale-98">
-                            <i data-lucide="download" class="w-4 h-4"></i> Instalar Aplicación en el Celular
+                        <button type="button" onclick="triggerPWAInstallation()" class="w-full bg-[#2C7A7B] hover:bg-[#33BCA9] text-white font-black py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider shadow-lg shadow-[#33BCA9]/30 transition flex items-center justify-center gap-2 transform active:scale-98">
+                            <i data-lucide="download" class="w-4.5 h-4.5"></i> Instalar Aplicación en el Celular
                         </button>
-                        <p class="text-[9px] text-slate-400">Compatible con iPhone (Safari -> Compartir -> Inicio) y Android (Chrome)</p>
+                        <p class="text-[9px] text-slate-400 font-semibold">Compatible con iPhone (Safari -> Compartir -> Inicio) y Android (Chrome)</p>
                     </div>
                 </div>
             </div>
