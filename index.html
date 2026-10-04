@@ -7752,30 +7752,35 @@ Te enviaremos los detalles de entrega por chat.`);
             if (slider) slider.value = level;
 
             if (level <= 20) {
-                if (badge) { badge.innerText = "Calma y Equilibrio"; badge.className = "px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i> Estado: Calma y Equilibrio';
-                if (code) { code.innerText = "Nivel Óptimo"; code.className = "text-[8.5px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Te encuentras en un estado óptimo de regulación emocional. Momento ideal para actividades creativas y pausas preventivas.";
+                if (badge) badge.className = "px-3 py-1 bg-purple-50 text-purple-800 border border-purple-200 rounded-full text-[10px] font-black uppercase shadow-2xs flex items-center gap-1.5";
+                if (badge) badge.innerHTML = '<span class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse"></span> Serenidad / Calma 🧘';
+                if (title) title.innerHTML = '<i data-lucide="sparkles" class="w-3.5 h-3.5 text-purple-600"></i> Estado: Calma Profunda y Reposo Sensorial';
+                if (code) { code.innerText = "Zona Púrpura"; code.className = "text-[9px] bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Te encuentras en reposo sensorial óptimo. Excelente momento para descansar, meditar o disfrutar de una infusión de Toronjil y Menta.";
             } else if (level <= 40) {
-                if (badge) { badge.innerText = "Serenidad Leve"; badge.className = "px-3 py-1 bg-teal-50 text-teal-800 border border-teal-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="wind" class="w-3.5 h-3.5 text-teal-600"></i> Estado: Serenidad Leve';
-                if (code) { code.innerText = "Atención Preventiva"; code.className = "text-[8.5px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Equilibrio estable. Te sugerimos una breve pausa de respiración consciente 4-7-8 e hidratación con agua de yerba buena.";
+                if (badge) badge.className = "px-3 py-1 bg-sky-50 text-sky-800 border border-sky-200 rounded-full text-[10px] font-black uppercase shadow-2xs flex items-center gap-1.5";
+                if (badge) badge.innerHTML = '<span class="w-1.5 h-1.5 bg-sky-500 rounded-full animate-pulse"></span> Enfoque / Hiperfoco 🧠';
+                if (title) title.innerHTML = '<i data-lucide="brain" class="w-3.5 h-3.5 text-sky-600"></i> Estado: Enfoque y Claridad Cognitiva';
+                if (code) { code.innerText = "Atención Alta"; code.className = "text-[9px] bg-sky-100 text-sky-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Atención fluida y enfocada. Recuerda parpadear, beber agua y programar una pausa activa breve para cuidar tu postura.";
             } else if (level <= 60) {
-                if (badge) { badge.innerText = "Carga Mental"; badge.className = "px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5 text-amber-600"></i> Estado: Carga Mental Activa';
-                if (code) { code.innerText = "Sugerencia Pausa"; code.className = "text-[8.5px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Flujo elevado de pensamientos. Se recomienda infusión de Toronjil o Melisa y escuchar Frecuencia Alfa (10 Hz) en Descanso.";
+                if (badge) badge.className = "px-3 py-1 bg-teal-50 text-teal-800 border border-teal-200 rounded-full text-[10px] font-black uppercase shadow-2xs flex items-center gap-1.5";
+                if (badge) badge.innerHTML = '<span class="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse"></span> Equilibrio Activo 🌿';
+                if (title) title.innerHTML = '<i data-lucide="wind" class="w-3.5 h-3.5 text-teal-600"></i> Estado: Autorregulación Armónica';
+                if (code) { code.innerText = "Zona Estable"; code.className = "text-[9px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Te mantienes en balance consciente. Te sugerimos una respiración ritmada 4-7-8 y estiramiento suave para conservar la energía.";
             } else if (level <= 80) {
-                if (badge) { badge.innerText = "Sobrecarga"; badge.className = "px-3 py-1 bg-orange-50 text-orange-800 border border-orange-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-600"></i> Estado: Tensión Elevada';
-                if (code) { code.innerText = "Pausa Prioritaria"; code.className = "text-[8.5px] bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Tensión alta detectada. Activa el ejercicio de descompresión cervical y aplica Ungüento de Romero en las sienes.";
+                if (badge) badge.className = "px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-[10px] font-black uppercase shadow-2xs flex items-center gap-1.5";
+                if (badge) badge.innerHTML = '<span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span> Saturación Sensorial 🟡';
+                if (title) title.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5 text-amber-600"></i> Estado: Carga y Sensibilidad Elevada';
+                if (code) { code.innerText = "Sugerencia Pausa"; code.className = "text-[9px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Sensibilidad o carga mental acumulada. Reduce estímulos visuales/sonoros, aplica gotas de Melisa y escucha Frecuencia Alfa (10 Hz) en Descanso.";
             } else {
-                if (badge) { badge.innerText = "Crisis / Auxilio"; badge.className = "px-3 py-1 bg-rose-50 text-rose-800 border border-rose-200 rounded-full text-[9.5px] font-extrabold uppercase shadow-2xs"; }
-                if (title) title.innerHTML = '<i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-rose-600"></i> Estado: Necesidad de Reposo';
-                if (code) { code.innerText = "Alerta Emocional"; code.className = "text-[8.5px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full font-bold"; }
-                if (text) text.innerText = "Estado crítico de angustia. Busca un espacio en silencio, inicia Frecuencia Delta y contacta a un profesional en el Chat.";
+                if (badge) badge.className = "px-3 py-1 bg-rose-50 text-rose-800 border border-rose-200 rounded-full text-[10px] font-black uppercase shadow-2xs flex items-center gap-1.5";
+                if (badge) badge.innerHTML = '<span class="w-1.5 h-1.5 bg-rose-500 rounded-full animate-pulse"></span> Sobrecarga / Meltdown 🔴';
+                if (title) title.innerHTML = '<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-600"></i> Estado: Sobrecarga Sensorial - Espacio Seguro';
+                if (code) { code.innerText = "Apoyo Prioritario"; code.className = "text-[9px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full font-bold"; }
+                if (text) text.innerText = "Intensidad o sobrecarga alta. Activa tu espacio seguro, busca penumbra o silencio, y contacta a tu círculo de confianza o profesional en la app.";
             }
 
             if (typeof lucide !== 'undefined') lucide.createIcons();
