@@ -41,19 +41,37 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+        /* BARRA REGULADORA EMOCIONAL ESTILO ARCOÍRIS NEURODIVERGENTE */
         #chat-emotion-range-slider {
             -webkit-appearance: none;
             appearance: none;
+            background: linear-gradient(to right, #EF4444, #F97316, #EAB308, #22C55E, #06B6D4, #3B82F6, #A855F7, #EC4899);
+            border-radius: 9999px;
+            height: 10px;
         }
         #chat-emotion-range-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             background: #FFFFFF;
-            border: 3px solid #2C7A7B;
-            box-shadow: 0 2px 6px rgba(44, 122, 123, 0.3);
+            border: 3.5px solid #2C7A7B;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+        #chat-emotion-range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            border-color: #33BCA9;
+        }
+        #chat-emotion-range-slider::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 3.5px solid #2C7A7B;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
             cursor: pointer;
         }
     </style>
@@ -73,7 +91,7 @@
             </div>
         </header>
 
-        <!-- CABECERA DE NAVEGACIÓN Y LOGO -->
+        <!-- CABECERA DE NAVEGACIÓN Y LOGO PRINCIPAL -->
         <div class="bg-white px-5 py-3.5 border-b border-[#33BCA9]/20 flex justify-between items-center shrink-0 z-30 shadow-2xs">
             <div class="flex items-center gap-3">
                 <div class="w-11 h-11 bg-white rounded-full flex items-center justify-center p-1 border-2 border-[#33BCA9] shadow-sm shrink-0">
@@ -96,17 +114,27 @@
             </div>
         </div>
 
-        <!-- REGULADOR EMOCIONAL ULTRA-COMPACTO -->
-        <div class="bg-white/90 backdrop-blur-md px-4 py-2 border-b border-[#33BCA9]/20 shrink-0 z-20">
-            <div class="flex justify-between items-center mb-1">
-                <span class="text-[10px] font-black text-[#2C7A7B] uppercase tracking-wider flex items-center gap-1">
-                    <i data-lucide="sliders" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Regulación Sensorial
+        <!-- REGULADOR EMOCIONAL Y SENSORIAL NEURODIVERGENTE (ARCOÍRIS) -->
+        <div class="bg-white/95 backdrop-blur-md px-4 py-2.5 border-b border-[#33BCA9]/20 shrink-0 z-20 space-y-1.5">
+            <div class="flex justify-between items-center">
+                <span class="text-[10px] font-black text-[#2C7A7B] uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="text-xs">🌈</span> Regulación Sensorial Neurodivergente
                 </span>
-                <span id="chat-emotion-level-badge" class="px-2.5 py-0.5 bg-[#E0F7F4] text-[#2C7A7B] border border-[#33BCA9]/30 rounded-full text-[8.5px] font-black uppercase shadow-2xs">
-                    Calma y Equilibrio
+                <span id="chat-emotion-level-badge" class="px-2.5 py-0.5 bg-gradient-to-r from-red-500 via-amber-500 to-indigo-500 text-white rounded-full text-[8.5px] font-black uppercase shadow-xs">
+                    Espectro Sensorial
                 </span>
             </div>
-            <input type="range" id="chat-emotion-range-slider" min="1" max="100" value="20" oninput="updateChatEmotionSlider(this.value)" class="w-full h-2 bg-gradient-to-r from-sky-400 via-teal-400 to-rose-400 rounded-full appearance-none cursor-pointer">
+
+            <!-- BARRA SLIDER CON DEGRADADO ARCOÍRIS -->
+            <input type="range" id="chat-emotion-range-slider" min="1" max="100" value="20" oninput="updateChatEmotionSlider(this.value)" class="w-full h-2.5 rounded-full appearance-none cursor-pointer shadow-inner">
+
+            <div class="flex justify-between text-[8px] font-extrabold uppercase tracking-wider px-0.5">
+                <span class="text-red-500">Calma</span>
+                <span class="text-amber-500">Enfoque</span>
+                <span class="text-emerald-500">Balance</span>
+                <span class="text-cyan-500">Saturación</span>
+                <span class="text-purple-600">Sobrecarga</span>
+            </div>
         </div>
 
         <!-- CONTENIDO PRINCIPAL (PANEL DE PESTAÑAS) -->
@@ -138,7 +166,7 @@
                     <div onclick="openIndividualChat('Aldo — Asistente IA', 'logo bienestar png.jpeg', 'Asistente Integral', 'Bot Activo')" class="bg-white p-3 rounded-2xl border border-[#33BCA9]/20 flex items-center justify-between shadow-2xs hover:border-[#33BCA9] cursor-pointer transition">
                         <div class="flex items-center gap-3">
                             <div class="w-11 h-11 bg-[#E0F7F4] rounded-full flex items-center justify-center p-1 border border-[#33BCA9] shrink-0">
-                                <img src="logo bienestar png.jpeg" class="w-full h-full object-contain rounded-full">
+                                <img src="logo bienestar png.jpeg" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
                             </div>
                             <div>
                                 <h3 class="text-xs font-extrabold text-[#2C7A7B]">Aldo — Asistente IA</h3>
@@ -207,15 +235,15 @@
             </button>
         </nav>
 
-        <!-- MODAL DE DESCARGA PWA CON LOGO CIRCULAR (AISLADO EN FONDO BLANCO PURO) -->
-        <div id="app-download-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] flex items-center justify-center p-4 hidden animate-in fade-in duration-200">
+        <!-- INTRO / MODAL DE DESCARGA PWA CON LOGO OFICIAL DE BIENESTAR EN FONDO BLANCO PURO -->
+        <div id="app-download-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[9999] flex items-center justify-center p-4 hidden animate-in fade-in duration-200">
             <div class="bg-white rounded-[32px] max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border-2 border-[#33BCA9]/30 relative overflow-hidden">
 
                 <button type="button" onclick="closeAppDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 transition">
                     <i data-lucide="x" class="w-4.5 h-4.5"></i>
                 </button>
 
-                <!-- LOGO DE BIENESTAR OFICIAL CIRCULAR DESTACADO SOBRE FONDO BLANCO PURO -->
+                <!-- INTRO LOGO BIENESTAR OFICIAL CIRCULAR DESTACADO SOBRE FONDO BLANCO PURO -->
                 <div class="w-28 h-28 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl p-2 border-4 border-[#33BCA9] relative overflow-hidden ring-4 ring-[#E0F7F4]">
                     <img src="logo bienestar png.jpeg" alt="Logo Bienestar" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
                 </div>
