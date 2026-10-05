@@ -1,5 +1,5 @@
 // ================= JS PRINCIPAL, PWA, RELOJ Y NAVEGACIÓN =================
-let selectedAvatarUrl = 'logo bienestar.jpg';
+let selectedAvatarUrl = 'Code_Generated_Image.png';
 
 function safeInitLucide() {
     if (window.lucide && typeof lucide.createIcons === 'function') {
