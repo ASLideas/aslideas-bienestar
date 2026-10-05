@@ -63,7 +63,7 @@
        if (nameEl) nameEl.innerText = name || "Contacto";
    
        const avatarEl = document.getElementById('ind-chat-avatar');
-       if (avatarEl) avatarEl.src = avatar || "logo bienestar png.jpeg";
+       if (avatarEl) avatarEl.src = avatar || "logo bienestar.jpg";
    
        const subEl = document.getElementById('ind-chat-status');
        if (subEl) subEl.innerText = subtitle || "En línea";
