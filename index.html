@@ -1007,5 +1007,184 @@
             alert('🔊 Altavoz activado');
         }
     </script>
+<!-- MODAL DE UBICACIÓN (ACTUAL Y TIEMPO REAL) -->
+    <div id="location-picker-modal" class="hidden absolute inset-0 bg-slate-950/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 text-left border border-slate-100 fade-in">
+            <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="p-2 bg-red-100 text-red-600 rounded-xl"><i data-lucide="map-pin" class="w-5 h-5"></i></div>
+                    <h3 class="font-black text-sm text-slate-800">Compartir Ubicación</h3>
+                </div>
+                <button type="button" onclick="closeLocationModal()" class="text-slate-400 hover:text-slate-600 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <div class="space-y-3">
+                <button type="button" onclick="sendCurrentLocation()" class="w-full flex items-center gap-3 p-3 rounded-2xl bg-[#E0F7F4] hover:bg-[#33BCA9]/20 border border-[#33BCA9]/30 transition text-left group">
+                    <div class="p-2.5 bg-[#2C7A7B] text-white rounded-xl shadow-md"><i data-lucide="navigation" class="w-5 h-5"></i></div>
+                    <div>
+                        <h4 class="text-xs font-black text-[#2C7A7B]">Enviar ubicación actual</h4>
+                        <p class="text-[10px] text-slate-500 font-medium">GPS preciso mediante coordenadas en vivo</p>
+                    </div>
+                </button>
+
+                <button type="button" onclick="sendLiveLocation()" class="w-full flex items-center gap-3 p-3 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 transition text-left group">
+                    <div class="p-2.5 bg-amber-500 text-white rounded-xl shadow-md"><i data-lucide="radio" class="w-5 h-5 animate-pulse"></i></div>
+                    <div>
+                        <h4 class="text-xs font-black text-amber-800">Ubicación en tiempo real</h4>
+                        <p class="text-[10px] text-slate-500 font-medium">Compartir movimiento continuo (15 min - 1 hr)</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE SELECCIÓN DE CONTACTO -->
+    <div id="contact-picker-modal" class="hidden absolute inset-0 bg-slate-950/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 text-left border border-slate-100 fade-in">
+            <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="p-2 bg-blue-100 text-blue-600 rounded-xl"><i data-lucide="user" class="w-5 h-5"></i></div>
+                    <h3 class="font-black text-sm text-slate-800">Enviar Ficha de Contacto</h3>
+                </div>
+                <button type="button" onclick="closeContactModal()" class="text-slate-400 hover:text-slate-600 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <div class="space-y-3">
+                <div class="space-y-1">
+                    <label class="text-[10.5px] font-bold text-slate-600">Nombre del contacto</label>
+                    <input type="text" id="contact-input-name" value="Dr. Matías Silva (Cardiología)" class="w-full p-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-[#33BCA9]">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10.5px] font-bold text-slate-600">Número de teléfono</label>
+                    <input type="text" id="contact-input-phone" value="+56 9 8765 4321" class="w-full p-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-[#33BCA9]">
+                </div>
+                <button type="button" onclick="sendSelectedContact()" class="w-full bg-[#2C7A7B] hover:bg-[#33BCA9] text-white py-2.5 rounded-xl text-xs font-bold transition shadow-md">
+                    Compartir Contacto en Chat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CREACIÓN DE ENCUESTA Y ESTADÍSTICAS -->
+    <div id="poll-creator-modal" class="hidden absolute inset-0 bg-slate-950/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 text-left border border-slate-100 fade-in max-h-[90vh] overflow-y-auto no-scrollbar">
+            <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="p-2 bg-amber-100 text-amber-600 rounded-xl"><i data-lucide="bar-chart-2" class="w-5 h-5"></i></div>
+                    <h3 class="font-black text-sm text-slate-800">Crear Encuesta de Empresa</h3>
+                </div>
+                <button type="button" onclick="closePollModal()" class="text-slate-400 hover:text-slate-600 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <div class="space-y-3">
+                <div class="space-y-1">
+                    <label class="text-[10.5px] font-bold text-slate-600">Pregunta de la encuesta</label>
+                    <input type="text" id="poll-question-input" value="¿Qué servicio de bienestar deseas incluir este mes?" class="w-full p-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-[#33BCA9]">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10.5px] font-bold text-slate-600">Opciones de respuesta</label>
+                    <input type="text" id="poll-opt-1" value="🌿 Terapia de Salud Mental Integrativa" class="w-full p-2 rounded-xl border border-slate-200 text-xs font-medium">
+                    <input type="text" id="poll-opt-2" value="🧘 Sesiones de Mindfulness y Pausa Sensorial" class="w-full p-2 rounded-xl border border-slate-200 text-xs font-medium">
+                    <input type="text" id="poll-opt-3" value="🍵 Fitoterapia & Nutrición Holística" class="w-full p-2 rounded-xl border border-slate-200 text-xs font-medium">
+                </div>
+                <button type="button" onclick="sendPollToChat()" class="w-full bg-[#2C7A7B] hover:bg-[#33BCA9] text-white py-2.5 rounded-xl text-xs font-bold transition shadow-md">
+                    Lanzar Encuesta en Chat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CATÁLOGO DE PRODUCTOS SALUD & BIENESTAR -->
+    <div id="catalog-picker-modal" class="hidden absolute inset-0 bg-slate-950/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 text-left border border-slate-100 fade-in max-h-[85vh] overflow-y-auto no-scrollbar">
+            <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="p-2 bg-emerald-100 text-emerald-600 rounded-xl"><i data-lucide="shopping-bag" class="w-5 h-5"></i></div>
+                    <h3 class="font-black text-sm text-slate-800">Catálogo Natural Wellness</h3>
+                </div>
+                <button type="button" onclick="closeCatalogModal()" class="text-slate-400 hover:text-slate-600 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <div class="space-y-3">
+                <div class="p-3 bg-[#FAF8EE] rounded-2xl border border-[#33BCA9]/30 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-xs font-black text-[#2C7A7B]">Aceite Esencial Orgánico Lavanda</h4>
+                        <p class="text-[10px] text-slate-500 font-medium">10ml - Alivio de estrés & descanso</p>
+                        <span class="text-xs font-extrabold text-emerald-600">$12.990 CLP</span>
+                    </div>
+                    <button type="button" onclick="sendCatalogProduct('Aceite Esencial Orgánico Lavanda', '$12.990 CLP')" class="px-3 py-1.5 bg-[#2C7A7B] text-white text-[11px] font-bold rounded-xl hover:bg-[#33BCA9]">Enviar</button>
+                </div>
+
+                <div class="p-3 bg-[#FAF8EE] rounded-2xl border border-[#33BCA9]/30 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-xs font-black text-[#2C7A7B]">Suplemento Balance Sensorial</h4>
+                        <p class="text-[10px] text-slate-500 font-medium">60 Cápsulas - Adaptógenos naturales</p>
+                        <span class="text-xs font-extrabold text-emerald-600">$18.500 CLP</span>
+                    </div>
+                    <button type="button" onclick="sendCatalogProduct('Suplemento Balance Sensorial', '$18.500 CLP')" class="px-3 py-1.5 bg-[#2C7A7B] text-white text-[11px] font-bold rounded-xl hover:bg-[#33BCA9]">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CÁMARA SNAPSHOT INSTANTÁNEA -->
+    <div id="live-camera-modal" class="hidden absolute inset-0 bg-slate-950 z-[9999] flex flex-col justify-between p-4 text-white">
+        <div class="flex items-center justify-between pt-2">
+            <button type="button" onclick="closeLiveCameraModal()" class="p-2 bg-white/10 rounded-full"><i data-lucide="arrow-left" class="w-5 h-5"></i></button>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-[#33BCA9]">Cámara Instantánea</h3>
+            <div class="w-8"></div>
+        </div>
+
+        <div class="relative flex-1 my-3 bg-black rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center">
+            <video id="camera-snapshot-feed" autoplay playsinline class="w-full h-full object-cover"></video>
+            <canvas id="camera-snapshot-canvas" class="hidden"></canvas>
+        </div>
+
+        <div class="flex items-center justify-center pb-4">
+            <button type="button" onclick="capturePhotoAndSend()" class="w-20 h-20 bg-white rounded-full border-4 border-[#33BCA9] shadow-2xl flex items-center justify-center active:scale-90 transition">
+                <div class="w-16 h-16 bg-[#2C7A7B] rounded-full"></div>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL ESTADÍSTICAS DE EMPRESA -->
+    <div id="business-analytics-modal" class="hidden absolute inset-0 bg-slate-950/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 text-left border border-slate-100 fade-in">
+            <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="p-2 bg-emerald-100 text-emerald-600 rounded-xl"><i data-lucide="line-chart" class="w-5 h-5"></i></div>
+                    <h3 class="font-black text-sm text-slate-800">Estadísticas de Empresa</h3>
+                </div>
+                <button type="button" onclick="closeAnalyticsModal()" class="text-slate-400 hover:text-slate-600 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <div class="space-y-3">
+                <div class="p-3 bg-[#FAF8EE] rounded-2xl border border-[#33BCA9]/20 space-y-2">
+                    <div class="flex justify-between text-xs font-bold text-slate-700">
+                        <span>Satisfacción del Cliente</span>
+                        <span class="text-emerald-600">98.4%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-500 h-full w-[98%] rounded-full"></div>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-[#FAF8EE] rounded-2xl border border-[#33BCA9]/20 space-y-2">
+                    <div class="flex justify-between text-xs font-bold text-slate-700">
+                        <span>Participación en Encuestas</span>
+                        <span class="text-[#2C7A7B]">142 votos</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-[#2C7A7B] h-full w-[85%] rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INPUTS OCULTOS PARA SELECCIÓN DE ARCHIVOS -->
+    <input type="file" id="attachment-doc-input" class="hidden" onchange="handleDocumentUpload(this)">
+    <input type="file" id="attachment-gallery-input" accept="image/*,video/*" class="hidden" onchange="handleGalleryUpload(this)">
+
 </body>
 </html>
