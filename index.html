@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Bienestar — Súper-App Oficial</title>
+    <title>Bienestar — Súper-App Estilo WhatsApp</title>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,14 +12,14 @@
             theme: {
                 extend: {
                     colors: {
-                        teal: {
-                            50: '#E0F7F4',
-                            100: '#C2F0E9',
-                            500: '#33BCA9',
-                            700: '#2C7A7B',
-                            900: '#1B4B4C'
-                        },
-                        linen: '#FAF8EE'
+                        wa: {
+                            teal: '#075E54',
+                            light: '#128C7E',
+                            green: '#25D366',
+                            chatbg: '#E5DDD5',
+                            card: '#FAF8EE',
+                            accent: '#33BCA9'
+                        }
                     }
                 }
             }
@@ -32,7 +32,7 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #FAF8EE;
+            background-color: #0D171E;
             color: #2D3748;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
@@ -41,10 +41,13 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Slider Arcoíris Neurodivergente */
+        /* SLIDER ARCOÍRIS NEURODIVERGENTE */
         #chat-emotion-range-slider {
             -webkit-appearance: none;
             appearance: none;
+            background: linear-gradient(to right, #EF4444, #F59E0B, #10B981, #06B6D4, #6366F1, #8B5CF6, #EC4899);
+            border-radius: 9999px;
+            height: 8px;
         }
         #chat-emotion-range-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -53,322 +56,381 @@
             height: 22px;
             border-radius: 50%;
             background: #FFFFFF;
-            border: 3.5px solid #2C7A7B;
-            box-shadow: 0 2px 8px rgba(44, 122, 123, 0.4);
+            border: 3.5px solid #075E54;
+            box-shadow: 0 2px 8px rgba(7, 94, 84, 0.4);
             cursor: pointer;
             transition: transform 0.15s ease;
         }
         #chat-emotion-range-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.15);
+            transform: scale(1.2);
         }
 
+        /* ANIMACIONES */
         @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(51, 188, 169, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(51, 188, 169, 0.7); }
+            0%, 100% { box-shadow: 0 0 15px rgba(51, 188, 169, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(51, 188, 169, 0.8); }
         }
         .animate-pulse-glow {
             animation: pulseGlow 2.5s infinite ease-in-out;
         }
     </style>
 </head>
-<body class="h-full w-full bg-[#FAF8EE] flex justify-center items-center overflow-hidden">
+<body class="h-full w-full bg-[#0D171E] flex justify-center items-center overflow-hidden">
 
-    <!-- CONTENEDOR PRINCIPAL MOBILE -->
+    <!-- CONTENEDOR PRINCIPAL TIPO WHATSAPP -->
     <div id="app-container" class="w-full max-w-md h-full max-h-[100dvh] bg-[#FAF8EE] flex flex-col relative shadow-2xl overflow-hidden border-x border-[#33BCA9]/20">
 
-        <!-- ================= PANTALLA DE ENTRADA / ESPERA DE CARGA & DESCARGA ================= -->
-        <div id="splash-intro-screen" class="absolute inset-0 bg-[#FAF8EE] z-[99999] flex flex-col justify-between p-7 text-center transition-all duration-500">
-            <div class="pt-6">
-                <span class="text-[9.5px] font-black uppercase tracking-widest text-[#2C7A7B] bg-[#E0F7F4] px-3.5 py-1 rounded-full border border-[#33BCA9]/30">Súper-App Oficial</span>
+        <!-- 1. BARRA DE ESTADO SUPERIOR (Reloj y Status) -->
+        <header id="system-status-bar" class="bg-[#075E54] text-white text-xs px-5 py-2.5 flex justify-between items-center shrink-0 z-40 border-b border-white/10">
+            <span id="system-clock" class="font-extrabold tracking-tight text-white/90">12:00</span>
+            <div class="flex items-center gap-2">
+                <span class="text-[9.5px] font-black uppercase tracking-wider bg-white/20 text-white px-2 py-0.5 rounded-full border border-white/30">BIENESTAR</span>
+                <i data-lucide="wifi" class="w-3.5 h-3.5 text-white/80"></i>
+                <i data-lucide="battery-charging" class="w-4 h-4 text-white"></i>
+            </div>
+        </header>
+
+        <!-- 2. CABECERA PRINCIPAL ESTILO WHATSAPP (Logo Circunferencia Completa + 3 Puntos) -->
+        <div class="bg-[#075E54] px-4 py-3 text-white flex justify-between items-center shrink-0 z-30 shadow-md relative">
+            <div class="flex items-center gap-3">
+                <!-- LOGO QUE OCUPA EL 100% DE LA CIRCUNFERENCIA -->
+                <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-white/80 shadow-md flex items-center justify-center bg-white p-0 shrink-0">
+                    <img src="Code_Generated_Image (1).png" alt="Bienestar Logo" class="w-full h-full object-cover rounded-full" onerror="handleLogoError(this)">
+                </div>
+                <div>
+                    <h1 class="text-base font-black tracking-wide text-white leading-tight">Bienestar</h1>
+                    <p class="text-[10px] text-emerald-200 font-bold tracking-widest uppercase">WhatsApp Super-App</p>
+                </div>
             </div>
 
-            <!-- LOGO OFICIAL NÍTIDO CON MEDALLÓN BLANCO -->
-            <div class="space-y-5 my-auto">
-                <div class="w-36 h-36 bg-white rounded-full flex items-center justify-center mx-auto shadow-2xl p-3 border-4 border-[#33BCA9] relative overflow-hidden ring-8 ring-[#E0F7F4] animate-pulse-glow">
-                    <img src="Code_Generated_Image (1).png" alt="Logo Bienestar" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
+            <div class="flex items-center gap-1">
+                <!-- BOTÓN CÁMARA WHATSAPP -->
+                <button type="button" onclick="openCameraSimulation()" class="text-white/90 hover:text-white p-2 rounded-full hover:bg-white/10 transition active:scale-95">
+                    <i data-lucide="camera" class="w-5 h-5"></i>
+                </button>
+                <!-- BOTÓN BUSCAR -->
+                <button type="button" onclick="toggleSearchBar()" class="text-white/90 hover:text-white p-2 rounded-full hover:bg-white/10 transition active:scale-95">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </button>
+                <!-- BOTÓN 3 PUNTOS MENÚ WHATSAPP -->
+                <button type="button" onclick="toggleWhatsAppMenu()" class="text-white/90 hover:text-white p-2 rounded-full hover:bg-white/10 transition active:scale-95 relative">
+                    <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- MENÚ DESPLEGABLE DE 3 PUNTOS ESTILO WHATSAPP -->
+            <div id="whatsapp-header-menu" class="absolute right-3 top-14 w-56 bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 hidden animate-in fade-in zoom-in-95 duration-150">
+                <button type="button" onclick="openNewGroupModal()" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-emerald-50 text-slate-700 hover:text-[#075E54] flex items-center gap-3 transition">
+                    <i data-lucide="users" class="w-4 h-4 text-[#075E54]"></i> Nuevo grupo
+                </button>
+                <button type="button" onclick="openLinkedDevicesModal()" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-emerald-50 text-slate-700 hover:text-[#075E54] flex items-center gap-3 transition">
+                    <i data-lucide="laptop" class="w-4 h-4 text-[#075E54]"></i> Dispositivos vinculados
+                </button>
+                <button type="button" onclick="openAIVideoAdModal()" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-emerald-50 text-slate-700 hover:text-[#075E54] flex items-center gap-3 transition">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-[#075E54]"></i> Agente IA Video Pyme
+                </button>
+                <button type="button" onclick="openAppDownloadModal()" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-emerald-50 text-slate-700 hover:text-[#075E54] flex items-center gap-3 transition border-t border-slate-100 mt-1 pt-2">
+                    <i data-lucide="download" class="w-4 h-4 text-[#075E54]"></i> Descargar App PWA
+                </button>
+                <button type="button" onclick="openSettingsModal()" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-emerald-50 text-slate-700 hover:text-[#075E54] flex items-center gap-3 transition">
+                    <i data-lucide="settings" class="w-4 h-4 text-[#075E54]"></i> Ajustes
+                </button>
+            </div>
+        </div>
+
+        <!-- BARRA DE BÚSQUEDA DESPLEGABLE -->
+        <div id="search-bar-container" class="bg-white px-4 py-2 border-b border-slate-200 hidden transition-all duration-200 shrink-0 z-20">
+            <div class="relative flex items-center">
+                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3"></i>
+                <input type="text" id="chat-search-input" onkeyup="filterChatsList()" placeholder="Buscar o empezar un chat..." class="w-full pl-9 pr-8 py-1.5 bg-slate-100 rounded-xl text-xs text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-[#075E54]">
+                <button onclick="toggleSearchBar()" class="absolute right-2.5 text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x-circle" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. REGULADOR EMOCIONAL ARCOÍRIS NEURODIVERGENTE -->
+        <div class="bg-white px-4 py-2.5 border-b border-slate-200 shrink-0 z-20 shadow-2xs">
+            <div class="flex justify-between items-center mb-1.5">
+                <span class="text-[10px] font-black text-[#075E54] uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="rainbow" class="w-4 h-4 text-amber-500"></i> Regulación Sensorial Arcoíris
+                </span>
+                <span id="chat-emotion-level-badge" class="px-3 py-0.5 bg-gradient-to-r from-emerald-50 to-teal-100 text-[#075E54] border border-[#33BCA9]/40 rounded-full text-[9px] font-black uppercase shadow-2xs">
+                    💚 Balance Sensorial
+                </span>
+            </div>
+            <!-- SLIDER MULTITONO ESPECTRO ARCOÍRIS COMPLETO -->
+            <input type="range" id="chat-emotion-range-slider" min="1" max="100" value="50" oninput="updateChatEmotionSlider(this.value)" class="w-full appearance-none cursor-pointer">
+        </div>
+
+        <!-- 4. PESTAÑAS Y FILTROS RÁPIDOS ESTILO WHATSAPP -->
+        <div class="bg-white px-3 py-2 border-b border-slate-200 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0 z-10">
+            <button onclick="switchChatFilter('all', this)" class="chat-filter-chip bg-[#075E54] text-white px-3.5 py-1 rounded-full text-[10.5px] font-black uppercase tracking-wider shadow-2xs transition">
+                Todos
+            </button>
+            <button onclick="switchChatFilter('unread', this)" class="chat-filter-chip bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-[#075E54] px-3.5 py-1 rounded-full text-[10.5px] font-bold transition">
+                No leídos (3)
+            </button>
+            <button onclick="switchChatFilter('favorites', this)" class="chat-filter-chip bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-[#075E54] px-3.5 py-1 rounded-full text-[10.5px] font-bold transition">
+                Favoritos
+            </button>
+            <button onclick="switchChatFilter('groups', this)" class="chat-filter-chip bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-[#075E54] px-3.5 py-1 rounded-full text-[10.5px] font-bold transition">
+                Grupos
+            </button>
+        </div>
+
+        <!-- 5. CONTENIDO PRINCIPAL (CHATS, WELLNESS, SHOPPING, MORFEO) -->
+        <main class="flex-1 min-h-0 overflow-y-auto no-scrollbar relative z-10 bg-[#FAF8EE]">
+
+            <!-- PESTAÑA PRINCIPAL: CHATS ESTILO WHATSAPP -->
+            <div id="screen-chats" class="divide-y divide-slate-200/80">
+
+                <!-- CHAT 1: DRA ELENA ROSTOVA -->
+                <div onclick="openIndividualChat('Dra. Elena Rostova', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=160&h=160', 'Salud Integrativa', 'En línea')" class="chat-item-row p-3.5 bg-white hover:bg-emerald-50/50 flex items-center justify-between cursor-pointer transition">
+                    <div class="flex items-center gap-3.5">
+                        <!-- FOTO CIRCULARR COMPLETA SIN BORDES SOBRANTES -->
+                        <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#33BCA9] shadow-sm shrink-0 bg-white p-0">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=160&h=160" class="w-full h-full object-cover rounded-full">
+                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white"></span>
+                        </div>
+                        <div class="space-y-0.5">
+                            <h3 class="text-xs font-black text-slate-800">Dra. Elena Rostova</h3>
+                            <p class="text-[11px] text-slate-500 font-medium line-clamp-1">Tu ficha clínica de herbolaria está lista para revisar.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end gap-1 shrink-0">
+                        <span class="text-[9.5px] font-bold text-[#25D366]">11:42</span>
+                        <span class="w-5 h-5 bg-[#25D366] text-white rounded-full text-[9px] font-black flex items-center justify-center shadow-xs">2</span>
+                    </div>
+                </div>
+
+                <!-- CHAT 2: ALDO ASISTENTE IA (LOGO COMPLETO) -->
+                <div onclick="openIndividualChat('Aldo — Asistente IA', 'Code_Generated_Image (1).png', 'Asistente Integral', 'Bot Activo')" class="chat-item-row p-3.5 bg-white hover:bg-emerald-50/50 flex items-center justify-between cursor-pointer transition">
+                    <div class="flex items-center gap-3.5">
+                        <!-- LOGO QUE OCUPA TODA LA CIRCUNFERENCIA -->
+                        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-[#33BCA9] shadow-sm shrink-0 bg-white p-0 flex items-center justify-center">
+                            <img src="Code_Generated_Image (1).png" class="w-full h-full object-cover rounded-full" onerror="handleLogoError(this)">
+                        </div>
+                        <div class="space-y-0.5">
+                            <h3 class="text-xs font-black text-[#075E54]">Aldo — Asistente IA</h3>
+                            <p class="text-[11px] text-slate-500 font-medium line-clamp-1 flex items-center gap-1">
+                                <i data-lucide="check-check" class="w-3.5 h-3.5 text-sky-500 shrink-0"></i> ¿Deseas generar una recomendación herbolaria?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end gap-1 shrink-0">
+                        <span class="text-[9.5px] font-bold text-slate-400">10:15</span>
+                        <span class="w-5 h-5 bg-[#25D366] text-white rounded-full text-[9px] font-black flex items-center justify-center shadow-xs">1</span>
+                    </div>
+                </div>
+
+                <!-- CHAT 3: COMUNIDAD BIENESTAR -->
+                <div onclick="openIndividualChat('Grupo Salud & Frecuencias', 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=160&h=160', 'Grupo General', '128 Miembros')" class="chat-item-row p-3.5 bg-white hover:bg-emerald-50/50 flex items-center justify-between cursor-pointer transition">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400 shadow-sm shrink-0 bg-white p-0">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=160&h=160" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <div class="space-y-0.5">
+                            <h3 class="text-xs font-black text-slate-800">Grupo Salud & Frecuencias 🌿</h3>
+                            <p class="text-[11px] text-slate-500 font-medium line-clamp-1">Marco: Compartí la sesión de meditación binaural.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end gap-1 shrink-0">
+                        <span class="text-[9.5px] font-bold text-slate-400">Ayer</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PESTAÑA: WELLNESS -->
+            <div id="screen-bienestar" class="p-4 space-y-3 hidden">
+                <div class="bg-white p-5 rounded-3xl border border-[#33BCA9]/20 shadow-2xs text-center space-y-3">
+                    <div class="w-16 h-16 bg-[#E0F7F4] rounded-full flex items-center justify-center mx-auto border-2 border-[#33BCA9]">
+                        <i data-lucide="heart-pulse" class="w-8 h-8 text-[#075E54]"></i>
+                    </div>
+                    <h2 class="text-sm font-black text-[#075E54] uppercase">Salud Integrativa & Herbolaria</h2>
+                    <p class="text-[11.5px] text-slate-600 leading-relaxed font-medium">Monitoreo de hábitos, nutrición consciente y recomendaciones herbolarias personalizadas.</p>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: SHOPPING -->
+            <div id="screen-tienda" class="p-4 space-y-3 hidden">
+                <div class="bg-white p-5 rounded-3xl border border-[#33BCA9]/20 shadow-2xs space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xs font-black text-[#075E54] uppercase">Shopping & Pymes</h2>
+                        <button onclick="openAIVideoAdModal()" class="bg-[#075E54] text-white text-[10px] font-extrabold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-xs">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Agente IA Video
+                        </button>
+                    </div>
+                    <p class="text-[11.5px] text-slate-600 leading-relaxed font-medium">Catálogo de productos naturales y emparejamiento local Pyme-Cliente.</p>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: MORFEO -->
+            <div id="screen-relajacion" class="p-4 space-y-3 hidden">
+                <div class="bg-[#0B141B] text-white p-6 rounded-3xl shadow-xl text-center space-y-3 border border-[#33BCA9]/30">
+                    <div class="w-16 h-16 bg-[#33BCA9]/20 rounded-full flex items-center justify-center mx-auto border border-[#33BCA9]">
+                        <i data-lucide="moon" class="w-8 h-8 text-[#33BCA9]"></i>
+                    </div>
+                    <h2 class="text-sm font-black uppercase text-[#33BCA9]">Morfeo — Descanso Sensorial</h2>
+                    <p class="text-[11.5px] text-slate-300 leading-relaxed font-medium">Frecuencias binaurales, paisajes sonoros y relajación profunda.</p>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- BOTÓN FLOTANTE ESTILO WHATSAPP (FAB) -->
+        <button type="button" onclick="openNewGroupModal()" class="absolute bottom-20 right-4 w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full flex items-center justify-center shadow-2xl z-30 transition transform active:scale-95">
+            <i data-lucide="message-square-plus" class="w-6 h-6"></i>
+        </button>
+
+        <!-- 6. BARRA DE NAVEGACIÓN INFERIOR DE 4 PESTAÑAS -->
+        <nav id="main-nav-bar" class="bg-white border-t border-slate-200 py-2.5 px-4 flex justify-between items-center shrink-0 z-30 shadow-lg">
+            <button id="tab-btn-chats" onclick="switchTab('chats', this)" class="tab-btn flex flex-col items-center gap-0.5 font-black text-[#075E54]">
+                <i data-lucide="message-square" class="w-5 h-5"></i>
+                <span class="text-[9.5px]">Chat</span>
+            </button>
+            <button id="tab-btn-bienestar" onclick="switchTab('bienestar', this)" class="tab-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#075E54]">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i>
+                <span class="text-[9.5px]">Wellness</span>
+            </button>
+            <button id="tab-btn-tienda" onclick="switchTab('tienda', this)" class="tab-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#075E54]">
+                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                <span class="text-[9.5px]">Shopping</span>
+            </button>
+            <button id="tab-btn-relajacion" onclick="switchTab('relajacion', this)" class="tab-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#075E54]">
+                <i data-lucide="moon" class="w-5 h-5"></i>
+                <span class="text-[9.5px]">Morfeo</span>
+            </button>
+        </nav>
+
+        <!-- ================= MODAL DE CHAT INDIVIDUAL ESTILO WHATSAPP ================= -->
+        <div id="individual-chat-view" class="absolute inset-0 bg-[#E5DDD5] z-50 flex flex-col h-full max-h-full overflow-hidden hidden">
+            <!-- CABECERA DE CHAT INDIVIDUAL -->
+            <div class="bg-[#075E54] text-white px-3 py-2.5 flex items-center justify-between shrink-0 shadow-md">
+                <div class="flex items-center gap-2.5">
+                    <button onclick="closeIndividualChat()" class="p-1 rounded-full hover:bg-white/10 transition">
+                        <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
+                    </button>
+                    <!-- AVATAR CIRCULAR COMPLETO -->
+                    <div class="w-10 h-10 rounded-full overflow-hidden border border-white/60 bg-white p-0 shrink-0">
+                        <img id="chat-header-avatar" src="Code_Generated_Image (1).png" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <div>
+                        <h3 id="chat-header-name" class="text-xs font-black leading-tight text-white">Dra. Elena Rostova</h3>
+                        <p id="chat-header-status" class="text-[9.5px] text-emerald-200 font-bold">En línea</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1">
+                    <button onclick="startIndividualDirectCall('video')" class="p-2 rounded-full hover:bg-white/10 transition">
+                        <i data-lucide="video" class="w-5 h-5 text-white"></i>
+                    </button>
+                    <button onclick="startIndividualDirectCall('audio')" class="p-2 rounded-full hover:bg-white/10 transition">
+                        <i data-lucide="phone" class="w-5 h-5 text-white"></i>
+                    </button>
+                    <button onclick="toggleWhatsAppMenu()" class="p-2 rounded-full hover:bg-white/10 transition">
+                        <i data-lucide="more-vertical" class="w-5 h-5 text-white"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STREAM DE MENSAJES -->
+            <main id="chat-messages-stream" class="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 no-scrollbar bg-[#E5DDD5]">
+                <div class="text-center my-2">
+                    <span class="bg-white/80 text-slate-600 text-[9.5px] font-extrabold px-3 py-1 rounded-full shadow-2xs border border-slate-200">Hoy</span>
+                </div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-xs max-w-[82%] shadow-xs space-y-1">
+                    <p class="text-xs text-slate-800 font-medium">¡Hola! Bienvenido al módulo de Salud Integrativa de Bienestar.</p>
+                    <span class="text-[8.5px] text-slate-400 font-bold float-right">10:14 AM</span>
+                </div>
+            </main>
+
+            <!-- INPUT DE CHAT Y NOTAS DE VOZ -->
+            <footer class="bg-slate-100 p-2.5 border-t border-slate-200 flex items-center gap-2 shrink-0">
+                <button type="button" class="text-slate-500 p-2 hover:bg-slate-200 rounded-full transition">
+                    <i data-lucide="smile" class="w-5 h-5"></i>
+                </button>
+                <input type="text" id="chat-text-input" placeholder="Escribe un mensaje..." onkeypress="if(event.key==='Enter') sendChatMessage()" class="flex-1 bg-white px-4 py-2 rounded-full text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#075E54] border border-slate-200">
+                <button type="button" onclick="sendChatMessage()" class="w-10 h-10 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full flex items-center justify-center shrink-0 shadow-md transition">
+                    <i data-lucide="send" class="w-4.5 h-4.5"></i>
+                </button>
+            </footer>
+        </div>
+
+        <!-- ================= MODAL DE DESCARGA Y PANTALLA SPLASH (LOGO COMPLETO) ================= -->
+        <div id="splash-intro-screen" class="absolute inset-0 bg-[#FAF8EE] z-[9999] flex flex-col justify-between p-7 text-center transition-all duration-500">
+            <div class="pt-4">
+                <span class="text-[9.5px] font-black uppercase tracking-widest text-[#075E54] bg-[#E0F7F4] px-3.5 py-1 rounded-full border border-[#33BCA9]/30">Súper-App Oficial</span>
+            </div>
+
+            <!-- LOGO OFICIAL NÍTIDO QUE OCUPA TODA LA CIRCUNFERENCIA -->
+            <div class="space-y-5">
+                <div class="w-36 h-36 bg-white rounded-full flex items-center justify-center mx-auto shadow-2xl p-0 border-4 border-[#33BCA9] relative overflow-hidden ring-8 ring-[#E0F7F4] animate-pulse-glow">
+                    <img src="Code_Generated_Image (1).png" alt="Logo Bienestar" class="w-full h-full object-cover rounded-full" onerror="handleLogoError(this)">
                 </div>
 
                 <div class="space-y-1.5">
-                    <h1 class="text-2xl font-black text-[#2C7A7B] tracking-wider uppercase">BIENESTAR</h1>
-                    <p class="text-[10px] font-black text-[#33BCA9] uppercase tracking-widest">Ecosistema Integral & Social</p>
+                    <h1 class="text-2xl font-black text-[#075E54] tracking-wider uppercase">BIENESTAR</h1>
+                    <p class="text-[10px] font-black text-[#33BCA9] uppercase tracking-widest">Ecosistema WhatsApp & Salud</p>
                     <p class="text-[11.5px] text-slate-600 leading-relaxed max-w-xs mx-auto font-medium pt-1">
                         Salud integrativa, mensajería en tiempo real, videollamadas y regulación emocional neurodivergente.
                     </p>
                 </div>
 
-                <!-- BARRA DE PROGRESO DE CARGA DE MÓDULOS -->
+                <!-- BARRA DE PROGRESO DE CARGA -->
                 <div class="w-full max-w-xs mx-auto space-y-2 pt-2">
-                    <div class="flex justify-between text-[10px] font-extrabold text-[#2C7A7B]">
+                    <div class="flex justify-between text-[10px] font-extrabold text-[#075E54]">
                         <span>Cargando Módulos...</span>
                         <span id="splash-progress-text">0%</span>
                     </div>
                     <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden p-0.5 border border-[#33BCA9]/30">
-                        <div id="splash-progress-bar" class="h-full bg-gradient-to-r from-[#33BCA9] to-[#2C7A7B] rounded-full transition-all duration-200 w-0"></div>
+                        <div id="splash-progress-bar" class="h-full bg-gradient-to-r from-[#33BCA9] to-[#075E54] rounded-full transition-all duration-300 w-0"></div>
                     </div>
                 </div>
             </div>
 
             <!-- BOTONES DE ACCIÓN DIRECTA -->
             <div class="space-y-2.5 pb-4">
-                <button type="button" onclick="dismissSplashScreen()" class="w-full bg-[#2C7A7B] hover:bg-[#33BCA9] text-white font-black py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider shadow-lg shadow-[#33BCA9]/30 transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                <button type="button" onclick="dismissSplashScreen()" class="w-full bg-[#075E54] hover:bg-[#128C7E] text-white font-black py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider shadow-lg shadow-[#075E54]/30 transition active:scale-98 flex items-center justify-center gap-2">
                     <i data-lucide="sparkles" class="w-4.5 h-4.5"></i> Abrir Aplicación
                 </button>
-                <button type="button" onclick="openAppDownloadModal()" class="w-full bg-[#E0F7F4] hover:bg-[#33BCA9] text-[#2C7A7B] hover:text-white font-black py-2.5 px-4 rounded-2xl text-[10.5px] uppercase tracking-wider border border-[#33BCA9]/30 transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
-                    <i data-lucide="download-cloud" class="w-4 h-4"></i> Instalar en la Pantalla de Inicio
+                <button type="button" onclick="openAppDownloadModal()" class="w-full bg-[#E0F7F4] hover:bg-[#33BCA9] text-[#075E54] hover:text-white font-black py-2.5 px-4 rounded-2xl text-[10.5px] uppercase tracking-wider border border-[#33BCA9]/30 transition active:scale-98 flex items-center justify-center gap-2">
+                    <i data-lucide="download" class="w-4 h-4"></i> Instalar PWA
                 </button>
             </div>
         </div>
 
-        <!-- ================= BARRA DE ESTADO SUPERIOR ================= -->
-        <header id="system-status-bar" class="bg-[#FAF8EE] text-[#2C7A7B] text-xs px-5 py-3 flex justify-between items-center shrink-0 z-40 border-b border-[#33BCA9]/15">
-            <span id="system-clock" class="font-extrabold tracking-tight">12:00</span>
-            <div class="flex items-center gap-2">
-                <span class="text-[10px] font-black uppercase tracking-wider bg-[#E0F7F4] text-[#2C7A7B] px-2 py-0.5 rounded-full border border-[#33BCA9]/30">BIENESTAR</span>
-                <i data-lucide="wifi" class="w-3.5 h-3.5 text-[#33BCA9]"></i>
-                <i data-lucide="battery-charging" class="w-4 h-4 text-[#33BCA9]"></i>
-            </div>
-        </header>
-
-        <!-- ================= CABECERA DE NAVEGACIÓN Y LOGO ================= -->
-        <div class="bg-white px-5 py-3.5 border-b border-[#33BCA9]/20 flex justify-between items-center shrink-0 z-30 shadow-2xs">
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 bg-white rounded-full flex items-center justify-center p-1 border-2 border-[#33BCA9] shadow-sm shrink-0">
-                    <img src="Code_Generated_Image (1).png" alt="Bienestar" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
-                </div>
-                <div>
-                    <h1 class="text-sm font-black text-[#2C7A7B] uppercase tracking-wider">BIENESTAR</h1>
-                    <p class="text-[9px] text-[#33BCA9] font-bold tracking-widest uppercase">Ecosistema Integral</p>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <button type="button" onclick="openAppDownloadModal()" class="bg-[#E0F7F4] hover:bg-[#33BCA9] hover:text-white text-[#2C7A7B] p-2 rounded-full border border-[#33BCA9]/30 transition active:scale-95 flex items-center gap-1.5 px-3 cursor-pointer">
-                    <i data-lucide="download-cloud" class="w-4 h-4"></i>
-                    <span class="text-[10px] font-extrabold">App</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- ================= REGULADOR EMOCIONAL ARCOÍRIS NEURODIVERGENTE ================= -->
-        <div class="bg-white/90 backdrop-blur-md px-4 py-2.5 border-b border-[#33BCA9]/20 shrink-0 z-20 space-y-1.5">
-            <div class="flex justify-between items-center">
-                <span class="text-[10px] font-black text-[#2C7A7B] uppercase tracking-wider flex items-center gap-1">
-                    <i data-lucide="sliders" class="w-3.5 h-3.5 text-[#33BCA9]"></i> Regulación Sensorial
-                </span>
-                <span id="chat-emotion-level-badge" class="px-2.5 py-0.5 bg-teal-50 text-teal-800 border border-teal-200 rounded-full text-[8.5px] font-black uppercase shadow-2xs flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse"></span> Balance Sensorial 🌿
-                </span>
-            </div>
-            <!-- Slider Arcoíris -->
-            <input type="range" id="chat-emotion-range-slider" min="1" max="100" value="50" oninput="updateChatEmotionSlider(this.value)" class="w-full h-2.5 rounded-full appearance-none cursor-pointer bg-gradient-to-r from-red-500 via-amber-400 via-emerald-400 via-sky-400 to-purple-500 shadow-inner">
-        </div>
-
-        <!-- ================= CONTENIDO PRINCIPAL (PANEL DE PESTAÑAS) ================= -->
-        <main class="flex-1 min-h-0 overflow-y-auto no-scrollbar relative z-10 p-4 space-y-3">
-
-            <!-- PESTAÑA 1: CHATS -->
-            <div id="screen-chats" class="space-y-3">
-                <!-- Filtros estilo Telegram -->
-                <div class="flex items-center gap-2 border-b border-[#33BCA9]/15 pb-2 overflow-x-auto no-scrollbar">
-                    <button type="button" onclick="switchChatFilter('todos', this)" class="chat-filter-btn px-3 py-1 rounded-full text-[10.5px] font-black text-[#2C7A7B] bg-[#E0F7F4] border border-[#33BCA9]/30 shrink-0">Todos</button>
-                    <button type="button" onclick="switchChatFilter('no-leidos', this)" class="chat-filter-btn px-3 py-1 rounded-full text-[10.5px] font-bold text-slate-500 hover:text-[#2C7A7B] shrink-0">No Leídos</button>
-                    <button type="button" onclick="switchChatFilter('favoritos', this)" class="chat-filter-btn px-3 py-1 rounded-full text-[10.5px] font-bold text-slate-500 hover:text-[#2C7A7B] shrink-0">Favoritos</button>
-                </div>
-
-                <!-- LISTA DE CONVERSACIONES -->
-                <div class="space-y-2 pt-1">
-                    <!-- Chat 1 -->
-                    <div onclick="openIndividualChat('Dra. Elena Rostova', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=120&h=120', 'Consulta Salud Integrativa')" class="bg-white p-3 rounded-2xl border border-[#33BCA9]/20 flex items-center justify-between shadow-2xs hover:border-[#33BCA9] cursor-pointer transition active:scale-98">
-                        <div class="flex items-center gap-3">
-                            <div class="relative w-11 h-11 rounded-full overflow-hidden border border-[#33BCA9]/30 shrink-0">
-                                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=120&h=120" class="w-full h-full object-cover">
-                                <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></span>
-                            </div>
-                            <div>
-                                <h3 class="text-xs font-extrabold text-slate-800">Dra. Elena Rostova</h3>
-                                <p class="text-[10.5px] text-slate-500 line-clamp-1">Tu ficha clínica de herbolaria está lista.</p>
-                            </div>
-                        </div>
-                        <span class="text-[9px] font-bold text-slate-400 shrink-0">11:42</span>
-                    </div>
-
-                    <!-- Chat 2 -->
-                    <div onclick="openIndividualChat('Aldo — Asistente IA', 'Code_Generated_Image (1).png', 'Asistente Integral')" class="bg-white p-3 rounded-2xl border border-[#33BCA9]/20 flex items-center justify-between shadow-2xs hover:border-[#33BCA9] cursor-pointer transition active:scale-98">
-                        <div class="flex items-center gap-3">
-                            <div class="w-11 h-11 bg-[#E0F7F4] rounded-full flex items-center justify-center p-1 border border-[#33BCA9] shrink-0">
-                                <img src="Code_Generated_Image (1).png" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
-                            </div>
-                            <div>
-                                <h3 class="text-xs font-extrabold text-[#2C7A7B]">Aldo — Asistente IA</h3>
-                                <p class="text-[10.5px] text-slate-500 line-clamp-1">¿Deseas generar un afiche o clip publicitario 9:16?</p>
-                            </div>
-                        </div>
-                        <span class="text-[9px] font-bold text-[#33BCA9] shrink-0">10:15</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PESTAÑA 2: WELLNESS -->
-            <div id="screen-bienestar" class="space-y-3 hidden">
-                <div class="bg-white p-5 rounded-3xl border border-[#33BCA9]/20 shadow-2xs space-y-3 text-center">
-                    <div class="w-16 h-16 bg-[#E0F7F4] rounded-full flex items-center justify-center mx-auto border-2 border-[#33BCA9]">
-                        <i data-lucide="heart-pulse" class="w-8 h-8 text-[#2C7A7B]"></i>
-                    </div>
-                    <h2 class="text-sm font-black text-[#2C7A7B] uppercase">Módulo de Salud Integrativa</h2>
-                    <p class="text-[11px] text-slate-500 leading-relaxed">Monitoreo de hábitos, nutrición consciente y recomendaciones herbolarias personalizadas.</p>
-                </div>
-            </div>
-
-            <!-- PESTAÑA 3: SHOPPING -->
-            <div id="screen-tienda" class="space-y-3 hidden">
-                <div class="bg-white p-5 rounded-3xl border border-[#33BCA9]/20 shadow-2xs space-y-3">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-xs font-black text-[#2C7A7B] uppercase">Shopping & Pymes</h2>
-                        <button type="button" onclick="openAIVideoAdModal()" class="bg-[#2C7A7B] text-white text-[10px] font-extrabold px-3 py-1.5 rounded-full flex items-center gap-1 cursor-pointer">
-                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Agente IA Video
-                        </button>
-                    </div>
-                    <p class="text-[11px] text-slate-500">Catálogo de productos naturales y emparejamiento local Pyme-Cliente.</p>
-                </div>
-            </div>
-
-            <!-- PESTAÑA 4: MORFEO -->
-            <div id="screen-relajacion" class="space-y-3 hidden">
-                <div class="bg-[#0B141B] text-white p-5 rounded-3xl shadow-xl space-y-3 text-center border border-[#33BCA9]/30">
-                    <div class="w-16 h-16 bg-[#33BCA9]/20 rounded-full flex items-center justify-center mx-auto border border-[#33BCA9]">
-                        <i data-lucide="moon" class="w-8 h-8 text-[#33BCA9]"></i>
-                    </div>
-                    <h2 class="text-sm font-black uppercase text-[#33BCA9]">Morfeo — Descanso Sensorial</h2>
-                    <p class="text-[11px] text-slate-300 leading-relaxed">Frecuencias binaurales, paisajes sonoros y relajación profunda.</p>
-                </div>
-            </div>
-
-        </main>
-
-        <!-- ================= VISOR DE CHAT INDIVIDUAL SUPERPUESTO ================= -->
-        <div id="individual-chat-view" class="absolute inset-0 bg-[#FAF8EE] z-50 flex flex-col h-full hidden">
-            <div class="bg-white px-4 py-3 border-b border-[#33BCA9]/20 flex justify-between items-center shrink-0 shadow-2xs">
-                <div class="flex items-center gap-3">
-                    <button type="button" onclick="closeIndividualChat()" class="text-slate-500 hover:text-[#2C7A7B] p-1.5 rounded-full hover:bg-slate-100 transition cursor-pointer">
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </button>
-                    <img id="ind-chat-avatar" src="Code_Generated_Image (1).png" class="w-9 h-9 rounded-full object-cover border border-[#33BCA9]">
-                    <div>
-                        <h3 id="ind-chat-name" class="text-xs font-extrabold text-slate-800">Contacto</h3>
-                        <p id="ind-chat-status" class="text-[9px] font-bold text-[#33BCA9]">En línea</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-1">
-                    <button type="button" onclick="startIndividualDirectCall('Contacto', '', 'video')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full transition cursor-pointer"><i data-lucide="video" class="w-4.5 h-4.5"></i></button>
-                    <button type="button" onclick="startIndividualDirectCall('Contacto', '', 'voice')" class="p-2 text-[#2C7A7B] hover:bg-[#E0F7F4] rounded-full transition cursor-pointer"><i data-lucide="phone" class="w-4.5 h-4.5"></i></button>
-                </div>
-            </div>
-
-            <main id="chat-messages-stream" class="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 no-scrollbar">
-                <div class="flex justify-start my-1">
-                    <div class="bg-white text-slate-800 p-3 rounded-2xl rounded-tl-none max-w-[80%] shadow-2xs border border-slate-200 text-xs space-y-1">
-                        <p>¡Hola! Bienvenido al chat de Bienestar. ¿En qué te puedo orientar hoy?</p>
-                        <span class="text-[8px] text-slate-400 block text-right">10:00</span>
-                    </div>
-                </div>
-            </main>
-
-            <footer class="bg-white p-3 border-t border-slate-200 flex items-center gap-2 shrink-0">
-                <button type="button" onclick="openCameraSimulation()" class="p-2 text-slate-400 hover:text-[#2C7A7B] cursor-pointer"><i data-lucide="camera" class="w-5 h-5"></i></button>
-                <input type="text" id="chat-input-text" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendChatMessage()" class="flex-1 bg-slate-100 border-0 rounded-full px-4 py-2 text-xs focus:ring-2 focus:ring-[#33BCA9] outline-none">
-                <button type="button" onclick="sendChatMessage()" class="p-2.5 bg-[#2C7A7B] hover:bg-[#33BCA9] text-white rounded-full transition cursor-pointer"><i data-lucide="send" class="w-4 h-4"></i></button>
-            </footer>
-        </div>
-
-        <!-- ================= VISOR DE LLAMADA / VIDEOLLAMADA WEBRTC ================= -->
-        <div id="call-overlay" class="absolute inset-0 bg-[#0B2526] text-white z-[999] flex flex-col justify-between p-7 hidden">
-            <div class="text-center space-y-2 pt-6">
-                <span id="call-type-badge" class="text-[9.5px] font-black uppercase tracking-widest bg-[#33BCA9]/30 text-[#33BCA9] px-3 py-1 rounded-full border border-[#33BCA9]/40">Videollamada HD</span>
-                <h2 id="call-overlay-name" class="text-xl font-black text-white pt-2">Contacto</h2>
-                <p id="call-timer-display" class="text-xs font-extrabold text-teal-200">00:00</p>
-            </div>
-
-            <div class="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center mx-auto border-4 border-[#33BCA9] relative overflow-hidden shadow-2xl my-auto">
-                <img id="call-overlay-avatar" src="Code_Generated_Image (1).png" class="w-full h-full object-cover rounded-full">
-            </div>
-
-            <div class="flex justify-center items-center gap-5 pb-6">
-                <button type="button" onclick="toggleCallMute(this)" class="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition cursor-pointer"><i data-lucide="mic" class="w-5 h-5"></i></button>
-                <button type="button" onclick="endCall()" class="w-14 h-14 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg transition active:scale-95 cursor-pointer"><i data-lucide="phone-off" class="w-6 h-6"></i></button>
-            </div>
-        </div>
-
-        <!-- ================= BARRA DE NAVEGACIÓN INFERIOR (4 PESTAÑAS) ================= -->
-        <nav id="main-nav-bar" class="bg-white border-t border-[#33BCA9]/20 py-2.5 px-4 flex justify-between items-center shrink-0 z-30 shadow-lg">
-            <button type="button" id="tab-btn-chats" onclick="switchTab('chats', this)" class="tab-btn flex flex-col items-center gap-0.5 font-black text-[#2C7A7B] cursor-pointer">
-                <i data-lucide="message-square" class="w-5 h-5"></i>
-                <span class="text-[9.5px]">Chat</span>
-            </button>
-            <button type="button" id="tab-btn-bienestar" onclick="switchTab('bienestar', this)" class="tab-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] cursor-pointer">
-                <i data-lucide="heart-pulse" class="w-5 h-5"></i>
-                <span class="text-[9.5px]">Wellness</span>
-            </button>
-            <button type="button" id="tab-btn-tienda" onclick="switchTab('tienda', this)" class="tab-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] cursor-pointer">
-                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-                <span class="text-[9.5px]">Shopping</span>
-            </button>
-            <button type="button" id="tab-btn-relajacion" onclick="switchTab('relajacion', this)" class="tab-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-[#2C7A7B] cursor-pointer">
-                <i data-lucide="moon" class="w-5 h-5"></i>
-                <span class="text-[9.5px]">Morfeo</span>
-            </button>
-        </nav>
-
-        <!-- ================= MODAL DE DESCARGA PWA CON LOGO CIRCULAR (AISLADO EN FONDO BLANCO) ================= -->
-        <div id="app-download-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[999999] flex items-center justify-center p-4 hidden animate-in fade-in duration-200">
-            <div class="bg-white rounded-[32px] max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border-2 border-[#33BCA9]/30 relative overflow-hidden">
-
-                <button type="button" onclick="closeAppDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 transition cursor-pointer">
-                    <i data-lucide="x" class="w-4.5 h-4.5"></i>
+        <!-- MODAL FLOTANTE DE DESCARGA PWA -->
+        <div id="app-download-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[10000] flex items-center justify-center p-4 hidden">
+            <div class="bg-white rounded-[32px] max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border-2 border-[#33BCA9]/40 relative overflow-hidden">
+                <button type="button" onclick="closeAppDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
 
-                <!-- LOGO DE BIENESTAR OFICIAL CIRCULAR DESTACADO SOBRE FONDO BLANCO PURO -->
-                <div class="w-28 h-28 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl p-2 border-4 border-[#33BCA9] relative overflow-hidden ring-4 ring-[#E0F7F4]">
-                    <img src="Code_Generated_Image (1).png" alt="Logo Bienestar" class="w-full h-full object-contain rounded-full bg-white" onerror="handleLogoError(this)">
+                <!-- LOGO EN CIRCUNFERENCIA COMPLETA -->
+                <div class="w-28 h-28 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl p-0 border-4 border-[#33BCA9] relative overflow-hidden ring-4 ring-[#E0F7F4]">
+                    <img src="Code_Generated_Image (1).png" alt="Logo Bienestar" class="w-full h-full object-cover rounded-full" onerror="handleLogoError(this)">
                 </div>
 
                 <div class="space-y-1">
-                    <span class="text-[9px] font-black uppercase tracking-widest text-[#2C7A7B] bg-[#E0F7F4] px-3 py-0.5 rounded-full border border-[#33BCA9]/30">Súper-App Oficial</span>
-                    <h3 class="text-lg font-black text-[#2C7A7B] tracking-wider uppercase pt-1">BIENESTAR</h3>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-[#075E54] bg-[#E0F7F4] px-3 py-0.5 rounded-full border border-[#33BCA9]/30">Súper-App Oficial</span>
+                    <h3 class="text-lg font-black text-[#075E54] tracking-wider uppercase pt-1">BIENESTAR</h3>
                     <p class="text-[9px] font-black text-[#33BCA9] uppercase tracking-widest">ECOSISTEMA INTEGRAL & SOCIAL</p>
-                    <p class="text-[11px] text-slate-600 leading-relaxed pt-1 font-medium">
-                        Lleva tu salud integrativa, herbolaria y frecuencias de relajación directamente en tu pantalla de inicio con la PWA oficial.
-                    </p>
                 </div>
 
-                <!-- PUNTOS CLAVE DE DESCARGA -->
-                <div class="bg-[#FAF8EE] rounded-2xl p-3 text-left text-[10px] space-y-2 border border-[#33BCA9]/20">
-                    <div class="flex items-center gap-2 text-slate-700 font-bold">
-                        <i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] shrink-0"></i>
-                        <span>Instalación instantánea sin ocupar memoria</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-slate-700 font-bold">
-                        <i data-lucide="check-circle-2" class="w-4 h-4 text-[#33BCA9] shrink-0"></i>
-                        <span>Acceso directo a chats, videollamadas y fichas</span>
-                    </div>
-                </div>
-
-                <!-- BOTÓN DE ACCIÓN DE DESCARGA -->
                 <div class="space-y-2 pt-1">
-                    <button type="button" onclick="triggerPWAInstallation()" class="w-full bg-[#2C7A7B] hover:bg-[#33BCA9] text-white font-black py-3 px-4 rounded-xl text-xs uppercase tracking-wider shadow-md shadow-[#33BCA9]/30 transition flex items-center justify-center gap-2 transform active:scale-98 cursor-pointer">
-                        <i data-lucide="download" class="w-4 h-4"></i> Instalar Aplicación en el Celular
+                    <button type="button" onclick="triggerPWAInstallation()" class="w-full bg-[#075E54] hover:bg-[#128C7E] text-white font-black py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-[#075E54]/30 transition flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4.5 h-4.5"></i> Instalar Aplicación
                     </button>
-                    <p class="text-[8.5px] text-slate-400 font-medium">Compatible con iPhone (Safari -> Compartir -> Inicio) y Android (Chrome)</p>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- ================= JAVASCRIPT INTEGRADO 100% AUTOCONTENIDO ================= -->
+    <!-- JAVASCRIPT AUTÓNOMO EMBEBIDO INTEGRAL -->
     <script>
         let splashProgress = 0;
-        let activeCallTimer = null;
-        let callDurationSeconds = 0;
 
         function safeInitLucide() {
             if (window.lucide && typeof lucide.createIcons === 'function') {
@@ -379,7 +441,7 @@
         function handleLogoError(img) {
             if (!img) return;
             img.onerror = null;
-            img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="%23E0F7F4" stroke="%2333BCA9" stroke-width="4"/><path d="M60 30 C45 45 35 60 35 75 C35 90 46 95 60 95 C74 95 85 90 85 75 C85 60 75 45 60 30 Z" fill="%232C7A7B"/><circle cx="60" cy="65" r="10" fill="%23E0F7F4"/><text x="60" y="112" font-family="sans-serif" font-size="8" font-weight="900" fill="%232C7A7B" text-anchor="middle">BIENESTAR</text></svg>';
+            img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%23075E54"/><circle cx="50" cy="50" r="38" fill="%2333BCA9"/><text x="50" y="58" font-size="28" font-weight="bold" text-anchor="middle" fill="white">B</text></svg>';
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -393,26 +455,14 @@
             const bar = document.getElementById('splash-progress-bar');
             const txt = document.getElementById('splash-progress-text');
             const timer = setInterval(() => {
-                splashProgress += 20;
+                splashProgress += 10;
                 if (bar) bar.style.width = splashProgress + '%';
                 if (txt) txt.innerText = splashProgress + '%';
                 if (splashProgress >= 100) {
                     clearInterval(timer);
-                    setTimeout(dismissSplashScreen, 300);
+                    setTimeout(dismissSplashScreen, 400);
                 }
             }, 100);
-        }
-
-        function dismissSplashScreen() {
-            const splash = document.getElementById('splash-intro-screen');
-            if (splash) {
-                splash.style.opacity = '0';
-                splash.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    splash.classList.add('hidden');
-                    splash.style.display = 'none';
-                }, 300);
-            }
         }
 
         function updateClock() {
@@ -423,32 +473,32 @@
             if (clockEl) clockEl.innerText = `${hours}:${minutes}`;
         }
 
-        function switchTab(tabName, button) {
-            if (typeof closeIndividualChat === 'function') closeIndividualChat();
-
-            ['chats', 'bienestar', 'tienda', 'relajacion'].forEach(id => {
-                const el = document.getElementById('screen-' + id);
-                if (el) el.classList.add('hidden');
-            });
-
-            const target = document.getElementById('screen-' + tabName);
-            if (target) target.classList.remove('hidden');
-
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('font-black', 'text-[#2C7A7B]');
-                btn.classList.add('text-slate-400');
-            });
-
-            if (button) {
-                button.classList.add('font-black', 'text-[#2C7A7B]');
-                button.classList.remove('text-slate-400');
+        function dismissSplashScreen() {
+            const splash = document.getElementById('splash-intro-screen');
+            if (splash) {
+                splash.style.opacity = '0';
+                splash.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    splash.classList.add('hidden');
+                }, 300);
             }
-            safeInitLucide();
+        }
+
+        function toggleWhatsAppMenu() {
+            const menu = document.getElementById('whatsapp-header-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        function toggleSearchBar() {
+            const bar = document.getElementById('search-bar-container');
+            if (bar) bar.classList.toggle('hidden');
         }
 
         function openAppDownloadModal() {
             const modal = document.getElementById('app-download-modal');
+            const menu = document.getElementById('whatsapp-header-menu');
+            if (menu) menu.classList.add('hidden');
             if (modal) modal.classList.remove('hidden');
         }
 
@@ -458,135 +508,113 @@
         }
 
         function triggerPWAInstallation() {
-            alert("📱 ¡Instalando Súper-App Bienestar en tu celular! Añadiendo acceso directo...");
+            alert("Iniciando proceso de instalación de Bienestar PWA en tu pantalla de inicio...");
             closeAppDownloadModal();
         }
 
         function updateChatEmotionSlider(val) {
-            const level = parseInt(val, 10);
             const badge = document.getElementById('chat-emotion-level-badge');
-
-            if (level <= 20) {
-                if (badge) {
-                    badge.className = "px-2.5 py-0.5 bg-rose-50 text-rose-800 border border-rose-200 rounded-full text-[8.5px] font-black uppercase shadow-2xs flex items-center gap-1";
-                    badge.innerHTML = '<span class="w-1.5 h-1.5 bg-rose-500 rounded-full animate-pulse"></span> Reposo Sensorial 🧘';
-                }
-            } else if (level <= 40) {
-                if (badge) {
-                    badge.className = "px-2.5 py-0.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-[8.5px] font-black uppercase shadow-2xs flex items-center gap-1";
-                    badge.innerHTML = '<span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span> Hiperfoco / Claridad 🎯';
-                }
-            } else if (level <= 60) {
-                if (badge) {
-                    badge.className = "px-2.5 py-0.5 bg-teal-50 text-teal-800 border border-teal-200 rounded-full text-[8.5px] font-black uppercase shadow-2xs flex items-center gap-1";
-                    badge.innerHTML = '<span class="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse"></span> Balance Sensorial 🌿';
-                }
-            } else if (level <= 80) {
-                if (badge) {
-                    badge.className = "px-2.5 py-0.5 bg-sky-50 text-sky-800 border border-sky-200 rounded-full text-[8.5px] font-black uppercase shadow-2xs flex items-center gap-1";
-                    badge.innerHTML = '<span class="w-1.5 h-1.5 bg-sky-500 rounded-full animate-pulse"></span> Pausa / Saturación ⚠️';
-                }
+            if (!badge) return;
+            const num = parseInt(val);
+            if (num <= 20) {
+                badge.innerText = "🧘 Reposo Sensorial";
+            } else if (num <= 40) {
+                badge.innerText = "🎯 Hiperfoco Cognitivo";
+            } else if (num <= 60) {
+                badge.innerText = "💚 Balance Sensorial";
+            } else if (num <= 80) {
+                badge.innerText = "⚠️ Pausa Sensorial";
             } else {
-                if (badge) {
-                    badge.className = "px-2.5 py-0.5 bg-purple-50 text-purple-800 border border-purple-200 rounded-full text-[8.5px] font-black uppercase shadow-2xs flex items-center gap-1";
-                    badge.innerHTML = '<span class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse"></span> Espacio Seguro 🔴';
-                }
+                badge.innerText = "🔴 Espacio Seguro";
             }
         }
 
-        function switchChatFilter(filterName, btn) {
-            const buttons = document.querySelectorAll('.chat-filter-btn');
-            buttons.forEach(b => {
-                b.classList.remove('text-[#2C7A7B]', 'font-black', 'bg-[#E0F7F4]');
-                b.classList.add('text-slate-500', 'font-bold');
+        function switchTab(tabName, btnEl) {
+            const screens = ['chats', 'bienestar', 'tienda', 'relajacion'];
+            screens.forEach(s => {
+                const scr = document.getElementById('screen-' + s);
+                if (scr) scr.classList.add('hidden');
             });
-            if (btn) {
-                btn.classList.add('text-[#2C7A7B]', 'font-black', 'bg-[#E0F7F4]');
-                btn.classList.remove('text-slate-500');
+            const activeScr = document.getElementById('screen-' + tabName);
+            if (activeScr) activeScr.classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('text-[#075E54]', 'font-black');
+                b.classList.add('text-slate-400');
+            });
+            if (btnEl) {
+                btnEl.classList.remove('text-slate-400');
+                btnEl.classList.add('text-[#075E54]', 'font-black');
             }
         }
 
-        function openIndividualChat(name, avatar, statusText) {
-            const chatView = document.getElementById('individual-chat-view');
-            if (chatView) chatView.classList.remove('hidden');
+        function openIndividualChat(name, avatarUrl, subtitle, status) {
+            const view = document.getElementById('individual-chat-view');
+            const nameEl = document.getElementById('chat-header-name');
+            const avatarEl = document.getElementById('chat-header-avatar');
+            const statusEl = document.getElementById('chat-header-status');
 
-            const nameEl = document.getElementById('ind-chat-name');
-            if (nameEl) nameEl.innerText = name || "Contacto";
+            if (nameEl) nameEl.innerText = name;
+            if (avatarEl) avatarEl.src = avatarUrl;
+            if (statusEl) statusEl.innerText = status;
 
-            const avatarEl = document.getElementById('ind-chat-avatar');
-            if (avatarEl) avatarEl.src = avatar || "Code_Generated_Image (1).png";
+            if (view) view.classList.remove('hidden');
         }
 
         function closeIndividualChat() {
-            const chatView = document.getElementById('individual-chat-view');
-            if (chatView) chatView.classList.add('hidden');
+            const view = document.getElementById('individual-chat-view');
+            if (view) view.classList.add('hidden');
         }
 
         function sendChatMessage() {
-            const input = document.getElementById('chat-input-text');
-            if (!input || !input.value.trim()) return;
+            const input = document.getElementById('chat-text-input');
+            const stream = document.getElementById('chat-messages-stream');
+            if (!input || !stream || !input.value.trim()) return;
 
             const text = input.value.trim();
-            input.value = "";
+            input.value = '';
 
-            const stream = document.getElementById('chat-messages-stream');
-            if (!stream) return;
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'bg-[#DCF8C6] p-3 rounded-2xl rounded-tr-xs max-w-[82%] ml-auto shadow-xs space-y-1';
+            msgDiv.innerHTML = `<p class="text-xs text-slate-800 font-medium">${text}</p><span class="text-[8.5px] text-emerald-700 font-bold float-right">Ahora ✓✓</span>`;
 
-            const now = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-            const msgHtml = `
-                <div class="flex justify-end my-2">
-                    <div class="bg-[#2C7A7B] text-white p-3 rounded-2xl rounded-tr-none max-w-[80%] shadow-2xs text-xs space-y-1">
-                        <p>${text}</p>
-                        <span class="text-[8px] text-teal-100 block text-right">${now}</span>
-                    </div>
-                </div>
-            `;
-            stream.innerHTML += msgHtml;
+            stream.appendChild(msgDiv);
             stream.scrollTop = stream.scrollHeight;
         }
 
-        function startIndividualDirectCall(name, avatar, type) {
-            const overlay = document.getElementById('call-overlay');
-            if (overlay) overlay.classList.remove('hidden');
-
-            const title = document.getElementById('call-overlay-name');
-            if (title) title.innerText = name || "Contacto";
-
-            const badge = document.getElementById('call-type-badge');
-            if (badge) badge.innerText = (type === 'video') ? "Videollamada HD" : "Llamada de Voz";
-
-            callDurationSeconds = 0;
-            clearInterval(activeCallTimer);
-            activeCallTimer = setInterval(() => {
-                callDurationSeconds++;
-                const mins = String(Math.floor(callDurationSeconds / 60)).padStart(2, '0');
-                const secs = String(callDurationSeconds % 60).padStart(2, '0');
-                const timerEl = document.getElementById('call-timer-display');
-                if (timerEl) timerEl.innerText = `${mins}:${secs}`;
-            }, 1000);
+        function openNewGroupModal() {
+            alert("Función para crear nuevo grupo estilo WhatsApp activada.");
         }
-
-        function endCall() {
-            clearInterval(activeCallTimer);
-            const overlay = document.getElementById('call-overlay');
-            if (overlay) overlay.classList.add('hidden');
+        function openLinkedDevicesModal() {
+            alert("Dispositivos vinculados: Tu sesión está activa en Vercel PWA.");
         }
-
-        function toggleCallMute(btn) {
-            btn?.classList.toggle('bg-red-500');
-        }
-
         function openAIVideoAdModal() {
-            alert("🎬 Agente IA: Generando clip publicitario HD de 15 segundos con locución en español...");
+            alert("Agente IA Video Pyme: Generador de videoclips 9:16 para redes listo.");
+        }
+        function openSettingsModal() {
+            alert("Ajustes de Bienestar: Perfil, Notificaciones y Privacidad.");
+        }
+        function openCameraSimulation() {
+            alert("Cámara en vivo lista para capturar fotos o videonotas.");
+        }
+        function startIndividualDirectCall(type) {
+            alert(`Iniciando ${type === 'video' ? 'Videollamada' : 'Llamada de voz'} en tiempo real con WebRTC...`);
+        }
+        function switchChatFilter(filter, chipBtn) {
+            document.querySelectorAll('.chat-filter-chip').forEach(c => {
+                c.classList.remove('bg-[#075E54]', 'text-white');
+                c.classList.add('bg-slate-100', 'text-slate-600');
+            });
+            chipBtn.classList.remove('bg-slate-100', 'text-slate-600');
+            chipBtn.classList.add('bg-[#075E54]', 'text-white');
+        }
+        function filterChatsList() {
+            const q = document.getElementById('chat-search-input').value.toLowerCase();
+            document.querySelectorAll('.chat-item-row').forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(q) ? 'flex' : 'none';
+            });
         }
     </script>
-
-    <!-- Opcional: compatibilidad con archivos externos js/ si existen -->
-    <script src="js/main.js" onerror="console.log('Modo autónomo activo')"></script>
-    <script src="js/chat.js" onerror="console.log('Modo autónomo activo')"></script>
-    <script src="js/camera.js" onerror="console.log('Modo autónomo activo')"></script>
-    <script src="js/calls.js" onerror="console.log('Modo autónomo activo')"></script>
-    <script src="js/store.js" onerror="console.log('Modo autónomo activo')"></script>
-
 </body>
 </html>
